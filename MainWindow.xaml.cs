@@ -308,7 +308,9 @@ public partial class MainWindow : Window
             root.SortBySizeDescending();
 
             var progress = _scanner.Progress;
-            AppStorage.AppendHistory(new ScanRecord(DateTime.Now, path, root.Size, progress.FilesScanned));
+            var scannedAt = DateTime.Now;
+            AppStorage.AppendHistory(new ScanRecord(scannedAt, path, root.Size, progress.FilesScanned));
+            await Task.Run(() => SnapshotStore.Capture(root, path, scannedAt, progress.FilesScanned));
 
             RefreshAllPages();
             LastScanText.Text = L.F("Shell.LastScan", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));

@@ -11,6 +11,9 @@ public sealed class DiskScanner
     private long _bytesScanned;
     private string _currentPath = "";
 
+    // Nota: LastAccessTimeUtc pode estar desatualizado se o Windows tiver o tracking
+    // desligado (NtfsDisableLastAccessUpdate). Recursos que dependem de "idade de acesso"
+    // devem tolerar isso e cair para LastWriteUtc como aproximação.
     private static readonly EnumerationOptions EnumOptions = new()
     {
         IgnoreInaccessible = true,
@@ -63,6 +66,8 @@ public sealed class DiskScanner
                         IsDirectory = false,
                         Size = file.Length,
                         LastWriteUtc = file.LastWriteTimeUtc,
+                        LastAccessUtc = file.LastAccessTimeUtc,
+                        CreationUtc = file.CreationTimeUtc,
                         Parent = dirNode,
                     };
                     dirNode.Children.Add(fileNode);
@@ -77,6 +82,9 @@ public sealed class DiskScanner
                         Name = dir.Name,
                         FullPath = dir.FullName,
                         IsDirectory = true,
+                        LastWriteUtc = dir.LastWriteTimeUtc,
+                        LastAccessUtc = dir.LastAccessTimeUtc,
+                        CreationUtc = dir.CreationTimeUtc,
                         Parent = dirNode,
                     };
                     dirNode.Children.Add(childNode);
