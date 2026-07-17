@@ -246,4 +246,52 @@
     <sys:String x:Key="Tip.7">Backup primeiro, coragem depois.</sys:String>
     <sys:String x:Key="Tip.8">87% dos duplicados se chamam "final_v2_AGORA_VAI".</sys:String>
 
+    <!-- Segurança -->
+    <sys:String x:Key="Safety.Safe">Pode apagar</sys:String>
+    <sys:String x:Key="Safety.Caution">Cuidado</sys:String>
+    <sys:String x:Key="Safety.Never">Não apague</sys:String>
+    <sys:String x:Key="Safety.K.SystemCore">Parte essencial do Windows.</sys:String>
+    <sys:String x:Key="Safety.K.SystemCache">Cache do sistema — o Windows recria sozinho.</sys:String>
+    <sys:String x:Key="Safety.K.Temp">Arquivos temporários.</sys:String>
+    <sys:String x:Key="Safety.K.RecycleBin">A Lixeira. Esvaziar libera o espaço.</sys:String>
+    <sys:String x:Key="Safety.K.UserData">Seus arquivos pessoais.</sys:String>
+    <sys:String x:Key="Safety.K.InstalledApp">Programa instalado.</sys:String>
+    <sys:String x:Key="Safety.K.GameData">Jogo instalado.</sys:String>
+    <sys:String x:Key="Safety.K.DevCache">Cache de desenvolvimento — recriado ao construir o projeto.</sys:String>
+    <sys:String x:Key="Safety.K.DevSource">Código-fonte e histórico do projeto.</sys:String>
+    <sys:String x:Key="Safety.K.BrowserCache">Cache do navegador — recriado ao navegar.</sys:String>
+    <sys:String x:Key="Safety.K.Recovery">Dados de recuperação do sistema.</sys:String>
+    <sys:String x:Key="Safety.K.SystemFile">Arquivo de sistema gerenciado pelo Windows.</sys:String>
+    <sys:String x:Key="Safety.A.SystemCore">Apagar pode impedir o Windows de iniciar.</sys:String>
+    <sys:String x:Key="Safety.A.InstalledApp">Desinstale pelas Configurações do Windows para remover tudo.</sys:String>
+    <sys:String x:Key="Safety.A.GameData">Desinstale pelo launcher (Steam, Epic…) em vez de apagar.</sys:String>
+    <sys:String x:Key="Safety.A.Recovery">Use a Proteção do Sistema do Windows para liberar.</sys:String>
+    <sys:String x:Key="Safety.A.UserData">Confira o conteúdo antes — aqui moram documentos e fotos.</sys:String>
+    <sys:String x:Key="Safety.S.Hiberfil">Arquivo de hibernação. Não apague direto: desative a hibernação (powercfg /h off) e o Windows remove.</sys:String>
+    <sys:String x:Key="Safety.S.Pagefile">Memória virtual do Windows. Ajuste em Sistema → Desempenho, não apague.</sys:String>
+    <sys:String x:Key="Safety.S.WinSxS">Componentes do Windows. Parece grande, mas boa parte são atalhos. Use a Limpeza de Disco.</sys:String>
+    <sys:String x:Key="Safety.S.WindowsOld">Sua instalação anterior do Windows. Some sozinha em 10 dias; a Limpeza de Disco remove com segurança.</sys:String>
+    <sys:String x:Key="Safety.S.Installer">Cache de instaladores. Apagar quebra a desinstalação e o reparo de programas.</sys:String>
+    <sys:String x:Key="Safety.S.System32">O coração do Windows. Sim, é grande. Não, não apague.</sys:String>
+    <sys:String x:Key="Safety.S.NodeModules">Dependências do projeto — "npm install" recria tudo.</sys:String>
+    <sys:String x:Key="Safety.S.Git">Histórico do repositório. Apagar perde todos os commits locais.</sys:String>
+    <sys:String x:Key="Safety.S.SVI">Pontos de restauração e índice de busca do Windows.</sys:String>
+
+    <!-- Modo lista / acessibilidade / desfazer -->
+    <sys:String x:Key="Map.ViewTreemap">Mosaico</sys:String>
+    <sys:String x:Key="Map.ViewList">Lista</sys:String>
+    <sys:String x:Key="Map.ColShare">Participação</sys:String>
+    <sys:String x:Key="Map.ColSafety">Segurança</sys:String>
+    <sys:String x:Key="Map.ListEmpty">Escaneie um disco na Visão Geral para ver a lista</sys:String>
+    <sys:String x:Key="Map.A11yName">Mapa de espaço</sys:String>
+    <sys:String x:Key="Map.A11yHelp">Use as setas para navegar entre os blocos, Enter para abrir uma pasta e Backspace para voltar.</sys:String>
+    <sys:String x:Key="Map.A11yBlock">{0}, {1}, {2}% da visão atual</sys:String>
+    <sys:String x:Key="St.ColorBlind">Paleta segura para daltonismo</sys:String>
+    <sys:String x:Key="St.ColorBlindNote">Troca as cores das categorias por uma paleta distinguível em qualquer tipo de daltonismo.</sys:String>
+    <sys:String x:Key="Undo.Button">↶ Desfazer</sys:String>
+    <sys:String x:Key="Undo.Tooltip">Restaurar da Lixeira: {0}</sys:String>
+    <sys:String x:Key="Undo.Done">{0} item(ns) restaurado(s) da Lixeira.</sys:String>
+    <sys:String x:Key="Undo.Failed">Não foi possível restaurar. O item pode ter saído da Lixeira.</sys:String>
+    <sys:String x:Key="Del.SafetyWarning">&#10;&#10;⚠ {0}: {1}</sys:String>
+
 </ResourceDictionary>

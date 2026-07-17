@@ -126,8 +126,13 @@
                 <DockPanel LastChildFill="True">
                     <TextBlock x:Name="VersionText" DockPanel.Dock="Right" Foreground="{StaticResource Muted}"
                                FontSize="11" Opacity="0.7" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                    <controls:ObsidianButton x:Name="UndoButton" DockPanel.Dock="Right" Variant="Ghost"
+                            Height="26" Padding="10,2" FontSize="11.5" Margin="16,0,0,0"
+                            VerticalAlignment="Center" Visibility="Collapsed" Click="Undo_Click"
+                            Content="{StaticResource Undo.Button}"/>
                     <TextBlock x:Name="StatusText" Foreground="{StaticResource Muted}" FontSize="12"
-                               TextTrimming="CharacterEllipsis" Text="{StaticResource Shell.Ready}"/>
+                               TextTrimming="CharacterEllipsis" VerticalAlignment="Center"
+                               Text="{StaticResource Shell.Ready}"/>
                 </DockPanel>
             </Border>
         </Grid>

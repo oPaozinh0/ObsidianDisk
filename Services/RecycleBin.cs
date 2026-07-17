@@ -40,6 +40,71 @@ public static class FileDeletion
         return SHFileOperationW(ref op) == 0 && !op.fAnyOperationsAborted;
     }
 
+    /// <summary>
+    /// Restaura da Lixeira o item que estava em <paramref name="originalPath"/>.
+    /// Usa o verbo canônico "undelete" do shell — independe do idioma do Windows.
+    /// </summary>
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
+    private static extern uint GetLongPathNameW(string shortPath, System.Text.StringBuilder longPath, uint bufferSize);
+
+    /// <summary>
+    /// A Lixeira sempre reporta o caminho longo; o app pode ter recebido a forma
+    /// curta (8.3). Normaliza a pasta (que ainda existe) para comparar de verdade.
+    /// </summary>
+    private static string NormalizePath(string path)
+    {
+        try
+        {
+            string full = Path.GetFullPath(path);
+            string? dir = Path.GetDirectoryName(full);
+            if (string.IsNullOrEmpty(dir)) return full;
+
+            var buffer = new System.Text.StringBuilder(1024);
+            uint length = GetLongPathNameW(dir, buffer, (uint)buffer.Capacity);
+            string longDir = length is > 0 and < 1024 ? buffer.ToString() : dir;
+            return Path.Combine(longDir, Path.GetFileName(full));
+        }
+        catch
+        {
+            return path;
+        }
+    }
+
+    public static bool RestoreFromRecycleBin(string originalPath)
+    {
+        const int SsfBitBucket = 10;
+        originalPath = NormalizePath(originalPath);
+        try
+        {
+            var shellType = Type.GetTypeFromProgID("Shell.Application");
+            if (shellType is null) return false;
+
+            dynamic? shell = Activator.CreateInstance(shellType);
+            if (shell is null) return false;
+
+            dynamic bin = shell.Namespace(SsfBitBucket);
+            foreach (dynamic item in bin.Items())
+            {
+                // item.Path é o caminho interno ($R...); o original é DeletedFrom + Name
+                string deletedFrom = item.ExtendedProperty("System.Recycle.DeletedFrom") ?? "";
+                if (deletedFrom.Length == 0) continue;
+
+                string restored = Path.Combine(deletedFrom, (string)item.Name);
+                if (!string.Equals(restored, originalPath, StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                // "undelete" é o nome canônico do "Restaurar" — não muda com o idioma
+                item.InvokeVerb("undelete");
+                return File.Exists(originalPath) || Directory.Exists(originalPath);
+            }
+        }
+        catch
+        {
+            // COM indisponível / item já saiu da Lixeira
+        }
+        return false;
+    }
+
     /// <summary>Exclui permanentemente (NÃO passa pela Lixeira). Retorna true em caso de sucesso.</summary>
     public static bool Permanently(string path)
     {

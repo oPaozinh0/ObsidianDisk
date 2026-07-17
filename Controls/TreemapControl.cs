@@ -1,11 +1,30 @@
 using System.Globalization;
-using System.IO;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Input;
 using System.Windows.Media;
 using ObsidianDisk.Models;
 
 namespace ObsidianDisk.Controls;
+
+/// <summary>
+/// Expõe o mapa a leitores de tela. O treemap é desenhado à mão, então sem isto
+/// ele seria um vazio absoluto para o Narrator/NVDA. O nome reflete o bloco
+/// selecionado e é reanunciado a cada movimento das setas.
+/// </summary>
+public sealed class TreemapAutomationPeer : FrameworkElementAutomationPeer
+{
+    public TreemapAutomationPeer(TreemapControl owner) : base(owner) { }
+
+    private TreemapControl Map => (TreemapControl)Owner;
+
+    protected override string GetClassNameCore() => nameof(TreemapControl);
+    protected override AutomationControlType GetAutomationControlTypeCore() => AutomationControlType.Custom;
+    protected override string GetNameCore() => Map.AccessibleDescription();
+    protected override string GetHelpTextCore() => L.T("Map.A11yHelp");
+    protected override bool IsContentElementCore() => true;
+    protected override bool IsControlElementCore() => true;
+}
 
 public sealed class TreemapControl : FrameworkElement
 {
@@ -46,6 +65,147 @@ public sealed class TreemapControl : FrameworkElement
     {
         ClipToBounds = true;
         SnapsToDevicePixels = true;
+        Focusable = true;  // navegável por teclado e alcançável por leitores de tela
+    }
+
+    /// <summary>Nó atualmente selecionado (por clique ou teclado).</summary>
+    public FileSystemNode? SelectedNode => _selected;
+
+    protected override System.Windows.Automation.Peers.AutomationPeer OnCreateAutomationPeer() =>
+        new TreemapAutomationPeer(this);
+
+    protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
+    {
+        base.OnGotKeyboardFocus(e);
+        // Ao receber foco sem seleção, começa pelo maior bloco
+        if (_selected is null && _displayRects.Count > 0)
+        {
+            SelectAndAnnounce(_displayRects[0].Node);
+            InvalidateVisual();
+        }
+    }
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        base.OnKeyDown(e);
+        if (_root is null || _displayRects.Count == 0) return;
+
+        switch (e.Key)
+        {
+            case Key.Left or Key.Right or Key.Up or Key.Down:
+                MoveSelection(e.Key);
+                e.Handled = true;
+                break;
+
+            case Key.Enter or Key.Space:
+                if (_selected is { IsDirectory: true } dir)
+                {
+                    NodeActivated?.Invoke(dir);
+                    e.Handled = true;
+                }
+                break;
+
+            case Key.Home:
+                SelectAndAnnounce(_displayRects[0].Node);
+                InvalidateVisual();
+                e.Handled = true;
+                break;
+
+            case Key.Apps:
+                if (ContextMenu is not null && _selected is not null)
+                {
+                    _hovered = _selected;
+                    HoverChanged?.Invoke(_selected); // sincroniza o alvo do menu
+                    ContextMenu.PlacementTarget = this;
+                    ContextMenu.IsOpen = true;
+                    e.Handled = true;
+                }
+                break;
+        }
+    }
+
+    /// <summary>Move a seleção para o bloco vizinho mais próximo na direção da seta.</summary>
+    private void MoveSelection(Key key)
+    {
+        if (_selected is null)
+        {
+            SelectAndAnnounce(_displayRects[0].Node);
+            InvalidateVisual();
+            return;
+        }
+
+        if (!TryGetRect(_selected, out var current)) return;
+        var from = new Point(current.X + current.Width / 2, current.Y + current.Height / 2);
+
+        FileSystemNode? best = null;
+        double bestScore = double.MaxValue;
+
+        foreach (var candidate in _displayRects)
+        {
+            if (ReferenceEquals(candidate.Node, _selected)) continue;
+
+            var to = new Point(candidate.Bounds.X + candidate.Bounds.Width / 2,
+                               candidate.Bounds.Y + candidate.Bounds.Height / 2);
+            double dx = to.X - from.X, dy = to.Y - from.Y;
+
+            // só considera quem está na direção certa
+            bool ok = key switch
+            {
+                Key.Left => dx < -1,
+                Key.Right => dx > 1,
+                Key.Up => dy < -1,
+                Key.Down => dy > 1,
+                _ => false,
+            };
+            if (!ok) continue;
+
+            // distância na direção + penalidade pelo desvio lateral
+            bool horizontal = key is Key.Left or Key.Right;
+            double along = Math.Abs(horizontal ? dx : dy);
+            double across = Math.Abs(horizontal ? dy : dx);
+            double score = along + across * 2;
+
+            if (score < bestScore) { bestScore = score; best = candidate.Node; }
+        }
+
+        if (best is not null)
+        {
+            SelectAndAnnounce(best);
+            InvalidateVisual();
+        }
+    }
+
+    private void SelectAndAnnounce(FileSystemNode node)
+    {
+        _selected = node;
+        _hovered = node; // status e menu de contexto seguem a seleção
+        SelectionChanged?.Invoke(node);
+        HoverChanged?.Invoke(node);
+
+        // Faz o leitor de tela ler o bloco recém-selecionado
+        if (System.Windows.Automation.Peers.AutomationPeer.ListenerExists(
+                System.Windows.Automation.Peers.AutomationEvents.PropertyChanged))
+            UIElementAutomationPeer.FromElement(this)?.RaiseAutomationEvent(
+                System.Windows.Automation.Peers.AutomationEvents.PropertyChanged);
+    }
+
+    /// <summary>Descrição falada do bloco selecionado (ou da visão, se nenhum).</summary>
+    internal string AccessibleDescription()
+    {
+        if (_selected is null || _root is null)
+            return L.T("Map.A11yName");
+
+        double percent = _root.Size > 0 ? _selected.Size * 100.0 / _root.Size : 0;
+        string kind = _selected.IsDirectory
+            ? L.F("Hover.Items", _selected.Children.Count)
+            : L.T("Hover.File");
+        string text = L.F("Map.A11yBlock", _selected.Name,
+            FileSystemNode.FormatSize(_selected.Size), percent.ToString("0.#")) + " · " + kind;
+
+        if (Services.SafetyDatabase.Lookup(_selected) is { } safety)
+            text += $". {Services.SafetyDatabase.LabelOf(safety.Level)}: {safety.Description}";
+
+        return text;
     }
 
     private DrawingGroup? _cache;
@@ -471,6 +631,7 @@ public sealed class TreemapControl : FrameworkElement
 
     protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
     {
+        Focus(); // clicar traz o foco de teclado para o mapa
         var hit = HitTest(e.GetPosition(this));
 
         if (e.ClickCount == 2 && hit is { IsDirectory: true })

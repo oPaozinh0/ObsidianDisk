@@ -246,4 +246,52 @@
     <sys:String x:Key="Tip.7">D'abord la sauvegarde, ensuite le courage.</sys:String>
     <sys:String x:Key="Tip.8">87 % des doublons s'appellent « final_v2_CETTE_FOIS ».</sys:String>
 
+    <!-- Sécurité -->
+    <sys:String x:Key="Safety.Safe">Suppression sans risque</sys:String>
+    <sys:String x:Key="Safety.Caution">Prudence</sys:String>
+    <sys:String x:Key="Safety.Never">Ne pas supprimer</sys:String>
+    <sys:String x:Key="Safety.K.SystemCore">Partie essentielle de Windows.</sys:String>
+    <sys:String x:Key="Safety.K.SystemCache">Cache système — Windows le reconstruit.</sys:String>
+    <sys:String x:Key="Safety.K.Temp">Fichiers temporaires.</sys:String>
+    <sys:String x:Key="Safety.K.RecycleBin">La Corbeille. La vider libère l'espace.</sys:String>
+    <sys:String x:Key="Safety.K.UserData">Vos fichiers personnels.</sys:String>
+    <sys:String x:Key="Safety.K.InstalledApp">Programme installé.</sys:String>
+    <sys:String x:Key="Safety.K.GameData">Jeu installé.</sys:String>
+    <sys:String x:Key="Safety.K.DevCache">Cache de build — recréé à la compilation du projet.</sys:String>
+    <sys:String x:Key="Safety.K.DevSource">Code source et historique du projet.</sys:String>
+    <sys:String x:Key="Safety.K.BrowserCache">Cache du navigateur — reconstruit à la navigation.</sys:String>
+    <sys:String x:Key="Safety.K.Recovery">Données de récupération du système.</sys:String>
+    <sys:String x:Key="Safety.K.SystemFile">Fichier système géré par Windows.</sys:String>
+    <sys:String x:Key="Safety.A.SystemCore">Le supprimer peut empêcher Windows de démarrer.</sys:String>
+    <sys:String x:Key="Safety.A.InstalledApp">Désinstallez depuis les Paramètres Windows pour tout retirer.</sys:String>
+    <sys:String x:Key="Safety.A.GameData">Désinstallez depuis le launcher (Steam, Epic…) plutôt que de supprimer.</sys:String>
+    <sys:String x:Key="Safety.A.Recovery">Utilisez la Protection du système Windows pour libérer.</sys:String>
+    <sys:String x:Key="Safety.A.UserData">Vérifiez le contenu d'abord — documents et photos vivent ici.</sys:String>
+    <sys:String x:Key="Safety.S.Hiberfil">Fichier de mise en veille prolongée. Ne le supprimez pas directement : désactivez l'hibernation (powercfg /h off) et Windows le retire.</sys:String>
+    <sys:String x:Key="Safety.S.Pagefile">Mémoire virtuelle de Windows. Réglez-la dans Système → Performances, ne la supprimez pas.</sys:String>
+    <sys:String x:Key="Safety.S.WinSxS">Composants Windows. Il paraît énorme, mais une grande partie sont des liens. Utilisez le Nettoyage de disque.</sys:String>
+    <sys:String x:Key="Safety.S.WindowsOld">Votre installation Windows précédente. Elle disparaît seule en 10 jours ; le Nettoyage de disque la retire sans risque.</sys:String>
+    <sys:String x:Key="Safety.S.Installer">Cache des installateurs. Le supprimer casse la désinstallation et la réparation des programmes.</sys:String>
+    <sys:String x:Key="Safety.S.System32">Le cœur de Windows. Oui, c'est gros. Non, ne le supprimez pas.</sys:String>
+    <sys:String x:Key="Safety.S.NodeModules">Dépendances du projet — « npm install » les recrée.</sys:String>
+    <sys:String x:Key="Safety.S.Git">Historique du dépôt. Le supprimer perd tous les commits locaux.</sys:String>
+    <sys:String x:Key="Safety.S.SVI">Points de restauration et index de recherche Windows.</sys:String>
+
+    <!-- Mode liste / accessibilité / annuler -->
+    <sys:String x:Key="Map.ViewTreemap">Mosaïque</sys:String>
+    <sys:String x:Key="Map.ViewList">Liste</sys:String>
+    <sys:String x:Key="Map.ColShare">Part</sys:String>
+    <sys:String x:Key="Map.ColSafety">Sécurité</sys:String>
+    <sys:String x:Key="Map.ListEmpty">Analysez un disque dans Vue d'ensemble pour voir la liste</sys:String>
+    <sys:String x:Key="Map.A11yName">Carte de l'espace</sys:String>
+    <sys:String x:Key="Map.A11yHelp">Utilisez les flèches pour naviguer entre les blocs, Entrée pour ouvrir un dossier et Retour arrière pour remonter.</sys:String>
+    <sys:String x:Key="Map.A11yBlock">{0}, {1}, {2}% de la vue actuelle</sys:String>
+    <sys:String x:Key="St.ColorBlind">Palette adaptée au daltonisme</sys:String>
+    <sys:String x:Key="St.ColorBlindNote">Remplace les couleurs des catégories par une palette distinguable avec tout type de daltonisme.</sys:String>
+    <sys:String x:Key="Undo.Button">↶ Annuler</sys:String>
+    <sys:String x:Key="Undo.Tooltip">Restaurer depuis la Corbeille : {0}</sys:String>
+    <sys:String x:Key="Undo.Done">{0} élément(s) restauré(s) depuis la Corbeille.</sys:String>
+    <sys:String x:Key="Undo.Failed">Restauration impossible. L'élément a peut-être quitté la Corbeille.</sys:String>
+    <sys:String x:Key="Del.SafetyWarning">&#10;&#10;⚠ {0} : {1}</sys:String>
+
 </ResourceDictionary>

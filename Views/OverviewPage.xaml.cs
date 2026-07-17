@@ -40,7 +40,8 @@ public partial class OverviewPage : UserControl
 
     private async void UpdateRecommendations(FileSystemNode root)
     {
-        RecommendationsCard.Visibility = Visibility.Visible;
+        if (RecommendationsCard.Visibility != Visibility.Visible)
+            Controls.Animate.FadeIn(RecommendationsCard, 260);
 
         // Arquivos gigantes (500 MB+) direto da árvore escaneada
         const long huge = 500L * 1024 * 1024;
@@ -149,8 +150,13 @@ public partial class OverviewPage : UserControl
         {
             long used = drive.TotalSize - drive.TotalFreeSpace;
             double percent = used * 100.0 / drive.TotalSize;
-            UsageBar.Value = percent;
-            PercentText.Text = $"{percent:0}%";
+
+            // Anima só quando o valor muda de verdade (não a cada refresh do monitoramento)
+            if (Math.Abs(UsageBar.Value - percent) > 0.05)
+            {
+                Controls.Animate.ProgressTo(UsageBar, percent);
+                Controls.Animate.CountTo(PercentText, 0, percent, v => $"{v:0}%");
+            }
             UsageText.Text = L.F("Ov.UsedOf", FileSystemNode.FormatSize(used), FileSystemNode.FormatSize(drive.TotalSize));
             FreeText.Text = L.F("Ov.Free", FileSystemNode.FormatSize(drive.TotalFreeSpace));
         }
@@ -242,6 +248,7 @@ public partial class OverviewPage : UserControl
     /// <summary>Atualiza blocos semânticos, categorias e maiores pastas a partir do scan concluído.</summary>
     public void UpdateFromScan(FileSystemNode root)
     {
+        bool firstTime = WelcomeBanner.Visibility == Visibility.Visible;
         WelcomeBanner.Visibility = Visibility.Collapsed;
         UpdateDiskCard();
         BuildBuckets(root);

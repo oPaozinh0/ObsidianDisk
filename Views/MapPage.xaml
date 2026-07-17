@@ -9,14 +9,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Breadcrumb + filtros -->
+        <!-- Breadcrumb + filtros + alternância de visão -->
         <DockPanel Grid.Row="0" LastChildFill="True" Margin="0,0,0,8">
             <controls:ObsidianButton x:Name="UpButton" Variant="Ghost" DockPanel.Dock="Left"
                     Padding="10,4" Click="Up_Click" Content="{StaticResource Map.Up}" IsEnabled="False"/>
 
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                <controls:ObsidianButton x:Name="TreemapViewButton" Variant="Primary" Height="32"
+                        Padding="12,4" Click="ViewTreemap_Click" Content="{StaticResource Map.ViewTreemap}"/>
+                <controls:ObsidianButton x:Name="ListViewButton" Variant="Ghost" Height="32" Margin="6,0,0,0"
+                        Padding="12,4" Click="ViewList_Click" Content="{StaticResource Map.ViewList}"/>
                 <CheckBox x:Name="OldFilesSwitch" Style="{StaticResource Switch}" Content="{StaticResource Map.OldFiles}"
-                          Foreground="{StaticResource Muted}" FontSize="12"
+                          Foreground="{DynamicResource Muted}" FontSize="12" Margin="14,0,0,0"
                           Checked="Filter_Changed" Unchecked="Filter_Changed"/>
                 <ComboBox x:Name="CategoryCombo" Style="{StaticResource DarkCombo}" Width="170" Height="32"
                           Margin="14,0,0,0" SelectionChanged="Filter_Changed"/>
@@ -28,34 +32,104 @@
             </ScrollViewer>
         </DockPanel>
 
-        <!-- Treemap -->
-        <Border Grid.Row="1" Background="{StaticResource Panel}" CornerRadius="12"
-                BorderBrush="{StaticResource Stroke}" BorderThickness="1">
+        <!-- Mosaico / Lista -->
+        <Border Grid.Row="1" Background="{DynamicResource Panel}" CornerRadius="12"
+                BorderBrush="{DynamicResource Stroke}" BorderThickness="1">
             <Grid ClipToBounds="True">
                 <controls:TreemapControl x:Name="Treemap" Margin="6"/>
 
+                <ListView x:Name="ItemsList" Style="{StaticResource DarkListView}" Margin="6"
+                          Visibility="Collapsed" SelectionMode="Single"
+                          MouseDoubleClick="List_DoubleClick" SelectionChanged="List_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="{StaticResource Lf.ColName}" Width="330">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border Width="9" Height="9" CornerRadius="4.5"
+                                                    Background="{Binding CategoryBrush}" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Name}" Margin="8,0,0,0" FontSize="13"
+                                                       TextTrimming="CharacterEllipsis"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{StaticResource Lf.ColSize}" Width="110">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding SizeText}" FontSize="13" FontWeight="SemiBold"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!-- Comprimento de barra: a forma mais precisa de comparar tamanhos -->
+                            <GridViewColumn Header="{StaticResource Map.ColShare}" Width="240">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid Width="220">
+                                            <Border Height="8" CornerRadius="4" Background="{DynamicResource Panel2}"
+                                                    HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                            <Border Height="8" CornerRadius="4" Background="{Binding CategoryBrush}"
+                                                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                    Width="{Binding BarWidth}"/>
+                                            <TextBlock Text="{Binding ShareText}" FontSize="11"
+                                                       Foreground="{DynamicResource Muted}"
+                                                       HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{StaticResource Map.ColSafety}" Width="260">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" ToolTip="{Binding SafetyTooltip}">
+                                            <Border Width="8" Height="8" CornerRadius="4" VerticalAlignment="Center"
+                                                    Background="{Binding SafetyBrush}"
+                                                    Visibility="{Binding SafetyVisibility}"/>
+                                            <TextBlock Text="{Binding SafetyText}" Margin="7,0,0,0" FontSize="12"
+                                                       Foreground="{DynamicResource Muted}"
+                                                       TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
                 <StackPanel x:Name="EmptyState" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Path Data="M 12 0 L 24 9 L 19 24 L 5 24 L 0 9 Z" Fill="{StaticResource Panel2}"
+                    <Path Data="M 12 0 L 24 9 L 19 24 L 5 24 L 0 9 Z" Fill="{DynamicResource Panel2}"
                           Width="72" Height="72" Stretch="Uniform" HorizontalAlignment="Center"/>
                     <TextBlock Text="{StaticResource Map.EmptyTitle}"
-                               Foreground="{StaticResource Muted}" FontSize="15" Margin="0,16,0,4"
+                               Foreground="{DynamicResource Muted}" FontSize="15" Margin="0,16,0,4"
                                HorizontalAlignment="Center"/>
                     <TextBlock Text="{StaticResource Map.EmptyHint}"
-                               Foreground="{StaticResource Muted}" FontSize="12" Opacity="0.7"
+                               Foreground="{DynamicResource Muted}" FontSize="12" Opacity="0.7"
                                HorizontalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Tooltip flutuante -->
-                <Border x:Name="HoverTip" Background="{StaticResource TipBg}" BorderBrush="{StaticResource Stroke}"
+                <Border x:Name="HoverTip" Background="{DynamicResource TipBg}" BorderBrush="{DynamicResource Stroke}"
                         BorderThickness="1" CornerRadius="8" Padding="10,7"
                         HorizontalAlignment="Left" VerticalAlignment="Top"
                         IsHitTestVisible="False" Visibility="Collapsed" MaxWidth="380">
                     <StackPanel>
-                        <TextBlock x:Name="TipName" Foreground="{StaticResource Text}" FontSize="12.5"
+                        <TextBlock x:Name="TipName" Foreground="{DynamicResource Text}" FontSize="12.5"
                                    FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
-                        <TextBlock x:Name="TipDetails" Foreground="{StaticResource Muted}" FontSize="11.5"
+                        <TextBlock x:Name="TipDetails" Foreground="{DynamicResource Muted}" FontSize="11.5"
                                    Margin="0,3,0,0"/>
-                        <TextBlock x:Name="TipDate" Foreground="{StaticResource Muted}" FontSize="11.5"/>
+                        <TextBlock x:Name="TipDate" Foreground="{DynamicResource Muted}" FontSize="11.5"/>
+                        <!-- Veredito de segurança -->
+                        <StackPanel x:Name="TipSafetyRow" Margin="0,6,0,0" Visibility="Collapsed">
+                            <StackPanel Orientation="Horizontal">
+                                <Border x:Name="TipSafetyDot" Width="8" Height="8" CornerRadius="4"
+                                        VerticalAlignment="Center"/>
+                                <TextBlock x:Name="TipSafetyLevel" Margin="7,0,0,0" FontSize="11.5"
+                                           FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <TextBlock x:Name="TipSafetyText" Foreground="{DynamicResource Muted}" FontSize="11.5"
+                                       TextWrapping="Wrap" Margin="0,3,0,0"/>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
             </Grid>

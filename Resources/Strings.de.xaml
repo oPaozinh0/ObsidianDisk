@@ -246,4 +246,52 @@
     <sys:String x:Key="Tip.7">Erst das Backup, dann der Mut.</sys:String>
     <sys:String x:Key="Tip.8">87 % der Duplikate heißen „final_v2_JETZT_WIRKLICH“.</sys:String>
 
+    <!-- Sicherheit -->
+    <sys:String x:Key="Safety.Safe">Kann gelöscht werden</sys:String>
+    <sys:String x:Key="Safety.Caution">Vorsicht</sys:String>
+    <sys:String x:Key="Safety.Never">Nicht löschen</sys:String>
+    <sys:String x:Key="Safety.K.SystemCore">Wesentlicher Teil von Windows.</sys:String>
+    <sys:String x:Key="Safety.K.SystemCache">System-Cache — Windows erstellt ihn neu.</sys:String>
+    <sys:String x:Key="Safety.K.Temp">Temporäre Dateien.</sys:String>
+    <sys:String x:Key="Safety.K.RecycleBin">Der Papierkorb. Leeren gibt den Speicher frei.</sys:String>
+    <sys:String x:Key="Safety.K.UserData">Ihre persönlichen Dateien.</sys:String>
+    <sys:String x:Key="Safety.K.InstalledApp">Installiertes Programm.</sys:String>
+    <sys:String x:Key="Safety.K.GameData">Installiertes Spiel.</sys:String>
+    <sys:String x:Key="Safety.K.DevCache">Build-Cache — wird beim Bauen des Projekts neu erstellt.</sys:String>
+    <sys:String x:Key="Safety.K.DevSource">Quellcode und Projektverlauf.</sys:String>
+    <sys:String x:Key="Safety.K.BrowserCache">Browser-Cache — wird beim Surfen neu aufgebaut.</sys:String>
+    <sys:String x:Key="Safety.K.Recovery">Systemwiederherstellungsdaten.</sys:String>
+    <sys:String x:Key="Safety.K.SystemFile">Von Windows verwaltete Systemdatei.</sys:String>
+    <sys:String x:Key="Safety.A.SystemCore">Löschen kann verhindern, dass Windows startet.</sys:String>
+    <sys:String x:Key="Safety.A.InstalledApp">Über die Windows-Einstellungen deinstallieren, um alles zu entfernen.</sys:String>
+    <sys:String x:Key="Safety.A.GameData">Über den Launcher (Steam, Epic…) deinstallieren statt zu löschen.</sys:String>
+    <sys:String x:Key="Safety.A.Recovery">Nutzen Sie den Windows-Computerschutz, um Speicher freizugeben.</sys:String>
+    <sys:String x:Key="Safety.A.UserData">Prüfen Sie den Inhalt zuerst — hier liegen Dokumente und Fotos.</sys:String>
+    <sys:String x:Key="Safety.S.Hiberfil">Ruhezustandsdatei. Nicht direkt löschen: Ruhezustand deaktivieren (powercfg /h off), dann entfernt Windows sie.</sys:String>
+    <sys:String x:Key="Safety.S.Pagefile">Virtueller Speicher von Windows. Unter System → Leistung anpassen, nicht löschen.</sys:String>
+    <sys:String x:Key="Safety.S.WinSxS">Windows-Komponenten. Wirkt riesig, ist aber größtenteils verlinkt. Nutzen Sie die Datenträgerbereinigung.</sys:String>
+    <sys:String x:Key="Safety.S.WindowsOld">Ihre vorherige Windows-Installation. Verschwindet nach 10 Tagen von selbst; die Datenträgerbereinigung entfernt sie sicher.</sys:String>
+    <sys:String x:Key="Safety.S.Installer">Installer-Cache. Löschen zerstört Deinstallation und Reparatur von Programmen.</sys:String>
+    <sys:String x:Key="Safety.S.System32">Das Herz von Windows. Ja, es ist groß. Nein, nicht löschen.</sys:String>
+    <sys:String x:Key="Safety.S.NodeModules">Projekt-Abhängigkeiten — „npm install“ stellt sie wieder her.</sys:String>
+    <sys:String x:Key="Safety.S.Git">Repository-Verlauf. Löschen verliert alle lokalen Commits.</sys:String>
+    <sys:String x:Key="Safety.S.SVI">Windows-Wiederherstellungspunkte und Suchindex.</sys:String>
+
+    <!-- Listenmodus / Barrierefreiheit / Rückgängig -->
+    <sys:String x:Key="Map.ViewTreemap">Kacheln</sys:String>
+    <sys:String x:Key="Map.ViewList">Liste</sys:String>
+    <sys:String x:Key="Map.ColShare">Anteil</sys:String>
+    <sys:String x:Key="Map.ColSafety">Sicherheit</sys:String>
+    <sys:String x:Key="Map.ListEmpty">Analysieren Sie eine Festplatte in der Übersicht, um die Liste zu sehen</sys:String>
+    <sys:String x:Key="Map.A11yName">Speicherkarte</sys:String>
+    <sys:String x:Key="Map.A11yHelp">Mit den Pfeiltasten zwischen Blöcken wechseln, Eingabetaste öffnet einen Ordner, Rücktaste geht hoch.</sys:String>
+    <sys:String x:Key="Map.A11yBlock">{0}, {1}, {2}% der aktuellen Ansicht</sys:String>
+    <sys:String x:Key="St.ColorBlind">Farbenblind-sichere Palette</sys:String>
+    <sys:String x:Key="St.ColorBlindNote">Ersetzt die Kategoriefarben durch eine Palette, die bei jeder Form von Farbenblindheit unterscheidbar bleibt.</sys:String>
+    <sys:String x:Key="Undo.Button">↶ Rückgängig</sys:String>
+    <sys:String x:Key="Undo.Tooltip">Aus dem Papierkorb wiederherstellen: {0}</sys:String>
+    <sys:String x:Key="Undo.Done">{0} Element(e) aus dem Papierkorb wiederhergestellt.</sys:String>
+    <sys:String x:Key="Undo.Failed">Wiederherstellung nicht möglich. Das Element hat den Papierkorb möglicherweise verlassen.</sys:String>
+    <sys:String x:Key="Del.SafetyWarning">&#10;&#10;⚠ {0}: {1}</sys:String>
+
 </ResourceDictionary>

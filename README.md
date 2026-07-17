@@ -23,7 +23,10 @@ hunt down huge files and duplicates, and free up space — all in a single app.
 ## ✨ Features
 
 - **🏠 Overview** — dashboard with disk usage, semantic space blocks (Programs, Games, Windows, Users, Temp Files…) and per-category breakdown
-- **🗺️ Space Map** — SpaceSniffer-style *squarified* treemap that builds **live while scanning**; double-click to drill down, breadcrumb navigation, hover tooltips, filters by category and by old files
+- **🗺️ Space Map** — SpaceSniffer-style *squarified* treemap that builds **live while scanning**, plus a **List mode** that ranks items with length bars (easier to compare than areas, and screen-reader friendly); keyboard navigation, filters by category and by old files
+- **🛡️ Safety advice** — tells you what a known file or folder actually is, in plain language, and whether it is safe to delete (hiberfil.sys, WinSxS, node_modules, System32…), with the right way to remove it
+- **↶ Undo** — restores from the Recycle Bin what you deleted by mistake
+- **♿ Accessible** — keyboard navigation, screen-reader support and an optional colorblind-safe palette
 - **📄 Large Files** — the biggest files on your disk, filterable by minimum size, with in-app deletion
 - **👯 Duplicates** — 3-stage detection (size → partial hash → full SHA-256); keeps the most recent copy and shows how much space you can reclaim
 - **🧹 Cleanup** — one click to clear user Temp, Windows Temp, Windows Update cache, thumbnail cache, error reports and the Recycle Bin

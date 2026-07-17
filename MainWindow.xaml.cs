@@ -45,7 +45,7 @@ public partial class MainWindow : Window
         _liveRefreshTimer.Tick += (_, _) =>
         {
             _liveRefreshTimer.Stop();
-            MapPage.TreemapControl.Refresh();
+            MapPage.Refresh();
         };
 
         OverviewPage.ScanRequested += StartOrCancelScan;
@@ -94,48 +94,43 @@ public partial class MainWindow : Window
         };
         _tipTimer.Start();
 
-        // Diagnóstico: OBS_SOFT=1 força renderização por software (para isolar artefatos de GPU)
+        // Escape hatch: OBS_SOFT=1 força renderização por software (drivers problemáticos)
         if (Environment.GetEnvironmentVariable("OBS_SOFT") == "1")
             System.Windows.Media.RenderOptions.ProcessRenderMode =
                 System.Windows.Interop.RenderMode.SoftwareOnly;
+    }
 
-        // Diagnóstico temporário: OBS_DUMP=1 despeja a árvore visual do botão Reanalisar
-        if (Environment.GetEnvironmentVariable("OBS_DUMP") == "1")
-        {
-            Loaded += (_, _) =>
-            {
-                var sb = new System.Text.StringBuilder();
-                void Walk(DependencyObject d, int depth)
-                {
-                    int n = System.Windows.Media.VisualTreeHelper.GetChildrenCount(d);
-                    for (int i = 0; i < n; i++)
-                    {
-                        var c = System.Windows.Media.VisualTreeHelper.GetChild(d, i);
-                        string info = c.GetType().FullName ?? "";
-                        if (c is FrameworkElement fe)
-                            info += $" [{fe.Name}] {fe.ActualWidth:0}x{fe.ActualHeight:0} margin={fe.Margin}";
-                        if (c is System.Windows.Controls.TextBlock tb)
-                            info += $" text='{tb.Text}' decorations={tb.TextDecorations?.Count}";
-                        sb.AppendLine(new string(' ', depth * 2) + info);
-                        Walk(c, depth + 1);
-                    }
-                }
-                Walk(RescanButton, 0);
-                System.IO.File.WriteAllText(
-                    System.IO.Path.Combine(System.IO.Path.GetTempPath(), "obs-dump.txt"), sb.ToString());
+    // ---------------- Desfazer exclusão ----------------
 
-                // RTB da janela inteira: o que o WPF acha que está desenhando
-                var rtb = new System.Windows.Media.Imaging.RenderTargetBitmap(
-                    (int)ActualWidth, (int)ActualHeight, 96, 96,
-                    System.Windows.Media.PixelFormats.Pbgra32);
-                rtb.Render(this);
-                var enc = new System.Windows.Media.Imaging.PngBitmapEncoder();
-                enc.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(rtb));
-                using var fs = System.IO.File.Create(
-                    System.IO.Path.Combine(System.IO.Path.GetTempPath(), "obs-rtb.png"));
-                enc.Save(fs);
-            };
-        }
+    /// <summary>Caminhos enviados à Lixeira nesta sessão (só eles podem voltar).</summary>
+    private readonly Stack<List<string>> _undoStack = new();
+
+    private void PushUndo(List<string> paths)
+    {
+        if (paths.Count == 0) return;
+        _undoStack.Push(paths);
+        if (UndoButton.Visibility != Visibility.Visible)
+            Controls.Animate.FadeIn(UndoButton);
+        UndoButton.ToolTip = L.F("Undo.Tooltip", paths.Count == 1
+            ? System.IO.Path.GetFileName(paths[0])
+            : L.F("Del.ManyWhat", paths.Count, ""));
+    }
+
+    private void Undo_Click(object sender, RoutedEventArgs e)
+    {
+        if (_undoStack.Count == 0) return;
+
+        var paths = _undoStack.Pop();
+        int restored = paths.Count(FileDeletion.RestoreFromRecycleBin);
+
+        if (_undoStack.Count == 0)
+            Controls.Animate.FadeOut(UndoButton);
+
+        SetStatus(restored > 0 ? L.F("Undo.Done", restored) : L.T("Undo.Failed"));
+
+        // A árvore em memória não tem mais os nós — só um rescan devolve os tamanhos
+        if (restored > 0 && _lastScanPath is not null)
+            StartOrCancelScan(_lastScanPath);
     }
 
     // ---------------- Barra de status ----------------
@@ -164,7 +159,7 @@ public partial class MainWindow : Window
 
         _updateUrl = update.Url;
         UpdateButton.Content = L.F("Shell.UpdateAvailable", update.Tag);
-        UpdateButton.Visibility = Visibility.Visible;
+        Controls.Animate.FadeIn(UpdateButton);
     }
 
     private void Update_Click(object sender, RoutedEventArgs e)
@@ -234,6 +229,12 @@ public partial class MainWindow : Window
         HistoryPage.Visibility = ReferenceEquals(sender, NavHistory) ? Visibility.Visible : Visibility.Collapsed;
         SettingsPage.Visibility = ReferenceEquals(sender, NavSettings) ? Visibility.Visible : Visibility.Collapsed;
 
+        // Anima a página que acabou de aparecer
+        foreach (FrameworkElement page in new FrameworkElement[]
+                 { OverviewPage, MapPage, LargeFilesPage, DuplicatesPage, CleanupPage, HistoryPage, SettingsPage })
+            if (page.Visibility == Visibility.Visible)
+                Controls.Animate.PageIn(page);
+
         if (ReferenceEquals(sender, NavHistory))
             HistoryPage.Reload();
         if (ReferenceEquals(sender, NavCleanup))
@@ -280,7 +281,7 @@ public partial class MainWindow : Window
         _lastScanPath = path;
         OverviewPage.SetScanning(true);
         RescanButton.IsEnabled = false;
-        ProgressPanel.Visibility = Visibility.Visible;
+        Controls.Animate.FadeIn(ProgressPanel);
 
         _scanTargetBytes = 0;
         var drive = DriveInfo.GetDrives().FirstOrDefault(d =>
@@ -326,7 +327,7 @@ public partial class MainWindow : Window
         finally
         {
             _progressTimer.Stop();
-            ProgressPanel.Visibility = Visibility.Collapsed;
+            Controls.Animate.FadeOut(ProgressPanel);
             OverviewPage.SetScanning(false);
             RescanButton.IsEnabled = _lastScanPath is not null;
             _cts.Dispose();
@@ -351,8 +352,18 @@ public partial class MainWindow : Window
             ProgressStats.Text = L.F("Scan.Stats", p.FilesScanned.ToString("N0"), FileSystemNode.FormatSize(p.BytesScanned));
         }
 
-        MapPage.TreemapControl.Refresh(); // treemap ao vivo
+        MapPage.Refresh(); // mapa ao vivo
+
+        // Arquivos Grandes também acompanha o scan (a cada ~1s, não a cada quadro)
+        if ((DateTime.Now - _lastLargeFilesRefresh).TotalSeconds >= 1)
+        {
+            _lastLargeFilesRefresh = DateTime.Now;
+            if (_scanRoot is not null)
+                LargeFilesPage.UpdateFromScan(_scanRoot);
+        }
     }
+
+    private DateTime _lastLargeFilesRefresh = DateTime.MinValue;
 
     private void RefreshAllPages()
     {
@@ -360,7 +371,7 @@ public partial class MainWindow : Window
         OverviewPage.UpdateFromScan(_scanRoot);
         LargeFilesPage.UpdateFromScan(_scanRoot);
         DuplicatesPage.UpdateFromScan(_scanRoot);
-        MapPage.TreemapControl.Refresh();
+        MapPage.Refresh();
         HistoryPage.Reload();
     }
 
@@ -425,6 +436,10 @@ public partial class MainWindow : Window
             : FileSystemNode.FormatSize(node.Size);
 
         // Cabeçalho: deixa explícito sobre o que as ações abaixo agem
+        var safety = SafetyDatabase.Lookup(node);
+        if (safety is not null)
+            details += $" · {SafetyDatabase.LabelOf(safety.Level)}";
+
         menu.Items.Add(new MenuItem
         {
             Header = $"{node.Name} — {details}",
@@ -493,22 +508,33 @@ public partial class MainWindow : Window
             what = L.F("Del.ManyWhat", nodes.Count, FileSystemNode.FormatSize(totalSize));
         }
 
+        // Se algum alvo é conhecido e arriscado, o diálogo diz por quê
+        string safetyNote = "";
+        var risky = nodes.Select(SafetyDatabase.Lookup)
+                         .Where(s => s is { Level: SafetyLevel.Never or SafetyLevel.Caution })
+                         .OrderByDescending(s => s!.Level)
+                         .FirstOrDefault();
+        if (risky is not null)
+            safetyNote = L.F("Del.SafetyWarning", SafetyDatabase.LabelOf(risky.Level),
+                risky.Description + (risky.Advice is null ? "" : " " + risky.Advice));
+
         // Permanente sempre confirma; Lixeira respeita a configuração
         if (permanent)
         {
-            if (!Controls.DarkDialog.Confirm(this, L.T("Del.PermTitle"), L.F("Del.PermMsg", what),
+            if (!Controls.DarkDialog.Confirm(this, L.T("Del.PermTitle"), L.F("Del.PermMsg", what) + safetyNote,
                     danger: true, confirmLabel: L.T("Del.PermConfirm"), cancelLabel: L.T("Del.Cancel")))
                 return;
         }
-        else if (_settings.ConfirmDelete)
+        else if (_settings.ConfirmDelete || risky is not null)
         {
-            if (!Controls.DarkDialog.Confirm(this, L.T("Del.RecycleTitle"), L.F("Del.RecycleMsg", what),
+            if (!Controls.DarkDialog.Confirm(this, L.T("Del.RecycleTitle"), L.F("Del.RecycleMsg", what) + safetyNote,
                     confirmLabel: L.T("Del.RecycleConfirm"), cancelLabel: L.T("Del.Cancel")))
                 return;
         }
 
         int okCount = 0;
         long freedBytes = 0;
+        var undoPaths = new List<string>();
         foreach (var node in nodes)
         {
             bool ok = permanent
@@ -518,6 +544,7 @@ public partial class MainWindow : Window
 
             okCount++;
             freedBytes += node.Size;
+            if (!permanent) undoPaths.Add(node.FullPath);
 
             // Se a visão atual do mapa está dentro do nó excluído, sobe para o pai sobrevivente
             for (var v = MapPage.ViewRoot; v is not null; v = v.Parent)
@@ -540,6 +567,7 @@ public partial class MainWindow : Window
         else
             SetStatus(L.F("Del.DonePartial", okCount, nodes.Count, FileSystemNode.FormatSize(freedBytes)));
 
+        PushUndo(undoPaths); // exclusão permanente não entra: não há como voltar
         RefreshAllPages();
     }
 }

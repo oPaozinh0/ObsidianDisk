@@ -70,6 +70,7 @@ public partial class SettingsPage : UserControl
         LanguageCombo.SelectedIndex = langIndex >= 0 ? langIndex : 0;
 
         ThemeCombo.SelectedIndex = settings.Theme.Equals("light", StringComparison.OrdinalIgnoreCase) ? 1 : 0;
+        ColorBlindSwitch.IsChecked = settings.ColorBlindSafe;
         _loading = false;
     }
 
@@ -86,16 +87,19 @@ public partial class SettingsPage : UserControl
         SettingsChanged?.Invoke(_settings);
     }
 
-    private void Interface_Changed(object sender, SelectionChangedEventArgs e)
+    private void Interface_Changed(object sender, RoutedEventArgs e)
     {
         if (_loading) return;
 
         string lang = (string)(((ComboBoxItem)LanguageCombo.SelectedItem).Tag ?? "auto");
         string theme = (string)(((ComboBoxItem)ThemeCombo.SelectedItem).Tag ?? "dark");
-        bool changed = lang != _settings.Language || theme != _settings.Theme;
+        bool colorBlind = ColorBlindSwitch.IsChecked == true;
+        bool changed = lang != _settings.Language || theme != _settings.Theme
+                       || colorBlind != _settings.ColorBlindSafe;
 
         _settings.Language = lang;
         _settings.Theme = theme;
+        _settings.ColorBlindSafe = colorBlind;
         AppStorage.SaveSettings(_settings);
         SettingsChanged?.Invoke(_settings);
 

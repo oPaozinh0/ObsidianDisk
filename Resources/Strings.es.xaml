@@ -246,4 +246,52 @@
     <sys:String x:Key="Tip.7">Primero el backup, después el valor.</sys:String>
     <sys:String x:Key="Tip.8">El 87% de los duplicados se llaman "final_v2_AHORA_SI".</sys:String>
 
+    <!-- Seguridad -->
+    <sys:String x:Key="Safety.Safe">Se puede borrar</sys:String>
+    <sys:String x:Key="Safety.Caution">Cuidado</sys:String>
+    <sys:String x:Key="Safety.Never">No lo borre</sys:String>
+    <sys:String x:Key="Safety.K.SystemCore">Parte esencial de Windows.</sys:String>
+    <sys:String x:Key="Safety.K.SystemCache">Caché del sistema — Windows la recrea.</sys:String>
+    <sys:String x:Key="Safety.K.Temp">Archivos temporales.</sys:String>
+    <sys:String x:Key="Safety.K.RecycleBin">La Papelera. Vaciarla libera el espacio.</sys:String>
+    <sys:String x:Key="Safety.K.UserData">Sus archivos personales.</sys:String>
+    <sys:String x:Key="Safety.K.InstalledApp">Programa instalado.</sys:String>
+    <sys:String x:Key="Safety.K.GameData">Juego instalado.</sys:String>
+    <sys:String x:Key="Safety.K.DevCache">Caché de compilación — se recrea al construir el proyecto.</sys:String>
+    <sys:String x:Key="Safety.K.DevSource">Código fuente e historial del proyecto.</sys:String>
+    <sys:String x:Key="Safety.K.BrowserCache">Caché del navegador — se recrea al navegar.</sys:String>
+    <sys:String x:Key="Safety.K.Recovery">Datos de recuperación del sistema.</sys:String>
+    <sys:String x:Key="Safety.K.SystemFile">Archivo de sistema gestionado por Windows.</sys:String>
+    <sys:String x:Key="Safety.A.SystemCore">Borrarlo puede impedir que Windows arranque.</sys:String>
+    <sys:String x:Key="Safety.A.InstalledApp">Desinstale desde la Configuración de Windows para quitarlo por completo.</sys:String>
+    <sys:String x:Key="Safety.A.GameData">Desinstale desde el launcher (Steam, Epic…) en vez de borrar.</sys:String>
+    <sys:String x:Key="Safety.A.Recovery">Use la Protección del Sistema de Windows para liberarlo.</sys:String>
+    <sys:String x:Key="Safety.A.UserData">Revise el contenido antes — aquí viven documentos y fotos.</sys:String>
+    <sys:String x:Key="Safety.S.Hiberfil">Archivo de hibernación. No lo borre directamente: desactive la hibernación (powercfg /h off) y Windows lo quita.</sys:String>
+    <sys:String x:Key="Safety.S.Pagefile">Memoria virtual de Windows. Ajústela en Sistema → Rendimiento, no la borre.</sys:String>
+    <sys:String x:Key="Safety.S.WinSxS">Componentes de Windows. Parece enorme, pero gran parte son enlaces. Use el Liberador de espacio.</sys:String>
+    <sys:String x:Key="Safety.S.WindowsOld">Su instalación anterior de Windows. Desaparece sola en 10 días; el Liberador de espacio la quita con seguridad.</sys:String>
+    <sys:String x:Key="Safety.S.Installer">Caché de instaladores. Borrarla rompe la desinstalación y la reparación de programas.</sys:String>
+    <sys:String x:Key="Safety.S.System32">El corazón de Windows. Sí, es grande. No, no lo borre.</sys:String>
+    <sys:String x:Key="Safety.S.NodeModules">Dependencias del proyecto — "npm install" las recrea.</sys:String>
+    <sys:String x:Key="Safety.S.Git">Historial del repositorio. Borrarlo pierde todos los commits locales.</sys:String>
+    <sys:String x:Key="Safety.S.SVI">Puntos de restauración e índice de búsqueda de Windows.</sys:String>
+
+    <!-- Modo lista / accesibilidad / deshacer -->
+    <sys:String x:Key="Map.ViewTreemap">Mosaico</sys:String>
+    <sys:String x:Key="Map.ViewList">Lista</sys:String>
+    <sys:String x:Key="Map.ColShare">Proporción</sys:String>
+    <sys:String x:Key="Map.ColSafety">Seguridad</sys:String>
+    <sys:String x:Key="Map.ListEmpty">Analice un disco en Resumen para ver la lista</sys:String>
+    <sys:String x:Key="Map.A11yName">Mapa de espacio</sys:String>
+    <sys:String x:Key="Map.A11yHelp">Use las flechas para moverse entre bloques, Enter para abrir una carpeta y Retroceso para subir.</sys:String>
+    <sys:String x:Key="Map.A11yBlock">{0}, {1}, {2}% de la vista actual</sys:String>
+    <sys:String x:Key="St.ColorBlind">Paleta segura para daltonismo</sys:String>
+    <sys:String x:Key="St.ColorBlindNote">Cambia los colores de las categorías por una paleta distinguible con cualquier tipo de daltonismo.</sys:String>
+    <sys:String x:Key="Undo.Button">↶ Deshacer</sys:String>
+    <sys:String x:Key="Undo.Tooltip">Restaurar desde la Papelera: {0}</sys:String>
+    <sys:String x:Key="Undo.Done">{0} elemento(s) restaurado(s) desde la Papelera.</sys:String>
+    <sys:String x:Key="Undo.Failed">No se pudo restaurar. Puede que el elemento ya no esté en la Papelera.</sys:String>
+    <sys:String x:Key="Del.SafetyWarning">&#10;&#10;⚠ {0}: {1}</sys:String>
+
 </ResourceDictionary>

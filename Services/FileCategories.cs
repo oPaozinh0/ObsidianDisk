@@ -50,8 +50,17 @@ public static class FileCategories
         _ => L.T("Cat.Other"),
     };
 
+    /// <summary>
+    /// Quando ligado, usa a paleta Okabe-Ito — desenhada para permanecer
+    /// distinguível em qualquer tipo de daltonismo. Definido na inicialização.
+    /// </summary>
+    public static bool ColorBlindSafe { get; set; }
+
     /// <summary>Cor vívida da categoria (cards, legenda).</summary>
-    public static Color ColorOf(FileCategory cat) => cat switch
+    public static Color ColorOf(FileCategory cat) =>
+        ColorBlindSafe ? OkabeItoOf(cat) : DefaultColorOf(cat);
+
+    private static Color DefaultColorOf(FileCategory cat) => cat switch
     {
         FileCategory.Aplicativo => Color.FromRgb(0x3B, 0x82, 0xF6),
         FileCategory.Video => Color.FromRgb(0x8B, 0x5C, 0xF6),
@@ -61,6 +70,19 @@ public static class FileCategories
         FileCategory.Compactado => Color.FromRgb(0xEF, 0x44, 0x44),
         FileCategory.Codigo => Color.FromRgb(0x06, 0xB6, 0xD4),
         _ => Color.FromRgb(0x64, 0x74, 0x8B),
+    };
+
+    /// <summary>Paleta Okabe-Ito: 8 cores, uma por categoria — nenhum par se confunde.</summary>
+    private static Color OkabeItoOf(FileCategory cat) => cat switch
+    {
+        FileCategory.Aplicativo => Color.FromRgb(0x00, 0x72, 0xB2), // azul
+        FileCategory.Video => Color.FromRgb(0xCC, 0x79, 0xA7),      // roxo-rosado
+        FileCategory.Imagem => Color.FromRgb(0x56, 0xB4, 0xE9),     // azul-céu
+        FileCategory.Audio => Color.FromRgb(0xE6, 0x9F, 0x00),      // laranja
+        FileCategory.Documento => Color.FromRgb(0x00, 0x9E, 0x73),  // verde-azulado
+        FileCategory.Compactado => Color.FromRgb(0xD5, 0x5E, 0x00), // vermelhão
+        FileCategory.Codigo => Color.FromRgb(0xF0, 0xE4, 0x42),     // amarelo
+        _ => Color.FromRgb(0x99, 0x99, 0x99),                       // cinza
     };
 
     /// <summary>Versão atenuada para os blocos do treemap (não estourar no fundo escuro).</summary>

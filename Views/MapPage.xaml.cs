@@ -8,14 +8,21 @@ using ObsidianDisk.Services;
 
 namespace ObsidianDisk.Views;
 
+/// <summary>Linha do modo lista — a mesma árvore, comparada por comprimento de barra.</summary>
+public sealed record MapRow(
+    FileSystemNode Node, string Name, Brush CategoryBrush, string SizeText, string ShareText,
+    double BarWidth, string SafetyText, Brush SafetyBrush, Visibility SafetyVisibility, string? SafetyTooltip);
+
 public partial class MapPage : UserControl
 {
     private FileSystemNode? _viewRoot;
     private FileSystemNode? _tipNode;
+    private bool _listMode;
 
     public event Action<FileSystemNode?>? HoverChanged;
 
     public Controls.TreemapControl TreemapControl => Treemap;
+    public ListView List => ItemsList;
     public FileSystemNode? ViewRoot => _viewRoot;
 
     public MapPage()
@@ -39,6 +46,14 @@ public partial class MapPage : UserControl
         UpButton.IsEnabled = node.Parent is not null;
         EmptyState.Visibility = Visibility.Collapsed;
         BuildBreadcrumb(node);
+        if (_listMode) BuildList();
+    }
+
+    /// <summary>Redesenha a visão atual (mosaico ou lista) após mudanças na árvore.</summary>
+    public void Refresh()
+    {
+        if (_listMode) BuildList();
+        else Treemap.Refresh();
     }
 
     public bool GoUp()
@@ -88,6 +103,69 @@ public partial class MapPage : UserControl
         }
     }
 
+    // ---------------- Alternância mosaico / lista ----------------
+
+    private void ViewTreemap_Click(object sender, RoutedEventArgs e) => SetListMode(false);
+    private void ViewList_Click(object sender, RoutedEventArgs e) => SetListMode(true);
+
+    private void SetListMode(bool list)
+    {
+        _listMode = list;
+        TreemapViewButton.Variant = list ? Controls.ObsidianButtonVariant.Ghost : Controls.ObsidianButtonVariant.Primary;
+        ListViewButton.Variant = list ? Controls.ObsidianButtonVariant.Primary : Controls.ObsidianButtonVariant.Ghost;
+
+        Treemap.Visibility = list ? Visibility.Collapsed : Visibility.Visible;
+        ItemsList.Visibility = list ? Visibility.Visible : Visibility.Collapsed;
+        if (list)
+        {
+            HideTip();
+            BuildList();
+        }
+    }
+
+    private void BuildList()
+    {
+        ItemsList.Items.Clear();
+        if (_viewRoot is null) return;
+
+        long total = Math.Max(1, _viewRoot.Size);
+        var children = _viewRoot.Children.Where(c => c.Size > 0).OrderByDescending(c => c.Size).ToList();
+
+        foreach (var node in children)
+        {
+            double share = node.Size * 100.0 / total;
+            var color = node.IsDirectory
+                ? (Color)FindResource("AccentColor")
+                : FileCategories.ColorOf(FileCategories.Classify(node.Name));
+
+            var safety = SafetyDatabase.Lookup(node);
+            ItemsList.Items.Add(new MapRow(
+                Node: node,
+                Name: node.IsDirectory ? node.Name + "\\" : node.Name,
+                CategoryBrush: new SolidColorBrush(color),
+                SizeText: FileSystemNode.FormatSize(node.Size),
+                ShareText: $"{share:0.#}%",
+                BarWidth: Math.Max(2, share / 100.0 * 220),
+                SafetyText: safety is null ? "" : $"{SafetyDatabase.LabelOf(safety.Level)} · {safety.Description}",
+                SafetyBrush: new SolidColorBrush(SafetyDatabase.ColorOf(safety?.Level ?? SafetyLevel.Unknown)),
+                SafetyVisibility: safety is null ? Visibility.Collapsed : Visibility.Visible,
+                SafetyTooltip: safety is null ? null
+                    : safety.Description + (safety.Advice is null ? "" : "\n" + safety.Advice)));
+        }
+    }
+
+    private void List_DoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        if (ItemsList.SelectedItem is MapRow { Node.IsDirectory: true } row)
+            SetViewRoot(row.Node);
+    }
+
+    private void List_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        // Alimenta o mesmo status/menu de contexto do mosaico
+        HoverChanged?.Invoke((ItemsList.SelectedItem as MapRow)?.Node);
+    }
+
     // ---------------- Filtros ----------------
 
     private void BuildCategoryCombo()
@@ -132,6 +210,23 @@ public partial class MapPage : UserControl
             TipDate.Text = L.F("Map.TipModified", node.LastWriteUtc.ToLocalTime().ToString("dd/MM/yyyy HH:mm"));
             TipDate.Visibility = Visibility.Visible;
         }
+
+        // O que é isso e dá para apagar?
+        var safety = SafetyDatabase.Lookup(node);
+        if (safety is null)
+        {
+            TipSafetyRow.Visibility = Visibility.Collapsed;
+        }
+        else
+        {
+            var color = SafetyDatabase.ColorOf(safety.Level);
+            TipSafetyDot.Background = new SolidColorBrush(color);
+            TipSafetyLevel.Text = SafetyDatabase.LabelOf(safety.Level);
+            TipSafetyLevel.Foreground = new SolidColorBrush(color);
+            TipSafetyText.Text = safety.Description + (safety.Advice is null ? "" : "\n" + safety.Advice);
+            TipSafetyRow.Visibility = Visibility.Visible;
+        }
+
         HoverTip.Visibility = Visibility.Visible;
     }
 

@@ -15,6 +15,8 @@ public partial class App : Application
     {
         var settings = AppStorage.LoadSettings();
 
+        FileCategories.ColorBlindSafe = settings.ColorBlindSafe;
+
         // ---- Tema (o dicionário precisa entrar ANTES de qualquer estilo ser usado) ----
         IsLightTheme = settings.Theme.Equals("light", StringComparison.OrdinalIgnoreCase);
         Resources.MergedDictionaries.Add(new ResourceDictionary

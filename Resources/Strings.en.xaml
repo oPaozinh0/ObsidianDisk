@@ -246,4 +246,52 @@
     <sys:String x:Key="Tip.7">Backup first, courage later.</sys:String>
     <sys:String x:Key="Tip.8">87% of duplicates are named "final_v2_FOR_REAL".</sys:String>
 
+    <!-- Safety -->
+    <sys:String x:Key="Safety.Safe">Safe to delete</sys:String>
+    <sys:String x:Key="Safety.Caution">Be careful</sys:String>
+    <sys:String x:Key="Safety.Never">Don't delete</sys:String>
+    <sys:String x:Key="Safety.K.SystemCore">Essential part of Windows.</sys:String>
+    <sys:String x:Key="Safety.K.SystemCache">System cache — Windows rebuilds it.</sys:String>
+    <sys:String x:Key="Safety.K.Temp">Temporary files.</sys:String>
+    <sys:String x:Key="Safety.K.RecycleBin">The Recycle Bin. Emptying it frees the space.</sys:String>
+    <sys:String x:Key="Safety.K.UserData">Your personal files.</sys:String>
+    <sys:String x:Key="Safety.K.InstalledApp">Installed program.</sys:String>
+    <sys:String x:Key="Safety.K.GameData">Installed game.</sys:String>
+    <sys:String x:Key="Safety.K.DevCache">Build cache — recreated when you build the project.</sys:String>
+    <sys:String x:Key="Safety.K.DevSource">Project source code and history.</sys:String>
+    <sys:String x:Key="Safety.K.BrowserCache">Browser cache — rebuilt as you browse.</sys:String>
+    <sys:String x:Key="Safety.K.Recovery">System recovery data.</sys:String>
+    <sys:String x:Key="Safety.K.SystemFile">System file managed by Windows.</sys:String>
+    <sys:String x:Key="Safety.A.SystemCore">Deleting this can stop Windows from starting.</sys:String>
+    <sys:String x:Key="Safety.A.InstalledApp">Uninstall from Windows Settings to remove it properly.</sys:String>
+    <sys:String x:Key="Safety.A.GameData">Uninstall from the launcher (Steam, Epic…) instead of deleting.</sys:String>
+    <sys:String x:Key="Safety.A.Recovery">Use Windows System Protection to free this up.</sys:String>
+    <sys:String x:Key="Safety.A.UserData">Check the contents first — documents and photos live here.</sys:String>
+    <sys:String x:Key="Safety.S.Hiberfil">Hibernation file. Don't delete it directly: turn off hibernation (powercfg /h off) and Windows removes it.</sys:String>
+    <sys:String x:Key="Safety.S.Pagefile">Windows virtual memory. Adjust it in System → Performance, don't delete.</sys:String>
+    <sys:String x:Key="Safety.S.WinSxS">Windows components. It looks huge, but much of it is links. Use Disk Cleanup.</sys:String>
+    <sys:String x:Key="Safety.S.WindowsOld">Your previous Windows install. It disappears on its own in 10 days; Disk Cleanup removes it safely.</sys:String>
+    <sys:String x:Key="Safety.S.Installer">Installer cache. Deleting it breaks uninstalling and repairing programs.</sys:String>
+    <sys:String x:Key="Safety.S.System32">The heart of Windows. Yes, it's big. No, don't delete it.</sys:String>
+    <sys:String x:Key="Safety.S.NodeModules">Project dependencies — "npm install" recreates them.</sys:String>
+    <sys:String x:Key="Safety.S.Git">Repository history. Deleting it loses every local commit.</sys:String>
+    <sys:String x:Key="Safety.S.SVI">Windows restore points and search index.</sys:String>
+
+    <!-- List mode / accessibility / undo -->
+    <sys:String x:Key="Map.ViewTreemap">Treemap</sys:String>
+    <sys:String x:Key="Map.ViewList">List</sys:String>
+    <sys:String x:Key="Map.ColShare">Share</sys:String>
+    <sys:String x:Key="Map.ColSafety">Safety</sys:String>
+    <sys:String x:Key="Map.ListEmpty">Scan a disk in Overview to see the list</sys:String>
+    <sys:String x:Key="Map.A11yName">Space map</sys:String>
+    <sys:String x:Key="Map.A11yHelp">Use the arrow keys to move between blocks, Enter to open a folder and Backspace to go up.</sys:String>
+    <sys:String x:Key="Map.A11yBlock">{0}, {1}, {2}% of the current view</sys:String>
+    <sys:String x:Key="St.ColorBlind">Colorblind-safe palette</sys:String>
+    <sys:String x:Key="St.ColorBlindNote">Swaps category colors for a palette that stays distinguishable with any type of color blindness.</sys:String>
+    <sys:String x:Key="Undo.Button">↶ Undo</sys:String>
+    <sys:String x:Key="Undo.Tooltip">Restore from the Recycle Bin: {0}</sys:String>
+    <sys:String x:Key="Undo.Done">{0} item(s) restored from the Recycle Bin.</sys:String>
+    <sys:String x:Key="Undo.Failed">Couldn't restore. The item may have left the Recycle Bin.</sys:String>
+    <sys:String x:Key="Del.SafetyWarning">&#10;&#10;⚠ {0}: {1}</sys:String>
+
 </ResourceDictionary>
