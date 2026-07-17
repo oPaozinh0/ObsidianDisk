@@ -13,6 +13,38 @@
     <sys:String x:Key="Nav.History">Histórico</sys:String>
     <sys:String x:Key="Nav.Settings">Configurações</sys:String>
 
+    <!-- Regras automáticas -->
+    <sys:String x:Key="Nav.Rules">Regras</sys:String>
+    <sys:String x:Key="Ru.NewRule">Nova regra</sys:String>
+    <sys:String x:Key="Ru.Desc">Arquivos que baterem com as condições são encontrados a cada scan. A ação (avisar ou enviar pra Lixeira) é sempre confirmada por você.</sys:String>
+    <sys:String x:Key="Ru.Name">Nome</sys:String>
+    <sys:String x:Key="Ru.Folder">Pasta</sys:String>
+    <sys:String x:Key="Ru.AnyFolder">Qualquer pasta</sys:String>
+    <sys:String x:Key="Ru.MinSize">Tamanho mín.</sys:String>
+    <sys:String x:Key="Ru.MinAge">Sem acesso há</sys:String>
+    <sys:String x:Key="Ru.Action">Ação</sys:String>
+    <sys:String x:Key="Ru.Add">Adicionar</sys:String>
+    <sys:String x:Key="Ru.Any">Qualquer</sys:String>
+    <sys:String x:Key="Ru.Days30">30 dias</sys:String>
+    <sys:String x:Key="Ru.Days90">90 dias</sys:String>
+    <sys:String x:Key="Ru.Days180">180 dias</sys:String>
+    <sys:String x:Key="Ru.Year1">1 ano</sys:String>
+    <sys:String x:Key="Ru.Year2">2 anos</sys:String>
+    <sys:String x:Key="Ru.ActNotify">Avisar</sys:String>
+    <sys:String x:Key="Ru.ActRecycle">Enviar pra Lixeira</sys:String>
+    <sys:String x:Key="Ru.Apply">Aplicar</sys:String>
+    <sys:String x:Key="Ru.Delete">Excluir</sys:String>
+    <sys:String x:Key="Ru.Empty">Nenhuma regra ainda. Crie uma acima.</sys:String>
+    <sys:String x:Key="Ru.Tip">Regras nunca deletam de forma permanente nem em silêncio — só avisam ou preparam o envio pra Lixeira (reversível com Desfazer).</sys:String>
+    <sys:String x:Key="Ru.AgePart">sem acesso há {0} dias</sys:String>
+    <sys:String x:Key="Ru.Matches">{0} arquivos · {1}</sys:String>
+    <sys:String x:Key="Ru.NameBoth">≥ {0} · {1} dias</sys:String>
+    <sys:String x:Key="Ru.NameSize">≥ {0}</sys:String>
+    <sys:String x:Key="Ru.NameAge">{0} dias sem uso</sys:String>
+    <sys:String x:Key="Ru.NameGeneric">Nova regra</sys:String>
+    <sys:String x:Key="Rule.NotifyTitle">Regras encontraram itens</sys:String>
+    <sys:String x:Key="Rule.NotifyMsg">{0} regra(s) com itens pra revisar — {1}.</sys:String>
+
     <!-- Descobertas -->
     <sys:String x:Key="Nav.Discoveries">Descobertas</sys:String>
     <sys:String x:Key="Dc.Title">Descobertas</sys:String>

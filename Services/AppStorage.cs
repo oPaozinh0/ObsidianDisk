@@ -19,6 +19,23 @@ public sealed class AppSettings
 
 public sealed record ScanRecord(DateTime Timestamp, string Path, long TotalBytes, long FileCount);
 
+/// <summary>Ação de uma regra. Só reversível — regras nunca deletam permanentemente.</summary>
+public enum RuleAction { Notify, Recycle }
+
+/// <summary>
+/// Regra automática "if-this-then-that": arquivos numa pasta acima de um tamanho e sem
+/// acesso há N dias → avisar ou enviar para a Lixeira. Avaliada ao fim de cada scan.
+/// </summary>
+public sealed class CleanupRule
+{
+    public string Name { get; set; } = "";
+    public bool Enabled { get; set; } = true;
+    public string Folder { get; set; } = "";  // escopo (caminho); vazio = toda a árvore escaneada
+    public long MinSizeBytes { get; set; }     // 0 = qualquer tamanho
+    public int MinAgeDays { get; set; }        // 0 = qualquer idade (por último acesso)
+    public RuleAction Action { get; set; } = RuleAction.Notify;
+}
+
 /// <summary>Persistência simples (JSON) em %LocalAppData%\ObsidianDisk.</summary>
 public static class AppStorage
 {
@@ -27,6 +44,7 @@ public static class AppStorage
 
     private static readonly string SettingsFile = Path.Combine(Dir, "settings.json");
     private static readonly string HistoryFile = Path.Combine(Dir, "history.json");
+    private static readonly string RulesFile = Path.Combine(Dir, "rules.json");
 
     private static readonly JsonSerializerOptions JsonOpts = new() { WriteIndented = true };
 
@@ -72,6 +90,27 @@ public static class AppStorage
                 history.RemoveRange(0, history.Count - 500);
             Directory.CreateDirectory(Dir);
             File.WriteAllText(HistoryFile, JsonSerializer.Serialize(history, JsonOpts));
+        }
+        catch { }
+    }
+
+    public static List<CleanupRule> LoadRules()
+    {
+        try
+        {
+            if (File.Exists(RulesFile))
+                return JsonSerializer.Deserialize<List<CleanupRule>>(File.ReadAllText(RulesFile)) ?? new();
+        }
+        catch { }
+        return new();
+    }
+
+    public static void SaveRules(List<CleanupRule> rules)
+    {
+        try
+        {
+            Directory.CreateDirectory(Dir);
+            File.WriteAllText(RulesFile, JsonSerializer.Serialize(rules, JsonOpts));
         }
         catch { }
     }

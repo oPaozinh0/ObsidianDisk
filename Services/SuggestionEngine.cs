@@ -26,7 +26,7 @@ public static class SuggestionEngine
         if (RecurringGrower(path) is { } g)
             result.Add(new Suggestion(
                 L.F("Sg.Grower", g.Name, FileSystemNode.FormatSize(g.Total), g.Intervals + 1),
-                SuggestionAction.OpenMap, FindNode(root, g.FullPath)));
+                SuggestionAction.OpenMap, root.FindByPath(g.FullPath)));
 
         // 2. Artefatos de desenvolvimento acumulados.
         long dev = DiscoveryAnalyzer.DevJunk(root).Sum(d => d.Size);
@@ -74,16 +74,5 @@ public static class SuggestionEngine
         if (best is null) return null;
         var name = System.IO.Path.GetFileName(best.TrimEnd('\\', '/'));
         return new Grower(best, string.IsNullOrEmpty(name) ? best : name, totals[best], intervals[best]);
-    }
-
-    /// <summary>Localiza um nó pelo caminho na árvore em memória (podando por prefixo).</summary>
-    private static FileSystemNode? FindNode(FileSystemNode node, string fullPath)
-    {
-        if (string.Equals(node.FullPath, fullPath, StringComparison.OrdinalIgnoreCase)) return node;
-        if (!fullPath.StartsWith(node.FullPath, StringComparison.OrdinalIgnoreCase)) return null;
-        foreach (var child in node.Children)
-            if (child.IsDirectory && FindNode(child, fullPath) is { } found)
-                return found;
-        return null;
     }
 }
