@@ -2,73 +2,73 @@
 
 # 🔮 ObsidianDisk
 
-**Gerenciador visual de espaço em disco para Windows**
+**A modern visual disk space manager for Windows**
 
-Descubra o que está ocupando seu disco, explore num treemap interativo em tempo real,
-encontre arquivos gigantes e duplicados, e libere espaço — tudo num app só.
+Find out what's eating your disk, explore it in a real-time interactive treemap,
+hunt down huge files and duplicates, and free up space — all in a single app.
 
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-7C5CFF?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 [![WPF](https://img.shields.io/badge/WPF-Windows-3B82F6?logo=windows&logoColor=white)](#)
-[![Licença MIT](https://img.shields.io/badge/Licen%C3%A7a-MIT-22C55E)](LICENSE)
+[![MIT License](https://img.shields.io/badge/License-MIT-22C55E)](LICENSE)
 [![Windows 10/11](https://img.shields.io/badge/Windows-10%20%7C%2011-14B8A6?logo=windows11&logoColor=white)](#)
 
-<img src="docs/screenshot-overview.png" alt="ObsidianDisk — Visão Geral" width="850"/>
+<img src="docs/screenshot-overview.png" alt="ObsidianDisk — Overview" width="850"/>
 
 </div>
 
 ---
 
-## ✨ Recursos
+## ✨ Features
 
-- **🏠 Visão Geral** — painel com uso do disco, blocos semânticos (Programas, Jogos, Windows, Usuários, Arquivos Temp…) e espaço por categoria de arquivo
-- **🗺️ Mapa de Espaço** — treemap *squarified* estilo SpaceSniffer que se monta **ao vivo durante o scan**; duplo clique aprofunda, breadcrumb navega, tooltip mostra detalhes, filtros por categoria e por arquivos antigos
-- **📄 Arquivos Grandes** — os maiores arquivos do disco, filtráveis por tamanho mínimo, com exclusão direta
-- **👯 Duplicados** — detecção em 3 estágios (tamanho → hash parcial → SHA-256 completo); mantém a cópia mais recente e mostra quanto dá para recuperar
-- **🧹 Limpeza** — um clique para limpar Temp do usuário, Temp do Windows, cache do Windows Update, miniaturas, relatórios de erro e Lixeira
-- **📈 Histórico** — cada scan vira um registro persistente: gráfico de evolução, estatísticas, tendência de crescimento, projeção de esgotamento do disco e exportação CSV
-- **🗑️ Exclusão segura** — para a Lixeira (com desfazer) ou permanente, sempre com confirmação clara
-- **🌙 Interface moderna** — tema escuro completo, janela sem bordas com barra de título personalizada, tudo num único `.exe` sem dependências
+- **🏠 Overview** — dashboard with disk usage, semantic space blocks (Programs, Games, Windows, Users, Temp Files…) and per-category breakdown
+- **🗺️ Space Map** — SpaceSniffer-style *squarified* treemap that builds **live while scanning**; double-click to drill down, breadcrumb navigation, hover tooltips, filters by category and by old files
+- **📄 Large Files** — the biggest files on your disk, filterable by minimum size, with in-app deletion
+- **👯 Duplicates** — 3-stage detection (size → partial hash → full SHA-256); keeps the most recent copy and shows how much space you can reclaim
+- **🧹 Cleanup** — one click to clear user Temp, Windows Temp, Windows Update cache, thumbnail cache, error reports and the Recycle Bin
+- **📈 History** — every scan becomes a persistent record: evolution chart, statistics, growth trend, disk-full projection and CSV export
+- **🗑️ Safe deletion** — to the Recycle Bin (undoable) or permanent, always with a clear confirmation
+- **🌙 Modern UI** — full dark theme, borderless window with custom title bar, shipped as a single dependency-free `.exe`
 
 ## 📥 Download
 
-Baixe o `.exe` mais recente na página de [**Releases**](../../releases) — não precisa instalar nada (nem o .NET): é um executável único e autossuficiente.
+Grab the latest `.exe` from the [**Releases**](../../releases) page — no installation required (not even .NET): it's a single self-contained executable.
 
-> 💡 Dica: `ObsidianDisk.exe "C:\alguma\pasta"` abre o app já escaneando o caminho informado.
+> 💡 Tip: `ObsidianDisk.exe "C:\some\folder"` opens the app already scanning that path.
 
-## 🔧 Compilar do código-fonte
+## 🔧 Build from source
 
-Requisitos: [.NET SDK 8.0+](https://dotnet.microsoft.com/download/dotnet/8.0) no Windows.
+Requirements: [.NET SDK 8.0+](https://dotnet.microsoft.com/download/dotnet/8.0) on Windows.
 
 ```powershell
 git clone https://github.com/oPaozinh0/ObsidianDisk.git
 cd ObsidianDisk
 dotnet publish -c Release
-# exe gerado em: bin\Release\net8.0-windows\win-x64\publish\ObsidianDisk.exe
+# output: bin\Release\net8.0-windows\win-x64\publish\ObsidianDisk.exe
 ```
 
-## 🏗️ Arquitetura
+## 🏗️ Architecture
 
-| Componente | Papel |
+| Component | Role |
 |---|---|
-| `Services/DiskScanner` | Varredura paralela com propagação atômica de tamanhos (renderização ao vivo) |
-| `Controls/TreemapControl` | Layout *squarified* + renderização direta via `OnRender` |
-| `Services/DuplicateFinder` | Detecção de duplicados em 3 estágios com hashing paralelo |
-| `Services/TempCleaner` | Medição e limpeza dos locais temporários do Windows |
-| `Services/SemanticGrouper` | Classifica pastas do disco em blocos semânticos |
-| `Views/*` | Páginas do painel (WPF, tema escuro próprio) |
+| `Services/DiskScanner` | Parallel scan with atomic size propagation (enables live rendering) |
+| `Controls/TreemapControl` | *Squarified* layout + direct rendering via `OnRender` |
+| `Services/DuplicateFinder` | 3-stage duplicate detection with parallel hashing |
+| `Services/TempCleaner` | Measures and cleans known Windows temp locations |
+| `Services/SemanticGrouper` | Classifies disk folders into semantic blocks |
+| `Views/*` | Dashboard pages (WPF, custom dark theme) |
 
-## 🤝 Contribuindo
+## 🤝 Contributing
 
-Issues e pull requests são bem-vindos! Se encontrou um bug ou tem uma ideia, [abra uma issue](../../issues).
+Issues and pull requests are welcome! Found a bug or have an idea? [Open an issue](../../issues).
 
-## ☕ Apoie o projeto
+## ☕ Support the project
 
-Se o ObsidianDisk te ajudou a recuperar uns gigas, considere pagar um café:
+If ObsidianDisk helped you reclaim a few gigabytes, consider buying me a coffee:
 
 <a href="https://www.buymeacoffee.com/oPaozinh0" target="_blank">
   <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="50"/>
 </a>
 
-## 📄 Licença
+## 📄 License
 
-Distribuído sob a licença [MIT](LICENSE).
+Distributed under the [MIT](LICENSE) license.
