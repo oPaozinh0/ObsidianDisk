@@ -12,6 +12,26 @@
     <sys:String x:Key="Nav.Cleanup">Bereinigung</sys:String>
     <sys:String x:Key="Nav.History">Verlauf</sys:String>
     <sys:String x:Key="Nav.Settings">Einstellungen</sys:String>
+
+    <!-- Entdeckungen -->
+    <sys:String x:Key="Nav.Discoveries">Entdeckungen</sys:String>
+    <sys:String x:Key="Dc.Title">Entdeckungen</sys:String>
+    <sys:String x:Key="Dc.ModeGhost">Vergessene Ordner</sys:String>
+    <sys:String x:Key="Dc.ModeExtensions">Verschwendete Dateitypen</sys:String>
+    <sys:String x:Key="Dc.ModeDevJunk">Entwicklungs-Artefakte</sys:String>
+    <sys:String x:Key="Dc.ModeOldFiles">Vergessene große Dateien</sys:String>
+    <sys:String x:Key="Dc.DescGhost">Große Ordner, die seit über einem Jahr nicht geändert wurden — zum Archivieren oder Löschen.</sys:String>
+    <sys:String x:Key="Dc.DescExtensions">Speicher nach meist wiederverwertbaren Dateitypen gruppiert (Logs, temporäre Dateien, Caches, Archive).</sys:String>
+    <sys:String x:Key="Dc.DescDevJunk">Build- und Abhängigkeitsordner, die Entwicklungswerkzeuge neu erzeugen (node_modules, bin, obj…).</sys:String>
+    <sys:String x:Key="Dc.DescOldFiles">Große Dateien, die Sie seit über einem Jahr nicht geöffnet haben.</sys:String>
+    <sys:String x:Key="Dc.ColName">Name</sys:String>
+    <sys:String x:Key="Dc.ColDetail">Ort</sys:String>
+    <sys:String x:Key="Dc.ColWhen">Datum</sys:String>
+    <sys:String x:Key="Dc.ColSize">Größe</sys:String>
+    <sys:String x:Key="Dc.Found">{0} Einträge · {1}</sys:String>
+    <sys:String x:Key="Dc.Empty">Hier nichts gefunden.</sys:String>
+    <sys:String x:Key="Dc.ScanFirst">Zuerst einen Scan durchführen.</sys:String>
+    <sys:String x:Key="Dc.FileCount">{0} Dateien</sys:String>
     <sys:String x:Key="Shell.Rescan">⟳  Neu analysieren</sys:String>
     <sys:String x:Key="Shell.NoScanYet">Noch keine Analyse</sys:String>
     <sys:String x:Key="Shell.LastScan">Letzte Analyse:&#10;{0}</sys:String>
