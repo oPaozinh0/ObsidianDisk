@@ -65,7 +65,7 @@ Issues and pull requests are welcome! Found a bug or have an idea? [Open an issu
 
 If ObsidianDisk helped you reclaim a few gigabytes, consider buying me a coffee:
 
-<a href="https://www.buymeacoffee.com/oPaozinh0" target="_blank">
+<a href="https://buymeacoffee.com/obsidiandisk" target="_blank">
   <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="50"/>
 </a>
 
