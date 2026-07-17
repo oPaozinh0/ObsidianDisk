@@ -15,15 +15,15 @@
                     </LinearGradientBrush>
                 </Border.Background>
                 <DockPanel LastChildFill="False">
+                    <controls:ObsidianButton x:Name="WelcomeScanButton" DockPanel.Dock="Right" Variant="Primary"
+                            Height="42" MinWidth="230" FontSize="14" VerticalAlignment="Center"
+                            Margin="12,0,0,0" Click="Scan_Click"/>
                     <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center">
                         <TextBlock Text="{StaticResource Ov.WelcomeTitle}" Foreground="{DynamicResource Text}"
                                    FontSize="16" FontWeight="Bold"/>
                         <TextBlock Text="{StaticResource Ov.WelcomeText}" Style="{StaticResource MutedText}"
                                    Margin="0,4,0,0" TextWrapping="Wrap" MaxWidth="560" HorizontalAlignment="Left"/>
                     </StackPanel>
-                    <controls:ObsidianButton x:Name="WelcomeScanButton" DockPanel.Dock="Right" Variant="Primary"
-                            Height="42" MinWidth="230" FontSize="14" VerticalAlignment="Center"
-                            Click="Scan_Click"/>
                 </DockPanel>
             </Border>
 
@@ -35,7 +35,17 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
+                    <!-- Controles de scan declarados primeiro: reservam a largura antes do título -->
                     <DockPanel Grid.Row="0" LastChildFill="False">
+                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center"
+                                    Margin="12,0,0,0">
+                            <ComboBox x:Name="DriveCombo" Style="{StaticResource DarkCombo}" Width="220" Height="36"
+                                      SelectionChanged="DriveCombo_SelectionChanged"/>
+                            <controls:ObsidianButton Variant="Ghost" Height="36" Margin="8,0,0,0"
+                                    Click="PickFolder_Click" Content="{StaticResource Ov.PickFolder}"/>
+                            <controls:ObsidianButton x:Name="ScanButton" Variant="Primary" Height="36"
+                                    Margin="8,0,0,0" Click="Scan_Click" Content="{StaticResource Ov.Scan}" MinWidth="120"/>
+                        </StackPanel>
                         <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
                             <TextBlock Text="&#xEDA2;" FontFamily="Segoe MDL2 Assets" FontSize="22"
                                        Foreground="{DynamicResource Accent}" VerticalAlignment="Center"/>
@@ -43,15 +53,6 @@
                                 <TextBlock x:Name="DiskTitle" Style="{StaticResource CardTitle}" Text="{StaticResource Ov.Disk}"/>
                                 <TextBlock x:Name="DiskSubtitle" Style="{StaticResource MutedText}" Text="{StaticResource Ov.SelectDrive}"/>
                             </StackPanel>
-                        </StackPanel>
-
-                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
-                            <ComboBox x:Name="DriveCombo" Style="{StaticResource DarkCombo}" Width="220" Height="36"
-                                      SelectionChanged="DriveCombo_SelectionChanged"/>
-                            <controls:ObsidianButton Variant="Ghost" Height="36" Margin="8,0,0,0"
-                                    Click="PickFolder_Click" Content="{StaticResource Ov.PickFolder}"/>
-                            <controls:ObsidianButton x:Name="ScanButton" Variant="Primary" Height="36"
-                                    Margin="8,0,0,0" Click="Scan_Click" Content="{StaticResource Ov.Scan}" MinWidth="120"/>
                         </StackPanel>
                     </DockPanel>
 

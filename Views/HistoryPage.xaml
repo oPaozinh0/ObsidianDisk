@@ -8,9 +8,8 @@
             <!-- Gráfico -->
             <Border Style="{StaticResource Card}">
                 <StackPanel>
+                    <!-- Controles à direita declarados primeiro: reservam a largura antes do título -->
                     <DockPanel LastChildFill="False">
-                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource CardTitle}"
-                                   Text="{StaticResource Hi.Title}" VerticalAlignment="Center"/>
                         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                             <controls:ObsidianButton Variant="Ghost" Height="32" Click="Export_Click"
                                     Content="{StaticResource Hi.Export}"/>
@@ -18,6 +17,8 @@
                                       Width="260" Height="32" Margin="10,0,0,0"
                                       SelectionChanged="PathCombo_Changed"/>
                         </StackPanel>
+                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource CardTitle}"
+                                   Text="{StaticResource Hi.Title}" VerticalAlignment="Center"/>
                     </DockPanel>
                     <Canvas x:Name="ChartCanvas" Height="190" Margin="0,14,0,0" ClipToBounds="True"
                             SizeChanged="Chart_SizeChanged"/>
@@ -65,10 +66,10 @@
                     Visibility="Collapsed">
                 <StackPanel>
                     <DockPanel LastChildFill="False" Margin="0,0,0,8">
-                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource CardTitle}"
-                                   Text="{StaticResource Hi.DiffTitle}" VerticalAlignment="Center"/>
                         <TextBlock x:Name="DiffSubtitle" DockPanel.Dock="Right" Style="{StaticResource MutedText}"
                                    VerticalAlignment="Center"/>
+                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource CardTitle}"
+                                   Text="{StaticResource Hi.DiffTitle}" VerticalAlignment="Center"/>
                     </DockPanel>
                     <Border x:Name="ExplainerBanner" Background="{DynamicResource Panel2}" CornerRadius="8"
                             Padding="12,10" Margin="0,0,0,10" Visibility="Collapsed">

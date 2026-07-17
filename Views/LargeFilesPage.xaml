@@ -9,14 +9,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <!-- Botões declarados primeiro: reservam a largura antes do conteúdo à esquerda -->
             <DockPanel Grid.Row="0" LastChildFill="False" Margin="0,0,0,10">
-                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource Lf.Title}" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="MinSizeCombo" Style="{StaticResource DarkCombo}" Width="140" Height="32"
-                              Margin="16,0,0,0" SelectionChanged="MinSize_Changed"/>
-                    <TextBlock x:Name="CountText" Style="{StaticResource MutedText}" Margin="12,0,0,0"
-                               VerticalAlignment="Center"/>
-                </StackPanel>
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                     <TextBlock x:Name="CheckedText" Style="{StaticResource MutedText}" Margin="0,0,12,0"
                                VerticalAlignment="Center"/>
@@ -25,8 +19,15 @@
                     <controls:ObsidianButton Variant="Ghost" Height="32" Margin="8,0,0,0" Click="DeleteRecycle_Click"
                             Content="{StaticResource Lf.Recycle}"/>
                     <controls:ObsidianButton x:Name="DeletePermanentButton" Variant="Danger" Height="32"
-                            Margin="8,0,0,0" Click="DeletePermanent_Click" 
+                            Margin="8,0,0,0" Click="DeletePermanent_Click"
                             Content="{StaticResource Lf.Permanent}"/>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource Lf.Title}" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="MinSizeCombo" Style="{StaticResource DarkCombo}" Width="140" Height="32"
+                              Margin="16,0,0,0" SelectionChanged="MinSize_Changed"/>
+                    <TextBlock x:Name="CountText" Style="{StaticResource MutedText}" Margin="12,0,0,0"
+                               VerticalAlignment="Center"/>
                 </StackPanel>
             </DockPanel>
 
