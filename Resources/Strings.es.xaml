@@ -12,6 +12,26 @@
     <sys:String x:Key="Nav.Cleanup">Limpieza</sys:String>
     <sys:String x:Key="Nav.History">Historial</sys:String>
     <sys:String x:Key="Nav.Settings">Configuración</sys:String>
+
+    <!-- Descubrimientos -->
+    <sys:String x:Key="Nav.Discoveries">Descubrimientos</sys:String>
+    <sys:String x:Key="Dc.Title">Descubrimientos</sys:String>
+    <sys:String x:Key="Dc.ModeGhost">Carpetas olvidadas</sys:String>
+    <sys:String x:Key="Dc.ModeExtensions">Extensiones desperdiciadas</sys:String>
+    <sys:String x:Key="Dc.ModeDevJunk">Artefactos de desarrollo</sys:String>
+    <sys:String x:Key="Dc.ModeOldFiles">Archivos grandes olvidados</sys:String>
+    <sys:String x:Key="Dc.DescGhost">Carpetas grandes que no modificas hace más de un año — candidatas a archivar o eliminar.</sys:String>
+    <sys:String x:Key="Dc.DescExtensions">Espacio agrupado por tipos de archivo normalmente recuperables (registros, temporales, cachés, comprimidos).</sys:String>
+    <sys:String x:Key="Dc.DescDevJunk">Carpetas de compilación y dependencias que las herramientas de desarrollo regeneran (node_modules, bin, obj…).</sys:String>
+    <sys:String x:Key="Dc.DescOldFiles">Archivos grandes que no abres hace más de un año.</sys:String>
+    <sys:String x:Key="Dc.ColName">Nombre</sys:String>
+    <sys:String x:Key="Dc.ColDetail">Ubicación</sys:String>
+    <sys:String x:Key="Dc.ColWhen">Fecha</sys:String>
+    <sys:String x:Key="Dc.ColSize">Tamaño</sys:String>
+    <sys:String x:Key="Dc.Found">{0} elementos · {1}</sys:String>
+    <sys:String x:Key="Dc.Empty">No se encontró nada aquí.</sys:String>
+    <sys:String x:Key="Dc.ScanFirst">Haz un análisis primero.</sys:String>
+    <sys:String x:Key="Dc.FileCount">{0} archivos</sys:String>
     <sys:String x:Key="Shell.Rescan">⟳  Reanalizar</sys:String>
     <sys:String x:Key="Shell.NoScanYet">Sin análisis todavía</sys:String>
     <sys:String x:Key="Shell.LastScan">Último análisis:&#10;{0}</sys:String>

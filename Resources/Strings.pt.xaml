@@ -12,6 +12,26 @@
     <sys:String x:Key="Nav.Cleanup">Limpeza</sys:String>
     <sys:String x:Key="Nav.History">Histórico</sys:String>
     <sys:String x:Key="Nav.Settings">Configurações</sys:String>
+
+    <!-- Descobertas -->
+    <sys:String x:Key="Nav.Discoveries">Descobertas</sys:String>
+    <sys:String x:Key="Dc.Title">Descobertas</sys:String>
+    <sys:String x:Key="Dc.ModeGhost">Pastas esquecidas</sys:String>
+    <sys:String x:Key="Dc.ModeExtensions">Extensões desperdiçadas</sys:String>
+    <sys:String x:Key="Dc.ModeDevJunk">Artefatos de desenvolvimento</sys:String>
+    <sys:String x:Key="Dc.ModeOldFiles">Arquivos grandes esquecidos</sys:String>
+    <sys:String x:Key="Dc.DescGhost">Pastas grandes que você não modifica há mais de um ano — candidatas a arquivar ou remover.</sys:String>
+    <sys:String x:Key="Dc.DescExtensions">Espaço somado por tipos de arquivo geralmente recuperáveis (logs, temporários, caches, arquivões).</sys:String>
+    <sys:String x:Key="Dc.DescDevJunk">Pastas de build e dependências que as ferramentas de desenvolvimento recriam (node_modules, bin, obj…).</sys:String>
+    <sys:String x:Key="Dc.DescOldFiles">Arquivos grandes que você não abre há mais de um ano.</sys:String>
+    <sys:String x:Key="Dc.ColName">Nome</sys:String>
+    <sys:String x:Key="Dc.ColDetail">Local</sys:String>
+    <sys:String x:Key="Dc.ColWhen">Data</sys:String>
+    <sys:String x:Key="Dc.ColSize">Tamanho</sys:String>
+    <sys:String x:Key="Dc.Found">{0} itens · {1}</sys:String>
+    <sys:String x:Key="Dc.Empty">Nada encontrado aqui.</sys:String>
+    <sys:String x:Key="Dc.ScanFirst">Faça um scan primeiro.</sys:String>
+    <sys:String x:Key="Dc.FileCount">{0} arquivos</sys:String>
     <sys:String x:Key="Shell.Rescan">⟳  Reanalisar</sys:String>
     <sys:String x:Key="Shell.NoScanYet">Nenhuma análise ainda</sys:String>
     <sys:String x:Key="Shell.LastScan">Última análise:&#10;{0}</sys:String>

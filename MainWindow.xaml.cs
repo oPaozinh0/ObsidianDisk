@@ -71,6 +71,7 @@ public partial class MainWindow : Window
 
         LargeFilesPage.DeleteRequested += DeleteNodes;
         DuplicatesPage.DeleteRequested += DeleteNodes;
+        DiscoveriesPage.DeleteRequested += DeleteNodes;
 
         PreviewKeyDown += OnKeyDown;
         StateChanged += (_, _) => OnWindowStateChanged();
@@ -250,13 +251,14 @@ public partial class MainWindow : Window
         MapPage.Visibility = ReferenceEquals(sender, NavMap) ? Visibility.Visible : Visibility.Collapsed;
         LargeFilesPage.Visibility = ReferenceEquals(sender, NavLargeFiles) ? Visibility.Visible : Visibility.Collapsed;
         DuplicatesPage.Visibility = ReferenceEquals(sender, NavDuplicates) ? Visibility.Visible : Visibility.Collapsed;
+        DiscoveriesPage.Visibility = ReferenceEquals(sender, NavDiscoveries) ? Visibility.Visible : Visibility.Collapsed;
         CleanupPage.Visibility = ReferenceEquals(sender, NavCleanup) ? Visibility.Visible : Visibility.Collapsed;
         HistoryPage.Visibility = ReferenceEquals(sender, NavHistory) ? Visibility.Visible : Visibility.Collapsed;
         SettingsPage.Visibility = ReferenceEquals(sender, NavSettings) ? Visibility.Visible : Visibility.Collapsed;
 
         // Anima a página que acabou de aparecer
         foreach (FrameworkElement page in new FrameworkElement[]
-                 { OverviewPage, MapPage, LargeFilesPage, DuplicatesPage, CleanupPage, HistoryPage, SettingsPage })
+                 { OverviewPage, MapPage, LargeFilesPage, DuplicatesPage, DiscoveriesPage, CleanupPage, HistoryPage, SettingsPage })
             if (page.Visibility == Visibility.Visible)
                 Controls.Animate.PageIn(page);
 
@@ -404,6 +406,7 @@ public partial class MainWindow : Window
         OverviewPage.UpdateFromScan(_scanRoot);
         LargeFilesPage.UpdateFromScan(_scanRoot);
         DuplicatesPage.UpdateFromScan(_scanRoot);
+        DiscoveriesPage.UpdateFromScan(_scanRoot);
         MapPage.Refresh();
         HistoryPage.Reload();
     }

@@ -12,6 +12,26 @@
     <sys:String x:Key="Nav.Cleanup">Cleanup</sys:String>
     <sys:String x:Key="Nav.History">History</sys:String>
     <sys:String x:Key="Nav.Settings">Settings</sys:String>
+
+    <!-- Discoveries -->
+    <sys:String x:Key="Nav.Discoveries">Discoveries</sys:String>
+    <sys:String x:Key="Dc.Title">Discoveries</sys:String>
+    <sys:String x:Key="Dc.ModeGhost">Forgotten folders</sys:String>
+    <sys:String x:Key="Dc.ModeExtensions">Wasted extensions</sys:String>
+    <sys:String x:Key="Dc.ModeDevJunk">Dev artifacts</sys:String>
+    <sys:String x:Key="Dc.ModeOldFiles">Forgotten large files</sys:String>
+    <sys:String x:Key="Dc.DescGhost">Large folders you haven't modified in over a year — candidates to archive or remove.</sys:String>
+    <sys:String x:Key="Dc.DescExtensions">Space grouped by file types that are usually reclaimable (logs, temp, caches, archives).</sys:String>
+    <sys:String x:Key="Dc.DescDevJunk">Build and dependency folders that dev tools regenerate (node_modules, bin, obj…).</sys:String>
+    <sys:String x:Key="Dc.DescOldFiles">Large files you haven't opened in over a year.</sys:String>
+    <sys:String x:Key="Dc.ColName">Name</sys:String>
+    <sys:String x:Key="Dc.ColDetail">Location</sys:String>
+    <sys:String x:Key="Dc.ColWhen">Date</sys:String>
+    <sys:String x:Key="Dc.ColSize">Size</sys:String>
+    <sys:String x:Key="Dc.Found">{0} items · {1}</sys:String>
+    <sys:String x:Key="Dc.Empty">Nothing found here.</sys:String>
+    <sys:String x:Key="Dc.ScanFirst">Run a scan first.</sys:String>
+    <sys:String x:Key="Dc.FileCount">{0} files</sys:String>
     <sys:String x:Key="Shell.Rescan">⟳  Rescan</sys:String>
     <sys:String x:Key="Shell.NoScanYet">No scan yet</sys:String>
     <sys:String x:Key="Shell.LastScan">Last scan:&#10;{0}</sys:String>
