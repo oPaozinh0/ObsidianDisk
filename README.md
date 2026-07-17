@@ -42,6 +42,7 @@ A SpaceSniffer-style **squarified treemap** that builds **live while scanning** 
 
 - **List mode** — the same tree ranked with **length bars** instead of areas. Comparing rectangle areas is genuinely hard for the eye; length is far more accurate — and the list is natively readable by screen readers.
 - **Navigation** — double-click drills into a folder, `Backspace` or the *Up* button goes back, and a **breadcrumb** (with folder/file icons and an overflow `…` for long paths) shows and jumps along the path.
+- **Guided drill-down** — a *"Where did it go?"* button dives automatically into the largest folder, step by step, until it reaches the culprit eating your space.
 - **Hover tooltip** — path, size, type, modified date, and a **safety verdict** (see below).
 - **Filters** — show only one category (e.g. just videos), or dim everything modified in the last year so the old, forgotten files stand out.
 - **Keyboard** — arrow keys move between blocks, `Enter` drills in, the Menu key opens actions.
@@ -70,10 +71,10 @@ Four focused analyses over your last scan, all in one page:
 Every result is actionable — open in Explorer, send to the Recycle Bin, or delete permanently, all with Undo.
 
 ### 🧹 Cleanup
-One click to reclaim space from known junk locations — user Temp, Windows Temp, Windows Update cache, thumbnail cache, Windows error reports, and the Recycle Bin. Sizes are measured up front, the button shows how much you'll free, and items in use are skipped safely. Includes a **"Restart as administrator"** button to reach protected system files.
+One click to reclaim space from known junk locations — user Temp, Windows Temp, Windows Update cache, thumbnail cache, Windows error reports, and the Recycle Bin. Pick a **Conservative** or **Aggressive** profile to choose what gets cleaned in one move, or fine-tune the selection yourself. Sizes are measured up front, the button shows how much you'll free, and items in use are skipped safely. Includes a **"Restart as administrator"** button to reach protected system files.
 
 ### 📈 History
-Every completed scan is saved. The History page draws an **evolution chart**, min/avg/max statistics, a growth trend, a **disk-full projection** ("at this rate the disk fills up around …"), and exports the whole history to CSV.
+Every completed scan is saved. The History page draws an **evolution chart**, min/avg/max statistics, a growth trend, a **disk-full projection** ("at this rate the disk fills up around …"), and exports the whole history to CSV. A **"What changed"** card compares your two latest scans and highlights the folders that grew or shrank the most — topped by a plain-language **explanation of where your space went** (*"Since Jul 10, this disk grew 12 GB — most of it from Downloads"*).
 
 ### 🔔 Disk-full alert
 ObsidianDisk warns you **before** the disk fills up: a native Windows notification when usage crosses a threshold (configurable — 80/85/90/95%, default 90%) or when the growth projection says the drive will fill up soon. It alerts once per session and re-arms when things go back to normal.
