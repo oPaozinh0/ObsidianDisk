@@ -54,7 +54,7 @@
                                         <Border Width="9" Height="9" CornerRadius="4.5"
                                                 Background="{Binding CategoryBrush}" VerticalAlignment="Center"/>
                                         <TextBlock Text="{Binding CategoryLabel}" Margin="7,0,0,0" FontSize="12"
-                                                   Foreground="{StaticResource Muted}" VerticalAlignment="Center"/>
+                                                   Foreground="{DynamicResource Muted}" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -70,7 +70,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Directory}" TextTrimming="CharacterEllipsis"
-                                               FontSize="12" Foreground="{StaticResource Muted}"/>
+                                               FontSize="12" Foreground="{DynamicResource Muted}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

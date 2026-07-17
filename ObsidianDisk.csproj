@@ -12,8 +12,8 @@
     <ApplicationIcon>Assets\app.ico</ApplicationIcon>
 
     <!-- Identidade -->
-    <Version>1.4.2</Version>
-    <FileVersion>1.4.2.0</FileVersion>
+    <Version>1.4.3</Version>
+    <FileVersion>1.4.3.0</FileVersion>
     <AssemblyTitle>ObsidianDisk</AssemblyTitle>
     <Product>ObsidianDisk — Gerenciador de Disco</Product>
     <Authors>Davi Oliveira</Authors>

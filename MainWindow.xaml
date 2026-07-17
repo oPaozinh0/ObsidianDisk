@@ -6,7 +6,7 @@
         Title="{StaticResource App.WindowTitle}"
         Icon="Assets/app.ico"
         Height="820" Width="1320" MinHeight="560" MinWidth="900"
-        Background="{StaticResource Bg}"
+        Background="{DynamicResource Bg}"
         FontFamily="{StaticResource AppFont}"
         TextOptions.TextRenderingMode="Grayscale"
         UseLayoutRounding="True"
@@ -17,7 +17,7 @@
                       GlassFrameThickness="0" UseAeroCaptionButtons="False"/>
     </WindowChrome.WindowChrome>
 
-    <Border x:Name="RootBorder" Background="{StaticResource Bg}">
+    <Border x:Name="RootBorder" Background="{DynamicResource Bg}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="44"/>   <!-- barra de título -->
@@ -27,17 +27,17 @@
             </Grid.RowDefinitions>
 
             <!-- ===== Barra de título personalizada ===== -->
-            <Border Grid.Row="0" Background="{StaticResource Panel}"
-                    BorderBrush="{StaticResource Stroke}" BorderThickness="0,0,0,1">
+            <Border Grid.Row="0" Background="{DynamicResource Panel}"
+                    BorderBrush="{DynamicResource Stroke}" BorderThickness="0,0,0,1">
                 <DockPanel LastChildFill="False">
                     <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Margin="14,0,0,0"
                                 VerticalAlignment="Center">
-                        <Path Data="M 12 0 L 24 9 L 19 24 L 5 24 L 0 9 Z" Fill="{StaticResource Accent}"
+                        <Path Data="M 12 0 L 24 9 L 19 24 L 5 24 L 0 9 Z" Fill="{DynamicResource Accent}"
                               Width="18" Height="18" Stretch="Uniform" VerticalAlignment="Center"/>
                         <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
-                            <TextBlock Text="ObsidianDisk" Foreground="{StaticResource Text}" FontSize="13.5"
+                            <TextBlock Text="ObsidianDisk" Foreground="{DynamicResource Text}" FontSize="13.5"
                                        FontWeight="Bold"/>
-                            <TextBlock Text="{StaticResource App.Subtitle}" Foreground="{StaticResource Muted}"
+                            <TextBlock Text="{StaticResource App.Subtitle}" Foreground="{DynamicResource Muted}"
                                        FontSize="10"/>
                         </StackPanel>
                     </StackPanel>
@@ -56,16 +56,16 @@
             </Border>
 
             <!-- ===== Progresso global ===== -->
-            <Border x:Name="ProgressPanel" Grid.Row="1" Background="{StaticResource Panel}"
+            <Border x:Name="ProgressPanel" Grid.Row="1" Background="{DynamicResource Panel}"
                     Padding="16,8" Visibility="Collapsed"
-                    BorderBrush="{StaticResource Stroke}" BorderThickness="0,0,0,1">
+                    BorderBrush="{DynamicResource Stroke}" BorderThickness="0,0,0,1">
                 <StackPanel>
                     <ProgressBar x:Name="ScanProgressBar" Style="{StaticResource SlimProgress}"
                                  IsIndeterminate="True" Maximum="100"/>
                     <DockPanel Margin="0,6,0,0" LastChildFill="False">
-                        <TextBlock x:Name="ProgressText" DockPanel.Dock="Left" Foreground="{StaticResource Muted}"
+                        <TextBlock x:Name="ProgressText" DockPanel.Dock="Left" Foreground="{DynamicResource Muted}"
                                    FontSize="12" TextTrimming="CharacterEllipsis"/>
-                        <TextBlock x:Name="ProgressStats" DockPanel.Dock="Right" Foreground="{StaticResource Text}"
+                        <TextBlock x:Name="ProgressStats" DockPanel.Dock="Right" Foreground="{DynamicResource Text}"
                                    FontSize="12" FontWeight="SemiBold"/>
                     </DockPanel>
                 </StackPanel>
@@ -79,8 +79,8 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Sidebar -->
-                <Border Grid.Column="0" Background="{StaticResource Panel}"
-                        BorderBrush="{StaticResource Stroke}" BorderThickness="0,0,1,0">
+                <Border Grid.Column="0" Background="{DynamicResource Panel}"
+                        BorderBrush="{DynamicResource Stroke}" BorderThickness="0,0,1,0">
                     <DockPanel LastChildFill="False">
                         <StackPanel DockPanel.Dock="Top" Margin="0,10,0,0">
                             <RadioButton x:Name="NavOverview" Style="{StaticResource NavButton}" Tag="&#xE80F;"
@@ -121,16 +121,16 @@
             </Grid>
 
             <!-- ===== Barra de status ===== -->
-            <Border Grid.Row="3" Background="{StaticResource Panel}" Padding="16,7"
-                    BorderBrush="{StaticResource Stroke}" BorderThickness="0,1,0,0">
+            <Border Grid.Row="3" Background="{DynamicResource Panel}" Padding="16,7"
+                    BorderBrush="{DynamicResource Stroke}" BorderThickness="0,1,0,0">
                 <DockPanel LastChildFill="True">
-                    <TextBlock x:Name="VersionText" DockPanel.Dock="Right" Foreground="{StaticResource Muted}"
+                    <TextBlock x:Name="VersionText" DockPanel.Dock="Right" Foreground="{DynamicResource Muted}"
                                FontSize="11" Opacity="0.7" VerticalAlignment="Center" Margin="16,0,0,0"/>
                     <controls:ObsidianButton x:Name="UndoButton" DockPanel.Dock="Right" Variant="Ghost"
                             Height="26" Padding="10,2" FontSize="11.5" Margin="16,0,0,0"
                             VerticalAlignment="Center" Visibility="Collapsed" Click="Undo_Click"
                             Content="{StaticResource Undo.Button}"/>
-                    <TextBlock x:Name="StatusText" Foreground="{StaticResource Muted}" FontSize="12"
+                    <TextBlock x:Name="StatusText" Foreground="{DynamicResource Muted}" FontSize="12"
                                TextTrimming="CharacterEllipsis" VerticalAlignment="Center"
                                Text="{StaticResource Shell.Ready}"/>
                 </DockPanel>

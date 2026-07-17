@@ -16,7 +16,7 @@
                 </Border.Background>
                 <DockPanel LastChildFill="False">
                     <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center">
-                        <TextBlock Text="{StaticResource Ov.WelcomeTitle}" Foreground="{StaticResource Text}"
+                        <TextBlock Text="{StaticResource Ov.WelcomeTitle}" Foreground="{DynamicResource Text}"
                                    FontSize="16" FontWeight="Bold"/>
                         <TextBlock Text="{StaticResource Ov.WelcomeText}" Style="{StaticResource MutedText}"
                                    Margin="0,4,0,0" TextWrapping="Wrap" MaxWidth="560" HorizontalAlignment="Left"/>
@@ -38,7 +38,7 @@
                     <DockPanel Grid.Row="0" LastChildFill="False">
                         <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
                             <TextBlock Text="&#xEDA2;" FontFamily="Segoe MDL2 Assets" FontSize="22"
-                                       Foreground="{StaticResource Accent}" VerticalAlignment="Center"/>
+                                       Foreground="{DynamicResource Accent}" VerticalAlignment="Center"/>
                             <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
                                 <TextBlock x:Name="DiskTitle" Style="{StaticResource CardTitle}" Text="{StaticResource Ov.Disk}"/>
                                 <TextBlock x:Name="DiskSubtitle" Style="{StaticResource MutedText}" Text="{StaticResource Ov.SelectDrive}"/>
@@ -71,7 +71,7 @@
                             </DockPanel>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Margin="24,0,0,0" VerticalAlignment="Center">
-                            <TextBlock x:Name="PercentText" Foreground="{StaticResource Text}" FontSize="30"
+                            <TextBlock x:Name="PercentText" Foreground="{DynamicResource Text}" FontSize="30"
                                        FontWeight="Bold" Text="—" HorizontalAlignment="Right"/>
                             <TextBlock Text="{StaticResource Ov.CurrentUse}" Style="{StaticResource MutedText}" HorizontalAlignment="Right"/>
                         </StackPanel>
@@ -86,10 +86,10 @@
                     <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource Ov.Recommendations}"/>
                     <UniformGrid Columns="3" Margin="0,12,0,0">
 
-                        <Border Background="{StaticResource Panel2}" CornerRadius="10" Padding="14,12"
+                        <Border Background="{DynamicResource Panel2}" CornerRadius="10" Padding="14,12"
                                 Margin="0,0,10,0">
                             <StackPanel>
-                                <TextBlock Text="{StaticResource Ov.RecTempTitle}" Foreground="{StaticResource Text}"
+                                <TextBlock Text="{StaticResource Ov.RecTempTitle}" Foreground="{DynamicResource Text}"
                                            FontWeight="SemiBold" FontSize="13"/>
                                 <TextBlock x:Name="RecTempText" Style="{StaticResource MutedText}" Margin="0,4,0,10"
                                            TextWrapping="Wrap" Text="{StaticResource Ov.RecTempMeasuring}"/>
@@ -98,10 +98,10 @@
                             </StackPanel>
                         </Border>
 
-                        <Border Background="{StaticResource Panel2}" CornerRadius="10" Padding="14,12"
+                        <Border Background="{DynamicResource Panel2}" CornerRadius="10" Padding="14,12"
                                 Margin="0,0,10,0">
                             <StackPanel>
-                                <TextBlock Text="{StaticResource Ov.RecLargeTitle}" Foreground="{StaticResource Text}"
+                                <TextBlock Text="{StaticResource Ov.RecLargeTitle}" Foreground="{DynamicResource Text}"
                                            FontWeight="SemiBold" FontSize="13"/>
                                 <TextBlock x:Name="RecLargeText" Style="{StaticResource MutedText}" Margin="0,4,0,10"
                                            TextWrapping="Wrap"/>
@@ -110,9 +110,9 @@
                             </StackPanel>
                         </Border>
 
-                        <Border Background="{StaticResource Panel2}" CornerRadius="10" Padding="14,12">
+                        <Border Background="{DynamicResource Panel2}" CornerRadius="10" Padding="14,12">
                             <StackPanel>
-                                <TextBlock Text="{StaticResource Ov.RecDupTitle}" Foreground="{StaticResource Text}"
+                                <TextBlock Text="{StaticResource Ov.RecDupTitle}" Foreground="{DynamicResource Text}"
                                            FontWeight="SemiBold" FontSize="13"/>
                                 <TextBlock Style="{StaticResource MutedText}" Margin="0,4,0,10" TextWrapping="Wrap"
                                            Text="{StaticResource Ov.RecDupValue}"/>

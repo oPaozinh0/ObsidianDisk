@@ -33,7 +33,7 @@
                     <Border x:Name="ResultBanner" Background="#2A22C55E" BorderBrush="#8822C55E"
                             BorderThickness="1" CornerRadius="8" Padding="12,8" Margin="0,12,0,0"
                             Visibility="Collapsed">
-                        <TextBlock x:Name="ResultText" Foreground="{StaticResource Text}" FontSize="12.5"
+                        <TextBlock x:Name="ResultText" Foreground="{DynamicResource Text}" FontSize="12.5"
                                    TextWrapping="Wrap"/>
                     </Border>
                 </StackPanel>

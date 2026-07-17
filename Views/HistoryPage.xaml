@@ -37,24 +37,24 @@
                     <UniformGrid Columns="3" Margin="0,12,0,0">
                         <StackPanel Margin="0,0,16,0">
                             <TextBlock Text="{StaticResource Hi.Growth30}" Style="{StaticResource MutedText}"/>
-                            <TextBlock x:Name="Growth30Text" Foreground="{StaticResource Text}" FontSize="20"
+                            <TextBlock x:Name="Growth30Text" Foreground="{DynamicResource Text}" FontSize="20"
                                        FontWeight="Bold" Margin="0,4,0,0"/>
                         </StackPanel>
                         <StackPanel Margin="0,0,16,0">
                             <TextBlock Text="{StaticResource Hi.Projection}" Style="{StaticResource MutedText}"/>
-                            <TextBlock x:Name="ProjectionText" Foreground="{StaticResource Text}" FontSize="20"
+                            <TextBlock x:Name="ProjectionText" Foreground="{DynamicResource Text}" FontSize="20"
                                        FontWeight="Bold" Margin="0,4,0,0"/>
                         </StackPanel>
                         <StackPanel>
                             <TextBlock Text="{StaticResource Hi.FreeNow}" Style="{StaticResource MutedText}"/>
-                            <TextBlock x:Name="FreeNowText" Foreground="{StaticResource Text}" FontSize="20"
+                            <TextBlock x:Name="FreeNowText" Foreground="{DynamicResource Text}" FontSize="20"
                                        FontWeight="Bold" Margin="0,4,0,0"/>
                         </StackPanel>
                     </UniformGrid>
                     <Border x:Name="CapacityWarning" Background="#2AE0762F" BorderBrush="#88E0762F"
                             BorderThickness="1" CornerRadius="8" Padding="12,8" Margin="0,12,0,0"
                             Visibility="Collapsed">
-                        <TextBlock x:Name="CapacityWarningText" Foreground="{StaticResource Text}"
+                        <TextBlock x:Name="CapacityWarningText" Foreground="{DynamicResource Text}"
                                    FontSize="12.5" TextWrapping="Wrap"/>
                     </Border>
                 </StackPanel>
@@ -78,7 +78,7 @@
                                 <GridViewColumn Header="{StaticResource Hi.ColPath}" Width="360">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Path}" FontSize="12" Foreground="{StaticResource Muted}"
+                                            <TextBlock Text="{Binding Path}" FontSize="12" Foreground="{DynamicResource Muted}"
                                                        TextTrimming="CharacterEllipsis"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
