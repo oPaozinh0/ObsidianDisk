@@ -77,49 +77,77 @@ public partial class MapPage : UserControl
             chain.Add(n);
         chain.Reverse();
 
-        var crumbStyle = (Style)FindResource("CrumbButton");
-
-        for (int i = 0; i < chain.Count; i++)
+        // Colapsa níveis do meio quando o caminho é longo: primeiro › … › últimos 3
+        var display = new List<(FileSystemNode Node, bool Overflow)>();
+        if (chain.Count > 5)
         {
-            var target = chain[i];
-            bool isLast = i == chain.Count - 1;
-            string label = target.Name.TrimEnd('\\');
-
-            if (isLast)
-            {
-                // Segmento atual: pílula destacada em accent, sem clique
-                var pill = new Border
-                {
-                    CornerRadius = new CornerRadius(7),
-                    Padding = new Thickness(10, 4, 10, 4),
-                    VerticalAlignment = VerticalAlignment.Center,
-                };
-                pill.SetResourceReference(Border.BackgroundProperty, "SelectedBg");
-                var text = new TextBlock { Text = label, FontSize = 12.5, FontWeight = FontWeights.SemiBold };
-                text.SetResourceReference(TextBlock.ForegroundProperty, "Accent");
-                pill.Child = text;
-                BreadcrumbPanel.Children.Add(pill);
-            }
-            else
-            {
-                var button = new Button { Style = crumbStyle, Content = label };
-                button.Click += (_, _) => SetViewRoot(target);
-                BreadcrumbPanel.Children.Add(button);
-
-                // Chevron separador
-                var sep = new TextBlock
-                {
-                    Text = ((char)0xE76C).ToString(), // Segoe MDL2 ChevronRight
-                    FontFamily = new FontFamily("Segoe MDL2 Assets"),
-                    FontSize = 9,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Thickness(3, 0, 3, 0),
-                    Opacity = 0.6,
-                };
-                sep.SetResourceReference(TextBlock.ForegroundProperty, "Muted");
-                BreadcrumbPanel.Children.Add(sep);
-            }
+            display.Add((chain[0], false));
+            display.Add((chain[^4], true)); // "…" salta para o ancestral oculto
+            for (int i = chain.Count - 3; i < chain.Count; i++) display.Add((chain[i], false));
         }
+        else
+        {
+            foreach (var n in chain) display.Add((n, false));
+        }
+
+        for (int i = 0; i < display.Count; i++)
+        {
+            var (target, overflow) = display[i];
+            bool isLast = i == display.Count - 1;
+
+            if (i > 0) BreadcrumbPanel.Children.Add(MakeChevron());
+            BreadcrumbPanel.Children.Add(MakeCrumb(target, isLast, overflow));
+        }
+    }
+
+    private TextBlock MakeChevron()
+    {
+        var sep = new TextBlock
+        {
+            Text = ((char)0xE76C).ToString(), // ChevronRight
+            FontFamily = new FontFamily("Segoe MDL2 Assets"),
+            FontSize = 8,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(4, 0, 4, 0),
+            Opacity = 0.55,
+        };
+        sep.SetResourceReference(TextBlock.ForegroundProperty, "Muted");
+        return sep;
+    }
+
+    private Button MakeCrumb(FileSystemNode node, bool isLast, bool overflow)
+    {
+        var row = new StackPanel { Orientation = Orientation.Horizontal, VerticalAlignment = VerticalAlignment.Center };
+
+        // Ícone: reticências (overflow), pasta ou arquivo
+        char glyph = overflow ? (char)0xE712 : node.IsDirectory ? (char)0xE8B7 : (char)0xE8A5;
+        var icon = new TextBlock
+        {
+            Text = glyph.ToString(),
+            FontFamily = new FontFamily("Segoe MDL2 Assets"),
+            FontSize = overflow ? 13 : 12,
+            VerticalAlignment = VerticalAlignment.Center,
+        };
+        icon.SetResourceReference(TextBlock.ForegroundProperty, isLast ? "Accent" : "Muted");
+        row.Children.Add(icon);
+
+        if (!overflow)
+        {
+            var label = new TextBlock
+            {
+                Text = node.Name.TrimEnd('\\'),
+                FontSize = 12.5,
+                FontWeight = isLast ? FontWeights.SemiBold : FontWeights.Normal,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(6, 0, 0, 0),
+            };
+            label.SetResourceReference(TextBlock.ForegroundProperty, isLast ? "Accent" : "Text");
+            row.Children.Add(label);
+        }
+
+        var button = new Button { Style = (Style)FindResource("CrumbButton"), Content = row };
+        button.Click += (_, _) => SetViewRoot(node);
+        return button;
     }
 
     // ---------------- Alternância mosaico / lista ----------------
