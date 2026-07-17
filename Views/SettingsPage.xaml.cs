@@ -96,9 +96,16 @@ public partial class SettingsPage : UserControl
         string theme = (string)(((ComboBoxItem)ThemeCombo.SelectedItem).Tag ?? "dark");
         bool colorBlind = ColorBlindSwitch.IsChecked == true;
         bool software = SoftwareRenderSwitch.IsChecked == true;
-        bool changed = lang != _settings.Language || theme != _settings.Theme
-                       || colorBlind != _settings.ColorBlindSafe
-                       || software != _settings.SoftwareRendering;
+
+        // Tema e daltonismo valem na hora. Idioma e renderização precisam reiniciar:
+        // o idioma porque as strings já estão espalhadas pela tela; a renderização
+        // porque o WPF fixa o motor (GPU/software) na criação da janela.
+        if (theme != _settings.Theme)
+            App.ApplyTheme(theme.Equals("light", StringComparison.OrdinalIgnoreCase));
+        if (colorBlind != _settings.ColorBlindSafe)
+            App.ApplyColorBlind(colorBlind);
+
+        bool needsRestart = lang != _settings.Language || software != _settings.SoftwareRendering;
 
         _settings.Language = lang;
         _settings.Theme = theme;
@@ -107,8 +114,7 @@ public partial class SettingsPage : UserControl
         AppStorage.SaveSettings(_settings);
         SettingsChanged?.Invoke(_settings);
 
-        // Idioma/tema aplicam na inicialização — oferece reiniciar já
-        if (changed && Controls.DarkDialog.Confirm(Window.GetWindow(this)!,
+        if (needsRestart && Controls.DarkDialog.Confirm(Window.GetWindow(this)!,
                 L.T("St.RestartTitle"), L.T("St.RestartMsg"),
                 confirmLabel: L.T("St.RestartNow"), cancelLabel: L.T("St.RestartLater")))
             App.Restart();

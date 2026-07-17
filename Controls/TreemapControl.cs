@@ -50,16 +50,31 @@ public sealed class TreemapControl : FrameworkElement
     private static readonly Typeface LabelFace = new(AppFontFamily, FontStyles.Normal, FontWeights.SemiBold, FontStretches.Normal);
     private static readonly Typeface SmallFace = new(AppFontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
 
-    private static readonly Brush DirHeaderText = Frozen(new SolidColorBrush(
-        App.IsLightTheme ? Color.FromRgb(0x3A, 0x43, 0x58) : Color.FromRgb(0xC9, 0xD1, 0xE0)));
+    private static Brush DirHeaderText = null!;
     private static readonly Brush FileText = Frozen(new SolidColorBrush(Color.FromArgb(0xE0, 0xFF, 0xFF, 0xFF)));
     private static readonly Pen HoverPen = FrozenPen(Color.FromRgb(0xA8, 0x8B, 0xFF), 2);
     private static readonly Pen SelectedPen = FrozenPen(Color.FromRgb(0xE5, 0xC0, 0x7B), 2);
 
-    private static readonly Brush[] DirFills = CreateDepthFills();
-    private static readonly Pen[] DirBorders = CreateDepthBorders();
-    private static readonly Dictionary<Services.FileCategory, Brush> CategoryFills =
-        Services.FileCategories.All.ToDictionary(c => c, c => Frozen(new SolidColorBrush(Services.FileCategories.MapColorOf(c))));
+    private static Brush[] DirFills = null!;
+    private static Pen[] DirBorders = null!;
+    private static Dictionary<Services.FileCategory, Brush> CategoryFills = null!;
+    private static Brush DimOverlay = null!;
+
+    static TreemapControl() => RebuildPalette();
+
+    /// <summary>Recalcula a paleta após troca de tema ou do modo daltônico.</summary>
+    public static void RebuildPalette()
+    {
+        DirHeaderText = Frozen(new SolidColorBrush(
+            App.IsLightTheme ? Color.FromRgb(0x3A, 0x43, 0x58) : Color.FromRgb(0xC9, 0xD1, 0xE0)));
+        DirFills = CreateDepthFills();
+        DirBorders = CreateDepthBorders();
+        CategoryFills = Services.FileCategories.All.ToDictionary(
+            c => c, c => Frozen(new SolidColorBrush(Services.FileCategories.MapColorOf(c))));
+        DimOverlay = Frozen(new SolidColorBrush(App.IsLightTheme
+            ? Color.FromArgb(0xB8, 0xF2, 0xF3, 0xF7)
+            : Color.FromArgb(0xB8, 0x0E, 0x11, 0x17)));
+    }
 
     public TreemapControl()
     {
@@ -254,8 +269,6 @@ public sealed class TreemapControl : FrameworkElement
         base.OnRenderSizeChanged(sizeInfo);
     }
 
-    private static readonly Brush DimOverlay = Frozen(new SolidColorBrush(
-        App.IsLightTheme ? Color.FromArgb(0xB8, 0xF2, 0xF3, 0xF7) : Color.FromArgb(0xB8, 0x0E, 0x11, 0x17)));
 
     private bool IsDimmed(FileSystemNode node)
     {

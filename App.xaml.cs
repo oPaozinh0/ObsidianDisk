@@ -8,8 +8,35 @@ public partial class App : Application
 {
     private static readonly string[] SupportedLanguages = { "pt", "en", "es", "fr", "de" };
 
-    /// <summary>Tema resolvido na inicialização (lido por controles desenhados em código).</summary>
+    /// <summary>Tema em vigor (lido por controles desenhados em código).</summary>
     public static bool IsLightTheme { get; private set; }
+
+    private static int _themeIndex = -1;
+
+    /// <summary>Troca o tema em tempo real: dicionário + paletas dos controles desenhados à mão.</summary>
+    public static void ApplyTheme(bool light)
+    {
+        IsLightTheme = light;
+        var dict = new ResourceDictionary
+        {
+            Source = new Uri($"Themes/{(light ? "Light" : "Dark")}.xaml", UriKind.Relative),
+        };
+
+        if (_themeIndex >= 0) Current.Resources.MergedDictionaries[_themeIndex] = dict;
+        else { Current.Resources.MergedDictionaries.Insert(0, dict); _themeIndex = 0; }
+
+        // Os controles desenhados em OnRender não usam DynamicResource: recalcule na mão
+        Controls.ObsidianButton.RebuildPalette();
+        Controls.TreemapControl.RebuildPalette();
+    }
+
+    /// <summary>Aplica a paleta daltônica em tempo real.</summary>
+    public static void ApplyColorBlind(bool safe)
+    {
+        FileCategories.ColorBlindSafe = safe;
+        Controls.TreemapControl.RebuildPalette();
+    }
+
 
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -24,11 +51,7 @@ public partial class App : Application
                 System.Windows.Interop.RenderMode.SoftwareOnly;
 
         // ---- Tema (o dicionário precisa entrar ANTES de qualquer estilo ser usado) ----
-        IsLightTheme = settings.Theme.Equals("light", StringComparison.OrdinalIgnoreCase);
-        Resources.MergedDictionaries.Add(new ResourceDictionary
-        {
-            Source = new Uri($"Themes/{(IsLightTheme ? "Light" : "Dark")}.xaml", UriKind.Relative),
-        });
+        ApplyTheme(settings.Theme.Equals("light", StringComparison.OrdinalIgnoreCase));
 
         // ---- Idioma: configuração > argumento --lang > idioma do Windows ----
         string lang = settings.Language;

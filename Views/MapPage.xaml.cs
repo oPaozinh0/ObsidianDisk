@@ -257,6 +257,13 @@ public partial class MapPage : UserControl
 
     // ---------------- Legenda ----------------
 
+    /// <summary>Reconstrói a legenda (cores mudam com tema/daltonismo).</summary>
+    public void RebuildLegend()
+    {
+        LegendPanel.Children.Clear();
+        BuildLegend();
+    }
+
     private void BuildLegend()
     {
         foreach (var cat in FileCategories.All)

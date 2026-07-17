@@ -34,6 +34,12 @@ public partial class MainWindow : Window
             _settings = s;
             LargeFilesPage.SetMinBytes(s.LargeFileMinBytes);
             SyncLiveWatcher();
+
+            // Tema/daltonismo mudam cores construídas em código (legenda, cards, mapa)
+            MapPage.RebuildLegend();
+            MapPage.Refresh();
+            LargeFilesPage.Refresh();
+            if (_scanRoot is not null) OverviewPage.UpdateFromScan(_scanRoot);
         };
         LargeFilesPage.SetMinBytes(_settings.LargeFileMinBytes);
 
