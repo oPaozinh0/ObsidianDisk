@@ -8,6 +8,7 @@ namespace ObsidianDisk.Views;
 public partial class SettingsPage : UserControl
 {
     private const string CoffeeUrl = "https://buymeacoffee.com/obsidiandisk";
+    private const string LivePixUrl = "https://livepix.gg/opaozinh0";
     private const string GitHubUrl = "https://github.com/oPaozinh0/ObsidianDisk";
 
     private static readonly (string Label, long Bytes)[] MinSizes =
@@ -107,6 +108,9 @@ public partial class SettingsPage : UserControl
 
     private void BuyCoffee_Click(object sender, RoutedEventArgs e) =>
         Process.Start(new ProcessStartInfo(CoffeeUrl) { UseShellExecute = true });
+
+    private void LivePix_Click(object sender, RoutedEventArgs e) =>
+        Process.Start(new ProcessStartInfo(LivePixUrl) { UseShellExecute = true });
 
     private void GitHub_Click(object sender, RoutedEventArgs e) =>
         Process.Start(new ProcessStartInfo(GitHubUrl) { UseShellExecute = true });

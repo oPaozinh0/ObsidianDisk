@@ -68,11 +68,17 @@ Issues and pull requests are welcome! Found a bug or have an idea? [Open an issu
 
 ## ☕ Support the project
 
-If ObsidianDisk helped you reclaim a few gigabytes, consider buying me a coffee:
+If ObsidianDisk helped you reclaim a few gigabytes, consider supporting its development:
 
 <a href="https://buymeacoffee.com/obsidiandisk" target="_blank">
   <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="50"/>
 </a>
+&nbsp;
+<a href="https://livepix.gg/opaozinh0" target="_blank">
+  <img src="https://img.shields.io/badge/LivePix-Doar%20via%20Pix-32BCAD?style=for-the-badge&logo=pix&logoColor=white" alt="LivePix — doar via Pix" height="50"/>
+</a>
+
+> 🇧🇷 **LivePix** accepts Pix — the easiest option if you're in Brazil.
 
 ## 📄 License
 

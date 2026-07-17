@@ -235,6 +235,7 @@
     <sys:String x:Key="St.Support">Support the project</sys:String>
     <sys:String x:Key="St.SupportText">If ObsidianDisk helped you reclaim a few gigabytes, consider supporting its development.</sys:String>
     <sys:String x:Key="St.BuyCoffee">☕ Buy Me a Coffee</sys:String>
+    <sys:String x:Key="St.LivePix">Donate via Pix</sys:String>
     <sys:String x:Key="St.GitHub">View on GitHub</sys:String>
     <sys:String x:Key="Tip.1">Tip: don't delete System32. Seriously.</sys:String>
     <sys:String x:Key="Tip.2">"New folder (7)" also counts as clutter.</sys:String>

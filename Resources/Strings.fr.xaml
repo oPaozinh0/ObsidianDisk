@@ -235,6 +235,7 @@
     <sys:String x:Key="St.Support">Soutenez le projet</sys:String>
     <sys:String x:Key="St.SupportText">Si ObsidianDisk vous a aidé à récupérer quelques gigas, pensez à soutenir son développement.</sys:String>
     <sys:String x:Key="St.BuyCoffee">☕ Buy Me a Coffee</sys:String>
+    <sys:String x:Key="St.LivePix">Faire un don (Pix)</sys:String>
     <sys:String x:Key="St.GitHub">Voir sur GitHub</sys:String>
     <sys:String x:Key="Tip.1">Astuce : ne supprimez pas System32. Sérieusement.</sys:String>
     <sys:String x:Key="Tip.2">« Nouveau dossier (7) » compte aussi comme du désordre.</sys:String>
