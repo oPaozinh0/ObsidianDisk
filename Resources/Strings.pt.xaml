@@ -16,7 +16,7 @@
     <sys:String x:Key="Shell.NoScanYet">Nenhuma análise ainda</sys:String>
     <sys:String x:Key="Shell.LastScan">Última análise:&#10;{0}</sys:String>
     <sys:String x:Key="Shell.Ready">Pronto.</sys:String>
-    <sys:String x:Key="Shell.UpdateAvailable">⬆ {0} disponível</sys:String>
+    <sys:String x:Key="Shell.UpdateAvailable">↑ {0} disponível</sys:String>
 
     <!-- Scan -->
     <sys:String x:Key="Scan.InvalidPath">Caminho inválido.</sys:String>
@@ -57,7 +57,7 @@
     <!-- Visão Geral -->
     <sys:String x:Key="Ov.Disk">Disco</sys:String>
     <sys:String x:Key="Ov.SelectDrive">Selecione uma unidade</sys:String>
-    <sys:String x:Key="Ov.PickFolder">📁  Pasta…</sys:String>
+    <sys:String x:Key="Ov.PickFolder">Pasta…</sys:String>
     <sys:String x:Key="Ov.PickFolderTitle">Escolha a pasta para analisar</sys:String>
     <sys:String x:Key="Ov.Scan">▶  Escanear</sys:String>
     <sys:String x:Key="Ov.CancelScan">✕  Cancelar</sys:String>
@@ -105,7 +105,7 @@
     <!-- Arquivos Grandes -->
     <sys:String x:Key="Lf.Title">Arquivos Grandes</sys:String>
     <sys:String x:Key="Lf.Open">Abrir no Explorer</sys:String>
-    <sys:String x:Key="Lf.Recycle">🗑  Lixeira</sys:String>
+    <sys:String x:Key="Lf.Recycle">Enviar para a Lixeira</sys:String>
     <sys:String x:Key="Lf.Permanent">⚠  Excluir permanentemente</sys:String>
     <sys:String x:Key="Lf.ColCategory">Categoria</sys:String>
     <sys:String x:Key="Lf.ColName">Nome</sys:String>
@@ -117,9 +117,9 @@
 
     <!-- Duplicados -->
     <sys:String x:Key="Dup.Title">Arquivos Duplicados</sys:String>
-    <sys:String x:Key="Dup.Search">🔍  Procurar duplicados</sys:String>
+    <sys:String x:Key="Dup.Search">Procurar duplicados</sys:String>
     <sys:String x:Key="Dup.CancelSearch">✕  Cancelar</sys:String>
-    <sys:String x:Key="Dup.DelRecycle">🗑  Excluir marcados (Lixeira)</sys:String>
+    <sys:String x:Key="Dup.DelRecycle">Excluir marcados (Lixeira)</sys:String>
     <sys:String x:Key="Dup.DelPermanent">⚠  Excluir marcados (permanente)</sys:String>
     <sys:String x:Key="Dup.InitialHint">Escaneie um disco e clique em Procurar. Em cada grupo, a cópia mais recente vem desmarcada (será mantida) — revise antes de excluir.</sys:String>
     <sys:String x:Key="Dup.ScanFirst">Escaneie um disco na Visão Geral antes de procurar duplicados.</sys:String>
@@ -137,9 +137,9 @@
     <sys:String x:Key="Cl.Title">Limpeza do Sistema</sys:String>
     <sys:String x:Key="Cl.Desc">Locais de arquivos temporários do Windows. Marque o que deseja limpar — itens em uso são pulados automaticamente.</sys:String>
     <sys:String x:Key="Cl.Refresh">⟳  Atualizar tamanhos</sys:String>
-    <sys:String x:Key="Cl.Clean">🧹  Limpar selecionados</sys:String>
-    <sys:String x:Key="Cl.CleanAmount">🧹  Limpar {0}</sys:String>
-    <sys:String x:Key="Cl.Elevate">🛡  Reiniciar como administrador</sys:String>
+    <sys:String x:Key="Cl.Clean">Limpar selecionados</sys:String>
+    <sys:String x:Key="Cl.CleanAmount">Limpar {0}</sys:String>
+    <sys:String x:Key="Cl.Elevate">Reiniciar como administrador</sys:String>
     <sys:String x:Key="Cl.Tip">Dica: alguns arquivos do Temp do Windows e do cache do Windows Update pertencem ao sistema e só podem ser removidos executando o app como administrador — eles são pulados e contados no resultado.</sys:String>
     <sys:String x:Key="Cl.Measuring">Medindo: {0}…</sys:String>
     <sys:String x:Key="Cl.Cleaning">Limpando: {0}…</sys:String>
@@ -149,7 +149,7 @@
     <sys:String x:Key="Cl.ConfirmMsg">Limpar {0} local(is), liberando cerca de {1}?&#10;&#10;Os arquivos temporários são removidos DEFINITIVAMENTE (não vão para a Lixeira).</sys:String>
     <sys:String x:Key="Cl.ConfirmRecycleNote">&#10;A Lixeira será esvaziada — os itens dela não poderão ser restaurados.</sys:String>
     <sys:String x:Key="Cl.ConfirmBtn">Limpar agora</sys:String>
-    <sys:String x:Key="Cl.Done">✅  Limpeza concluída: {0} liberados.</sys:String>
+    <sys:String x:Key="Cl.Done">Limpeza concluída: {0} liberados.</sys:String>
     <sys:String x:Key="Cl.DoneSkipped"> {0} item(ns) em uso ou protegidos foram pulados — executar como administrador pode liberar mais.</sys:String>
     <sys:String x:Key="Cl.T.UserTemp">Temp do usuário</sys:String>
     <sys:String x:Key="Cl.T.UserTempDesc">Arquivos temporários de aplicativos (%TEMP%). Seguro limpar.</sys:String>
@@ -166,7 +166,7 @@
 
     <!-- Histórico -->
     <sys:String x:Key="Hi.Title">Histórico de Uso de Espaço</sys:String>
-    <sys:String x:Key="Hi.Export">⬇  Exportar CSV</sys:String>
+    <sys:String x:Key="Hi.Export">Exportar CSV</sys:String>
     <sys:String x:Key="Hi.ChartHint">Cada scan concluído registra um ponto aqui — escaneie o mesmo disco ao longo do tempo para acompanhar a evolução.</sys:String>
     <sys:String x:Key="Hi.Records">Registros</sys:String>
     <sys:String x:Key="Hi.ColDate">Data</sys:String>
@@ -202,5 +202,23 @@
     <sys:String x:Key="St.About">Sobre</sys:String>
     <sys:String x:Key="St.AboutText">Analisador visual de espaço em disco. Escaneie uma unidade, explore o mapa de espaço, encontre os maiores arquivos e libere espaço sem sair do aplicativo.</sys:String>
     <sys:String x:Key="St.TechLine">Feito em .NET 8 + WPF · Treemap squarified com renderização ao vivo</sys:String>
+
+    <!-- Leigo-friendly -->
+    <sys:String x:Key="Lf.Checked">{0} marcado(s) · {1}</sys:String>
+    <sys:String x:Key="Ov.WelcomeTitle">Comece por aqui</sys:String>
+    <sys:String x:Key="Ov.WelcomeText">Veja o que está ocupando o seu disco — o mapa mostra cada pasta e arquivo por tamanho.</sys:String>
+    <sys:String x:Key="Ov.WelcomeButton">Analisar meu disco ({0})</sys:String>
+    <sys:String x:Key="Ov.Recommendations">Recomendações para Liberar Espaço</sys:String>
+    <sys:String x:Key="Ov.RecTempTitle">Temporários e Lixeira</sys:String>
+    <sys:String x:Key="Ov.RecTempMeasuring">calculando…</sys:String>
+    <sys:String x:Key="Ov.RecTempValue">cerca de {0} recuperáveis com um clique</sys:String>
+    <sys:String x:Key="Ov.RecLargeTitle">Arquivos gigantes</sys:String>
+    <sys:String x:Key="Ov.RecLargeValue">{0} arquivo(s) com 500 MB+ somam {1}</sys:String>
+    <sys:String x:Key="Ov.RecLargeNone">nenhum arquivo com 500 MB+ encontrado</sys:String>
+    <sys:String x:Key="Ov.RecDupTitle">Duplicados</sys:String>
+    <sys:String x:Key="Ov.RecDupValue">procure cópias idênticas do mesmo arquivo</sys:String>
+    <sys:String x:Key="Ov.RecOpenCleanup">Abrir Limpeza</sys:String>
+    <sys:String x:Key="Ov.RecSeeFiles">Ver arquivos</sys:String>
+    <sys:String x:Key="Ov.RecFindDup">Procurar</sys:String>
 
 </ResourceDictionary>

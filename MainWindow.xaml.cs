@@ -54,6 +54,9 @@ public partial class MainWindow : Window
             MapPage.SetViewRoot(node);
             NavMap.IsChecked = true;
         };
+        OverviewPage.OpenCleanupRequested += () => NavCleanup.IsChecked = true;
+        OverviewPage.OpenLargeFilesRequested += () => NavLargeFiles.IsChecked = true;
+        OverviewPage.OpenDuplicatesRequested += () => NavDuplicates.IsChecked = true;
 
         MapPage.HoverChanged += OnTreemapHover;
         BuildTreemapContextMenu();
@@ -343,7 +346,6 @@ public partial class MainWindow : Window
 
     private void AddContextSection(ContextMenu menu, FileSystemNode node)
     {
-        string icon = node.IsDirectory ? "📁" : "📄";
         string details = node.IsDirectory
             ? L.F("Ctx.DirDetails", FileSystemNode.FormatSize(node.Size), node.Children.Count)
             : FileSystemNode.FormatSize(node.Size);
@@ -351,7 +353,7 @@ public partial class MainWindow : Window
         // Cabeçalho: deixa explícito sobre o que as ações abaixo agem
         menu.Items.Add(new MenuItem
         {
-            Header = $"{icon} {node.Name} — {details}",
+            Header = $"{node.Name} — {details}",
             IsEnabled = false,
             FontWeight = FontWeights.Bold,
             // valor local vence o trigger de desabilitado — o cabeçalho fica em destaque

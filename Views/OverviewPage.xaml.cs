@@ -15,11 +15,62 @@ public partial class OverviewPage : UserControl
 
     public event Action<string>? ScanRequested;
     public event Action<FileSystemNode>? OpenInMapRequested;
+    public event Action? OpenCleanupRequested;
+    public event Action? OpenLargeFilesRequested;
+    public event Action? OpenDuplicatesRequested;
 
     public OverviewPage()
     {
         InitializeComponent();
         LoadDrives();
+        UpdateWelcomeButton();
+    }
+
+    private void UpdateWelcomeButton()
+    {
+        string label = _customFolder ?? ((DriveCombo.SelectedItem as ComboBoxItem)?.Tag as string)?.TrimEnd('\\') ?? "C:";
+        WelcomeScanButton.Content = L.F("Ov.WelcomeButton", label);
+    }
+
+    private void RecCleanup_Click(object sender, RoutedEventArgs e) => OpenCleanupRequested?.Invoke();
+    private void RecLarge_Click(object sender, RoutedEventArgs e) => OpenLargeFilesRequested?.Invoke();
+    private void RecDup_Click(object sender, RoutedEventArgs e) => OpenDuplicatesRequested?.Invoke();
+
+    // ---------------- Recomendações ----------------
+
+    private async void UpdateRecommendations(FileSystemNode root)
+    {
+        RecommendationsCard.Visibility = Visibility.Visible;
+
+        // Arquivos gigantes (500 MB+) direto da árvore escaneada
+        const long huge = 500L * 1024 * 1024;
+        long hugeTotal = 0;
+        int hugeCount = 0;
+        CountHuge(root);
+
+        void CountHuge(FileSystemNode dir)
+        {
+            var children = dir.Children;
+            int count = children.Count;
+            for (int i = 0; i < count; i++)
+            {
+                var child = children[i];
+                if (child.IsDirectory) CountHuge(child);
+                else if (child.Size >= huge) { hugeCount++; hugeTotal += child.Size; }
+            }
+        }
+
+        RecLargeText.Text = hugeCount > 0
+            ? L.F("Ov.RecLargeValue", hugeCount, FileSystemNode.FormatSize(hugeTotal))
+            : L.T("Ov.RecLargeNone");
+
+        // Temporários + Lixeira medidos em background
+        RecTempText.Text = L.T("Ov.RecTempMeasuring");
+        long tempTotal = await Task.Run(() =>
+            TempCleaner.GetTargets()
+                .Where(t => t.Key is "user-temp" or "win-temp" || t.IsRecycleBin)
+                .Sum(TempCleaner.Measure));
+        RecTempText.Text = L.F("Ov.RecTempValue", FileSystemNode.FormatSize(tempTotal));
     }
 
     public string? SelectedPath =>
@@ -48,6 +99,7 @@ public partial class OverviewPage : UserControl
     {
         _customFolder = null;
         UpdateDiskCard();
+        UpdateWelcomeButton();
     }
 
     private void PickFolder_Click(object sender, RoutedEventArgs e)
@@ -71,6 +123,7 @@ public partial class OverviewPage : UserControl
     {
         _customFolder = path;
         UpdateDiskCard();
+        UpdateWelcomeButton();
     }
 
     public void UpdateDiskCard()
@@ -189,8 +242,10 @@ public partial class OverviewPage : UserControl
     /// <summary>Atualiza blocos semânticos, categorias e maiores pastas a partir do scan concluído.</summary>
     public void UpdateFromScan(FileSystemNode root)
     {
+        WelcomeBanner.Visibility = Visibility.Collapsed;
         UpdateDiskCard();
         BuildBuckets(root);
+        UpdateRecommendations(root);
 
         // ---- Categorias ----
         var totals = FileCategories.Aggregate(root);
@@ -264,7 +319,7 @@ public partial class OverviewPage : UserControl
 
             var name = new TextBlock
             {
-                Text = "📁  " + dir.Name,
+                Text = dir.Name,
                 Foreground = (Brush)FindResource("Text"),
                 FontSize = 13,
                 VerticalAlignment = VerticalAlignment.Center,

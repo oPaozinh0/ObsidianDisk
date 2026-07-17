@@ -4,6 +4,28 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,0,4,0">
         <StackPanel>
 
+            <!-- Boas-vindas (some após o primeiro scan) -->
+            <Border x:Name="WelcomeBanner" CornerRadius="12" Padding="20,16" Margin="0,0,0,12"
+                    BorderThickness="1" BorderBrush="#887C5CFF">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#3D7C5CFF" Offset="0"/>
+                        <GradientStop Color="#1A7C5CFF" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <DockPanel LastChildFill="False">
+                    <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center">
+                        <TextBlock Text="{StaticResource Ov.WelcomeTitle}" Foreground="{StaticResource Text}"
+                                   FontSize="16" FontWeight="Bold"/>
+                        <TextBlock Text="{StaticResource Ov.WelcomeText}" Style="{StaticResource MutedText}"
+                                   Margin="0,4,0,0" TextWrapping="Wrap" MaxWidth="560" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <Button x:Name="WelcomeScanButton" DockPanel.Dock="Right" Style="{StaticResource PrimaryButton}"
+                            Height="42" MinWidth="230" FontSize="14" VerticalAlignment="Center"
+                            Click="Scan_Click"/>
+                </DockPanel>
+            </Border>
+
             <!-- Card do disco -->
             <Border Style="{StaticResource Card}">
                 <Grid>
@@ -54,6 +76,52 @@
                         </StackPanel>
                     </Grid>
                 </Grid>
+            </Border>
+
+            <!-- Recomendações (após o scan) -->
+            <Border x:Name="RecommendationsCard" Style="{StaticResource Card}" Margin="0,12,0,0"
+                    Visibility="Collapsed">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource Ov.Recommendations}"/>
+                    <UniformGrid Columns="3" Margin="0,12,0,0">
+
+                        <Border Background="{StaticResource Panel2}" CornerRadius="10" Padding="14,12"
+                                Margin="0,0,10,0">
+                            <StackPanel>
+                                <TextBlock Text="{StaticResource Ov.RecTempTitle}" Foreground="{StaticResource Text}"
+                                           FontWeight="SemiBold" FontSize="13"/>
+                                <TextBlock x:Name="RecTempText" Style="{StaticResource MutedText}" Margin="0,4,0,10"
+                                           TextWrapping="Wrap" Text="{StaticResource Ov.RecTempMeasuring}"/>
+                                <Button Style="{StaticResource GhostButton}" Height="30" HorizontalAlignment="Left"
+                                        Content="{StaticResource Ov.RecOpenCleanup}" Click="RecCleanup_Click"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="{StaticResource Panel2}" CornerRadius="10" Padding="14,12"
+                                Margin="0,0,10,0">
+                            <StackPanel>
+                                <TextBlock Text="{StaticResource Ov.RecLargeTitle}" Foreground="{StaticResource Text}"
+                                           FontWeight="SemiBold" FontSize="13"/>
+                                <TextBlock x:Name="RecLargeText" Style="{StaticResource MutedText}" Margin="0,4,0,10"
+                                           TextWrapping="Wrap"/>
+                                <Button Style="{StaticResource GhostButton}" Height="30" HorizontalAlignment="Left"
+                                        Content="{StaticResource Ov.RecSeeFiles}" Click="RecLarge_Click"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="{StaticResource Panel2}" CornerRadius="10" Padding="14,12">
+                            <StackPanel>
+                                <TextBlock Text="{StaticResource Ov.RecDupTitle}" Foreground="{StaticResource Text}"
+                                           FontWeight="SemiBold" FontSize="13"/>
+                                <TextBlock Style="{StaticResource MutedText}" Margin="0,4,0,10" TextWrapping="Wrap"
+                                           Text="{StaticResource Ov.RecDupValue}"/>
+                                <Button Style="{StaticResource GhostButton}" Height="30" HorizontalAlignment="Left"
+                                        Content="{StaticResource Ov.RecFindDup}" Click="RecDup_Click"/>
+                            </StackPanel>
+                        </Border>
+
+                    </UniformGrid>
+                </StackPanel>
             </Border>
 
             <!-- Mapa de Espaço (blocos semânticos) -->

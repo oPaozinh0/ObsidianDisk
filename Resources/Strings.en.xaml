@@ -16,7 +16,7 @@
     <sys:String x:Key="Shell.NoScanYet">No scan yet</sys:String>
     <sys:String x:Key="Shell.LastScan">Last scan:&#10;{0}</sys:String>
     <sys:String x:Key="Shell.Ready">Ready.</sys:String>
-    <sys:String x:Key="Shell.UpdateAvailable">⬆ {0} available</sys:String>
+    <sys:String x:Key="Shell.UpdateAvailable">↑ {0} available</sys:String>
 
     <!-- Scan -->
     <sys:String x:Key="Scan.InvalidPath">Invalid path.</sys:String>
@@ -57,7 +57,7 @@
     <!-- Overview -->
     <sys:String x:Key="Ov.Disk">Disk</sys:String>
     <sys:String x:Key="Ov.SelectDrive">Select a drive</sys:String>
-    <sys:String x:Key="Ov.PickFolder">📁  Folder…</sys:String>
+    <sys:String x:Key="Ov.PickFolder">Folder…</sys:String>
     <sys:String x:Key="Ov.PickFolderTitle">Choose the folder to analyze</sys:String>
     <sys:String x:Key="Ov.Scan">▶  Scan</sys:String>
     <sys:String x:Key="Ov.CancelScan">✕  Cancel</sys:String>
@@ -105,7 +105,7 @@
     <!-- Large Files -->
     <sys:String x:Key="Lf.Title">Large Files</sys:String>
     <sys:String x:Key="Lf.Open">Open in Explorer</sys:String>
-    <sys:String x:Key="Lf.Recycle">🗑  Recycle Bin</sys:String>
+    <sys:String x:Key="Lf.Recycle">Send to Recycle Bin</sys:String>
     <sys:String x:Key="Lf.Permanent">⚠  Delete permanently</sys:String>
     <sys:String x:Key="Lf.ColCategory">Category</sys:String>
     <sys:String x:Key="Lf.ColName">Name</sys:String>
@@ -117,9 +117,9 @@
 
     <!-- Duplicates -->
     <sys:String x:Key="Dup.Title">Duplicate Files</sys:String>
-    <sys:String x:Key="Dup.Search">🔍  Find duplicates</sys:String>
+    <sys:String x:Key="Dup.Search">Find duplicates</sys:String>
     <sys:String x:Key="Dup.CancelSearch">✕  Cancel</sys:String>
-    <sys:String x:Key="Dup.DelRecycle">🗑  Delete checked (Recycle Bin)</sys:String>
+    <sys:String x:Key="Dup.DelRecycle">Delete checked (Recycle Bin)</sys:String>
     <sys:String x:Key="Dup.DelPermanent">⚠  Delete checked (permanent)</sys:String>
     <sys:String x:Key="Dup.InitialHint">Scan a disk and click Find. In each group the most recent copy comes unchecked (it will be kept) — review before deleting.</sys:String>
     <sys:String x:Key="Dup.ScanFirst">Scan a disk in Overview before searching for duplicates.</sys:String>
@@ -137,9 +137,9 @@
     <sys:String x:Key="Cl.Title">System Cleanup</sys:String>
     <sys:String x:Key="Cl.Desc">Known Windows temp-file locations. Check what you want to clean — items in use are skipped automatically.</sys:String>
     <sys:String x:Key="Cl.Refresh">⟳  Refresh sizes</sys:String>
-    <sys:String x:Key="Cl.Clean">🧹  Clean selected</sys:String>
-    <sys:String x:Key="Cl.CleanAmount">🧹  Clean {0}</sys:String>
-    <sys:String x:Key="Cl.Elevate">🛡  Restart as administrator</sys:String>
+    <sys:String x:Key="Cl.Clean">Clean selected</sys:String>
+    <sys:String x:Key="Cl.CleanAmount">Clean {0}</sys:String>
+    <sys:String x:Key="Cl.Elevate">Restart as administrator</sys:String>
     <sys:String x:Key="Cl.Tip">Tip: some files in Windows Temp and the Windows Update cache belong to the system and can only be removed when running as administrator — they are skipped and counted in the result.</sys:String>
     <sys:String x:Key="Cl.Measuring">Measuring: {0}…</sys:String>
     <sys:String x:Key="Cl.Cleaning">Cleaning: {0}…</sys:String>
@@ -149,7 +149,7 @@
     <sys:String x:Key="Cl.ConfirmMsg">Clean {0} location(s), freeing about {1}?&#10;&#10;Temp files are removed PERMANENTLY (they do not go to the Recycle Bin).</sys:String>
     <sys:String x:Key="Cl.ConfirmRecycleNote">&#10;The Recycle Bin will be emptied — its items cannot be restored.</sys:String>
     <sys:String x:Key="Cl.ConfirmBtn">Clean now</sys:String>
-    <sys:String x:Key="Cl.Done">✅  Cleanup complete: {0} freed.</sys:String>
+    <sys:String x:Key="Cl.Done">Cleanup complete: {0} freed.</sys:String>
     <sys:String x:Key="Cl.DoneSkipped"> {0} item(s) in use or protected were skipped — running as administrator may free more.</sys:String>
     <sys:String x:Key="Cl.T.UserTemp">User Temp</sys:String>
     <sys:String x:Key="Cl.T.UserTempDesc">Application temp files (%TEMP%). Safe to clean.</sys:String>
@@ -166,7 +166,7 @@
 
     <!-- History -->
     <sys:String x:Key="Hi.Title">Disk Usage History</sys:String>
-    <sys:String x:Key="Hi.Export">⬇  Export CSV</sys:String>
+    <sys:String x:Key="Hi.Export">Export CSV</sys:String>
     <sys:String x:Key="Hi.ChartHint">Each completed scan records a point here — scan the same disk over time to track its evolution.</sys:String>
     <sys:String x:Key="Hi.Records">Records</sys:String>
     <sys:String x:Key="Hi.ColDate">Date</sys:String>
@@ -202,5 +202,23 @@
     <sys:String x:Key="St.About">About</sys:String>
     <sys:String x:Key="St.AboutText">Visual disk space analyzer. Scan a drive, explore the space map, find the largest files and free up space without leaving the app.</sys:String>
     <sys:String x:Key="St.TechLine">Built with .NET 8 + WPF · Squarified treemap with live rendering</sys:String>
+
+    <!-- Beginner-friendly -->
+    <sys:String x:Key="Lf.Checked">{0} checked · {1}</sys:String>
+    <sys:String x:Key="Ov.WelcomeTitle">Start here</sys:String>
+    <sys:String x:Key="Ov.WelcomeText">See what's taking up your disk — the map shows every folder and file by size.</sys:String>
+    <sys:String x:Key="Ov.WelcomeButton">Analyze my disk ({0})</sys:String>
+    <sys:String x:Key="Ov.Recommendations">Recommendations to Free Space</sys:String>
+    <sys:String x:Key="Ov.RecTempTitle">Temp files &amp; Recycle Bin</sys:String>
+    <sys:String x:Key="Ov.RecTempMeasuring">measuring…</sys:String>
+    <sys:String x:Key="Ov.RecTempValue">about {0} recoverable in one click</sys:String>
+    <sys:String x:Key="Ov.RecLargeTitle">Huge files</sys:String>
+    <sys:String x:Key="Ov.RecLargeValue">{0} file(s) of 500 MB+ totaling {1}</sys:String>
+    <sys:String x:Key="Ov.RecLargeNone">no files of 500 MB+ found</sys:String>
+    <sys:String x:Key="Ov.RecDupTitle">Duplicates</sys:String>
+    <sys:String x:Key="Ov.RecDupValue">look for identical copies of the same file</sys:String>
+    <sys:String x:Key="Ov.RecOpenCleanup">Open Cleanup</sys:String>
+    <sys:String x:Key="Ov.RecSeeFiles">View files</sys:String>
+    <sys:String x:Key="Ov.RecFindDup">Find</sys:String>
 
 </ResourceDictionary>

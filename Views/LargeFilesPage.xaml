@@ -17,6 +17,8 @@
                                VerticalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                    <TextBlock x:Name="CheckedText" Style="{StaticResource MutedText}" Margin="0,0,12,0"
+                               VerticalAlignment="Center"/>
                     <Button Style="{StaticResource GhostButton}" Height="32" Click="Open_Click"
                             Content="{StaticResource Lf.Open}"/>
                     <Button Style="{StaticResource GhostButton}" Height="32" Margin="8,0,0,0" Click="DeleteRecycle_Click"
@@ -31,6 +33,19 @@
                       SelectionMode="Extended">
                 <ListView.View>
                     <GridView>
+                        <GridViewColumn Width="40">
+                            <GridViewColumn.Header>
+                                <CheckBox x:Name="SelectAllCheck" Style="{StaticResource DarkCheck}"
+                                          Click="SelectAll_Click"/>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox Style="{StaticResource DarkCheck}"
+                                              IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              Click="RowCheck_Click"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                         <GridViewColumn Header="{StaticResource Lf.ColCategory}" Width="130">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

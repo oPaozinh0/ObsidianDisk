@@ -8,9 +8,30 @@ using ObsidianDisk.Services;
 
 namespace ObsidianDisk.Views;
 
-public sealed record LargeFileEntry(
-    FileSystemNode Node, string CategoryLabel, Brush CategoryBrush,
-    string Name, string Directory, string SizeText, long Size);
+public sealed class LargeFileEntry : System.ComponentModel.INotifyPropertyChanged
+{
+    public required FileSystemNode Node { get; init; }
+    public required string CategoryLabel { get; init; }
+    public required Brush CategoryBrush { get; init; }
+    public required string Name { get; init; }
+    public required string Directory { get; init; }
+    public required string SizeText { get; init; }
+    public required long Size { get; init; }
+
+    private bool _isChecked;
+    public bool IsChecked
+    {
+        get => _isChecked;
+        set
+        {
+            if (_isChecked == value) return;
+            _isChecked = value;
+            PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof(IsChecked)));
+        }
+    }
+
+    public event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
+}
 
 public partial class LargeFilesPage : UserControl
 {
@@ -90,40 +111,71 @@ public partial class LargeFilesPage : UserControl
         foreach (var node in found.OrderByDescending(n => n.Size).Take(300))
         {
             var cat = FileCategories.Classify(node.Name);
-            FilesList.Items.Add(new LargeFileEntry(
-                node,
-                FileCategories.LabelOf(cat),
-                new SolidColorBrush(FileCategories.ColorOf(cat)),
-                node.Name,
-                Path.GetDirectoryName(node.FullPath) ?? "",
-                FileSystemNode.FormatSize(node.Size),
-                node.Size));
+            FilesList.Items.Add(new LargeFileEntry
+            {
+                Node = node,
+                CategoryLabel = FileCategories.LabelOf(cat),
+                CategoryBrush = new SolidColorBrush(FileCategories.ColorOf(cat)),
+                Name = node.Name,
+                Directory = Path.GetDirectoryName(node.FullPath) ?? "",
+                SizeText = FileSystemNode.FormatSize(node.Size),
+                Size = node.Size,
+            });
         }
 
         CountText.Text = found.Count > 300
             ? L.F("Lf.FoundCapped", found.Count.ToString("N0"))
             : L.F("Lf.Found", found.Count.ToString("N0"));
+
+        SelectAllCheck.IsChecked = false;
+        UpdateCheckedCounter();
     }
 
-    private List<FileSystemNode> SelectedNodes() =>
-        FilesList.SelectedItems.Cast<LargeFileEntry>().Select(e => e.Node).ToList();
+    private IEnumerable<LargeFileEntry> Entries => FilesList.Items.Cast<LargeFileEntry>();
+
+    /// <summary>Marcados via checkbox; se nenhum, cai para as linhas selecionadas (fluxo avançado).</summary>
+    private List<FileSystemNode> TargetNodes()
+    {
+        var check = Entries.Where(e => e.IsChecked).Select(e => e.Node).ToList();
+        return check.Count > 0
+            ? check
+            : FilesList.SelectedItems.Cast<LargeFileEntry>().Select(e => e.Node).ToList();
+    }
+
+    private void SelectAll_Click(object sender, RoutedEventArgs e)
+    {
+        bool check = SelectAllCheck.IsChecked == true;
+        foreach (var entry in Entries)
+            entry.IsChecked = check;
+        UpdateCheckedCounter();
+    }
+
+    private void RowCheck_Click(object sender, RoutedEventArgs e) => UpdateCheckedCounter();
+
+    private void UpdateCheckedCounter()
+    {
+        var check = Entries.Where(en => en.IsChecked).ToList();
+        CheckedText.Text = check.Count > 0
+            ? L.F("Lf.Checked", check.Count, FileSystemNode.FormatSize(check.Sum(en => en.Size)))
+            : "";
+    }
 
     private void Open_Click(object sender, RoutedEventArgs e)
     {
-        var node = SelectedNodes().FirstOrDefault();
+        var node = TargetNodes().FirstOrDefault();
         if (node is null) return;
         Process.Start(new ProcessStartInfo("explorer.exe", $"/select,\"{node.FullPath}\"") { UseShellExecute = true });
     }
 
     private void DeleteRecycle_Click(object sender, RoutedEventArgs e)
     {
-        var nodes = SelectedNodes();
+        var nodes = TargetNodes();
         if (nodes.Count > 0) DeleteRequested?.Invoke(nodes, false);
     }
 
     private void DeletePermanent_Click(object sender, RoutedEventArgs e)
     {
-        var nodes = SelectedNodes();
+        var nodes = TargetNodes();
         if (nodes.Count > 0) DeleteRequested?.Invoke(nodes, true);
     }
 }
