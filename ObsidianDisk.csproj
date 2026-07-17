@@ -42,6 +42,7 @@
   <ItemGroup>
     <!-- Ícone da janela (barra de tarefas / alt-tab) -->
     <Resource Include="Assets\app.ico"/>
+    <Resource Include="Assets\logo.png"/>
     <Resource Include="Assets\Fonts\*.ttf"/>
   </ItemGroup>
 

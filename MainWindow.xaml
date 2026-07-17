@@ -32,8 +32,8 @@
                 <DockPanel LastChildFill="False">
                     <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Margin="14,0,0,0"
                                 VerticalAlignment="Center">
-                        <Path Data="M 12 0 L 24 9 L 19 24 L 5 24 L 0 9 Z" Fill="{DynamicResource Accent}"
-                              Width="18" Height="18" Stretch="Uniform" VerticalAlignment="Center"/>
+                        <Image Source="Assets/logo.png" Width="22" Height="22" VerticalAlignment="Center"
+                               RenderOptions.BitmapScalingMode="HighQuality"/>
                         <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
                             <TextBlock Text="ObsidianDisk" Foreground="{DynamicResource Text}" FontSize="13.5"
                                        FontWeight="Bold"/>
