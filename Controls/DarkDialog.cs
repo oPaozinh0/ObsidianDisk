@@ -28,6 +28,10 @@ public static class DarkDialog
             MaxWidth = 520,
         };
 
+        // Evita artefatos de ClearType no pipeline de GPU (mesma correção da MainWindow)
+        System.Windows.Media.TextOptions.SetTextRenderingMode(window, System.Windows.Media.TextRenderingMode.Grayscale);
+        System.Windows.Media.TextOptions.SetTextFormattingMode(window, System.Windows.Media.TextFormattingMode.Display);
+
         var accent = (Brush)app.FindResource("Accent");
         var dangerBrush = new SolidColorBrush(Color.FromRgb(0xD6, 0x45, 0x50));
 
@@ -61,26 +65,24 @@ public static class DarkDialog
             LineHeight = 20,
         };
 
-        var cancelButton = new Button
+        var cancelButton = new ObsidianButton
         {
             Content = cancelLabel,
-            Style = (Style)app.FindResource("GhostButton"),
+            Variant = ObsidianButtonVariant.Ghost,
             MinWidth = 110,
             Height = 36,
             IsCancel = true,
         };
         cancelButton.Click += (_, _) => window.Close();
 
-        var confirmButton = new Button
+        var confirmButton = new ObsidianButton
         {
             Content = confirmLabel,
-            Style = (Style)app.FindResource("PrimaryButton"),
+            Variant = danger ? ObsidianButtonVariant.Danger : ObsidianButtonVariant.Primary,
             MinWidth = 110,
             Height = 36,
             Margin = new Thickness(10, 0, 0, 0),
         };
-        if (danger)
-            confirmButton.Background = dangerBrush;
         confirmButton.Click += (_, _) => { confirmed = true; window.Close(); };
 
         var buttons = new StackPanel

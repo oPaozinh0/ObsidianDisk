@@ -11,7 +11,7 @@
 
         <!-- Breadcrumb + filtros -->
         <DockPanel Grid.Row="0" LastChildFill="True" Margin="0,0,0,8">
-            <Button x:Name="UpButton" Style="{StaticResource GhostButton}" DockPanel.Dock="Left"
+            <controls:ObsidianButton x:Name="UpButton" Variant="Ghost" DockPanel.Dock="Left"
                     Padding="10,4" Click="Up_Click" Content="{StaticResource Map.Up}" IsEnabled="False"/>
 
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">

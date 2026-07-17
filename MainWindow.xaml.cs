@@ -76,6 +76,49 @@ public partial class MainWindow : Window
         }
 
         Loaded += async (_, _) => await CheckForUpdatesAsync();
+
+        // Diagnóstico: OBS_SOFT=1 força renderização por software (para isolar artefatos de GPU)
+        if (Environment.GetEnvironmentVariable("OBS_SOFT") == "1")
+            System.Windows.Media.RenderOptions.ProcessRenderMode =
+                System.Windows.Interop.RenderMode.SoftwareOnly;
+
+        // Diagnóstico temporário: OBS_DUMP=1 despeja a árvore visual do botão Reanalisar
+        if (Environment.GetEnvironmentVariable("OBS_DUMP") == "1")
+        {
+            Loaded += (_, _) =>
+            {
+                var sb = new System.Text.StringBuilder();
+                void Walk(DependencyObject d, int depth)
+                {
+                    int n = System.Windows.Media.VisualTreeHelper.GetChildrenCount(d);
+                    for (int i = 0; i < n; i++)
+                    {
+                        var c = System.Windows.Media.VisualTreeHelper.GetChild(d, i);
+                        string info = c.GetType().FullName ?? "";
+                        if (c is FrameworkElement fe)
+                            info += $" [{fe.Name}] {fe.ActualWidth:0}x{fe.ActualHeight:0} margin={fe.Margin}";
+                        if (c is System.Windows.Controls.TextBlock tb)
+                            info += $" text='{tb.Text}' decorations={tb.TextDecorations?.Count}";
+                        sb.AppendLine(new string(' ', depth * 2) + info);
+                        Walk(c, depth + 1);
+                    }
+                }
+                Walk(RescanButton, 0);
+                System.IO.File.WriteAllText(
+                    System.IO.Path.Combine(System.IO.Path.GetTempPath(), "obs-dump.txt"), sb.ToString());
+
+                // RTB da janela inteira: o que o WPF acha que está desenhando
+                var rtb = new System.Windows.Media.Imaging.RenderTargetBitmap(
+                    (int)ActualWidth, (int)ActualHeight, 96, 96,
+                    System.Windows.Media.PixelFormats.Pbgra32);
+                rtb.Render(this);
+                var enc = new System.Windows.Media.Imaging.PngBitmapEncoder();
+                enc.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(rtb));
+                using var fs = System.IO.File.Create(
+                    System.IO.Path.Combine(System.IO.Path.GetTempPath(), "obs-rtb.png"));
+                enc.Save(fs);
+            };
+        }
     }
 
     // ---------------- Atualizações ----------------

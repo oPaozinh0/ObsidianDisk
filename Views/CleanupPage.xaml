@@ -1,6 +1,7 @@
 <UserControl x:Class="ObsidianDisk.Views.CleanupPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:ObsidianDisk.Controls">
     <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,0,4,0">
         <StackPanel>
 
@@ -13,12 +14,12 @@
                                        Text="{StaticResource Cl.Desc}"/>
                         </StackPanel>
                         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Top">
-                            <Button x:Name="ElevateButton" Style="{StaticResource GhostButton}" Height="36"
+                            <controls:ObsidianButton x:Name="ElevateButton" Variant="Ghost" Height="36"
                                     Margin="0,0,10,0" Click="Elevate_Click" Visibility="Collapsed"
                                     Content="{StaticResource Cl.Elevate}"/>
-                            <Button x:Name="RefreshButton" Style="{StaticResource GhostButton}" Height="36"
+                            <controls:ObsidianButton x:Name="RefreshButton" Variant="Ghost" Height="36"
                                     Click="Refresh_Click" Content="{StaticResource Cl.Refresh}"/>
-                            <Button x:Name="CleanButton" Style="{StaticResource PrimaryButton}" Height="36"
+                            <controls:ObsidianButton x:Name="CleanButton" Variant="Primary" Height="36"
                                     Margin="10,0,0,0" MinWidth="180" Click="Clean_Click"
                                     Content="{StaticResource Cl.Clean}"/>
                         </StackPanel>
