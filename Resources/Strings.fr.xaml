@@ -203,6 +203,8 @@
     <sys:String x:Key="Hi.Export">Exporter CSV</sys:String>
     <sys:String x:Key="Hi.ChartHint">Chaque analyse terminée enregistre un point ici — analysez le même disque au fil du temps pour suivre son évolution.</sys:String>
     <sys:String x:Key="Hi.Records">Enregistrements</sys:String>
+    <sys:String x:Key="Hi.DiffTitle">Ce qui a changé</sys:String>
+    <sys:String x:Key="Hi.DiffBetween">Entre {0} et {1}</sys:String>
     <sys:String x:Key="Hi.ColDate">Date</sys:String>
     <sys:String x:Key="Hi.ColPath">Chemin</sys:String>
     <sys:String x:Key="Hi.ColFiles">Fichiers</sys:String>
