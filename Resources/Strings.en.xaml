@@ -204,6 +204,14 @@
     <sys:String x:Key="Hi.Records">Records</sys:String>
     <sys:String x:Key="Hi.DiffTitle">What changed</sys:String>
     <sys:String x:Key="Hi.DiffBetween">Between {0} and {1}</sys:String>
+
+    <!-- "Why did it grow?" explainer -->
+    <sys:String x:Key="Ex.Grew">Since {0}, this disk grew by {1}.</sys:String>
+    <sys:String x:Key="Ex.Freed">Since {0}, you freed {1}.</sys:String>
+    <sys:String x:Key="Ex.Stable">Since {0}, usage stayed about the same.</sys:String>
+    <sys:String x:Key="Ex.MainFrom">Most of it came from {0}.</sys:String>
+    <sys:String x:Key="Ex.SafeHint">A good part of that (in {0}) is safe to clean.</sys:String>
+    <sys:String x:Key="Ex.MostlyIn">Mostly in {0}.</sys:String>
     <sys:String x:Key="Hi.ColDate">Date</sys:String>
     <sys:String x:Key="Hi.ColPath">Path</sys:String>
     <sys:String x:Key="Hi.ColFiles">Files</sys:String>

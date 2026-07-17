@@ -205,6 +205,14 @@
     <sys:String x:Key="Hi.Records">Einträge</sys:String>
     <sys:String x:Key="Hi.DiffTitle">Was sich geändert hat</sys:String>
     <sys:String x:Key="Hi.DiffBetween">Zwischen {0} und {1}</sys:String>
+
+    <!-- Erklärung „Warum ist sie voll?" -->
+    <sys:String x:Key="Ex.Grew">Seit {0} ist diese Festplatte um {1} gewachsen.</sys:String>
+    <sys:String x:Key="Ex.Freed">Seit {0} haben Sie {1} freigegeben.</sys:String>
+    <sys:String x:Key="Ex.Stable">Seit {0} ist die Nutzung nahezu gleich geblieben.</sys:String>
+    <sys:String x:Key="Ex.MainFrom">Das meiste kam von {0}.</sys:String>
+    <sys:String x:Key="Ex.SafeHint">Ein großer Teil davon (in {0}) kann gefahrlos bereinigt werden.</sys:String>
+    <sys:String x:Key="Ex.MostlyIn">Vor allem in {0}.</sys:String>
     <sys:String x:Key="Hi.ColDate">Datum</sys:String>
     <sys:String x:Key="Hi.ColPath">Pfad</sys:String>
     <sys:String x:Key="Hi.ColFiles">Dateien</sys:String>

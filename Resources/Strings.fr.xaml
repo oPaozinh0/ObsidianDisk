@@ -205,6 +205,14 @@
     <sys:String x:Key="Hi.Records">Enregistrements</sys:String>
     <sys:String x:Key="Hi.DiffTitle">Ce qui a changé</sys:String>
     <sys:String x:Key="Hi.DiffBetween">Entre {0} et {1}</sys:String>
+
+    <!-- Explication « pourquoi c'est plein ? » -->
+    <sys:String x:Key="Ex.Grew">Depuis le {0}, ce disque a grandi de {1}.</sys:String>
+    <sys:String x:Key="Ex.Freed">Depuis le {0}, vous avez libéré {1}.</sys:String>
+    <sys:String x:Key="Ex.Stable">Depuis le {0}, l'utilisation est restée quasi identique.</sys:String>
+    <sys:String x:Key="Ex.MainFrom">L'essentiel vient de {0}.</sys:String>
+    <sys:String x:Key="Ex.SafeHint">Une bonne partie (dans {0}) peut être nettoyée sans risque.</sys:String>
+    <sys:String x:Key="Ex.MostlyIn">Surtout dans {0}.</sys:String>
     <sys:String x:Key="Hi.ColDate">Date</sys:String>
     <sys:String x:Key="Hi.ColPath">Chemin</sys:String>
     <sys:String x:Key="Hi.ColFiles">Fichiers</sys:String>

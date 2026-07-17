@@ -205,6 +205,14 @@
     <sys:String x:Key="Hi.Records">Registros</sys:String>
     <sys:String x:Key="Hi.DiffTitle">Qué cambió</sys:String>
     <sys:String x:Key="Hi.DiffBetween">Entre {0} y {1}</sys:String>
+
+    <!-- Explicador "¿por qué se llenó?" -->
+    <sys:String x:Key="Ex.Grew">Desde {0}, este disco creció {1}.</sys:String>
+    <sys:String x:Key="Ex.Freed">Desde {0}, liberaste {1}.</sys:String>
+    <sys:String x:Key="Ex.Stable">Desde {0}, el uso quedó prácticamente igual.</sys:String>
+    <sys:String x:Key="Ex.MainFrom">La mayor parte vino de {0}.</sys:String>
+    <sys:String x:Key="Ex.SafeHint">Buena parte de eso (en {0}) es seguro limpiar.</sys:String>
+    <sys:String x:Key="Ex.MostlyIn">Sobre todo en {0}.</sys:String>
     <sys:String x:Key="Hi.ColDate">Fecha</sys:String>
     <sys:String x:Key="Hi.ColPath">Ruta</sys:String>
     <sys:String x:Key="Hi.ColFiles">Archivos</sys:String>
