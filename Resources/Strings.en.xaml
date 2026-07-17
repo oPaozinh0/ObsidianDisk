@@ -198,6 +198,8 @@
     <sys:String x:Key="Cl.Title">System Cleanup</sys:String>
     <sys:String x:Key="Cl.Desc">Known Windows temp-file locations. Check what you want to clean — items in use are skipped automatically.</sys:String>
     <sys:String x:Key="Cl.Profile">Profile:</sys:String>
+    <sys:String x:Key="Cl.DryRun">Dry run (don't delete, just preview)</sys:String>
+    <sys:String x:Key="Cl.DryRunResult">Dry run: {0} location(s) would free {1} — nothing was deleted.</sys:String>
     <sys:String x:Key="Cl.ProfileConservative">Conservative</sys:String>
     <sys:String x:Key="Cl.ProfileAggressive">Aggressive</sys:String>
     <sys:String x:Key="Cl.ProfileCustom">Custom</sys:String>

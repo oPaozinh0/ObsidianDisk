@@ -199,6 +199,8 @@
     <sys:String x:Key="Cl.Title">Systembereinigung</sys:String>
     <sys:String x:Key="Cl.Desc">Bekannte Windows-Speicherorte für temporäre Dateien. Markieren Sie, was bereinigt werden soll — Elemente in Benutzung werden automatisch übersprungen.</sys:String>
     <sys:String x:Key="Cl.Profile">Profil:</sys:String>
+    <sys:String x:Key="Cl.DryRun">Simulation (nichts löschen, nur anzeigen)</sys:String>
+    <sys:String x:Key="Cl.DryRunResult">Simulation: {0} Ort(e) würden {1} freigeben — nichts wurde gelöscht.</sys:String>
     <sys:String x:Key="Cl.ProfileConservative">Konservativ</sys:String>
     <sys:String x:Key="Cl.ProfileAggressive">Aggressiv</sys:String>
     <sys:String x:Key="Cl.ProfileCustom">Benutzerdefiniert</sys:String>

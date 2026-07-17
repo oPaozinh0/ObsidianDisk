@@ -198,6 +198,8 @@
     <sys:String x:Key="Cl.Title">Limpeza do Sistema</sys:String>
     <sys:String x:Key="Cl.Desc">Locais de arquivos temporários do Windows. Marque o que deseja limpar — itens em uso são pulados automaticamente.</sys:String>
     <sys:String x:Key="Cl.Profile">Perfil:</sys:String>
+    <sys:String x:Key="Cl.DryRun">Simulação (não deletar, só mostrar)</sys:String>
+    <sys:String x:Key="Cl.DryRunResult">Simulação: {0} local(is) liberariam {1} — nada foi apagado.</sys:String>
     <sys:String x:Key="Cl.ProfileConservative">Conservador</sys:String>
     <sys:String x:Key="Cl.ProfileAggressive">Agressivo</sys:String>
     <sys:String x:Key="Cl.ProfileCustom">Personalizado</sys:String>
