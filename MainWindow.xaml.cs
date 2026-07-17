@@ -15,6 +15,7 @@ public partial class MainWindow : Window
     private readonly DispatcherTimer _progressTimer;
     private readonly DispatcherTimer _liveRefreshTimer;
     private LiveWatcher? _watcher;
+    private TrayService? _tray;
     private AppSettings _settings;
 
     private FileSystemNode? _scanRoot;
@@ -22,6 +23,9 @@ public partial class MainWindow : Window
     private CancellationTokenSource? _cts;
     private string? _lastScanPath;
     private long _scanTargetBytes;
+
+    /// <summary>Unidades já alertadas nesta sessão (rearma quando voltam ao normal).</summary>
+    private readonly HashSet<string> _diskAlerted = new(StringComparer.OrdinalIgnoreCase);
 
     public MainWindow()
     {
@@ -34,6 +38,7 @@ public partial class MainWindow : Window
             _settings = s;
             LargeFilesPage.SetMinBytes(s.LargeFileMinBytes);
             SyncLiveWatcher();
+            _tray?.SetPersistent(s.MinimizeToTray);
 
             // Tema/daltonismo mudam cores construídas em código (legenda, cards, mapa)
             MapPage.RebuildLegend();
@@ -69,9 +74,17 @@ public partial class MainWindow : Window
 
         LargeFilesPage.DeleteRequested += DeleteNodes;
         DuplicatesPage.DeleteRequested += DeleteNodes;
+        DiscoveriesPage.DeleteRequested += DeleteNodes;
 
         PreviewKeyDown += OnKeyDown;
         StateChanged += (_, _) => OnWindowStateChanged();
+
+        // Bandeja do sistema + notificações nativas
+        _tray = new TrayService();
+        _tray.OpenRequested += RestoreFromTray;
+        _tray.ExitRequested += Close;
+        _tray.SetPersistent(_settings.MinimizeToTray);
+        Closed += (_, _) => _tray?.Dispose();
 
         // "ObsidianDisk.exe <pasta>" já abre escaneando o caminho informado
         var args = Environment.GetCommandLineArgs();
@@ -209,11 +222,26 @@ public partial class MainWindow : Window
 
     private void OnWindowStateChanged()
     {
+        // Minimizar esconde na bandeja quando a opção está ligada (o ícone é persistente)
+        if (WindowState == WindowState.Minimized && _settings.MinimizeToTray)
+        {
+            Hide();
+            return;
+        }
+
         // Com WindowChrome, a janela maximizada avança sobre as bordas da tela — compensa com margem
         bool max = WindowState == WindowState.Maximized;
         RootBorder.Margin = max ? new Thickness(7) : new Thickness(0);
         // Glifos Segoe MDL2: E923 = restaurar, E922 = maximizar
         MaximizeButton.Content = max ? ((char)0xE923).ToString() : ((char)0xE922).ToString();
+    }
+
+    /// <summary>Reexibe e traz a janela de volta a partir da bandeja.</summary>
+    private void RestoreFromTray()
+    {
+        Show();
+        WindowState = WindowState.Normal;
+        Activate();
     }
 
     // ---------------- Navegação ----------------
@@ -226,13 +254,14 @@ public partial class MainWindow : Window
         MapPage.Visibility = ReferenceEquals(sender, NavMap) ? Visibility.Visible : Visibility.Collapsed;
         LargeFilesPage.Visibility = ReferenceEquals(sender, NavLargeFiles) ? Visibility.Visible : Visibility.Collapsed;
         DuplicatesPage.Visibility = ReferenceEquals(sender, NavDuplicates) ? Visibility.Visible : Visibility.Collapsed;
+        DiscoveriesPage.Visibility = ReferenceEquals(sender, NavDiscoveries) ? Visibility.Visible : Visibility.Collapsed;
         CleanupPage.Visibility = ReferenceEquals(sender, NavCleanup) ? Visibility.Visible : Visibility.Collapsed;
         HistoryPage.Visibility = ReferenceEquals(sender, NavHistory) ? Visibility.Visible : Visibility.Collapsed;
         SettingsPage.Visibility = ReferenceEquals(sender, NavSettings) ? Visibility.Visible : Visibility.Collapsed;
 
         // Anima a página que acabou de aparecer
         foreach (FrameworkElement page in new FrameworkElement[]
-                 { OverviewPage, MapPage, LargeFilesPage, DuplicatesPage, CleanupPage, HistoryPage, SettingsPage })
+                 { OverviewPage, MapPage, LargeFilesPage, DuplicatesPage, DiscoveriesPage, CleanupPage, HistoryPage, SettingsPage })
             if (page.Visibility == Visibility.Visible)
                 Controls.Animate.PageIn(page);
 
@@ -308,7 +337,16 @@ public partial class MainWindow : Window
             root.SortBySizeDescending();
 
             var progress = _scanner.Progress;
-            AppStorage.AppendHistory(new ScanRecord(DateTime.Now, path, root.Size, progress.FilesScanned));
+            var scannedAt = DateTime.Now;
+            AppStorage.AppendHistory(new ScanRecord(scannedAt, path, root.Size, progress.FilesScanned));
+            await Task.Run(() => SnapshotStore.Capture(root, path, scannedAt, progress.FilesScanned));
+
+            if (drive is not null && drive.TotalSize > 0)
+            {
+                var usedPct = (int)((drive.TotalSize - drive.TotalFreeSpace) * 100 / drive.TotalSize);
+                _tray?.SetTooltip(L.F("Tray.Tooltip", drive.Name, usedPct));
+                MaybeAlertDiskFull(drive, path, usedPct);
+            }
 
             RefreshAllPages();
             LastScanText.Text = L.F("Shell.LastScan", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
@@ -372,8 +410,49 @@ public partial class MainWindow : Window
         OverviewPage.UpdateFromScan(_scanRoot);
         LargeFilesPage.UpdateFromScan(_scanRoot);
         DuplicatesPage.UpdateFromScan(_scanRoot);
+        DiscoveriesPage.UpdateFromScan(_scanRoot);
         MapPage.Refresh();
         HistoryPage.Reload();
+    }
+
+    // ---------------- Alerta de disco cheio ----------------
+
+    private const int DiskForecastHorizonDays = 60;
+
+    /// <summary>
+    /// Notifica quando a unidade cruza o limite de uso ou quando a projeção do histórico
+    /// indica que vai encher em breve. Alerta uma vez por sessão e rearma ao normalizar.
+    /// </summary>
+    private void MaybeAlertDiskFull(DriveInfo drive, string path, int usedPct)
+    {
+        if (!_settings.DiskFullAlert) return;
+
+        bool overThreshold = usedPct >= _settings.DiskFullThresholdPercent;
+
+        DiskForecast? forecast = null;
+        if (!overThreshold)
+        {
+            var history = AppStorage.LoadHistory()
+                .Where(r => string.Equals(r.Path, path, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            forecast = DiskForecaster.Project(history, drive.TotalFreeSpace, DateTime.Now);
+        }
+        bool fillingSoon = forecast is not null && forecast.DaysUntilFull < DiskForecastHorizonDays;
+
+        if (!overThreshold && !fillingSoon)
+        {
+            _diskAlerted.Remove(drive.Name); // voltou ao normal: pode alertar de novo depois
+            return;
+        }
+
+        if (!_diskAlerted.Add(drive.Name)) return; // já avisado nesta sessão
+
+        if (overThreshold)
+            Notifier.Show(L.T("Alert.FullTitle"),
+                L.F("Alert.FullMsg", drive.Name, usedPct, FileSystemNode.FormatSize(drive.TotalFreeSpace)));
+        else
+            Notifier.Show(L.T("Alert.ForecastTitle"),
+                L.F("Alert.ForecastMsg", drive.Name, forecast!.FullDate.ToString("Y")));
     }
 
     // ---------------- Hover / status ----------------

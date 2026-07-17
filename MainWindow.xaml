@@ -32,8 +32,8 @@
                 <DockPanel LastChildFill="False">
                     <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Margin="14,0,0,0"
                                 VerticalAlignment="Center">
-                        <Path Data="M 12 0 L 24 9 L 19 24 L 5 24 L 0 9 Z" Fill="{DynamicResource Accent}"
-                              Width="18" Height="18" Stretch="Uniform" VerticalAlignment="Center"/>
+                        <Image Source="Assets/logo.png" Width="22" Height="22" VerticalAlignment="Center"
+                               RenderOptions.BitmapScalingMode="HighQuality"/>
                         <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
                             <TextBlock Text="ObsidianDisk" Foreground="{DynamicResource Text}" FontSize="13.5"
                                        FontWeight="Bold"/>
@@ -91,6 +91,8 @@
                                          Content="{StaticResource Nav.LargeFiles}" Checked="Nav_Checked"/>
                             <RadioButton x:Name="NavDuplicates" Style="{StaticResource NavButton}" Tag="&#xE8C8;"
                                          Content="{StaticResource Nav.Duplicates}" Checked="Nav_Checked"/>
+                            <RadioButton x:Name="NavDiscoveries" Style="{StaticResource NavButton}" Tag="&#xEA80;"
+                                         Content="{StaticResource Nav.Discoveries}" Checked="Nav_Checked"/>
                             <RadioButton x:Name="NavCleanup" Style="{StaticResource NavButton}" Tag="&#xEA99;"
                                          Content="{StaticResource Nav.Cleanup}" Checked="Nav_Checked"/>
                             <RadioButton x:Name="NavHistory" Style="{StaticResource NavButton}" Tag="&#xE81C;"
@@ -114,6 +116,7 @@
                     <views:MapPage x:Name="MapPage" Visibility="Collapsed"/>
                     <views:LargeFilesPage x:Name="LargeFilesPage" Visibility="Collapsed"/>
                     <views:DuplicatesPage x:Name="DuplicatesPage" Visibility="Collapsed"/>
+                    <views:DiscoveriesPage x:Name="DiscoveriesPage" Visibility="Collapsed"/>
                     <views:CleanupPage x:Name="CleanupPage" Visibility="Collapsed"/>
                     <views:HistoryPage x:Name="HistoryPage" Visibility="Collapsed"/>
                     <views:SettingsPage x:Name="SettingsPage" Visibility="Collapsed"/>

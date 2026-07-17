@@ -6,14 +6,17 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <!-- Habilita o NotifyIcon (bandeja + notificações nativas) sem dependência externa.
+         Faz parte do SDK Desktop, não adiciona NuGet nem quebra o exe único. -->
+    <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>ObsidianDisk</AssemblyName>
     <RootNamespace>ObsidianDisk</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\app.ico</ApplicationIcon>
 
     <!-- Identidade -->
-    <Version>1.4.5</Version>
-    <FileVersion>1.4.5.0</FileVersion>
+    <Version>1.5.0</Version>
+    <FileVersion>1.5.0.0</FileVersion>
     <AssemblyTitle>ObsidianDisk</AssemblyTitle>
     <Product>ObsidianDisk — Gerenciador de Disco</Product>
     <Authors>Davi Oliveira</Authors>
@@ -28,9 +31,18 @@
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 
+  <!-- WinForms traz implicit usings (System.Drawing, System.Windows.Forms) que colidiriam
+       com os tipos WPF (Color, Point, Size, Application...) usados sem qualificação no resto
+       do código. Removidos: só o TrayService importa esses namespaces, com alias. -->
+  <ItemGroup>
+    <Using Remove="System.Drawing"/>
+    <Using Remove="System.Windows.Forms"/>
+  </ItemGroup>
+
   <ItemGroup>
     <!-- Ícone da janela (barra de tarefas / alt-tab) -->
     <Resource Include="Assets\app.ico"/>
+    <Resource Include="Assets\logo.png"/>
     <Resource Include="Assets\Fonts\*.ttf"/>
   </ItemGroup>
 

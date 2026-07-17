@@ -12,11 +12,36 @@
     <sys:String x:Key="Nav.Cleanup">Nettoyage</sys:String>
     <sys:String x:Key="Nav.History">Historique</sys:String>
     <sys:String x:Key="Nav.Settings">Paramètres</sys:String>
+
+    <!-- Découvertes -->
+    <sys:String x:Key="Nav.Discoveries">Découvertes</sys:String>
+    <sys:String x:Key="Dc.Title">Découvertes</sys:String>
+    <sys:String x:Key="Dc.ModeGhost">Dossiers oubliés</sys:String>
+    <sys:String x:Key="Dc.ModeExtensions">Extensions gaspillées</sys:String>
+    <sys:String x:Key="Dc.ModeDevJunk">Artefacts de développement</sys:String>
+    <sys:String x:Key="Dc.ModeOldFiles">Gros fichiers oubliés</sys:String>
+    <sys:String x:Key="Dc.DescGhost">Dossiers volumineux non modifiés depuis plus d'un an — à archiver ou supprimer.</sys:String>
+    <sys:String x:Key="Dc.DescExtensions">Espace regroupé par types de fichiers souvent récupérables (journaux, temporaires, caches, archives).</sys:String>
+    <sys:String x:Key="Dc.DescDevJunk">Dossiers de build et de dépendances que les outils de développement régénèrent (node_modules, bin, obj…).</sys:String>
+    <sys:String x:Key="Dc.DescOldFiles">Gros fichiers que vous n'avez pas ouverts depuis plus d'un an.</sys:String>
+    <sys:String x:Key="Dc.ColName">Nom</sys:String>
+    <sys:String x:Key="Dc.ColDetail">Emplacement</sys:String>
+    <sys:String x:Key="Dc.ColWhen">Date</sys:String>
+    <sys:String x:Key="Dc.ColSize">Taille</sys:String>
+    <sys:String x:Key="Dc.Found">{0} éléments · {1}</sys:String>
+    <sys:String x:Key="Dc.Empty">Rien trouvé ici.</sys:String>
+    <sys:String x:Key="Dc.ScanFirst">Lancez d'abord une analyse.</sys:String>
+    <sys:String x:Key="Dc.FileCount">{0} fichiers</sys:String>
     <sys:String x:Key="Shell.Rescan">⟳  Réanalyser</sys:String>
     <sys:String x:Key="Shell.NoScanYet">Aucune analyse pour l'instant</sys:String>
     <sys:String x:Key="Shell.LastScan">Dernière analyse :&#10;{0}</sys:String>
     <sys:String x:Key="Shell.Ready">Prêt.</sys:String>
     <sys:String x:Key="Shell.UpdateAvailable">↑ {0} disponible</sys:String>
+
+    <!-- Zone de notification -->
+    <sys:String x:Key="Tray.Open">Ouvrir ObsidianDisk</sys:String>
+    <sys:String x:Key="Tray.Exit">Quitter</sys:String>
+    <sys:String x:Key="Tray.Tooltip">ObsidianDisk — {0} {1}% utilisé</sys:String>
 
     <!-- Scan -->
     <sys:String x:Key="Scan.InvalidPath">Chemin non valide.</sys:String>
@@ -296,5 +321,16 @@
 
     <sys:String x:Key="St.SoftwareRender">Rendu logiciel</sys:String>
     <sys:String x:Key="St.SoftwareRenderNote">Corrige les artefacts de texte (cadres autour des lettres) sur certaines cartes graphiques. Coûte un peu de performance.</sys:String>
+    <sys:String x:Key="St.MinimizeToTray">Réduire dans la zone de notification</sys:String>
+    <sys:String x:Key="St.MinimizeToTrayNote">Lors de la réduction, garde ObsidianDisk dans la zone de notification plutôt que dans la barre des tâches.</sys:String>
+    <sys:String x:Key="St.DiskAlert">Alerter quand le disque est plein</sys:String>
+    <sys:String x:Key="St.DiskAlertNote">Affiche une notification quand l'utilisation dépasse le seuil ou que la projection indique un remplissage proche.</sys:String>
+    <sys:String x:Key="St.DiskAlertThreshold">Seuil d'alerte</sys:String>
+
+    <!-- Alerte disque plein -->
+    <sys:String x:Key="Alert.FullTitle">Disque presque plein</sys:String>
+    <sys:String x:Key="Alert.FullMsg">{0} est plein à {1}% — {2} libres.</sys:String>
+    <sys:String x:Key="Alert.ForecastTitle">Disque bientôt plein</sys:String>
+    <sys:String x:Key="Alert.ForecastMsg">Au rythme actuel, {0} sera plein vers {1}.</sys:String>
 
 </ResourceDictionary>

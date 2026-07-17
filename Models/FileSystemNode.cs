@@ -7,7 +7,9 @@ public sealed class FileSystemNode
     public string Name { get; init; } = "";
     public string FullPath { get; init; } = "";
     public bool IsDirectory { get; init; }
-    public DateTime LastWriteUtc { get; init; } // apenas arquivos
+    public DateTime LastWriteUtc { get; init; }  // arquivos e pastas
+    public DateTime LastAccessUtc { get; init; } // arquivos e pastas — pode ser impreciso (ver DiskScanner)
+    public DateTime CreationUtc { get; init; }   // arquivos e pastas
     public FileSystemNode? Parent { get; set; }
     public List<FileSystemNode> Children { get; } = new();
 

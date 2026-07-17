@@ -59,11 +59,24 @@ The biggest files on your disk in one list, filterable by minimum size (10 MB �
 ### 👯 Duplicates
 Finds identical files with a fast 3-stage detector: group by size → compare a partial hash (256 KB) → confirm with a full SHA-256. Results are grouped and sorted by wasted space, with the **most recent copy left unchecked** (kept) so you review before deleting.
 
+### 🔍 Discoveries
+Four focused analyses over your last scan, all in one page:
+
+- **Forgotten folders** — large folders you haven't modified in over a year, candidates to archive or remove.
+- **Wasted extensions** — space grouped by usually-reclaimable file types (`.log`, `.tmp`, `.cache`, `.iso`, `.zip`…).
+- **Dev artifacts** — build and dependency folders that tools regenerate: `node_modules`, `bin`, `obj`, `.venv`, `target`, `dist`, `__pycache__`…
+- **Forgotten large files** — big files you haven't *opened* in over a year (uses last-access time).
+
+Every result is actionable — open in Explorer, send to the Recycle Bin, or delete permanently, all with Undo.
+
 ### 🧹 Cleanup
 One click to reclaim space from known junk locations — user Temp, Windows Temp, Windows Update cache, thumbnail cache, Windows error reports, and the Recycle Bin. Sizes are measured up front, the button shows how much you'll free, and items in use are skipped safely. Includes a **"Restart as administrator"** button to reach protected system files.
 
 ### 📈 History
 Every completed scan is saved. The History page draws an **evolution chart**, min/avg/max statistics, a growth trend, a **disk-full projection** ("at this rate the disk fills up around …"), and exports the whole history to CSV.
+
+### 🔔 Disk-full alert
+ObsidianDisk warns you **before** the disk fills up: a native Windows notification when usage crosses a threshold (configurable — 80/85/90/95%, default 90%) or when the growth projection says the drive will fill up soon. It alerts once per session and re-arms when things go back to normal.
 
 ### 🗑️ Safe deletion & Undo
 Delete to the **Recycle Bin** (reversible) or **permanently**, always with a clear confirmation. Sent something to the bin by mistake? The **Undo** button in the status bar restores it.
@@ -75,6 +88,7 @@ Delete to the **Recycle Bin** (reversible) or **permanently**, always with a cle
 - **🌙 Dark & Light themes** — *Obsidian* (dark) and *Quartz* (light), switchable **live** (no restart).
 - **🌍 5 languages** — English, Português, Español, Français, Deutsch. Follows your Windows language automatically, or pick one in Settings.
 - **♿ Accessibility** — keyboard navigation across the treemap, screen-reader support, and an optional **colorblind-safe palette** (Okabe-Ito).
+- **🔔 Proactive & unobtrusive** — an optional **system-tray** icon (with a disk-usage tooltip), **minimize-to-tray**, and native notifications when the disk is filling up.
 - **⌨️ Modern UI** — JetBrains Mono typography, a borderless window with a custom title bar, subtle animations that respect your Windows "reduced motion" setting, live update notifications, and a **software-rendering** toggle for GPU drivers that leave artifacts around text.
 
 ---
@@ -99,9 +113,13 @@ dotnet publish -c Release
 | `Controls/ObsidianButton` | Custom button drawn as vector geometry (immune to a WPF/GPU glyph artifact) |
 | `Services/SafetyDatabase` | Plain-language verdict for ~60 known Windows paths |
 | `Services/DuplicateFinder` | 3-stage duplicate detection with parallel hashing |
+| `Services/DiscoveryAnalyzer` | The four Discoveries analyses over the in-memory tree |
 | `Services/TempCleaner` | Measures and cleans known Windows temp locations |
 | `Services/SemanticGrouper` | Classifies disk folders into semantic blocks |
 | `Services/LiveWatcher` | Keeps the map in sync with the disk via `FileSystemWatcher` |
+| `Services/SnapshotStore` | Lightweight per-scan tree snapshot (top folders) for diffs and trends |
+| `Services/DiskForecaster` | Linear-regression growth projection shared by History and the alert |
+| `Services/TrayService` · `Notifier` | System-tray icon and native notifications (dependency-free) |
 | `Resources/Strings.*.xaml` | Localization for 5 languages · `Themes/*.xaml` — Dark/Light palettes |
 | `Views/*` | Dashboard pages (WPF) |
 
