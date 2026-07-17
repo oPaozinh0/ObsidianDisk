@@ -161,6 +161,12 @@
     <!-- Cleanup -->
     <sys:String x:Key="Cl.Title">System Cleanup</sys:String>
     <sys:String x:Key="Cl.Desc">Known Windows temp-file locations. Check what you want to clean — items in use are skipped automatically.</sys:String>
+    <sys:String x:Key="Cl.Profile">Profile:</sys:String>
+    <sys:String x:Key="Cl.ProfileConservative">Conservative</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressive">Aggressive</sys:String>
+    <sys:String x:Key="Cl.ProfileCustom">Custom</sys:String>
+    <sys:String x:Key="Cl.ProfileConservativeHint">Temp files and caches that regenerate — no re-downloads, doesn't empty the Recycle Bin.</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressiveHint">Everything, including the Windows Update cache and the Recycle Bin.</sys:String>
     <sys:String x:Key="Cl.Refresh">⟳  Refresh sizes</sys:String>
     <sys:String x:Key="Cl.Clean">Clean selected</sys:String>
     <sys:String x:Key="Cl.CleanAmount">Clean {0}</sys:String>

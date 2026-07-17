@@ -162,6 +162,12 @@
     <!-- Limpieza -->
     <sys:String x:Key="Cl.Title">Limpieza del Sistema</sys:String>
     <sys:String x:Key="Cl.Desc">Ubicaciones de archivos temporales de Windows. Marque lo que desea limpiar — los elementos en uso se omiten automáticamente.</sys:String>
+    <sys:String x:Key="Cl.Profile">Perfil:</sys:String>
+    <sys:String x:Key="Cl.ProfileConservative">Conservador</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressive">Agresivo</sys:String>
+    <sys:String x:Key="Cl.ProfileCustom">Personalizado</sys:String>
+    <sys:String x:Key="Cl.ProfileConservativeHint">Temporales y cachés que se regeneran — sin volver a descargar nada ni vaciar la Papelera.</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressiveHint">Todo, incluida la caché de Windows Update y la Papelera.</sys:String>
     <sys:String x:Key="Cl.Refresh">⟳  Actualizar tamaños</sys:String>
     <sys:String x:Key="Cl.Clean">Limpiar seleccionados</sys:String>
     <sys:String x:Key="Cl.CleanAmount">Limpiar {0}</sys:String>

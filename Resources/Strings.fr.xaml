@@ -162,6 +162,12 @@
     <!-- Nettoyage -->
     <sys:String x:Key="Cl.Title">Nettoyage du Système</sys:String>
     <sys:String x:Key="Cl.Desc">Emplacements des fichiers temporaires de Windows. Cochez ce que vous voulez nettoyer — les éléments en cours d'utilisation sont ignorés automatiquement.</sys:String>
+    <sys:String x:Key="Cl.Profile">Profil :</sys:String>
+    <sys:String x:Key="Cl.ProfileConservative">Conservateur</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressive">Agressif</sys:String>
+    <sys:String x:Key="Cl.ProfileCustom">Personnalisé</sys:String>
+    <sys:String x:Key="Cl.ProfileConservativeHint">Fichiers temporaires et caches qui se régénèrent — sans re-téléchargement ni vidage de la Corbeille.</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressiveHint">Tout, y compris le cache de Windows Update et la Corbeille.</sys:String>
     <sys:String x:Key="Cl.Refresh">⟳  Actualiser les tailles</sys:String>
     <sys:String x:Key="Cl.Clean">Nettoyer la sélection</sys:String>
     <sys:String x:Key="Cl.CleanAmount">Nettoyer {0}</sys:String>

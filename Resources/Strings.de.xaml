@@ -162,6 +162,12 @@
     <!-- Bereinigung -->
     <sys:String x:Key="Cl.Title">Systembereinigung</sys:String>
     <sys:String x:Key="Cl.Desc">Bekannte Windows-Speicherorte für temporäre Dateien. Markieren Sie, was bereinigt werden soll — Elemente in Benutzung werden automatisch übersprungen.</sys:String>
+    <sys:String x:Key="Cl.Profile">Profil:</sys:String>
+    <sys:String x:Key="Cl.ProfileConservative">Konservativ</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressive">Aggressiv</sys:String>
+    <sys:String x:Key="Cl.ProfileCustom">Benutzerdefiniert</sys:String>
+    <sys:String x:Key="Cl.ProfileConservativeHint">Temporäre Dateien und Caches, die sich neu erzeugen — keine erneuten Downloads, leert nicht den Papierkorb.</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressiveHint">Alles, einschließlich Windows-Update-Cache und Papierkorb.</sys:String>
     <sys:String x:Key="Cl.Refresh">⟳  Größen aktualisieren</sys:String>
     <sys:String x:Key="Cl.Clean">Auswahl bereinigen</sys:String>
     <sys:String x:Key="Cl.CleanAmount">{0} bereinigen</sys:String>
