@@ -56,6 +56,8 @@
     <sys:String x:Key="Dc.DescExtensions">Speicher nach meist wiederverwertbaren Dateitypen gruppiert (Logs, temporäre Dateien, Caches, Archive).</sys:String>
     <sys:String x:Key="Dc.DescDevJunk">Build- und Abhängigkeitsordner, die Entwicklungswerkzeuge neu erzeugen (node_modules, bin, obj…).</sys:String>
     <sys:String x:Key="Dc.DescOldFiles">Große Dateien, die Sie seit über einem Jahr nicht geöffnet haben.</sys:String>
+    <sys:String x:Key="Dc.ModeEmpty">Leere Ordner</sys:String>
+    <sys:String x:Key="Dc.DescEmpty">Ordner ohne Dateien darin — Überbleibsel deinstallierter Programme und alter Ordnung.</sys:String>
     <sys:String x:Key="Dc.ColName">Name</sys:String>
     <sys:String x:Key="Dc.ColDetail">Ort</sys:String>
     <sys:String x:Key="Dc.ColWhen">Datum</sys:String>
