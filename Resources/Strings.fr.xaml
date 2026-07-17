@@ -13,6 +13,38 @@
     <sys:String x:Key="Nav.History">Historique</sys:String>
     <sys:String x:Key="Nav.Settings">Paramètres</sys:String>
 
+    <!-- Règles automatiques -->
+    <sys:String x:Key="Nav.Rules">Règles</sys:String>
+    <sys:String x:Key="Ru.NewRule">Nouvelle règle</sys:String>
+    <sys:String x:Key="Ru.Desc">Les fichiers correspondant aux conditions sont trouvés à chaque analyse. L'action (notifier ou envoyer à la Corbeille) est toujours confirmée par vous.</sys:String>
+    <sys:String x:Key="Ru.Name">Nom</sys:String>
+    <sys:String x:Key="Ru.Folder">Dossier</sys:String>
+    <sys:String x:Key="Ru.AnyFolder">Partout</sys:String>
+    <sys:String x:Key="Ru.MinSize">Taille min.</sys:String>
+    <sys:String x:Key="Ru.MinAge">Sans accès depuis</sys:String>
+    <sys:String x:Key="Ru.Action">Action</sys:String>
+    <sys:String x:Key="Ru.Add">Ajouter</sys:String>
+    <sys:String x:Key="Ru.Any">Peu importe</sys:String>
+    <sys:String x:Key="Ru.Days30">30 jours</sys:String>
+    <sys:String x:Key="Ru.Days90">90 jours</sys:String>
+    <sys:String x:Key="Ru.Days180">180 jours</sys:String>
+    <sys:String x:Key="Ru.Year1">1 an</sys:String>
+    <sys:String x:Key="Ru.Year2">2 ans</sys:String>
+    <sys:String x:Key="Ru.ActNotify">Notifier</sys:String>
+    <sys:String x:Key="Ru.ActRecycle">Envoyer à la Corbeille</sys:String>
+    <sys:String x:Key="Ru.Apply">Appliquer</sys:String>
+    <sys:String x:Key="Ru.Delete">Supprimer</sys:String>
+    <sys:String x:Key="Ru.Empty">Aucune règle pour l'instant. Créez-en une ci-dessus.</sys:String>
+    <sys:String x:Key="Ru.Tip">Les règles ne suppriment jamais définitivement ni en silence — elles notifient ou préparent un envoi à la Corbeille (réversible avec Annuler).</sys:String>
+    <sys:String x:Key="Ru.AgePart">sans accès depuis {0} jours</sys:String>
+    <sys:String x:Key="Ru.Matches">{0} fichiers · {1}</sys:String>
+    <sys:String x:Key="Ru.NameBoth">≥ {0} · {1} jours</sys:String>
+    <sys:String x:Key="Ru.NameSize">≥ {0}</sys:String>
+    <sys:String x:Key="Ru.NameAge">{0} jours sans usage</sys:String>
+    <sys:String x:Key="Ru.NameGeneric">Nouvelle règle</sys:String>
+    <sys:String x:Key="Rule.NotifyTitle">Des règles ont trouvé des éléments</sys:String>
+    <sys:String x:Key="Rule.NotifyMsg">{0} règle(s) avec des éléments à examiner — {1}.</sys:String>
+
     <!-- Découvertes -->
     <sys:String x:Key="Nav.Discoveries">Découvertes</sys:String>
     <sys:String x:Key="Dc.Title">Découvertes</sys:String>
@@ -24,6 +56,8 @@
     <sys:String x:Key="Dc.DescExtensions">Espace regroupé par types de fichiers souvent récupérables (journaux, temporaires, caches, archives).</sys:String>
     <sys:String x:Key="Dc.DescDevJunk">Dossiers de build et de dépendances que les outils de développement régénèrent (node_modules, bin, obj…).</sys:String>
     <sys:String x:Key="Dc.DescOldFiles">Gros fichiers que vous n'avez pas ouverts depuis plus d'un an.</sys:String>
+    <sys:String x:Key="Dc.ModeEmpty">Dossiers vides</sys:String>
+    <sys:String x:Key="Dc.DescEmpty">Dossiers sans aucun fichier — restes de programmes désinstallés et d'ancienne organisation.</sys:String>
     <sys:String x:Key="Dc.ColName">Nom</sys:String>
     <sys:String x:Key="Dc.ColDetail">Emplacement</sys:String>
     <sys:String x:Key="Dc.ColWhen">Date</sys:String>
@@ -165,6 +199,8 @@
     <sys:String x:Key="Cl.Title">Nettoyage du Système</sys:String>
     <sys:String x:Key="Cl.Desc">Emplacements des fichiers temporaires de Windows. Cochez ce que vous voulez nettoyer — les éléments en cours d'utilisation sont ignorés automatiquement.</sys:String>
     <sys:String x:Key="Cl.Profile">Profil :</sys:String>
+    <sys:String x:Key="Cl.DryRun">Simulation (ne rien supprimer, juste afficher)</sys:String>
+    <sys:String x:Key="Cl.DryRunResult">Simulation : {0} emplacement(s) libéreraient {1} — rien n'a été supprimé.</sys:String>
     <sys:String x:Key="Cl.ProfileConservative">Conservateur</sys:String>
     <sys:String x:Key="Cl.ProfileAggressive">Agressif</sys:String>
     <sys:String x:Key="Cl.ProfileCustom">Personnalisé</sys:String>
@@ -252,6 +288,11 @@
     <sys:String x:Key="Ov.WelcomeText">Découvrez ce qui occupe votre disque — la carte montre chaque dossier et fichier selon sa taille.</sys:String>
     <sys:String x:Key="Ov.WelcomeButton">Analyser mon disque ({0})</sys:String>
     <sys:String x:Key="Ov.Recommendations">Recommandations pour Libérer de l'Espace</sys:String>
+    <sys:String x:Key="Ov.Suggestions">Suggestions pour vous</sys:String>
+    <sys:String x:Key="Sg.Review">Examiner</sys:String>
+    <sys:String x:Key="Sg.Grower">{0} grandit à chaque analyse — +{1} sur vos {2} derniers scans.</sys:String>
+    <sys:String x:Key="Sg.DevJunk">Vous avez {0} dans des artefacts de développement (node_modules, bin, obj…).</sys:String>
+    <sys:String x:Key="Sg.OldFiles">{0} dans de gros fichiers non ouverts depuis plus d'un an.</sys:String>
     <sys:String x:Key="Ov.RecTempTitle">Temporaires et Corbeille</sys:String>
     <sys:String x:Key="Ov.RecTempMeasuring">calcul…</sys:String>
     <sys:String x:Key="Ov.RecTempValue">environ {0} récupérables en un clic</sys:String>

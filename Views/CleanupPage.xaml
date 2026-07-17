@@ -7,13 +7,10 @@
 
             <Border Style="{StaticResource Card}">
                 <StackPanel>
-                    <DockPanel LastChildFill="False">
-                        <StackPanel DockPanel.Dock="Left">
-                            <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource Cl.Title}"/>
-                            <TextBlock Style="{StaticResource MutedText}" Margin="0,4,0,0" TextWrapping="Wrap"
-                                       Text="{StaticResource Cl.Desc}"/>
-                        </StackPanel>
-                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Top">
+                    <!-- Botões declarados primeiro: reservam a largura antes do texto, que quebra no resto -->
+                    <DockPanel LastChildFill="True">
+                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Top"
+                                    Margin="12,0,0,0">
                             <controls:ObsidianButton x:Name="ElevateButton" Variant="Ghost" Height="36"
                                     Margin="0,0,10,0" Click="Elevate_Click" Visibility="Collapsed"
                                     Content="{StaticResource Cl.Elevate}"/>
@@ -23,16 +20,24 @@
                                     Margin="10,0,0,0" MinWidth="180" Click="Clean_Click"
                                     Content="{StaticResource Cl.Clean}"/>
                         </StackPanel>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource Cl.Title}"/>
+                            <TextBlock Style="{StaticResource MutedText}" Margin="0,4,0,0" TextWrapping="Wrap"
+                                       Text="{StaticResource Cl.Desc}"/>
+                        </StackPanel>
                     </DockPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="0,14,0,0" VerticalAlignment="Center">
+                    <DockPanel Margin="0,14,0,0" LastChildFill="True">
                         <TextBlock Text="{StaticResource Cl.Profile}" Style="{StaticResource MutedText}"
-                                   VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                   DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,0,10,0"/>
                         <ComboBox x:Name="ProfileCombo" Style="{StaticResource DarkCombo}" Width="200" Height="32"
-                                  SelectionChanged="Profile_Changed"/>
+                                  DockPanel.Dock="Left" SelectionChanged="Profile_Changed"/>
                         <TextBlock x:Name="ProfileHint" Style="{StaticResource MutedText}" FontSize="11.5"
                                    VerticalAlignment="Center" Margin="12,0,0,0" TextTrimming="CharacterEllipsis"/>
-                    </StackPanel>
+                    </DockPanel>
+
+                    <CheckBox x:Name="DryRunCheck" Style="{StaticResource Switch}" Margin="0,12,0,0"
+                              Content="{StaticResource Cl.DryRun}"/>
 
                     <StackPanel x:Name="ProgressRow" Margin="0,12,0,0" Visibility="Collapsed">
                         <ProgressBar Style="{StaticResource SlimProgress}" IsIndeterminate="True"/>

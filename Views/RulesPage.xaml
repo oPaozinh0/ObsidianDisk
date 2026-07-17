@@ -1,0 +1,58 @@
+<UserControl x:Class="ObsidianDisk.Views.RulesPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:ObsidianDisk.Controls">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,0,4,0">
+        <StackPanel>
+
+            <!-- Nova regra -->
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource Ru.NewRule}"/>
+                    <TextBlock Style="{StaticResource MutedText}" Margin="0,4,0,0" TextWrapping="Wrap"
+                               Text="{StaticResource Ru.Desc}"/>
+
+                    <WrapPanel Margin="0,14,0,0">
+                        <StackPanel Margin="0,0,14,10">
+                            <TextBlock Text="{StaticResource Ru.Name}" Style="{StaticResource MutedText}" Margin="0,0,0,4"/>
+                            <TextBox x:Name="NameBox" Style="{StaticResource DarkTextBox}" Width="180" Height="32"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,0,14,10">
+                            <TextBlock Text="{StaticResource Ru.Folder}" Style="{StaticResource MutedText}" Margin="0,0,0,4"/>
+                            <controls:ObsidianButton x:Name="FolderButton" Variant="Ghost" Height="32" MinWidth="150"
+                                    Click="PickFolder_Click" Content="{StaticResource Ru.AnyFolder}"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,0,14,10">
+                            <TextBlock Text="{StaticResource Ru.MinSize}" Style="{StaticResource MutedText}" Margin="0,0,0,4"/>
+                            <ComboBox x:Name="SizeCombo" Style="{StaticResource DarkCombo}" Width="120" Height="32"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,0,14,10">
+                            <TextBlock Text="{StaticResource Ru.MinAge}" Style="{StaticResource MutedText}" Margin="0,0,0,4"/>
+                            <ComboBox x:Name="AgeCombo" Style="{StaticResource DarkCombo}" Width="150" Height="32"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,0,14,10">
+                            <TextBlock Text="{StaticResource Ru.Action}" Style="{StaticResource MutedText}" Margin="0,0,0,4"/>
+                            <ComboBox x:Name="ActionCombo" Style="{StaticResource DarkCombo}" Width="150" Height="32"/>
+                        </StackPanel>
+                        <controls:ObsidianButton x:Name="AddButton" Variant="Primary" Height="32" MinWidth="120"
+                                VerticalAlignment="Bottom" Margin="0,0,0,10" Click="Add_Click"
+                                Content="{StaticResource Ru.Add}"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Regras existentes -->
+            <Border Style="{StaticResource Card}" Margin="0,12,0,0" Padding="10">
+                <StackPanel>
+                    <TextBlock x:Name="EmptyHint" Style="{StaticResource MutedText}" Margin="4,6,0,6"
+                               Text="{StaticResource Ru.Empty}"/>
+                    <StackPanel x:Name="RulesPanel"/>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Style="{StaticResource MutedText}" FontSize="11" Margin="4,10,0,0" TextWrapping="Wrap"
+                       Text="{StaticResource Ru.Tip}"/>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

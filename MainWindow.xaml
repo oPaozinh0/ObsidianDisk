@@ -95,6 +95,8 @@
                                          Content="{StaticResource Nav.Discoveries}" Checked="Nav_Checked"/>
                             <RadioButton x:Name="NavCleanup" Style="{StaticResource NavButton}" Tag="&#xEA99;"
                                          Content="{StaticResource Nav.Cleanup}" Checked="Nav_Checked"/>
+                            <RadioButton x:Name="NavRules" Style="{StaticResource NavButton}" Tag="&#xE71C;"
+                                         Content="{StaticResource Nav.Rules}" Checked="Nav_Checked"/>
                             <RadioButton x:Name="NavHistory" Style="{StaticResource NavButton}" Tag="&#xE81C;"
                                          Content="{StaticResource Nav.History}" Checked="Nav_Checked"/>
                             <RadioButton x:Name="NavSettings" Style="{StaticResource NavButton}" Tag="&#xE713;"
@@ -118,6 +120,7 @@
                     <views:DuplicatesPage x:Name="DuplicatesPage" Visibility="Collapsed"/>
                     <views:DiscoveriesPage x:Name="DiscoveriesPage" Visibility="Collapsed"/>
                     <views:CleanupPage x:Name="CleanupPage" Visibility="Collapsed"/>
+                    <views:RulesPage x:Name="RulesPage" Visibility="Collapsed"/>
                     <views:HistoryPage x:Name="HistoryPage" Visibility="Collapsed"/>
                     <views:SettingsPage x:Name="SettingsPage" Visibility="Collapsed"/>
                 </Grid>

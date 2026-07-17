@@ -11,7 +11,15 @@
         <!-- Cabeçalho -->
         <Border Grid.Row="0" Style="{StaticResource Card}" Padding="16,12">
             <StackPanel>
+                <!-- Botões declarados primeiro: reservam a largura antes do conteúdo à esquerda -->
                 <DockPanel LastChildFill="False">
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                        <controls:ObsidianButton Variant="Ghost" Height="32" Click="DeleteRecycle_Click"
+                                Content="{StaticResource Dup.DelRecycle}"/>
+                        <controls:ObsidianButton Variant="Danger" Height="32" Margin="8,0,0,0"
+                                Click="DeletePermanent_Click"
+                                Content="{StaticResource Dup.DelPermanent}"/>
+                    </StackPanel>
                     <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
                         <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource Dup.Title}"
                                    VerticalAlignment="Center"/>
@@ -19,13 +27,6 @@
                                   Margin="16,0,0,0"/>
                         <controls:ObsidianButton x:Name="SearchButton" Variant="Primary" Height="32"
                                 Margin="12,0,0,0" Click="Search_Click" Content="{StaticResource Dup.Search}"/>
-                    </StackPanel>
-                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
-                        <controls:ObsidianButton Variant="Ghost" Height="32" Click="DeleteRecycle_Click"
-                                Content="{StaticResource Dup.DelRecycle}"/>
-                        <controls:ObsidianButton Variant="Danger" Height="32" Margin="8,0,0,0"
-                                Click="DeletePermanent_Click" 
-                                Content="{StaticResource Dup.DelPermanent}"/>
                     </StackPanel>
                 </DockPanel>
 

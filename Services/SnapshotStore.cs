@@ -93,6 +93,21 @@ public static class SnapshotStore
         return result;
     }
 
+    /// <summary>Até <paramref name="count"/> snapshots mais recentes de um caminho, do mais antigo ao mais novo.</summary>
+    public static List<TreeSnapshot> RecentForPath(string path, int count)
+    {
+        var files = ListFiles(); // cronológico
+        var result = new List<TreeSnapshot>();
+        for (var i = files.Count - 1; i >= 0 && result.Count < count; i--)
+        {
+            var s = Load(files[i]);
+            if (s is not null && string.Equals(s.Path, path, StringComparison.OrdinalIgnoreCase))
+                result.Add(s);
+        }
+        result.Reverse(); // mais antigo primeiro
+        return result;
+    }
+
     /// <summary>Os dois snapshots mais recentes de um caminho (mais antigo, mais novo).</summary>
     public static (TreeSnapshot? Older, TreeSnapshot? Newer) TwoLatestForPath(string path)
     {

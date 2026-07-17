@@ -36,6 +36,17 @@ public sealed class FileSystemNode
                 child.SortBySizeDescending();
     }
 
+    /// <summary>Localiza um nó descendente pelo caminho completo (podando por prefixo). Null se não achar.</summary>
+    public FileSystemNode? FindByPath(string fullPath)
+    {
+        if (string.Equals(FullPath, fullPath, StringComparison.OrdinalIgnoreCase)) return this;
+        if (!fullPath.StartsWith(FullPath, StringComparison.OrdinalIgnoreCase)) return null;
+        foreach (var child in Children)
+            if (child.IsDirectory && child.FindByPath(fullPath) is { } found)
+                return found;
+        return null;
+    }
+
     public static string FormatSize(long bytes)
     {
         string[] units = { "B", "KB", "MB", "GB", "TB" };

@@ -110,6 +110,31 @@ public static class DiscoveryAnalyzer
             .ToList();
     }
 
+    /// <summary>Pastas sem nenhum arquivo na subárvore (a raiz vazia de cada, sem subsumir).</summary>
+    public static List<DiscoveryItem> EmptyFolders(FileSystemNode root)
+    {
+        var found = new List<FileSystemNode>();
+
+        void Walk(FileSystemNode dir)
+        {
+            foreach (var child in dir.Children)
+            {
+                if (!child.IsDirectory) continue;
+                if (child.Size == 0)
+                    found.Add(child); // vazia: nenhum arquivo aqui dentro — não desce
+                else
+                    Walk(child);
+            }
+        }
+
+        Walk(root);
+        return found
+            .OrderByDescending(n => n.LastWriteUtc)
+            .Take(MaxResults)
+            .Select(n => new DiscoveryItem(n.Name, Path.GetDirectoryName(n.FullPath) ?? "", n.LastWriteUtc, 0, n))
+            .ToList();
+    }
+
     /// <summary>Arquivos grandes não acessados há muito tempo.</summary>
     public static List<DiscoveryItem> LargeFilesByAge(FileSystemNode root, DateTime accessCutoffUtc, long minBytes)
     {

@@ -225,6 +225,15 @@ public partial class CleanupPage : UserControl
         }
 
         long estimate = selected.Sum(r => r.Size);
+
+        // Simulação: mostra o que seria liberado, sem deletar nada
+        if (DryRunCheck.IsChecked == true)
+        {
+            ResultBanner.Visibility = Visibility.Visible;
+            ResultText.Text = L.F("Cl.DryRunResult", selected.Count, FileSystemNode.FormatSize(estimate));
+            return;
+        }
+
         bool hasRecycle = selected.Any(r => r.Target.IsRecycleBin);
         string warning = L.F("Cl.ConfirmMsg", selected.Count, FileSystemNode.FormatSize(estimate)) +
                          (hasRecycle ? L.T("Cl.ConfirmRecycleNote") : "");

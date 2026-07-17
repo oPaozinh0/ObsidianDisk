@@ -13,6 +13,38 @@
     <sys:String x:Key="Nav.History">Verlauf</sys:String>
     <sys:String x:Key="Nav.Settings">Einstellungen</sys:String>
 
+    <!-- Automatische Regeln -->
+    <sys:String x:Key="Nav.Rules">Regeln</sys:String>
+    <sys:String x:Key="Ru.NewRule">Neue Regel</sys:String>
+    <sys:String x:Key="Ru.Desc">Dateien, die den Bedingungen entsprechen, werden bei jedem Scan gefunden. Die Aktion (benachrichtigen oder in den Papierkorb) wird immer von Ihnen bestätigt.</sys:String>
+    <sys:String x:Key="Ru.Name">Name</sys:String>
+    <sys:String x:Key="Ru.Folder">Ordner</sys:String>
+    <sys:String x:Key="Ru.AnyFolder">Überall</sys:String>
+    <sys:String x:Key="Ru.MinSize">Min. Größe</sys:String>
+    <sys:String x:Key="Ru.MinAge">Kein Zugriff seit</sys:String>
+    <sys:String x:Key="Ru.Action">Aktion</sys:String>
+    <sys:String x:Key="Ru.Add">Hinzufügen</sys:String>
+    <sys:String x:Key="Ru.Any">Beliebig</sys:String>
+    <sys:String x:Key="Ru.Days30">30 Tage</sys:String>
+    <sys:String x:Key="Ru.Days90">90 Tage</sys:String>
+    <sys:String x:Key="Ru.Days180">180 Tage</sys:String>
+    <sys:String x:Key="Ru.Year1">1 Jahr</sys:String>
+    <sys:String x:Key="Ru.Year2">2 Jahre</sys:String>
+    <sys:String x:Key="Ru.ActNotify">Benachrichtigen</sys:String>
+    <sys:String x:Key="Ru.ActRecycle">In den Papierkorb</sys:String>
+    <sys:String x:Key="Ru.Apply">Anwenden</sys:String>
+    <sys:String x:Key="Ru.Delete">Löschen</sys:String>
+    <sys:String x:Key="Ru.Empty">Noch keine Regeln. Erstellen Sie oben eine.</sys:String>
+    <sys:String x:Key="Ru.Tip">Regeln löschen nie endgültig oder im Stillen — sie benachrichtigen nur oder bereiten das Verschieben in den Papierkorb vor (rückgängig machbar).</sys:String>
+    <sys:String x:Key="Ru.AgePart">kein Zugriff seit {0} Tagen</sys:String>
+    <sys:String x:Key="Ru.Matches">{0} Dateien · {1}</sys:String>
+    <sys:String x:Key="Ru.NameBoth">≥ {0} · {1} Tage</sys:String>
+    <sys:String x:Key="Ru.NameSize">≥ {0}</sys:String>
+    <sys:String x:Key="Ru.NameAge">{0} Tage ungenutzt</sys:String>
+    <sys:String x:Key="Ru.NameGeneric">Neue Regel</sys:String>
+    <sys:String x:Key="Rule.NotifyTitle">Regeln haben Elemente gefunden</sys:String>
+    <sys:String x:Key="Rule.NotifyMsg">{0} Regel(n) mit Elementen zum Prüfen — {1}.</sys:String>
+
     <!-- Entdeckungen -->
     <sys:String x:Key="Nav.Discoveries">Entdeckungen</sys:String>
     <sys:String x:Key="Dc.Title">Entdeckungen</sys:String>
@@ -24,6 +56,8 @@
     <sys:String x:Key="Dc.DescExtensions">Speicher nach meist wiederverwertbaren Dateitypen gruppiert (Logs, temporäre Dateien, Caches, Archive).</sys:String>
     <sys:String x:Key="Dc.DescDevJunk">Build- und Abhängigkeitsordner, die Entwicklungswerkzeuge neu erzeugen (node_modules, bin, obj…).</sys:String>
     <sys:String x:Key="Dc.DescOldFiles">Große Dateien, die Sie seit über einem Jahr nicht geöffnet haben.</sys:String>
+    <sys:String x:Key="Dc.ModeEmpty">Leere Ordner</sys:String>
+    <sys:String x:Key="Dc.DescEmpty">Ordner ohne Dateien darin — Überbleibsel deinstallierter Programme und alter Ordnung.</sys:String>
     <sys:String x:Key="Dc.ColName">Name</sys:String>
     <sys:String x:Key="Dc.ColDetail">Ort</sys:String>
     <sys:String x:Key="Dc.ColWhen">Datum</sys:String>
@@ -165,6 +199,8 @@
     <sys:String x:Key="Cl.Title">Systembereinigung</sys:String>
     <sys:String x:Key="Cl.Desc">Bekannte Windows-Speicherorte für temporäre Dateien. Markieren Sie, was bereinigt werden soll — Elemente in Benutzung werden automatisch übersprungen.</sys:String>
     <sys:String x:Key="Cl.Profile">Profil:</sys:String>
+    <sys:String x:Key="Cl.DryRun">Simulation (nichts löschen, nur anzeigen)</sys:String>
+    <sys:String x:Key="Cl.DryRunResult">Simulation: {0} Ort(e) würden {1} freigeben — nichts wurde gelöscht.</sys:String>
     <sys:String x:Key="Cl.ProfileConservative">Konservativ</sys:String>
     <sys:String x:Key="Cl.ProfileAggressive">Aggressiv</sys:String>
     <sys:String x:Key="Cl.ProfileCustom">Benutzerdefiniert</sys:String>
@@ -252,6 +288,11 @@
     <sys:String x:Key="Ov.WelcomeText">Sehen Sie, was Ihre Festplatte belegt — die Karte zeigt jeden Ordner und jede Datei nach Größe.</sys:String>
     <sys:String x:Key="Ov.WelcomeButton">Meine Festplatte analysieren ({0})</sys:String>
     <sys:String x:Key="Ov.Recommendations">Empfehlungen zum Freigeben von Speicher</sys:String>
+    <sys:String x:Key="Ov.Suggestions">Vorschläge für Sie</sys:String>
+    <sys:String x:Key="Sg.Review">Ansehen</sys:String>
+    <sys:String x:Key="Sg.Grower">{0} wächst bei jedem Scan — +{1} über die letzten {2} Scans.</sys:String>
+    <sys:String x:Key="Sg.DevJunk">Sie haben {0} in Entwicklungs-Artefakten (node_modules, bin, obj…).</sys:String>
+    <sys:String x:Key="Sg.OldFiles">{0} in großen Dateien, die Sie seit über einem Jahr nicht geöffnet haben.</sys:String>
     <sys:String x:Key="Ov.RecTempTitle">Temp-Dateien und Papierkorb</sys:String>
     <sys:String x:Key="Ov.RecTempMeasuring">berechne…</sys:String>
     <sys:String x:Key="Ov.RecTempValue">etwa {0} mit einem Klick rückgewinnbar</sys:String>

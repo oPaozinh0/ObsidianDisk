@@ -13,6 +13,38 @@
     <sys:String x:Key="Nav.History">Histórico</sys:String>
     <sys:String x:Key="Nav.Settings">Configurações</sys:String>
 
+    <!-- Regras automáticas -->
+    <sys:String x:Key="Nav.Rules">Regras</sys:String>
+    <sys:String x:Key="Ru.NewRule">Nova regra</sys:String>
+    <sys:String x:Key="Ru.Desc">Arquivos que baterem com as condições são encontrados a cada scan. A ação (avisar ou enviar pra Lixeira) é sempre confirmada por você.</sys:String>
+    <sys:String x:Key="Ru.Name">Nome</sys:String>
+    <sys:String x:Key="Ru.Folder">Pasta</sys:String>
+    <sys:String x:Key="Ru.AnyFolder">Qualquer pasta</sys:String>
+    <sys:String x:Key="Ru.MinSize">Tamanho mín.</sys:String>
+    <sys:String x:Key="Ru.MinAge">Sem acesso há</sys:String>
+    <sys:String x:Key="Ru.Action">Ação</sys:String>
+    <sys:String x:Key="Ru.Add">Adicionar</sys:String>
+    <sys:String x:Key="Ru.Any">Qualquer</sys:String>
+    <sys:String x:Key="Ru.Days30">30 dias</sys:String>
+    <sys:String x:Key="Ru.Days90">90 dias</sys:String>
+    <sys:String x:Key="Ru.Days180">180 dias</sys:String>
+    <sys:String x:Key="Ru.Year1">1 ano</sys:String>
+    <sys:String x:Key="Ru.Year2">2 anos</sys:String>
+    <sys:String x:Key="Ru.ActNotify">Avisar</sys:String>
+    <sys:String x:Key="Ru.ActRecycle">Enviar pra Lixeira</sys:String>
+    <sys:String x:Key="Ru.Apply">Aplicar</sys:String>
+    <sys:String x:Key="Ru.Delete">Excluir</sys:String>
+    <sys:String x:Key="Ru.Empty">Nenhuma regra ainda. Crie uma acima.</sys:String>
+    <sys:String x:Key="Ru.Tip">Regras nunca deletam de forma permanente nem em silêncio — só avisam ou preparam o envio pra Lixeira (reversível com Desfazer).</sys:String>
+    <sys:String x:Key="Ru.AgePart">sem acesso há {0} dias</sys:String>
+    <sys:String x:Key="Ru.Matches">{0} arquivos · {1}</sys:String>
+    <sys:String x:Key="Ru.NameBoth">≥ {0} · {1} dias</sys:String>
+    <sys:String x:Key="Ru.NameSize">≥ {0}</sys:String>
+    <sys:String x:Key="Ru.NameAge">{0} dias sem uso</sys:String>
+    <sys:String x:Key="Ru.NameGeneric">Nova regra</sys:String>
+    <sys:String x:Key="Rule.NotifyTitle">Regras encontraram itens</sys:String>
+    <sys:String x:Key="Rule.NotifyMsg">{0} regra(s) com itens pra revisar — {1}.</sys:String>
+
     <!-- Descobertas -->
     <sys:String x:Key="Nav.Discoveries">Descobertas</sys:String>
     <sys:String x:Key="Dc.Title">Descobertas</sys:String>
@@ -24,6 +56,8 @@
     <sys:String x:Key="Dc.DescExtensions">Espaço somado por tipos de arquivo geralmente recuperáveis (logs, temporários, caches, arquivões).</sys:String>
     <sys:String x:Key="Dc.DescDevJunk">Pastas de build e dependências que as ferramentas de desenvolvimento recriam (node_modules, bin, obj…).</sys:String>
     <sys:String x:Key="Dc.DescOldFiles">Arquivos grandes que você não abre há mais de um ano.</sys:String>
+    <sys:String x:Key="Dc.ModeEmpty">Pastas vazias</sys:String>
+    <sys:String x:Key="Dc.DescEmpty">Pastas sem nenhum arquivo dentro — sobras de programas desinstalados e organização antiga.</sys:String>
     <sys:String x:Key="Dc.ColName">Nome</sys:String>
     <sys:String x:Key="Dc.ColDetail">Local</sys:String>
     <sys:String x:Key="Dc.ColWhen">Data</sys:String>
@@ -164,6 +198,8 @@
     <sys:String x:Key="Cl.Title">Limpeza do Sistema</sys:String>
     <sys:String x:Key="Cl.Desc">Locais de arquivos temporários do Windows. Marque o que deseja limpar — itens em uso são pulados automaticamente.</sys:String>
     <sys:String x:Key="Cl.Profile">Perfil:</sys:String>
+    <sys:String x:Key="Cl.DryRun">Simulação (não deletar, só mostrar)</sys:String>
+    <sys:String x:Key="Cl.DryRunResult">Simulação: {0} local(is) liberariam {1} — nada foi apagado.</sys:String>
     <sys:String x:Key="Cl.ProfileConservative">Conservador</sys:String>
     <sys:String x:Key="Cl.ProfileAggressive">Agressivo</sys:String>
     <sys:String x:Key="Cl.ProfileCustom">Personalizado</sys:String>
@@ -252,6 +288,11 @@
     <sys:String x:Key="Ov.WelcomeText">Veja o que está ocupando o seu disco — o mapa mostra cada pasta e arquivo por tamanho.</sys:String>
     <sys:String x:Key="Ov.WelcomeButton">Analisar meu disco ({0})</sys:String>
     <sys:String x:Key="Ov.Recommendations">Recomendações para Liberar Espaço</sys:String>
+    <sys:String x:Key="Ov.Suggestions">Sugestões pra você</sys:String>
+    <sys:String x:Key="Sg.Review">Revisar</sys:String>
+    <sys:String x:Key="Sg.Grower">{0} cresce a cada scan — +{1} nos últimos {2} scans.</sys:String>
+    <sys:String x:Key="Sg.DevJunk">Você tem {0} em artefatos de desenvolvimento (node_modules, bin, obj…).</sys:String>
+    <sys:String x:Key="Sg.OldFiles">{0} em arquivos grandes que você não abre há mais de um ano.</sys:String>
     <sys:String x:Key="Ov.RecTempTitle">Temporários e Lixeira</sys:String>
     <sys:String x:Key="Ov.RecTempMeasuring">calculando…</sys:String>
     <sys:String x:Key="Ov.RecTempValue">cerca de {0} recuperáveis com um clique</sys:String>

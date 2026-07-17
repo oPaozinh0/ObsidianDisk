@@ -13,6 +13,38 @@
     <sys:String x:Key="Nav.History">History</sys:String>
     <sys:String x:Key="Nav.Settings">Settings</sys:String>
 
+    <!-- Automatic rules -->
+    <sys:String x:Key="Nav.Rules">Rules</sys:String>
+    <sys:String x:Key="Ru.NewRule">New rule</sys:String>
+    <sys:String x:Key="Ru.Desc">Files matching the conditions are found on every scan. The action (notify or move to the Recycle Bin) is always confirmed by you.</sys:String>
+    <sys:String x:Key="Ru.Name">Name</sys:String>
+    <sys:String x:Key="Ru.Folder">Folder</sys:String>
+    <sys:String x:Key="Ru.AnyFolder">Anywhere</sys:String>
+    <sys:String x:Key="Ru.MinSize">Min. size</sys:String>
+    <sys:String x:Key="Ru.MinAge">Not accessed for</sys:String>
+    <sys:String x:Key="Ru.Action">Action</sys:String>
+    <sys:String x:Key="Ru.Add">Add</sys:String>
+    <sys:String x:Key="Ru.Any">Any</sys:String>
+    <sys:String x:Key="Ru.Days30">30 days</sys:String>
+    <sys:String x:Key="Ru.Days90">90 days</sys:String>
+    <sys:String x:Key="Ru.Days180">180 days</sys:String>
+    <sys:String x:Key="Ru.Year1">1 year</sys:String>
+    <sys:String x:Key="Ru.Year2">2 years</sys:String>
+    <sys:String x:Key="Ru.ActNotify">Notify</sys:String>
+    <sys:String x:Key="Ru.ActRecycle">Move to Recycle Bin</sys:String>
+    <sys:String x:Key="Ru.Apply">Apply</sys:String>
+    <sys:String x:Key="Ru.Delete">Delete</sys:String>
+    <sys:String x:Key="Ru.Empty">No rules yet. Create one above.</sys:String>
+    <sys:String x:Key="Ru.Tip">Rules never delete permanently or silently — they only notify or prepare a move to the Recycle Bin (reversible with Undo).</sys:String>
+    <sys:String x:Key="Ru.AgePart">not accessed for {0} days</sys:String>
+    <sys:String x:Key="Ru.Matches">{0} files · {1}</sys:String>
+    <sys:String x:Key="Ru.NameBoth">≥ {0} · {1} days</sys:String>
+    <sys:String x:Key="Ru.NameSize">≥ {0}</sys:String>
+    <sys:String x:Key="Ru.NameAge">{0} days unused</sys:String>
+    <sys:String x:Key="Ru.NameGeneric">New rule</sys:String>
+    <sys:String x:Key="Rule.NotifyTitle">Rules found items</sys:String>
+    <sys:String x:Key="Rule.NotifyMsg">{0} rule(s) with items to review — {1}.</sys:String>
+
     <!-- Discoveries -->
     <sys:String x:Key="Nav.Discoveries">Discoveries</sys:String>
     <sys:String x:Key="Dc.Title">Discoveries</sys:String>
@@ -24,6 +56,8 @@
     <sys:String x:Key="Dc.DescExtensions">Space grouped by file types that are usually reclaimable (logs, temp, caches, archives).</sys:String>
     <sys:String x:Key="Dc.DescDevJunk">Build and dependency folders that dev tools regenerate (node_modules, bin, obj…).</sys:String>
     <sys:String x:Key="Dc.DescOldFiles">Large files you haven't opened in over a year.</sys:String>
+    <sys:String x:Key="Dc.ModeEmpty">Empty folders</sys:String>
+    <sys:String x:Key="Dc.DescEmpty">Folders with no files inside — leftovers from uninstalled programs and old organization.</sys:String>
     <sys:String x:Key="Dc.ColName">Name</sys:String>
     <sys:String x:Key="Dc.ColDetail">Location</sys:String>
     <sys:String x:Key="Dc.ColWhen">Date</sys:String>
@@ -164,6 +198,8 @@
     <sys:String x:Key="Cl.Title">System Cleanup</sys:String>
     <sys:String x:Key="Cl.Desc">Known Windows temp-file locations. Check what you want to clean — items in use are skipped automatically.</sys:String>
     <sys:String x:Key="Cl.Profile">Profile:</sys:String>
+    <sys:String x:Key="Cl.DryRun">Dry run (don't delete, just preview)</sys:String>
+    <sys:String x:Key="Cl.DryRunResult">Dry run: {0} location(s) would free {1} — nothing was deleted.</sys:String>
     <sys:String x:Key="Cl.ProfileConservative">Conservative</sys:String>
     <sys:String x:Key="Cl.ProfileAggressive">Aggressive</sys:String>
     <sys:String x:Key="Cl.ProfileCustom">Custom</sys:String>
@@ -252,6 +288,11 @@
     <sys:String x:Key="Ov.WelcomeText">See what's taking up your disk — the map shows every folder and file by size.</sys:String>
     <sys:String x:Key="Ov.WelcomeButton">Analyze my disk ({0})</sys:String>
     <sys:String x:Key="Ov.Recommendations">Recommendations to Free Space</sys:String>
+    <sys:String x:Key="Ov.Suggestions">Suggestions for you</sys:String>
+    <sys:String x:Key="Sg.Review">Review</sys:String>
+    <sys:String x:Key="Sg.Grower">{0} keeps growing — +{1} across your last {2} scans.</sys:String>
+    <sys:String x:Key="Sg.DevJunk">You have {0} in dev artifacts (node_modules, bin, obj…).</sys:String>
+    <sys:String x:Key="Sg.OldFiles">{0} in large files you haven't opened in over a year.</sys:String>
     <sys:String x:Key="Ov.RecTempTitle">Temp files &amp; Recycle Bin</sys:String>
     <sys:String x:Key="Ov.RecTempMeasuring">measuring…</sys:String>
     <sys:String x:Key="Ov.RecTempValue">about {0} recoverable in one click</sys:String>
