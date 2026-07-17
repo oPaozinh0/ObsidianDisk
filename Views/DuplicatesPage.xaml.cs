@@ -46,13 +46,13 @@ public partial class DuplicatesPage : UserControl
 
         if (_root is null)
         {
-            SummaryText.Text = "Escaneie um disco na Visão Geral antes de procurar duplicados.";
+            SummaryText.Text = L.T("Dup.ScanFirst");
             return;
         }
 
         long minSize = (long)(((ComboBoxItem)MinSizeCombo.SelectedItem).Tag ?? (10L << 20));
         _cts = new CancellationTokenSource();
-        SearchButton.Content = "✕  Cancelar";
+        SearchButton.Content = L.T("Dup.CancelSearch");
         ProgressRow.Visibility = Visibility.Visible;
         SearchProgress.IsIndeterminate = true;
         GroupsPanel.Children.Clear();
@@ -62,7 +62,7 @@ public partial class DuplicatesPage : UserControl
         {
             SearchProgress.IsIndeterminate = false;
             SearchProgress.Value = p.Total > 0 ? p.Done * 100.0 / p.Total : 0;
-            ProgressLabel.Text = $"{p.Phase}… {p.Done:N0} de {p.Total:N0} arquivos";
+            ProgressLabel.Text = L.F("Dup.PhaseProgress", L.T(p.Phase), p.Done.ToString("N0"), p.Total.ToString("N0"));
         });
 
         try
@@ -72,18 +72,17 @@ public partial class DuplicatesPage : UserControl
 
             long wasted = groups.Sum(g => g.WastedBytes);
             SummaryText.Text = groups.Count == 0
-                ? "Nenhum duplicado encontrado com esse tamanho mínimo."
-                : $"{groups.Count:N0} grupos de duplicados · {FileSystemNode.FormatSize(wasted)} recuperáveis. " +
-                  "A cópia mais recente de cada grupo vem desmarcada (será mantida).";
+                ? L.T("Dup.None")
+                : L.F("Dup.Summary", groups.Count.ToString("N0"), FileSystemNode.FormatSize(wasted));
         }
         catch (OperationCanceledException)
         {
-            SummaryText.Text = "Busca cancelada.";
+            SummaryText.Text = L.T("Dup.Cancelled");
         }
         finally
         {
             ProgressRow.Visibility = Visibility.Collapsed;
-            SearchButton.Content = "🔍  Procurar duplicados";
+            SearchButton.Content = L.T("Dup.Search");
             _cts.Dispose();
             _cts = null;
         }
@@ -106,8 +105,7 @@ public partial class DuplicatesPage : UserControl
 
             stack.Children.Add(new TextBlock
             {
-                Text = $"{group.Files.Count} cópias · {FileSystemNode.FormatSize(group.FileSize)} cada · " +
-                       $"{FileSystemNode.FormatSize(group.WastedBytes)} desperdiçados",
+                Text = L.F("Dup.GroupHeader", group.Files.Count, FileSystemNode.FormatSize(group.FileSize), FileSystemNode.FormatSize(group.WastedBytes)),
                 Foreground = (Brush)FindResource("Text"),
                 FontWeight = FontWeights.SemiBold,
                 FontSize = 13,
@@ -134,7 +132,7 @@ public partial class DuplicatesPage : UserControl
                 });
                 label.Inlines.Add(new System.Windows.Documents.Run(
                     $"   · {file.LastWriteUtc.ToLocalTime():dd/MM/yyyy}" +
-                    (ReferenceEquals(file, newest) ? "  (mais recente)" : ""))
+                    (ReferenceEquals(file, newest) ? L.T("Dup.Newest") : ""))
                 {
                     Foreground = (Brush)FindResource("Muted"),
                     FontSize = 11.5,
@@ -153,7 +151,7 @@ public partial class DuplicatesPage : UserControl
         {
             GroupsPanel.Children.Add(new TextBlock
             {
-                Text = $"Exibindo os 100 grupos com maior desperdício de {groups.Count:N0} encontrados.",
+                Text = L.F("Dup.ShowingTop", groups.Count.ToString("N0")),
                 Foreground = (Brush)FindResource("Muted"),
                 FontSize = 12,
                 Margin = new Thickness(4, 2, 0, 8),

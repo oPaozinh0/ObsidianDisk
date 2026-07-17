@@ -12,10 +12,10 @@
         <!-- Breadcrumb + filtros -->
         <DockPanel Grid.Row="0" LastChildFill="True" Margin="0,0,0,8">
             <Button x:Name="UpButton" Style="{StaticResource GhostButton}" DockPanel.Dock="Left"
-                    Padding="10,4" Click="Up_Click" Content="↑ Acima" IsEnabled="False"/>
+                    Padding="10,4" Click="Up_Click" Content="{StaticResource Map.Up}" IsEnabled="False"/>
 
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
-                <CheckBox x:Name="OldFilesSwitch" Style="{StaticResource Switch}" Content="Antigos (1 ano+)"
+                <CheckBox x:Name="OldFilesSwitch" Style="{StaticResource Switch}" Content="{StaticResource Map.OldFiles}"
                           Foreground="{StaticResource Muted}" FontSize="12"
                           Checked="Filter_Changed" Unchecked="Filter_Changed"/>
                 <ComboBox x:Name="CategoryCombo" Style="{StaticResource DarkCombo}" Width="170" Height="32"
@@ -37,10 +37,10 @@
                 <StackPanel x:Name="EmptyState" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Path Data="M 12 0 L 24 9 L 19 24 L 5 24 L 0 9 Z" Fill="{StaticResource Panel2}"
                           Width="72" Height="72" Stretch="Uniform" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Escaneie um disco na Visão Geral para ver o mapa"
+                    <TextBlock Text="{StaticResource Map.EmptyTitle}"
                                Foreground="{StaticResource Muted}" FontSize="15" Margin="0,16,0,4"
                                HorizontalAlignment="Center"/>
-                    <TextBlock Text="Duplo clique aprofunda · Backspace volta · clique direito para ações"
+                    <TextBlock Text="{StaticResource Map.EmptyHint}"
                                Foreground="{StaticResource Muted}" FontSize="12" Opacity="0.7"
                                HorizontalAlignment="Center"/>
                 </StackPanel>

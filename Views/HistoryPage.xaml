@@ -9,10 +9,10 @@
                 <StackPanel>
                     <DockPanel LastChildFill="False">
                         <TextBlock DockPanel.Dock="Left" Style="{StaticResource CardTitle}"
-                                   Text="Histórico de Uso de Espaço" VerticalAlignment="Center"/>
+                                   Text="{StaticResource Hi.Title}" VerticalAlignment="Center"/>
                         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                             <Button Style="{StaticResource GhostButton}" Height="32" Click="Export_Click"
-                                    Content="⬇  Exportar CSV"/>
+                                    Content="{StaticResource Hi.Export}"/>
                             <ComboBox x:Name="PathCombo" Style="{StaticResource DarkCombo}"
                                       Width="260" Height="32" Margin="10,0,0,0"
                                       SelectionChanged="PathCombo_Changed"/>
@@ -21,7 +21,7 @@
                     <Canvas x:Name="ChartCanvas" Height="190" Margin="0,14,0,0" ClipToBounds="True"
                             SizeChanged="Chart_SizeChanged"/>
                     <TextBlock x:Name="ChartHint" Style="{StaticResource MutedText}" Margin="0,8,0,0"
-                               Text="Cada scan concluído registra um ponto aqui — escaneie o mesmo disco ao longo do tempo para acompanhar a evolução."/>
+                               Text="{StaticResource Hi.ChartHint}"/>
                 </StackPanel>
             </Border>
 
@@ -32,20 +32,20 @@
             <Border x:Name="TrendCard" Style="{StaticResource Card}" Margin="0,2,0,0"
                     Visibility="Collapsed">
                 <StackPanel>
-                    <TextBlock Style="{StaticResource CardTitle}" Text="Tendência e Projeção"/>
+                    <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource Hi.TrendTitle}"/>
                     <UniformGrid Columns="3" Margin="0,12,0,0">
                         <StackPanel Margin="0,0,16,0">
-                            <TextBlock Text="Crescimento (últimos 30 dias)" Style="{StaticResource MutedText}"/>
+                            <TextBlock Text="{StaticResource Hi.Growth30}" Style="{StaticResource MutedText}"/>
                             <TextBlock x:Name="Growth30Text" Foreground="{StaticResource Text}" FontSize="20"
                                        FontWeight="Bold" Margin="0,4,0,0"/>
                         </StackPanel>
                         <StackPanel Margin="0,0,16,0">
-                            <TextBlock Text="Projeção (em 3 meses)" Style="{StaticResource MutedText}"/>
+                            <TextBlock Text="{StaticResource Hi.Projection}" Style="{StaticResource MutedText}"/>
                             <TextBlock x:Name="ProjectionText" Foreground="{StaticResource Text}" FontSize="20"
                                        FontWeight="Bold" Margin="0,4,0,0"/>
                         </StackPanel>
                         <StackPanel>
-                            <TextBlock Text="Espaço livre atual" Style="{StaticResource MutedText}"/>
+                            <TextBlock Text="{StaticResource Hi.FreeNow}" Style="{StaticResource MutedText}"/>
                             <TextBlock x:Name="FreeNowText" Foreground="{StaticResource Text}" FontSize="20"
                                        FontWeight="Bold" Margin="0,4,0,0"/>
                         </StackPanel>
@@ -62,19 +62,19 @@
             <!-- Tabela -->
             <Border Style="{StaticResource Card}" Margin="0,12,0,0" Padding="16,12">
                 <StackPanel>
-                    <TextBlock Style="{StaticResource CardTitle}" Text="Registros" Margin="0,0,0,8"/>
+                    <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource Hi.Records}" Margin="0,0,0,8"/>
                     <ListView x:Name="HistoryList" Style="{StaticResource DarkListView}" SelectionMode="Single"
                               MaxHeight="320">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Data" Width="170">
+                                <GridViewColumn Header="{StaticResource Hi.ColDate}" Width="170">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding DateText}" FontSize="13"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Caminho" Width="360">
+                                <GridViewColumn Header="{StaticResource Hi.ColPath}" Width="360">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Path}" FontSize="12" Foreground="{StaticResource Muted}"
@@ -82,21 +82,21 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Arquivos" Width="110">
+                                <GridViewColumn Header="{StaticResource Hi.ColFiles}" Width="110">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding FilesText}" FontSize="13"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Total" Width="110">
+                                <GridViewColumn Header="{StaticResource Hi.ColTotal}" Width="110">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding SizeText}" FontSize="13" FontWeight="SemiBold"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Variação" Width="110">
+                                <GridViewColumn Header="{StaticResource Hi.ColChange}" Width="110">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding DeltaText}" FontSize="13" Foreground="{Binding DeltaBrush}"/>

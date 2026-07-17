@@ -17,10 +17,40 @@ public partial class CleanupPage : UserControl
     private bool _busy;
     private bool _measured;
 
+    public static bool IsAdmin
+    {
+        get
+        {
+            using var identity = System.Security.Principal.WindowsIdentity.GetCurrent();
+            return new System.Security.Principal.WindowsPrincipal(identity)
+                .IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator);
+        }
+    }
+
     public CleanupPage()
     {
         InitializeComponent();
         BuildRows();
+        ElevateButton.Visibility = IsAdmin ? Visibility.Collapsed : Visibility.Visible;
+    }
+
+    private void Elevate_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            // Reinicia o próprio exe com elevação (UAC)
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = Environment.ProcessPath!,
+                UseShellExecute = true,
+                Verb = "runas",
+            });
+            Application.Current.Shutdown();
+        }
+        catch
+        {
+            // usuário cancelou o UAC — segue normalmente
+        }
     }
 
     /// <summary>Mede os tamanhos na primeira vez que a página é exibida.</summary>
@@ -108,9 +138,9 @@ public partial class CleanupPage : UserControl
 
         foreach (var row in _rows)
         {
-            ProgressLabel.Text = $"Medindo: {row.Target.Label}…";
+            ProgressLabel.Text = L.F("Cl.Measuring", row.Target.Label);
             row.Size = await Task.Run(() => TempCleaner.Measure(row.Target));
-            row.SizeText.Text = row.Size > 0 ? FileSystemNode.FormatSize(row.Size) : "vazio";
+            row.SizeText.Text = row.Size > 0 ? FileSystemNode.FormatSize(row.Size) : L.T("Cl.Empty");
             row.SizeText.Foreground = row.Size > 0
                 ? (Brush)FindResource("Text")
                 : (Brush)FindResource("Muted");
@@ -126,8 +156,8 @@ public partial class CleanupPage : UserControl
     {
         long selected = _rows.Where(r => r.Check.IsChecked == true).Sum(r => r.Size);
         CleanButton.Content = selected > 0
-            ? $"🧹  Limpar {FileSystemNode.FormatSize(selected)}"
-            : "🧹  Limpar selecionados";
+            ? L.F("Cl.CleanAmount", FileSystemNode.FormatSize(selected))
+            : L.T("Cl.Clean");
     }
 
     private async void Clean_Click(object sender, RoutedEventArgs e)
@@ -138,18 +168,17 @@ public partial class CleanupPage : UserControl
         if (selected.Count == 0)
         {
             ResultBanner.Visibility = Visibility.Visible;
-            ResultText.Text = "Marque ao menos um item para limpar.";
+            ResultText.Text = L.T("Cl.SelectOne");
             return;
         }
 
         long estimate = selected.Sum(r => r.Size);
         bool hasRecycle = selected.Any(r => r.Target.IsRecycleBin);
-        string warning = $"Limpar {selected.Count} local(is), liberando cerca de {FileSystemNode.FormatSize(estimate)}?" +
-                         "\n\nOs arquivos temporários são removidos DEFINITIVAMENTE (não vão para a Lixeira)." +
-                         (hasRecycle ? "\nA Lixeira será esvaziada — os itens dela não poderão ser restaurados." : "");
+        string warning = L.F("Cl.ConfirmMsg", selected.Count, FileSystemNode.FormatSize(estimate)) +
+                         (hasRecycle ? L.T("Cl.ConfirmRecycleNote") : "");
 
-        if (!Controls.DarkDialog.Confirm(Window.GetWindow(this)!, "Confirmar limpeza", warning,
-                danger: true, confirmLabel: "Limpar agora", cancelLabel: "Cancelar"))
+        if (!Controls.DarkDialog.Confirm(Window.GetWindow(this)!, L.T("Cl.ConfirmTitle"), warning,
+                danger: true, confirmLabel: L.T("Cl.ConfirmBtn"), cancelLabel: L.T("Del.Cancel")))
             return;
 
         _busy = true;
@@ -163,7 +192,7 @@ public partial class CleanupPage : UserControl
 
         foreach (var row in selected)
         {
-            ProgressLabel.Text = $"Limpando: {row.Target.Label}…";
+            ProgressLabel.Text = L.F("Cl.Cleaning", row.Target.Label);
             var result = await Task.Run(() => TempCleaner.Clean(row.Target, CancellationToken.None));
             totalFreed += result.FreedBytes;
             totalFailed += result.FailedItems;
@@ -175,11 +204,8 @@ public partial class CleanupPage : UserControl
         _busy = false;
 
         ResultBanner.Visibility = Visibility.Visible;
-        ResultText.Text = $"✅  Limpeza concluída: {FileSystemNode.FormatSize(totalFreed)} liberados." +
-                          (totalFailed > 0
-                              ? $" {totalFailed} item(ns) em uso ou protegidos foram pulados" +
-                                " — executar como administrador pode liberar mais."
-                              : "");
+        ResultText.Text = L.F("Cl.Done", FileSystemNode.FormatSize(totalFreed)) +
+                          (totalFailed > 0 ? L.F("Cl.DoneSkipped", totalFailed) : "");
 
         await MeasureAllAsync();
     }

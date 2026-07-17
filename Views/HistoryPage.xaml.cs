@@ -105,14 +105,14 @@ public partial class HistoryPage : UserControl
             if (d > biggestJump) { biggestJump = d; jumpDate = _filtered[i].Timestamp; }
         }
 
-        AddStat("Uso Mínimo", FileSystemNode.FormatSize(min.TotalBytes), min.Timestamp.ToString("dd/MM/yyyy"));
-        AddStat("Uso Médio", FileSystemNode.FormatSize(avg), $"{_filtered.Count} registros");
-        AddStat("Uso Máximo", FileSystemNode.FormatSize(max.TotalBytes), max.Timestamp.ToString("dd/MM/yyyy"));
-        AddStat("Variação Total", (variation >= 0 ? "+" : "−") + FileSystemNode.FormatSize(Math.Abs(variation)),
-            $"em {days:0.#} dia(s)", variation > 0);
-        AddStat("Ritmo Médio", (perMonth >= 0 ? "+" : "−") + FileSystemNode.FormatSize(Math.Abs(perMonth)) + "/mês",
-            "extrapolado", perMonth > 0);
-        AddStat("Maior Aumento", biggestJump > 0 ? "+" + FileSystemNode.FormatSize(biggestJump) : "—",
+        AddStat(L.T("Hi.StatMin"), FileSystemNode.FormatSize(min.TotalBytes), min.Timestamp.ToString("dd/MM/yyyy"));
+        AddStat(L.T("Hi.StatAvg"), FileSystemNode.FormatSize(avg), L.F("Hi.RecordsCount", _filtered.Count));
+        AddStat(L.T("Hi.StatMax"), FileSystemNode.FormatSize(max.TotalBytes), max.Timestamp.ToString("dd/MM/yyyy"));
+        AddStat(L.T("Hi.StatTotalChange"), (variation >= 0 ? "+" : "−") + FileSystemNode.FormatSize(Math.Abs(variation)),
+            L.F("Hi.OverDays", days.ToString("0.#")), variation > 0);
+        AddStat(L.T("Hi.StatRate"), (perMonth >= 0 ? "+" : "−") + FileSystemNode.FormatSize(Math.Abs(perMonth)) + L.T("Hi.PerMonth"),
+            L.T("Hi.Extrapolated"), perMonth > 0);
+        AddStat(L.T("Hi.StatBiggest"), biggestJump > 0 ? "+" + FileSystemNode.FormatSize(biggestJump) : "—",
             biggestJump > 0 ? jumpDate.ToString("dd/MM/yyyy") : "", biggestJump > 0);
     }
 
@@ -193,10 +193,8 @@ public partial class HistoryPage : UserControl
                 if (daysLeft < 365 * 2)
                 {
                     var fullDate = DateTime.Now.AddDays(daysLeft);
-                    CapacityWarningText.Text =
-                        $"⚠  Se o crescimento continuar nesse ritmo (+{FileSystemNode.FormatSize((long)slopePerDay)}/dia), " +
-                        $"o disco pode ficar cheio por volta de {fullDate:MMMM 'de' yyyy}. " +
-                        "Considere liberar espaço nas abas Arquivos Grandes e Duplicados.";
+                    CapacityWarningText.Text = L.F("Hi.CapacityWarning",
+                        FileSystemNode.FormatSize((long)slopePerDay), fullDate.ToString("Y"));
                     CapacityWarning.Visibility = Visibility.Visible;
                 }
             }
@@ -217,7 +215,7 @@ public partial class HistoryPage : UserControl
 
         var dialog = new Microsoft.Win32.SaveFileDialog
         {
-            Title = "Exportar histórico",
+            Title = L.T("Hi.ExportTitle"),
             FileName = $"obsidiandisk-historico-{DateTime.Now:yyyyMMdd}.csv",
             Filter = "CSV (*.csv)|*.csv",
         };

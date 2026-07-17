@@ -94,12 +94,12 @@ public static class SemanticGrouper
 
         return new List<SpaceBucket>
         {
-            new("Programas", GlyphApps, Blue, programas, Biggest(pf, pf86, programData)),
-            new("Jogos", GlyphGame, Purple, games, gameNodes.OrderByDescending(n => n.Size).FirstOrDefault()),
-            new("Windows", GlyphWindows, Teal, windowsSize, windows),
-            new("Usuários", GlyphUsers, Orange, usersSize, users),
-            new("Arquivos Temp", GlyphTemp, Yellow, temp, Biggest(winTemp, recycleBin)),
-            new("Outros", GlyphFolder, Red, outros, null),
+            new(L.T("Bucket.Programs"), GlyphApps, Blue, programas, Biggest(pf, pf86, programData)),
+            new(L.T("Bucket.Games"), GlyphGame, Purple, games, gameNodes.OrderByDescending(n => n.Size).FirstOrDefault()),
+            new(L.T("Bucket.Windows"), GlyphWindows, Teal, windowsSize, windows),
+            new(L.T("Bucket.Users"), GlyphUsers, Orange, usersSize, users),
+            new(L.T("Bucket.Temp"), GlyphTemp, Yellow, temp, Biggest(winTemp, recycleBin)),
+            new(L.T("Cat.Other"), GlyphFolder, Red, outros, null),
         };
 
         static FileSystemNode? Biggest(params FileSystemNode?[] nodes) =>
@@ -123,7 +123,7 @@ public static class SemanticGrouper
 
         long rest = root.Size - buckets.Sum(b => b.Size);
         if (rest > 0)
-            buckets.Add(new SpaceBucket("Outros", GlyphFolder, Slate, rest, null));
+            buckets.Add(new SpaceBucket(L.T("Cat.Other"), GlyphFolder, Slate, rest, null));
 
         return buckets;
     }

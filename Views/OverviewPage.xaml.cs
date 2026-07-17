@@ -26,7 +26,7 @@ public partial class OverviewPage : UserControl
         _customFolder ?? (DriveCombo.SelectedItem as ComboBoxItem)?.Tag as string;
 
     public void SetScanning(bool scanning) =>
-        ScanButton.Content = scanning ? "✕  Cancelar" : "▶  Escanear";
+        ScanButton.Content = scanning ? L.T("Ov.CancelScan") : L.T("Ov.Scan");
 
     private void LoadDrives()
     {
@@ -52,7 +52,7 @@ public partial class OverviewPage : UserControl
 
     private void PickFolder_Click(object sender, RoutedEventArgs e)
     {
-        var dialog = new OpenFolderDialog { Title = "Escolha a pasta para analisar" };
+        var dialog = new OpenFolderDialog { Title = L.T("Ov.PickFolderTitle") };
         if (dialog.ShowDialog(Window.GetWindow(this)) == true)
         {
             _customFolder = dialog.FolderName;
@@ -84,11 +84,11 @@ public partial class OverviewPage : UserControl
         if (_customFolder is not null)
         {
             DiskTitle.Text = _customFolder;
-            DiskSubtitle.Text = "Pasta personalizada";
+            DiskSubtitle.Text = L.T("Ov.CustomFolder");
         }
         else if (drive is not null)
         {
-            DiskTitle.Text = $"Disco Local ({drive.Name.TrimEnd('\\')})";
+            DiskTitle.Text = L.F("Ov.DiskLocal", drive.Name.TrimEnd('\\'));
             DiskSubtitle.Text = $"{FileSystemNode.FormatSize(drive.TotalSize)} · {drive.DriveFormat}";
         }
 
@@ -98,8 +98,8 @@ public partial class OverviewPage : UserControl
             double percent = used * 100.0 / drive.TotalSize;
             UsageBar.Value = percent;
             PercentText.Text = $"{percent:0}%";
-            UsageText.Text = $"{FileSystemNode.FormatSize(used)} usados de {FileSystemNode.FormatSize(drive.TotalSize)}";
-            FreeText.Text = $"{FileSystemNode.FormatSize(drive.TotalFreeSpace)} livres";
+            UsageText.Text = L.F("Ov.UsedOf", FileSystemNode.FormatSize(used), FileSystemNode.FormatSize(drive.TotalSize));
+            FreeText.Text = L.F("Ov.Free", FileSystemNode.FormatSize(drive.TotalFreeSpace));
         }
     }
 
@@ -112,7 +112,7 @@ public partial class OverviewPage : UserControl
 
         BigBucketsGrid.Children.Clear();
         SmallBucketsGrid.Children.Clear();
-        BucketsHint.Text = $"{FileSystemNode.FormatSize(root.Size)} mapeados";
+        BucketsHint.Text = L.F("Ov.Mapped", FileSystemNode.FormatSize(root.Size));
 
         for (int i = 0; i < buckets.Count; i++)
         {
@@ -237,7 +237,7 @@ public partial class OverviewPage : UserControl
             card.Child = stack;
             CategoryGrid.Children.Add(card);
         }
-        CategoriesHint.Text = $"de {FileSystemNode.FormatSize(root.Size)} escaneados";
+        CategoriesHint.Text = L.F("Ov.OfScanned", FileSystemNode.FormatSize(root.Size));
 
         // ---- Maiores pastas ----
         TopFoldersPanel.Children.Clear();

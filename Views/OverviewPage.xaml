@@ -17,8 +17,8 @@
                             <TextBlock Text="&#xEDA2;" FontFamily="Segoe MDL2 Assets" FontSize="22"
                                        Foreground="{StaticResource Accent}" VerticalAlignment="Center"/>
                             <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
-                                <TextBlock x:Name="DiskTitle" Style="{StaticResource CardTitle}" Text="Disco"/>
-                                <TextBlock x:Name="DiskSubtitle" Style="{StaticResource MutedText}" Text="Selecione uma unidade"/>
+                                <TextBlock x:Name="DiskTitle" Style="{StaticResource CardTitle}" Text="{StaticResource Ov.Disk}"/>
+                                <TextBlock x:Name="DiskSubtitle" Style="{StaticResource MutedText}" Text="{StaticResource Ov.SelectDrive}"/>
                             </StackPanel>
                         </StackPanel>
 
@@ -26,9 +26,9 @@
                             <ComboBox x:Name="DriveCombo" Style="{StaticResource DarkCombo}" Width="220" Height="36"
                                       SelectionChanged="DriveCombo_SelectionChanged"/>
                             <Button Style="{StaticResource GhostButton}" Height="36" Margin="8,0,0,0"
-                                    Click="PickFolder_Click" Content="📁  Pasta…"/>
+                                    Click="PickFolder_Click" Content="{StaticResource Ov.PickFolder}"/>
                             <Button x:Name="ScanButton" Style="{StaticResource PrimaryButton}" Height="36"
-                                    Margin="8,0,0,0" Click="Scan_Click" Content="▶  Escanear" MinWidth="120"/>
+                                    Margin="8,0,0,0" Click="Scan_Click" Content="{StaticResource Ov.Scan}" MinWidth="120"/>
                         </StackPanel>
                     </DockPanel>
 
@@ -50,7 +50,7 @@
                         <StackPanel Grid.Column="1" Margin="24,0,0,0" VerticalAlignment="Center">
                             <TextBlock x:Name="PercentText" Foreground="{StaticResource Text}" FontSize="30"
                                        FontWeight="Bold" Text="—" HorizontalAlignment="Right"/>
-                            <TextBlock Text="Uso atual" Style="{StaticResource MutedText}" HorizontalAlignment="Right"/>
+                            <TextBlock Text="{StaticResource Ov.CurrentUse}" Style="{StaticResource MutedText}" HorizontalAlignment="Right"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -60,14 +60,14 @@
             <Border Style="{StaticResource Card}" Margin="0,12,0,0">
                 <StackPanel>
                     <DockPanel LastChildFill="False">
-                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource CardTitle}" Text="Mapa de Espaço (Atual)"/>
+                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource CardTitle}" Text="{StaticResource Ov.MapCard}"/>
                         <TextBlock x:Name="BucketsHint" DockPanel.Dock="Right" Style="{StaticResource MutedText}"
-                                   Text="Escaneie para calcular"/>
+                                   Text="{StaticResource Ov.ScanToCompute}"/>
                     </DockPanel>
                     <UniformGrid x:Name="BigBucketsGrid" Columns="3" Margin="0,12,0,0"/>
                     <UniformGrid x:Name="SmallBucketsGrid" Columns="3"/>
                     <TextBlock Style="{StaticResource MutedText}" FontSize="11" Margin="2,6,0,0"
-                               Text="Clique em um bloco para explorá-lo no mapa."/>
+                               Text="{StaticResource Ov.ClickBlock}"/>
                 </StackPanel>
             </Border>
 
@@ -75,9 +75,9 @@
             <Border Style="{StaticResource Card}" Margin="0,12,0,0">
                 <StackPanel>
                     <DockPanel LastChildFill="False">
-                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource CardTitle}" Text="Espaço por Categoria"/>
+                        <TextBlock DockPanel.Dock="Left" Style="{StaticResource CardTitle}" Text="{StaticResource Ov.ByCategory}"/>
                         <TextBlock x:Name="CategoriesHint" DockPanel.Dock="Right" Style="{StaticResource MutedText}"
-                                   Text="Escaneie para calcular"/>
+                                   Text="{StaticResource Ov.ScanToCompute}"/>
                     </DockPanel>
                     <UniformGrid x:Name="CategoryGrid" Columns="4" Margin="0,12,0,0"/>
                 </StackPanel>
@@ -86,10 +86,10 @@
             <!-- Maiores pastas -->
             <Border Style="{StaticResource Card}" Margin="0,12,0,0">
                 <StackPanel>
-                    <TextBlock Style="{StaticResource CardTitle}" Text="Maiores Pastas"/>
+                    <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource Ov.TopFolders}"/>
                     <StackPanel x:Name="TopFoldersPanel" Margin="0,10,0,0"/>
                     <TextBlock x:Name="TopFoldersHint" Style="{StaticResource MutedText}"
-                               Text="Nenhum scan realizado ainda." Margin="0,4,0,0"/>
+                               Text="{StaticResource Ov.NoScan}" Margin="0,4,0,0"/>
                 </StackPanel>
             </Border>
 

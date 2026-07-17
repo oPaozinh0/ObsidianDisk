@@ -40,14 +40,14 @@ public static class FileCategories
 
     public static string LabelOf(FileCategory cat) => cat switch
     {
-        FileCategory.Aplicativo => "Aplicativos",
-        FileCategory.Video => "Vídeos",
-        FileCategory.Imagem => "Imagens",
-        FileCategory.Audio => "Música",
-        FileCategory.Documento => "Documentos",
-        FileCategory.Compactado => "Compactados",
-        FileCategory.Codigo => "Código",
-        _ => "Outros",
+        FileCategory.Aplicativo => L.T("Cat.App"),
+        FileCategory.Video => L.T("Cat.Video"),
+        FileCategory.Imagem => L.T("Cat.Image"),
+        FileCategory.Audio => L.T("Cat.Audio"),
+        FileCategory.Documento => L.T("Cat.Doc"),
+        FileCategory.Compactado => L.T("Cat.Zip"),
+        FileCategory.Codigo => L.T("Cat.Code"),
+        _ => L.T("Cat.Other"),
     };
 
     /// <summary>Cor vívida da categoria (cards, legenda).</summary>

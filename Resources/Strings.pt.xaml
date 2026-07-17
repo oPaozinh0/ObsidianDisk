@@ -1,0 +1,206 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Shell -->
+    <sys:String x:Key="App.WindowTitle">ObsidianDisk — Gerenciador de Disco</sys:String>
+    <sys:String x:Key="App.Subtitle">Gerenciador de Disco</sys:String>
+    <sys:String x:Key="Nav.Overview">Visão Geral</sys:String>
+    <sys:String x:Key="Nav.Map">Mapa de Espaço</sys:String>
+    <sys:String x:Key="Nav.LargeFiles">Arquivos Grandes</sys:String>
+    <sys:String x:Key="Nav.Duplicates">Duplicados</sys:String>
+    <sys:String x:Key="Nav.Cleanup">Limpeza</sys:String>
+    <sys:String x:Key="Nav.History">Histórico</sys:String>
+    <sys:String x:Key="Nav.Settings">Configurações</sys:String>
+    <sys:String x:Key="Shell.Rescan">⟳  Reanalisar</sys:String>
+    <sys:String x:Key="Shell.NoScanYet">Nenhuma análise ainda</sys:String>
+    <sys:String x:Key="Shell.LastScan">Última análise:&#10;{0}</sys:String>
+    <sys:String x:Key="Shell.Ready">Pronto.</sys:String>
+    <sys:String x:Key="Shell.UpdateAvailable">⬆ {0} disponível</sys:String>
+
+    <!-- Scan -->
+    <sys:String x:Key="Scan.InvalidPath">Caminho inválido.</sys:String>
+    <sys:String x:Key="Scan.Done">Concluído em {0}s — {1} arquivos, {2} no total.</sys:String>
+    <sys:String x:Key="Scan.Cancelled">Escaneamento cancelado — exibindo o que foi mapeado até aqui.</sys:String>
+    <sys:String x:Key="Scan.Error">Erro: {0}</sys:String>
+    <sys:String x:Key="Scan.Stats">{0} arquivos · {1}</sys:String>
+    <sys:String x:Key="Scan.StatsPercent">{0} arquivos · {1} · {2}%</sys:String>
+
+    <!-- Status / hover -->
+    <sys:String x:Key="Hover.Items">{0} itens</sys:String>
+    <sys:String x:Key="Hover.File">arquivo</sys:String>
+    <sys:String x:Key="Hover.Info">{0} — {1} ({2}% da visão atual) · {3}</sys:String>
+
+    <!-- Menu de contexto -->
+    <sys:String x:Key="Ctx.OpenExplorer">      Abrir no Explorer</sys:String>
+    <sys:String x:Key="Ctx.CopyPath">      Copiar caminho</sys:String>
+    <sys:String x:Key="Ctx.DeleteRecycle">      Excluir (Lixeira)</sys:String>
+    <sys:String x:Key="Ctx.DeletePermanent">      Excluir permanentemente…</sys:String>
+    <sys:String x:Key="Ctx.DirDetails">{0} · {1} itens</sys:String>
+
+    <!-- Exclusão -->
+    <sys:String x:Key="Del.FolderWhat">a PASTA "{0}" ({1}, {2} arquivos)</sys:String>
+    <sys:String x:Key="Del.FileWhat">o arquivo "{0}" ({1})</sys:String>
+    <sys:String x:Key="Del.ManyWhat">{0} itens ({1})</sys:String>
+    <sys:String x:Key="Del.PermTitle">Exclusão permanente</sys:String>
+    <sys:String x:Key="Del.PermMsg">Excluir PERMANENTEMENTE {0}?&#10;&#10;Esta ação NÃO passa pela Lixeira e não pode ser desfeita.</sys:String>
+    <sys:String x:Key="Del.PermConfirm">Excluir permanentemente</sys:String>
+    <sys:String x:Key="Del.RecycleTitle">Confirmar exclusão</sys:String>
+    <sys:String x:Key="Del.RecycleMsg">Enviar {0} para a Lixeira?</sys:String>
+    <sys:String x:Key="Del.RecycleConfirm">Enviar para a Lixeira</sys:String>
+    <sys:String x:Key="Del.Cancel">Cancelar</sys:String>
+    <sys:String x:Key="Del.DoneOk">{0} item(ns) excluído(s) — {1} liberados {2}</sys:String>
+    <sys:String x:Key="Del.DonePartial">{0} de {1} excluído(s) ({2} liberados). Alguns itens podem estar em uso ou protegidos.</sys:String>
+    <sys:String x:Key="Del.SuffixPermanent">(permanente).</sys:String>
+    <sys:String x:Key="Del.SuffixRecycle">(na Lixeira).</sys:String>
+
+    <!-- Visão Geral -->
+    <sys:String x:Key="Ov.Disk">Disco</sys:String>
+    <sys:String x:Key="Ov.SelectDrive">Selecione uma unidade</sys:String>
+    <sys:String x:Key="Ov.PickFolder">📁  Pasta…</sys:String>
+    <sys:String x:Key="Ov.PickFolderTitle">Escolha a pasta para analisar</sys:String>
+    <sys:String x:Key="Ov.Scan">▶  Escanear</sys:String>
+    <sys:String x:Key="Ov.CancelScan">✕  Cancelar</sys:String>
+    <sys:String x:Key="Ov.CurrentUse">Uso atual</sys:String>
+    <sys:String x:Key="Ov.MapCard">Mapa de Espaço (Atual)</sys:String>
+    <sys:String x:Key="Ov.ScanToCompute">Escaneie para calcular</sys:String>
+    <sys:String x:Key="Ov.ClickBlock">Clique em um bloco para explorá-lo no mapa.</sys:String>
+    <sys:String x:Key="Ov.ByCategory">Espaço por Categoria</sys:String>
+    <sys:String x:Key="Ov.TopFolders">Maiores Pastas</sys:String>
+    <sys:String x:Key="Ov.NoScan">Nenhum scan realizado ainda.</sys:String>
+    <sys:String x:Key="Ov.CustomFolder">Pasta personalizada</sys:String>
+    <sys:String x:Key="Ov.DiskLocal">Disco Local ({0})</sys:String>
+    <sys:String x:Key="Ov.UsedOf">{0} usados de {1}</sys:String>
+    <sys:String x:Key="Ov.Free">{0} livres</sys:String>
+    <sys:String x:Key="Ov.Mapped">{0} mapeados</sys:String>
+    <sys:String x:Key="Ov.OfScanned">de {0} escaneados</sys:String>
+
+    <!-- Mapa -->
+    <sys:String x:Key="Map.Up">↑ Acima</sys:String>
+    <sys:String x:Key="Map.OldFiles">Antigos (1 ano+)</sys:String>
+    <sys:String x:Key="Map.AllCategories">Todas as categorias</sys:String>
+    <sys:String x:Key="Map.EmptyTitle">Escaneie um disco na Visão Geral para ver o mapa</sys:String>
+    <sys:String x:Key="Map.EmptyHint">Duplo clique aprofunda · Backspace volta · clique direito para ações</sys:String>
+    <sys:String x:Key="Map.TipFolder">Pasta · {0} · {1} itens</sys:String>
+    <sys:String x:Key="Map.TipFile">{0} · {1}</sys:String>
+    <sys:String x:Key="Map.TipModified">Modificado em {0}</sys:String>
+
+    <!-- Categorias -->
+    <sys:String x:Key="Cat.App">Aplicativos</sys:String>
+    <sys:String x:Key="Cat.Video">Vídeos</sys:String>
+    <sys:String x:Key="Cat.Image">Imagens</sys:String>
+    <sys:String x:Key="Cat.Audio">Música</sys:String>
+    <sys:String x:Key="Cat.Doc">Documentos</sys:String>
+    <sys:String x:Key="Cat.Zip">Compactados</sys:String>
+    <sys:String x:Key="Cat.Code">Código</sys:String>
+    <sys:String x:Key="Cat.Other">Outros</sys:String>
+
+    <!-- Blocos semânticos -->
+    <sys:String x:Key="Bucket.Programs">Programas</sys:String>
+    <sys:String x:Key="Bucket.Games">Jogos</sys:String>
+    <sys:String x:Key="Bucket.Windows">Windows</sys:String>
+    <sys:String x:Key="Bucket.Users">Usuários</sys:String>
+    <sys:String x:Key="Bucket.Temp">Arquivos Temp</sys:String>
+
+    <!-- Arquivos Grandes -->
+    <sys:String x:Key="Lf.Title">Arquivos Grandes</sys:String>
+    <sys:String x:Key="Lf.Open">Abrir no Explorer</sys:String>
+    <sys:String x:Key="Lf.Recycle">🗑  Lixeira</sys:String>
+    <sys:String x:Key="Lf.Permanent">⚠  Excluir permanentemente</sys:String>
+    <sys:String x:Key="Lf.ColCategory">Categoria</sys:String>
+    <sys:String x:Key="Lf.ColName">Nome</sys:String>
+    <sys:String x:Key="Lf.ColFolder">Pasta</sys:String>
+    <sys:String x:Key="Lf.ColSize">Tamanho</sys:String>
+    <sys:String x:Key="Lf.ScanFirst">Escaneie um disco para listar os maiores arquivos.</sys:String>
+    <sys:String x:Key="Lf.Found">{0} arquivos encontrados</sys:String>
+    <sys:String x:Key="Lf.FoundCapped">{0} arquivos encontrados (exibindo os 300 maiores)</sys:String>
+
+    <!-- Duplicados -->
+    <sys:String x:Key="Dup.Title">Arquivos Duplicados</sys:String>
+    <sys:String x:Key="Dup.Search">🔍  Procurar duplicados</sys:String>
+    <sys:String x:Key="Dup.CancelSearch">✕  Cancelar</sys:String>
+    <sys:String x:Key="Dup.DelRecycle">🗑  Excluir marcados (Lixeira)</sys:String>
+    <sys:String x:Key="Dup.DelPermanent">⚠  Excluir marcados (permanente)</sys:String>
+    <sys:String x:Key="Dup.InitialHint">Escaneie um disco e clique em Procurar. Em cada grupo, a cópia mais recente vem desmarcada (será mantida) — revise antes de excluir.</sys:String>
+    <sys:String x:Key="Dup.ScanFirst">Escaneie um disco na Visão Geral antes de procurar duplicados.</sys:String>
+    <sys:String x:Key="Dup.None">Nenhum duplicado encontrado com esse tamanho mínimo.</sys:String>
+    <sys:String x:Key="Dup.Summary">{0} grupos de duplicados · {1} recuperáveis. A cópia mais recente de cada grupo vem desmarcada (será mantida).</sys:String>
+    <sys:String x:Key="Dup.Cancelled">Busca cancelada.</sys:String>
+    <sys:String x:Key="Dup.GroupHeader">{0} cópias · {1} cada · {2} desperdiçados</sys:String>
+    <sys:String x:Key="Dup.Newest">  (mais recente)</sys:String>
+    <sys:String x:Key="Dup.PhaseCompare">Comparando arquivos</sys:String>
+    <sys:String x:Key="Dup.PhaseConfirm">Confirmando duplicados</sys:String>
+    <sys:String x:Key="Dup.PhaseProgress">{0}… {1} de {2} arquivos</sys:String>
+    <sys:String x:Key="Dup.ShowingTop">Exibindo os 100 grupos com maior desperdício de {0} encontrados.</sys:String>
+
+    <!-- Limpeza -->
+    <sys:String x:Key="Cl.Title">Limpeza do Sistema</sys:String>
+    <sys:String x:Key="Cl.Desc">Locais de arquivos temporários do Windows. Marque o que deseja limpar — itens em uso são pulados automaticamente.</sys:String>
+    <sys:String x:Key="Cl.Refresh">⟳  Atualizar tamanhos</sys:String>
+    <sys:String x:Key="Cl.Clean">🧹  Limpar selecionados</sys:String>
+    <sys:String x:Key="Cl.CleanAmount">🧹  Limpar {0}</sys:String>
+    <sys:String x:Key="Cl.Elevate">🛡  Reiniciar como administrador</sys:String>
+    <sys:String x:Key="Cl.Tip">Dica: alguns arquivos do Temp do Windows e do cache do Windows Update pertencem ao sistema e só podem ser removidos executando o app como administrador — eles são pulados e contados no resultado.</sys:String>
+    <sys:String x:Key="Cl.Measuring">Medindo: {0}…</sys:String>
+    <sys:String x:Key="Cl.Cleaning">Limpando: {0}…</sys:String>
+    <sys:String x:Key="Cl.Empty">vazio</sys:String>
+    <sys:String x:Key="Cl.SelectOne">Marque ao menos um item para limpar.</sys:String>
+    <sys:String x:Key="Cl.ConfirmTitle">Confirmar limpeza</sys:String>
+    <sys:String x:Key="Cl.ConfirmMsg">Limpar {0} local(is), liberando cerca de {1}?&#10;&#10;Os arquivos temporários são removidos DEFINITIVAMENTE (não vão para a Lixeira).</sys:String>
+    <sys:String x:Key="Cl.ConfirmRecycleNote">&#10;A Lixeira será esvaziada — os itens dela não poderão ser restaurados.</sys:String>
+    <sys:String x:Key="Cl.ConfirmBtn">Limpar agora</sys:String>
+    <sys:String x:Key="Cl.Done">✅  Limpeza concluída: {0} liberados.</sys:String>
+    <sys:String x:Key="Cl.DoneSkipped"> {0} item(ns) em uso ou protegidos foram pulados — executar como administrador pode liberar mais.</sys:String>
+    <sys:String x:Key="Cl.T.UserTemp">Temp do usuário</sys:String>
+    <sys:String x:Key="Cl.T.UserTempDesc">Arquivos temporários de aplicativos (%TEMP%). Seguro limpar.</sys:String>
+    <sys:String x:Key="Cl.T.WinTemp">Temp do Windows</sys:String>
+    <sys:String x:Key="Cl.T.WinTempDesc">C:\Windows\Temp. Seguro limpar; itens em uso são pulados.</sys:String>
+    <sys:String x:Key="Cl.T.WuCache">Cache do Windows Update</sys:String>
+    <sys:String x:Key="Cl.T.WuCacheDesc">Instaladores já baixados (SoftwareDistribution\Download). O Windows baixa de novo se precisar.</sys:String>
+    <sys:String x:Key="Cl.T.Thumbs">Cache de miniaturas</sys:String>
+    <sys:String x:Key="Cl.T.ThumbsDesc">Miniaturas do Explorer (thumbcache). São recriadas conforme você navega.</sys:String>
+    <sys:String x:Key="Cl.T.Wer">Relatórios de erro do Windows</sys:String>
+    <sys:String x:Key="Cl.T.WerDesc">Relatórios de travamentos já enviados/enfileirados (WER).</sys:String>
+    <sys:String x:Key="Cl.T.Recycle">Lixeira (todas as unidades)</sys:String>
+    <sys:String x:Key="Cl.T.RecycleDesc">Esvazia a Lixeira. Os itens não poderão mais ser restaurados.</sys:String>
+
+    <!-- Histórico -->
+    <sys:String x:Key="Hi.Title">Histórico de Uso de Espaço</sys:String>
+    <sys:String x:Key="Hi.Export">⬇  Exportar CSV</sys:String>
+    <sys:String x:Key="Hi.ChartHint">Cada scan concluído registra um ponto aqui — escaneie o mesmo disco ao longo do tempo para acompanhar a evolução.</sys:String>
+    <sys:String x:Key="Hi.Records">Registros</sys:String>
+    <sys:String x:Key="Hi.ColDate">Data</sys:String>
+    <sys:String x:Key="Hi.ColPath">Caminho</sys:String>
+    <sys:String x:Key="Hi.ColFiles">Arquivos</sys:String>
+    <sys:String x:Key="Hi.ColTotal">Total</sys:String>
+    <sys:String x:Key="Hi.ColChange">Variação</sys:String>
+    <sys:String x:Key="Hi.StatMin">Uso Mínimo</sys:String>
+    <sys:String x:Key="Hi.StatAvg">Uso Médio</sys:String>
+    <sys:String x:Key="Hi.StatMax">Uso Máximo</sys:String>
+    <sys:String x:Key="Hi.StatTotalChange">Variação Total</sys:String>
+    <sys:String x:Key="Hi.StatRate">Ritmo Médio</sys:String>
+    <sys:String x:Key="Hi.StatBiggest">Maior Aumento</sys:String>
+    <sys:String x:Key="Hi.RecordsCount">{0} registros</sys:String>
+    <sys:String x:Key="Hi.OverDays">em {0} dia(s)</sys:String>
+    <sys:String x:Key="Hi.Extrapolated">extrapolado</sys:String>
+    <sys:String x:Key="Hi.PerMonth">/mês</sys:String>
+    <sys:String x:Key="Hi.TrendTitle">Tendência e Projeção</sys:String>
+    <sys:String x:Key="Hi.Growth30">Crescimento (últimos 30 dias)</sys:String>
+    <sys:String x:Key="Hi.Projection">Projeção (em 3 meses)</sys:String>
+    <sys:String x:Key="Hi.FreeNow">Espaço livre atual</sys:String>
+    <sys:String x:Key="Hi.CapacityWarning">⚠  Se o crescimento continuar nesse ritmo (+{0}/dia), o disco pode ficar cheio por volta de {1}. Considere liberar espaço nas abas Arquivos Grandes e Duplicados.</sys:String>
+    <sys:String x:Key="Hi.ExportTitle">Exportar histórico</sys:String>
+
+    <!-- Configurações -->
+    <sys:String x:Key="St.Deletion">Exclusão</sys:String>
+    <sys:String x:Key="St.ConfirmDelete">Confirmar antes de enviar para a Lixeira</sys:String>
+    <sys:String x:Key="St.PermanentNote">A exclusão permanente sempre pede confirmação, independentemente desta opção.</sys:String>
+    <sys:String x:Key="St.Analysis">Análise</sys:String>
+    <sys:String x:Key="St.MinSize">Tamanho mínimo para Arquivos Grandes</sys:String>
+    <sys:String x:Key="St.LiveMonitor">Monitorar mudanças no disco em tempo real</sys:String>
+    <sys:String x:Key="St.LiveMonitorNote">Após um scan, o mapa acompanha criações, exclusões e mudanças de tamanho sem precisar reescanear.</sys:String>
+    <sys:String x:Key="St.About">Sobre</sys:String>
+    <sys:String x:Key="St.AboutText">Analisador visual de espaço em disco. Escaneie uma unidade, explore o mapa de espaço, encontre os maiores arquivos e libere espaço sem sair do aplicativo.</sys:String>
+    <sys:String x:Key="St.TechLine">Feito em .NET 8 + WPF · Treemap squarified com renderização ao vivo</sys:String>
+
+</ResourceDictionary>

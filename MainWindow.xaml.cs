@@ -13,6 +13,8 @@ public partial class MainWindow : Window
 {
     private readonly DiskScanner _scanner = new();
     private readonly DispatcherTimer _progressTimer;
+    private readonly DispatcherTimer _liveRefreshTimer;
+    private LiveWatcher? _watcher;
     private AppSettings _settings;
 
     private FileSystemNode? _scanRoot;
@@ -31,11 +33,20 @@ public partial class MainWindow : Window
         {
             _settings = s;
             LargeFilesPage.SetMinBytes(s.LargeFileMinBytes);
+            SyncLiveWatcher();
         };
         LargeFilesPage.SetMinBytes(_settings.LargeFileMinBytes);
 
         _progressTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(150) };
         _progressTimer.Tick += (_, _) => UpdateProgressUi();
+
+        // Debounce das atualizações do monitoramento ao vivo
+        _liveRefreshTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(800) };
+        _liveRefreshTimer.Tick += (_, _) =>
+        {
+            _liveRefreshTimer.Stop();
+            MapPage.TreemapControl.Refresh();
+        };
 
         OverviewPage.ScanRequested += StartOrCancelScan;
         OverviewPage.OpenInMapRequested += node =>
@@ -60,6 +71,58 @@ public partial class MainWindow : Window
             OverviewPage.SetCustomFolder(args[1]);
             Loaded += (_, _) => StartOrCancelScan(args[1]);
         }
+
+        Loaded += async (_, _) => await CheckForUpdatesAsync();
+    }
+
+    // ---------------- Atualizações ----------------
+
+    private string? _updateUrl;
+
+    private async Task CheckForUpdatesAsync()
+    {
+        var current = typeof(MainWindow).Assembly.GetName().Version ?? new Version(0, 0);
+        var update = await UpdateChecker.CheckAsync(current);
+        if (update is null) return;
+
+        _updateUrl = update.Url;
+        UpdateButton.Content = L.F("Shell.UpdateAvailable", update.Tag);
+        UpdateButton.Visibility = Visibility.Visible;
+    }
+
+    private void Update_Click(object sender, RoutedEventArgs e)
+    {
+        if (_updateUrl is not null)
+            Process.Start(new ProcessStartInfo(_updateUrl) { UseShellExecute = true });
+    }
+
+    // ---------------- Monitoramento ao vivo ----------------
+
+    /// <summary>Inicia/para o watcher conforme a configuração e o estado do scan.</summary>
+    private void SyncLiveWatcher()
+    {
+        if (_settings.LiveMonitoring && _scanRoot is not null && _cts is null)
+        {
+            _watcher ??= CreateWatcher();
+            if (!_watcher.IsRunning)
+                _watcher.Start(_scanRoot);
+        }
+        else
+        {
+            _watcher?.Stop();
+        }
+    }
+
+    private LiveWatcher CreateWatcher()
+    {
+        var watcher = new LiveWatcher(Dispatcher);
+        watcher.TreeChanged += () =>
+        {
+            // Reagenda o refresh: várias mudanças seguidas geram um único redraw
+            _liveRefreshTimer.Stop();
+            _liveRefreshTimer.Start();
+        };
+        return watcher;
     }
 
     // ---------------- Janela (chrome personalizado) ----------------
@@ -98,6 +161,8 @@ public partial class MainWindow : Window
             HistoryPage.Reload();
         if (ReferenceEquals(sender, NavCleanup))
             CleanupPage.EnsureMeasured(); // mede os tamanhos na primeira visita
+        if (ReferenceEquals(sender, NavOverview) && _scanRoot is not null)
+            OverviewPage.UpdateFromScan(_scanRoot); // reflete mudanças do monitoramento ao vivo
     }
 
     private void OnKeyDown(object sender, KeyEventArgs e)
@@ -128,9 +193,11 @@ public partial class MainWindow : Window
 
         if (!Directory.Exists(path))
         {
-            StatusText.Text = "Caminho inválido.";
+            StatusText.Text = L.T("Scan.InvalidPath");
             return;
         }
+
+        _watcher?.Stop(); // pausa o monitoramento durante o rescan
 
         _cts = new CancellationTokenSource();
         _lastScanPath = path;
@@ -165,19 +232,19 @@ public partial class MainWindow : Window
             AppStorage.AppendHistory(new ScanRecord(DateTime.Now, path, root.Size, progress.FilesScanned));
 
             RefreshAllPages();
-            LastScanText.Text = $"Última análise:\n{DateTime.Now:dd/MM/yyyy HH:mm}";
-            StatusText.Text = $"Concluído em {stopwatch.Elapsed.TotalSeconds:0.#}s — " +
-                              $"{progress.FilesScanned:N0} arquivos, {FileSystemNode.FormatSize(root.Size)} no total.";
+            LastScanText.Text = L.F("Shell.LastScan", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+            StatusText.Text = L.F("Scan.Done", stopwatch.Elapsed.TotalSeconds.ToString("0.#"),
+                progress.FilesScanned.ToString("N0"), FileSystemNode.FormatSize(root.Size));
         }
         catch (OperationCanceledException)
         {
-            StatusText.Text = "Escaneamento cancelado — exibindo o que foi mapeado até aqui.";
+            StatusText.Text = L.T("Scan.Cancelled");
             if (_scanRoot is not null && _scanRoot.Size > 0)
                 RefreshAllPages();
         }
         catch (Exception ex)
         {
-            StatusText.Text = $"Erro: {ex.Message}";
+            StatusText.Text = L.F("Scan.Error", ex.Message);
         }
         finally
         {
@@ -187,6 +254,7 @@ public partial class MainWindow : Window
             RescanButton.IsEnabled = _lastScanPath is not null;
             _cts.Dispose();
             _cts = null;
+            SyncLiveWatcher(); // retoma o monitoramento sobre a nova árvore
         }
     }
 
@@ -199,14 +267,14 @@ public partial class MainWindow : Window
         {
             double percent = Math.Min(100, p.BytesScanned * 100.0 / _scanTargetBytes);
             ScanProgressBar.Value = percent;
-            ProgressStats.Text = $"{p.FilesScanned:N0} arquivos · {FileSystemNode.FormatSize(p.BytesScanned)} · {percent:0.#}%";
+            ProgressStats.Text = L.F("Scan.StatsPercent", p.FilesScanned.ToString("N0"), FileSystemNode.FormatSize(p.BytesScanned), percent.ToString("0.#"));
         }
         else
         {
-            ProgressStats.Text = $"{p.FilesScanned:N0} arquivos · {FileSystemNode.FormatSize(p.BytesScanned)}";
+            ProgressStats.Text = L.F("Scan.Stats", p.FilesScanned.ToString("N0"), FileSystemNode.FormatSize(p.BytesScanned));
         }
 
-        MapPage.TreemapControl.InvalidateVisual(); // treemap ao vivo
+        MapPage.TreemapControl.Refresh(); // treemap ao vivo
     }
 
     private void RefreshAllPages()
@@ -215,7 +283,7 @@ public partial class MainWindow : Window
         OverviewPage.UpdateFromScan(_scanRoot);
         LargeFilesPage.UpdateFromScan(_scanRoot);
         DuplicatesPage.UpdateFromScan(_scanRoot);
-        MapPage.TreemapControl.InvalidateVisual();
+        MapPage.TreemapControl.Refresh();
         HistoryPage.Reload();
     }
 
@@ -234,8 +302,8 @@ public partial class MainWindow : Window
         }
 
         double percent = viewRoot is { Size: > 0 } ? node.Size * 100.0 / viewRoot.Size : 0;
-        string kind = node.IsDirectory ? $"{node.Children.Count} itens" : "arquivo";
-        StatusText.Text = $"{node.FullPath} — {FileSystemNode.FormatSize(node.Size)} ({percent:0.#}% da visão atual) · {kind}";
+        string kind = node.IsDirectory ? L.F("Hover.Items", node.Children.Count) : L.T("Hover.File");
+        StatusText.Text = L.F("Hover.Info", node.FullPath, FileSystemNode.FormatSize(node.Size), percent.ToString("0.#"), kind);
     }
 
     // ---------------- Exclusão ----------------
@@ -277,7 +345,7 @@ public partial class MainWindow : Window
     {
         string icon = node.IsDirectory ? "📁" : "📄";
         string details = node.IsDirectory
-            ? $"{FileSystemNode.FormatSize(node.Size)} · {node.Children.Count} itens"
+            ? L.F("Ctx.DirDetails", FileSystemNode.FormatSize(node.Size), node.Children.Count)
             : FileSystemNode.FormatSize(node.Size);
 
         // Cabeçalho: deixa explícito sobre o que as ações abaixo agem
@@ -290,20 +358,20 @@ public partial class MainWindow : Window
             Foreground = (System.Windows.Media.Brush)FindResource("Text"),
         });
 
-        var openItem = new MenuItem { Header = "      Abrir no Explorer" };
+        var openItem = new MenuItem { Header = L.T("Ctx.OpenExplorer") };
         openItem.Click += (_, _) =>
         {
             string args = node.IsDirectory ? $"\"{node.FullPath}\"" : $"/select,\"{node.FullPath}\"";
             Process.Start(new ProcessStartInfo("explorer.exe", args) { UseShellExecute = true });
         };
 
-        var copyItem = new MenuItem { Header = "      Copiar caminho" };
+        var copyItem = new MenuItem { Header = L.T("Ctx.CopyPath") };
         copyItem.Click += (_, _) => Clipboard.SetText(node.FullPath);
 
-        var recycleItem = new MenuItem { Header = "      Excluir (Lixeira)" };
+        var recycleItem = new MenuItem { Header = L.T("Ctx.DeleteRecycle") };
         recycleItem.Click += (_, _) => DeleteNodes(new[] { node }, permanent: false);
 
-        var permanentItem = new MenuItem { Header = "      Excluir permanentemente…" };
+        var permanentItem = new MenuItem { Header = L.T("Ctx.DeletePermanent") };
         permanentItem.Click += (_, _) => DeleteNodes(new[] { node }, permanent: true);
 
         menu.Items.Add(openItem);
@@ -341,27 +409,25 @@ public partial class MainWindow : Window
         {
             var n = nodes[0];
             what = n.IsDirectory
-                ? $"a PASTA \"{n.Name}\" ({FileSystemNode.FormatSize(n.Size)}, {CountFiles(n)} arquivos)"
-                : $"o arquivo \"{n.Name}\" ({FileSystemNode.FormatSize(n.Size)})";
+                ? L.F("Del.FolderWhat", n.Name, FileSystemNode.FormatSize(n.Size), CountFiles(n))
+                : L.F("Del.FileWhat", n.Name, FileSystemNode.FormatSize(n.Size));
         }
         else
         {
-            what = $"{nodes.Count} itens ({FileSystemNode.FormatSize(totalSize)})";
+            what = L.F("Del.ManyWhat", nodes.Count, FileSystemNode.FormatSize(totalSize));
         }
 
         // Permanente sempre confirma; Lixeira respeita a configuração
         if (permanent)
         {
-            if (!Controls.DarkDialog.Confirm(this, "Exclusão permanente",
-                    $"Excluir PERMANENTEMENTE {what}?\n\nEsta ação NÃO passa pela Lixeira e não pode ser desfeita.",
-                    danger: true, confirmLabel: "Excluir permanentemente", cancelLabel: "Cancelar"))
+            if (!Controls.DarkDialog.Confirm(this, L.T("Del.PermTitle"), L.F("Del.PermMsg", what),
+                    danger: true, confirmLabel: L.T("Del.PermConfirm"), cancelLabel: L.T("Del.Cancel")))
                 return;
         }
         else if (_settings.ConfirmDelete)
         {
-            if (!Controls.DarkDialog.Confirm(this, "Confirmar exclusão",
-                    $"Enviar {what} para a Lixeira?",
-                    confirmLabel: "Enviar para a Lixeira", cancelLabel: "Cancelar"))
+            if (!Controls.DarkDialog.Confirm(this, L.T("Del.RecycleTitle"), L.F("Del.RecycleMsg", what),
+                    confirmLabel: L.T("Del.RecycleConfirm"), cancelLabel: L.T("Del.Cancel")))
                 return;
         }
 
@@ -393,11 +459,10 @@ public partial class MainWindow : Window
         }
 
         if (okCount == nodes.Count)
-            StatusText.Text = $"{okCount} item(ns) excluído(s) — {FileSystemNode.FormatSize(freedBytes)} liberados" +
-                              (permanent ? " (permanente)." : " (na Lixeira).");
+            StatusText.Text = L.F("Del.DoneOk", okCount, FileSystemNode.FormatSize(freedBytes),
+                permanent ? L.T("Del.SuffixPermanent") : L.T("Del.SuffixRecycle"));
         else
-            StatusText.Text = $"{okCount} de {nodes.Count} excluído(s) ({FileSystemNode.FormatSize(freedBytes)} liberados). " +
-                              "Alguns itens podem estar em uso ou protegidos.";
+            StatusText.Text = L.F("Del.DonePartial", okCount, nodes.Count, FileSystemNode.FormatSize(freedBytes));
 
         RefreshAllPages();
     }

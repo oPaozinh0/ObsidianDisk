@@ -92,7 +92,7 @@ public partial class MapPage : UserControl
 
     private void BuildCategoryCombo()
     {
-        CategoryCombo.Items.Add(new ComboBoxItem { Content = "Todas as categorias", Tag = null });
+        CategoryCombo.Items.Add(new ComboBoxItem { Content = L.T("Map.AllCategories"), Tag = null });
         foreach (var cat in FileCategories.All)
             CategoryCombo.Items.Add(new ComboBoxItem { Content = FileCategories.LabelOf(cat), Tag = cat });
         CategoryCombo.SelectedIndex = 0;
@@ -122,14 +122,14 @@ public partial class MapPage : UserControl
         TipName.Text = node.Name;
         if (node.IsDirectory)
         {
-            TipDetails.Text = $"Pasta · {FileSystemNode.FormatSize(node.Size)} · {node.Children.Count} itens";
+            TipDetails.Text = L.F("Map.TipFolder", FileSystemNode.FormatSize(node.Size), node.Children.Count);
             TipDate.Visibility = Visibility.Collapsed;
         }
         else
         {
             var cat = FileCategories.Classify(node.Name);
-            TipDetails.Text = $"{FileCategories.LabelOf(cat)} · {FileSystemNode.FormatSize(node.Size)}";
-            TipDate.Text = $"Modificado em {node.LastWriteUtc.ToLocalTime():dd/MM/yyyy HH:mm}";
+            TipDetails.Text = L.F("Map.TipFile", FileCategories.LabelOf(cat), FileSystemNode.FormatSize(node.Size));
+            TipDate.Text = L.F("Map.TipModified", node.LastWriteUtc.ToLocalTime().ToString("dd/MM/yyyy HH:mm"));
             TipDate.Visibility = Visibility.Visible;
         }
         HoverTip.Visibility = Visibility.Visible;

@@ -85,7 +85,7 @@ public static class DuplicateFinder
                         int d = Interlocked.Increment(ref done);
                         if (d % 20 == 0 || d == totalFiles)
                             progress.Report(new DuplicateProgress(d, totalFiles,
-                                full ? "Confirmando duplicados" : "Comparando arquivos"));
+                                full ? "Dup.PhaseConfirm" : "Dup.PhaseCompare"));
                     }
                     if (hash is null) continue;
                     if (!map.TryGetValue(hash, out var list))

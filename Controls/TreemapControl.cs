@@ -45,6 +45,16 @@ public sealed class TreemapControl : FrameworkElement
         SnapsToDevicePixels = true;
     }
 
+    private DrawingGroup? _cache;
+    private bool _layoutDirty = true;
+
+    /// <summary>Re-renderiza o mapa por completo (árvore mudou). Hover NÃO passa por aqui.</summary>
+    public void Refresh()
+    {
+        _layoutDirty = true;
+        InvalidateVisual();
+    }
+
     public FileSystemNode? Root
     {
         get => _root;
@@ -53,7 +63,7 @@ public sealed class TreemapControl : FrameworkElement
             _root = value;
             _hovered = null;
             _selected = null;
-            InvalidateVisual();
+            Refresh();
         }
     }
 
@@ -65,14 +75,20 @@ public sealed class TreemapControl : FrameworkElement
     public Services.FileCategory? CategoryFilter
     {
         get => _categoryFilter;
-        set { _categoryFilter = value; InvalidateVisual(); }
+        set { _categoryFilter = value; Refresh(); }
     }
 
     /// <summary>Se ativo, arquivos modificados há menos de 1 ano são atenuados (os antigos saltam à vista).</summary>
     public bool HighlightOld
     {
         get => _highlightOld;
-        set { _highlightOld = value; InvalidateVisual(); }
+        set { _highlightOld = value; Refresh(); }
+    }
+
+    protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+    {
+        _layoutDirty = true;
+        base.OnRenderSizeChanged(sizeInfo);
     }
 
     private static readonly Brush DimOverlay = Frozen(new SolidColorBrush(Color.FromArgb(0xB8, 0x0E, 0x11, 0x17)));
@@ -137,26 +153,44 @@ public sealed class TreemapControl : FrameworkElement
 
     protected override void OnRender(DrawingContext dc)
     {
-        _displayRects.Clear();
+        // O layout completo (caro) fica cacheado num DrawingGroup; mudanças de hover
+        // redesenham apenas o contorno por cima — sem re-layout, sem piscar.
+        if (_layoutDirty || _cache is null)
+            RebuildCache();
 
-        var bounds = new Rect(0, 0, ActualWidth, ActualHeight);
-        dc.DrawRectangle(Brushes.Transparent, null, bounds); // garante hit-testing em toda a área
-
-        if (_root is null || _root.Size <= 0 || bounds.Width < 10 || bounds.Height < 10)
-            return;
-
-        _oldThresholdUtc = DateTime.UtcNow.AddYears(-1);
-
-        // A árvore pode estar sendo preenchida pelo scan em outra thread;
-        // se uma inconsistência momentânea aparecer, apenas pula este quadro.
-        try
-        {
-            LayoutChildren(dc, _root, bounds, depth: 0);
-        }
-        catch (ArgumentOutOfRangeException) { }
-        catch (InvalidOperationException) { }
+        if (_cache is not null)
+            dc.DrawDrawing(_cache);
 
         DrawHighlights(dc);
+    }
+
+    private void RebuildCache()
+    {
+        _layoutDirty = false;
+        _displayRects.Clear();
+
+        var cache = new DrawingGroup();
+        using (var dc = cache.Open())
+        {
+            var bounds = new Rect(0, 0, ActualWidth, ActualHeight);
+            dc.DrawRectangle(Brushes.Transparent, null, bounds); // garante hit-testing em toda a área
+
+            if (_root is not null && _root.Size > 0 && bounds.Width >= 10 && bounds.Height >= 10)
+            {
+                _oldThresholdUtc = DateTime.UtcNow.AddYears(-1);
+
+                // A árvore pode estar sendo preenchida pelo scan em outra thread;
+                // se uma inconsistência momentânea aparecer, apenas pula este quadro.
+                try
+                {
+                    LayoutChildren(dc, _root, bounds, depth: 0);
+                }
+                catch (ArgumentOutOfRangeException) { }
+                catch (InvalidOperationException) { }
+            }
+        }
+        cache.Freeze();
+        _cache = cache;
     }
 
     private void LayoutChildren(DrawingContext dc, FileSystemNode dir, Rect area, int depth)

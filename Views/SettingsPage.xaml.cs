@@ -25,6 +25,9 @@ public partial class SettingsPage : UserControl
         InitializeComponent();
         foreach (var (label, bytes) in MinSizes)
             MinSizeCombo.Items.Add(new ComboBoxItem { Content = label, Tag = bytes });
+
+        var v = typeof(SettingsPage).Assembly.GetName().Version;
+        VersionText.Text = $"ObsidianDisk {v?.ToString(3) ?? ""}";
     }
 
     public void Load(AppSettings settings)
@@ -32,6 +35,7 @@ public partial class SettingsPage : UserControl
         _loading = true;
         _settings = settings;
         ConfirmDeleteSwitch.IsChecked = settings.ConfirmDelete;
+        LiveMonitoringSwitch.IsChecked = settings.LiveMonitoring;
 
         int index = Array.FindIndex(MinSizes, m => m.Bytes == settings.LargeFileMinBytes);
         MinSizeCombo.SelectedIndex = index >= 0 ? index : 2;
@@ -43,6 +47,7 @@ public partial class SettingsPage : UserControl
         if (_loading) return;
 
         _settings.ConfirmDelete = ConfirmDeleteSwitch.IsChecked == true;
+        _settings.LiveMonitoring = LiveMonitoringSwitch.IsChecked == true;
         if (MinSizeCombo.SelectedItem is ComboBoxItem item && item.Tag is long bytes)
             _settings.LargeFileMinBytes = bytes;
 

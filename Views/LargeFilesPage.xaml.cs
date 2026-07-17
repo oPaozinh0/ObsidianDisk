@@ -67,7 +67,7 @@ public partial class LargeFilesPage : UserControl
         FilesList.Items.Clear();
         if (_root is null)
         {
-            CountText.Text = "Escaneie um disco para listar os maiores arquivos.";
+            CountText.Text = L.T("Lf.ScanFirst");
             return;
         }
 
@@ -101,8 +101,8 @@ public partial class LargeFilesPage : UserControl
         }
 
         CountText.Text = found.Count > 300
-            ? $"{found.Count:N0} arquivos encontrados (exibindo os 300 maiores)"
-            : $"{found.Count:N0} arquivos encontrados";
+            ? L.F("Lf.FoundCapped", found.Count.ToString("N0"))
+            : L.F("Lf.Found", found.Count.ToString("N0"));
     }
 
     private List<FileSystemNode> SelectedNodes() =>

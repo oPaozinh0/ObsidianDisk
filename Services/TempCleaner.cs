@@ -20,32 +20,26 @@ public static class TempCleaner
 
         return new List<TempTarget>
         {
-            new("user-temp", "Temp do usuário",
-                "Arquivos temporários de aplicativos (%TEMP%). Seguro limpar.",
+            new("user-temp", L.T("Cl.T.UserTemp"), L.T("Cl.T.UserTempDesc"),
                 new[] { Path.Combine(localAppData, "Temp") }, DefaultChecked: true),
 
-            new("win-temp", "Temp do Windows",
-                @"C:\Windows\Temp. Seguro limpar; itens em uso são pulados.",
+            new("win-temp", L.T("Cl.T.WinTemp"), L.T("Cl.T.WinTempDesc"),
                 new[] { Path.Combine(windows, "Temp") }, DefaultChecked: true),
 
-            new("wu-cache", "Cache do Windows Update",
-                "Instaladores já baixados (SoftwareDistribution\\Download). O Windows baixa de novo se precisar.",
+            new("wu-cache", L.T("Cl.T.WuCache"), L.T("Cl.T.WuCacheDesc"),
                 new[] { Path.Combine(windows, "SoftwareDistribution", "Download") }, DefaultChecked: false),
 
-            new("thumbs", "Cache de miniaturas",
-                "Miniaturas do Explorer (thumbcache). São recriadas conforme você navega.",
+            new("thumbs", L.T("Cl.T.Thumbs"), L.T("Cl.T.ThumbsDesc"),
                 new[] { Path.Combine(localAppData, "Microsoft", "Windows", "Explorer") }, DefaultChecked: false),
 
-            new("wer", "Relatórios de erro do Windows",
-                "Relatórios de travamentos já enviados/enfileirados (WER).",
+            new("wer", L.T("Cl.T.Wer"), L.T("Cl.T.WerDesc"),
                 new[]
                 {
                     Path.Combine(programData, "Microsoft", "Windows", "WER", "ReportQueue"),
                     Path.Combine(programData, "Microsoft", "Windows", "WER", "ReportArchive"),
                 }, DefaultChecked: false),
 
-            new("recycle", "Lixeira (todas as unidades)",
-                "Esvazia a Lixeira. Os itens não poderão mais ser restaurados.",
+            new("recycle", L.T("Cl.T.Recycle"), L.T("Cl.T.RecycleDesc"),
                 Array.Empty<string>(), DefaultChecked: false, IsRecycleBin: true),
         };
     }

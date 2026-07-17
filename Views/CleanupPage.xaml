@@ -8,16 +8,19 @@
                 <StackPanel>
                     <DockPanel LastChildFill="False">
                         <StackPanel DockPanel.Dock="Left">
-                            <TextBlock Style="{StaticResource CardTitle}" Text="Limpeza do Sistema"/>
+                            <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource Cl.Title}"/>
                             <TextBlock Style="{StaticResource MutedText}" Margin="0,4,0,0" TextWrapping="Wrap"
-                                       Text="Locais de arquivos temporários do Windows. Marque o que deseja limpar — itens em uso são pulados automaticamente."/>
+                                       Text="{StaticResource Cl.Desc}"/>
                         </StackPanel>
                         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Top">
+                            <Button x:Name="ElevateButton" Style="{StaticResource GhostButton}" Height="36"
+                                    Margin="0,0,10,0" Click="Elevate_Click" Visibility="Collapsed"
+                                    Content="{StaticResource Cl.Elevate}"/>
                             <Button x:Name="RefreshButton" Style="{StaticResource GhostButton}" Height="36"
-                                    Click="Refresh_Click" Content="⟳  Atualizar tamanhos"/>
+                                    Click="Refresh_Click" Content="{StaticResource Cl.Refresh}"/>
                             <Button x:Name="CleanButton" Style="{StaticResource PrimaryButton}" Height="36"
                                     Margin="10,0,0,0" MinWidth="180" Click="Clean_Click"
-                                    Content="🧹  Limpar selecionados"/>
+                                    Content="{StaticResource Cl.Clean}"/>
                         </StackPanel>
                     </DockPanel>
 
@@ -40,7 +43,7 @@
             </Border>
 
             <TextBlock Style="{StaticResource MutedText}" FontSize="11" Margin="4,10,0,0" TextWrapping="Wrap"
-                       Text="Dica: alguns arquivos do Temp do Windows e do cache do Windows Update pertencem ao sistema e só podem ser removidos executando o app como administrador — eles são pulados e contados no resultado."/>
+                       Text="{StaticResource Cl.Tip}"/>
 
         </StackPanel>
     </ScrollViewer>

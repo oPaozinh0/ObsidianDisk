@@ -10,7 +10,7 @@
 
             <DockPanel Grid.Row="0" LastChildFill="False" Margin="0,0,0,10">
                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Style="{StaticResource CardTitle}" Text="Arquivos Grandes" VerticalAlignment="Center"/>
+                    <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource Lf.Title}" VerticalAlignment="Center"/>
                     <ComboBox x:Name="MinSizeCombo" Style="{StaticResource DarkCombo}" Width="140" Height="32"
                               Margin="16,0,0,0" SelectionChanged="MinSize_Changed"/>
                     <TextBlock x:Name="CountText" Style="{StaticResource MutedText}" Margin="12,0,0,0"
@@ -18,12 +18,12 @@
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                     <Button Style="{StaticResource GhostButton}" Height="32" Click="Open_Click"
-                            Content="Abrir no Explorer"/>
+                            Content="{StaticResource Lf.Open}"/>
                     <Button Style="{StaticResource GhostButton}" Height="32" Margin="8,0,0,0" Click="DeleteRecycle_Click"
-                            Content="🗑  Lixeira"/>
+                            Content="{StaticResource Lf.Recycle}"/>
                     <Button x:Name="DeletePermanentButton" Style="{StaticResource GhostButton}" Height="32"
                             Margin="8,0,0,0" Click="DeletePermanent_Click" Foreground="#E06C75"
-                            Content="⚠  Excluir permanentemente"/>
+                            Content="{StaticResource Lf.Permanent}"/>
                 </StackPanel>
             </DockPanel>
 
@@ -31,7 +31,7 @@
                       SelectionMode="Extended">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Categoria" Width="130">
+                        <GridViewColumn Header="{StaticResource Lf.ColCategory}" Width="130">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -43,14 +43,14 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Nome" Width="320">
+                        <GridViewColumn Header="{StaticResource Lf.ColName}" Width="320">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" FontSize="13"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Pasta" Width="380">
+                        <GridViewColumn Header="{StaticResource Lf.ColFolder}" Width="380">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Directory}" TextTrimming="CharacterEllipsis"
@@ -58,7 +58,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Tamanho" Width="110">
+                        <GridViewColumn Header="{StaticResource Lf.ColSize}" Width="110">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding SizeText}" FontSize="13" FontWeight="SemiBold"/>
