@@ -72,6 +72,7 @@ public partial class SettingsPage : UserControl
         ThemeCombo.SelectedIndex = settings.Theme.Equals("light", StringComparison.OrdinalIgnoreCase) ? 1 : 0;
         ColorBlindSwitch.IsChecked = settings.ColorBlindSafe;
         SoftwareRenderSwitch.IsChecked = settings.SoftwareRendering;
+        MinimizeToTraySwitch.IsChecked = settings.MinimizeToTray;
         _loading = false;
     }
 
@@ -81,6 +82,7 @@ public partial class SettingsPage : UserControl
 
         _settings.ConfirmDelete = ConfirmDeleteSwitch.IsChecked == true;
         _settings.LiveMonitoring = LiveMonitoringSwitch.IsChecked == true;
+        _settings.MinimizeToTray = MinimizeToTraySwitch.IsChecked == true;
         if (MinSizeCombo.SelectedItem is ComboBoxItem item && item.Tag is long bytes)
             _settings.LargeFileMinBytes = bytes;
 

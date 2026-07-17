@@ -18,6 +18,11 @@
     <sys:String x:Key="Shell.Ready">Listo.</sys:String>
     <sys:String x:Key="Shell.UpdateAvailable">↑ {0} disponible</sys:String>
 
+    <!-- Bandeja del sistema -->
+    <sys:String x:Key="Tray.Open">Abrir ObsidianDisk</sys:String>
+    <sys:String x:Key="Tray.Exit">Salir</sys:String>
+    <sys:String x:Key="Tray.Tooltip">ObsidianDisk — {0} {1}% usado</sys:String>
+
     <!-- Scan -->
     <sys:String x:Key="Scan.InvalidPath">Ruta no válida.</sys:String>
     <sys:String x:Key="Scan.Done">Completado en {0}s — {1} archivos, {2} en total.</sys:String>
@@ -296,5 +301,7 @@
 
     <sys:String x:Key="St.SoftwareRender">Renderizado por software</sys:String>
     <sys:String x:Key="St.SoftwareRenderNote">Corrige artefactos de texto (recuadros alrededor de las letras) en algunas tarjetas gráficas. Cuesta algo de rendimiento.</sys:String>
+    <sys:String x:Key="St.MinimizeToTray">Minimizar a la bandeja</sys:String>
+    <sys:String x:Key="St.MinimizeToTrayNote">Al minimizar, mantiene ObsidianDisk en el área de notificación en lugar de la barra de tareas.</sys:String>
 
 </ResourceDictionary>

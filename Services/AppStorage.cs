@@ -12,6 +12,7 @@ public sealed class AppSettings
     public string Theme { get; set; } = "dark";    // dark | light
     public bool ColorBlindSafe { get; set; }
     public bool SoftwareRendering { get; set; }
+    public bool MinimizeToTray { get; set; } // minimizar esconde na bandeja em vez da barra de tarefas
 }
 
 public sealed record ScanRecord(DateTime Timestamp, string Path, long TotalBytes, long FileCount);

@@ -36,6 +36,11 @@
                               Unchecked="Interface_Changed"/>
                     <TextBlock Style="{StaticResource MutedText}" Margin="0,6,0,0" TextWrapping="Wrap"
                                Text="{StaticResource St.SoftwareRenderNote}"/>
+                    <CheckBox x:Name="MinimizeToTraySwitch" Style="{StaticResource Switch}" Margin="0,14,0,0"
+                              Content="{StaticResource St.MinimizeToTray}" Checked="Setting_Changed"
+                              Unchecked="Setting_Changed"/>
+                    <TextBlock Style="{StaticResource MutedText}" Margin="0,6,0,0" TextWrapping="Wrap"
+                               Text="{StaticResource St.MinimizeToTrayNote}"/>
                 </StackPanel>
             </Border>
 

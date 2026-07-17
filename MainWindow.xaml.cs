@@ -15,6 +15,7 @@ public partial class MainWindow : Window
     private readonly DispatcherTimer _progressTimer;
     private readonly DispatcherTimer _liveRefreshTimer;
     private LiveWatcher? _watcher;
+    private TrayService? _tray;
     private AppSettings _settings;
 
     private FileSystemNode? _scanRoot;
@@ -34,6 +35,7 @@ public partial class MainWindow : Window
             _settings = s;
             LargeFilesPage.SetMinBytes(s.LargeFileMinBytes);
             SyncLiveWatcher();
+            _tray?.SetPersistent(s.MinimizeToTray);
 
             // Tema/daltonismo mudam cores construídas em código (legenda, cards, mapa)
             MapPage.RebuildLegend();
@@ -72,6 +74,13 @@ public partial class MainWindow : Window
 
         PreviewKeyDown += OnKeyDown;
         StateChanged += (_, _) => OnWindowStateChanged();
+
+        // Bandeja do sistema + notificações nativas
+        _tray = new TrayService();
+        _tray.OpenRequested += RestoreFromTray;
+        _tray.ExitRequested += Close;
+        _tray.SetPersistent(_settings.MinimizeToTray);
+        Closed += (_, _) => _tray?.Dispose();
 
         // "ObsidianDisk.exe <pasta>" já abre escaneando o caminho informado
         var args = Environment.GetCommandLineArgs();
@@ -209,11 +218,26 @@ public partial class MainWindow : Window
 
     private void OnWindowStateChanged()
     {
+        // Minimizar esconde na bandeja quando a opção está ligada (o ícone é persistente)
+        if (WindowState == WindowState.Minimized && _settings.MinimizeToTray)
+        {
+            Hide();
+            return;
+        }
+
         // Com WindowChrome, a janela maximizada avança sobre as bordas da tela — compensa com margem
         bool max = WindowState == WindowState.Maximized;
         RootBorder.Margin = max ? new Thickness(7) : new Thickness(0);
         // Glifos Segoe MDL2: E923 = restaurar, E922 = maximizar
         MaximizeButton.Content = max ? ((char)0xE923).ToString() : ((char)0xE922).ToString();
+    }
+
+    /// <summary>Reexibe e traz a janela de volta a partir da bandeja.</summary>
+    private void RestoreFromTray()
+    {
+        Show();
+        WindowState = WindowState.Normal;
+        Activate();
     }
 
     // ---------------- Navegação ----------------
@@ -311,6 +335,12 @@ public partial class MainWindow : Window
             var scannedAt = DateTime.Now;
             AppStorage.AppendHistory(new ScanRecord(scannedAt, path, root.Size, progress.FilesScanned));
             await Task.Run(() => SnapshotStore.Capture(root, path, scannedAt, progress.FilesScanned));
+
+            if (drive is not null && drive.TotalSize > 0)
+            {
+                var usedPct = (int)((drive.TotalSize - drive.TotalFreeSpace) * 100 / drive.TotalSize);
+                _tray?.SetTooltip(L.F("Tray.Tooltip", drive.Name, usedPct));
+            }
 
             RefreshAllPages();
             LastScanText.Text = L.F("Shell.LastScan", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
