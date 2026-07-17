@@ -199,6 +199,8 @@
     <sys:String x:Key="Cl.Title">Nettoyage du Système</sys:String>
     <sys:String x:Key="Cl.Desc">Emplacements des fichiers temporaires de Windows. Cochez ce que vous voulez nettoyer — les éléments en cours d'utilisation sont ignorés automatiquement.</sys:String>
     <sys:String x:Key="Cl.Profile">Profil :</sys:String>
+    <sys:String x:Key="Cl.DryRun">Simulation (ne rien supprimer, juste afficher)</sys:String>
+    <sys:String x:Key="Cl.DryRunResult">Simulation : {0} emplacement(s) libéreraient {1} — rien n'a été supprimé.</sys:String>
     <sys:String x:Key="Cl.ProfileConservative">Conservateur</sys:String>
     <sys:String x:Key="Cl.ProfileAggressive">Agressif</sys:String>
     <sys:String x:Key="Cl.ProfileCustom">Personnalisé</sys:String>
