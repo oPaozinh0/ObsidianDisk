@@ -92,6 +92,7 @@ public partial class HistoryPage : UserControl
     {
         DiffList.Items.Clear();
         DiffCard.Visibility = Visibility.Collapsed;
+        ExplainerBanner.Visibility = Visibility.Collapsed;
         if (path is null) return;
 
         var (older, newer) = SnapshotStore.TwoLatestForPath(path);
@@ -99,6 +100,14 @@ public partial class HistoryPage : UserControl
 
         var deltas = SnapshotStore.Diff(older, newer);
         if (deltas.Count == 0) return;
+
+        // Explicação em linguagem natural do que aconteceu
+        var explanation = GrowthExplainer.Explain(older, newer, deltas);
+        if (!string.IsNullOrEmpty(explanation))
+        {
+            ExplainerText.Text = explanation;
+            ExplainerBanner.Visibility = Visibility.Visible;
+        }
 
         DiffSubtitle.Text = L.F("Hi.DiffBetween",
             older.Timestamp.ToString("dd/MM HH:mm"), newer.Timestamp.ToString("dd/MM HH:mm"));

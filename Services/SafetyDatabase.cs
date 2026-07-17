@@ -174,6 +174,28 @@ public static class SafetyDatabase
         return null;
     }
 
+    /// <summary>Como <see cref="Lookup"/>, mas a partir de um caminho puro (ex.: dados de snapshot).</summary>
+    public static SafetyInfo? LookupPath(string fullPath, bool isDirectory)
+    {
+        string path = fullPath.TrimEnd('\\');
+
+        if (ExactPaths.TryGetValue(path, out var entry))
+            return Build(entry);
+
+        foreach (var (suffix, e) in PathSuffixes)
+            if (path.EndsWith(suffix, StringComparison.OrdinalIgnoreCase))
+                return Build(e);
+
+        if (isDirectory)
+        {
+            var name = System.IO.Path.GetFileName(path);
+            if (name.Length > 0 && FolderNames.TryGetValue(name, out entry))
+                return Build(entry);
+        }
+
+        return null;
+    }
+
     private static SafetyInfo Build(Entry entry)
     {
         string description = entry.SpecialKey is not null

@@ -70,6 +70,11 @@
                         <TextBlock x:Name="DiffSubtitle" DockPanel.Dock="Right" Style="{StaticResource MutedText}"
                                    VerticalAlignment="Center"/>
                     </DockPanel>
+                    <Border x:Name="ExplainerBanner" Background="{DynamicResource Panel2}" CornerRadius="8"
+                            Padding="12,10" Margin="0,0,0,10" Visibility="Collapsed">
+                        <TextBlock x:Name="ExplainerText" Foreground="{DynamicResource Text}" FontSize="13"
+                                   TextWrapping="Wrap" LineHeight="19"/>
+                    </Border>
                     <ListView x:Name="DiffList" Style="{StaticResource DarkListView}" SelectionMode="Single"
                               MaxHeight="280">
                         <ListView.View>
