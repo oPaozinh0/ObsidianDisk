@@ -15,6 +15,9 @@ public sealed record TreeSnapshot(
     long FileCount,
     IReadOnlyList<SnapshotEntry> TopFolders);
 
+/// <summary>Variação de tamanho de uma pasta entre dois snapshots.</summary>
+public sealed record FolderDelta(string FullPath, string Name, long OldSize, long NewSize, long Delta);
+
 /// <summary>
 /// Persiste um retrato leve da árvore ao fim de cada scan — apenas as maiores pastas,
 /// não a árvore inteira (poucos KB por scan). É a base para diff entre scans, o
@@ -87,6 +90,47 @@ public static class SnapshotStore
         for (var i = start; i < files.Count; i++)
             if (Load(files[i]) is { } snap)
                 result.Add(snap);
+        return result;
+    }
+
+    /// <summary>Os dois snapshots mais recentes de um caminho (mais antigo, mais novo).</summary>
+    public static (TreeSnapshot? Older, TreeSnapshot? Newer) TwoLatestForPath(string path)
+    {
+        var files = ListFiles(); // cronológico
+        TreeSnapshot? newer = null, older = null;
+        for (var i = files.Count - 1; i >= 0; i--)
+        {
+            var s = Load(files[i]);
+            if (s is null || !string.Equals(s.Path, path, StringComparison.OrdinalIgnoreCase)) continue;
+            if (newer is null) { newer = s; continue; }
+            older = s;
+            break;
+        }
+        return (older, newer);
+    }
+
+    /// <summary>
+    /// Variação de tamanho por pasta entre dois snapshots, maior variação (em módulo) primeiro.
+    /// Aproximado: cada snapshot guarda só as maiores pastas, então uma pasta ausente conta como 0.
+    /// </summary>
+    public static List<FolderDelta> Diff(TreeSnapshot older, TreeSnapshot newer)
+    {
+        var oldMap = older.TopFolders.ToDictionary(f => f.FullPath, f => f.Size, StringComparer.OrdinalIgnoreCase);
+        var newMap = newer.TopFolders.ToDictionary(f => f.FullPath, f => f.Size, StringComparer.OrdinalIgnoreCase);
+
+        var keys = new HashSet<string>(oldMap.Keys, StringComparer.OrdinalIgnoreCase);
+        keys.UnionWith(newMap.Keys);
+
+        var result = new List<FolderDelta>();
+        foreach (var key in keys)
+        {
+            long o = oldMap.GetValueOrDefault(key);
+            long n = newMap.GetValueOrDefault(key);
+            if (n == o) continue;
+            var name = Path.GetFileName(key.TrimEnd('\\', '/'));
+            result.Add(new FolderDelta(key, string.IsNullOrEmpty(name) ? key : name, o, n, n - o));
+        }
+        result.Sort((a, b) => Math.Abs(b.Delta).CompareTo(Math.Abs(a.Delta)));
         return result;
     }
 

@@ -10,6 +10,9 @@ namespace ObsidianDisk.Views;
 public sealed record HistoryRow(string DateText, string Path, string FilesText, string SizeText,
     string DeltaText, Brush DeltaBrush);
 
+/// <summary>Linha do card "O que mudou": uma pasta e sua variação entre dois scans.</summary>
+public sealed record DiffRow(string Name, string Path, string DeltaText, Brush DeltaBrush);
+
 public partial class HistoryPage : UserControl
 {
     private List<ScanRecord> _all = new();
@@ -80,6 +83,36 @@ public partial class HistoryPage : UserControl
         BuildStats();
         BuildTrend();
         DrawChart();
+        BuildDiff(path);
+    }
+
+    // ---------------- O que mudou (diff entre snapshots) ----------------
+
+    private void BuildDiff(string? path)
+    {
+        DiffList.Items.Clear();
+        DiffCard.Visibility = Visibility.Collapsed;
+        if (path is null) return;
+
+        var (older, newer) = SnapshotStore.TwoLatestForPath(path);
+        if (older is null || newer is null) return;
+
+        var deltas = SnapshotStore.Diff(older, newer);
+        if (deltas.Count == 0) return;
+
+        DiffSubtitle.Text = L.F("Hi.DiffBetween",
+            older.Timestamp.ToString("dd/MM HH:mm"), newer.Timestamp.ToString("dd/MM HH:mm"));
+
+        var grow = new SolidColorBrush(Color.FromRgb(0xE0, 0x6C, 0x75));
+        var shrink = new SolidColorBrush(Color.FromRgb(0x5F, 0xD3, 0x8A));
+        foreach (var d in deltas.Take(12))
+            DiffList.Items.Add(new DiffRow(
+                d.Name,
+                System.IO.Path.GetDirectoryName(d.FullPath) ?? d.FullPath,
+                (d.Delta >= 0 ? "+" : "−") + FileSystemNode.FormatSize(Math.Abs(d.Delta)),
+                d.Delta > 0 ? grow : shrink));
+
+        DiffCard.Visibility = Visibility.Visible;
     }
 
     // ---------------- Estatísticas ----------------

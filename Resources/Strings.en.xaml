@@ -202,6 +202,8 @@
     <sys:String x:Key="Hi.Export">Export CSV</sys:String>
     <sys:String x:Key="Hi.ChartHint">Each completed scan records a point here — scan the same disk over time to track its evolution.</sys:String>
     <sys:String x:Key="Hi.Records">Records</sys:String>
+    <sys:String x:Key="Hi.DiffTitle">What changed</sys:String>
+    <sys:String x:Key="Hi.DiffBetween">Between {0} and {1}</sys:String>
     <sys:String x:Key="Hi.ColDate">Date</sys:String>
     <sys:String x:Key="Hi.ColPath">Path</sys:String>
     <sys:String x:Key="Hi.ColFiles">Files</sys:String>
