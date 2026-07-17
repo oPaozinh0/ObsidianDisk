@@ -20,6 +20,8 @@ public partial class SettingsPage : UserControl
         ("1 GB", 1L << 30),
     };
 
+    private static readonly int[] Thresholds = { 80, 85, 90, 95 };
+
     private static readonly (string Code, string Name)[] Languages =
     {
         ("auto", ""), // rótulo vem do recurso St.LanguageAuto
@@ -40,6 +42,9 @@ public partial class SettingsPage : UserControl
         InitializeComponent();
         foreach (var (label, bytes) in MinSizes)
             MinSizeCombo.Items.Add(new ComboBoxItem { Content = label, Tag = bytes });
+
+        foreach (var pct in Thresholds)
+            DiskThresholdCombo.Items.Add(new ComboBoxItem { Content = $"{pct}%", Tag = pct });
 
         foreach (var (code, name) in Languages)
             LanguageCombo.Items.Add(new ComboBoxItem
@@ -73,6 +78,10 @@ public partial class SettingsPage : UserControl
         ColorBlindSwitch.IsChecked = settings.ColorBlindSafe;
         SoftwareRenderSwitch.IsChecked = settings.SoftwareRendering;
         MinimizeToTraySwitch.IsChecked = settings.MinimizeToTray;
+
+        DiskAlertSwitch.IsChecked = settings.DiskFullAlert;
+        int thIndex = Array.IndexOf(Thresholds, settings.DiskFullThresholdPercent);
+        DiskThresholdCombo.SelectedIndex = thIndex >= 0 ? thIndex : Array.IndexOf(Thresholds, 90);
         _loading = false;
     }
 
@@ -83,8 +92,11 @@ public partial class SettingsPage : UserControl
         _settings.ConfirmDelete = ConfirmDeleteSwitch.IsChecked == true;
         _settings.LiveMonitoring = LiveMonitoringSwitch.IsChecked == true;
         _settings.MinimizeToTray = MinimizeToTraySwitch.IsChecked == true;
+        _settings.DiskFullAlert = DiskAlertSwitch.IsChecked == true;
         if (MinSizeCombo.SelectedItem is ComboBoxItem item && item.Tag is long bytes)
             _settings.LargeFileMinBytes = bytes;
+        if (DiskThresholdCombo.SelectedItem is ComboBoxItem th && th.Tag is int pct)
+            _settings.DiskFullThresholdPercent = pct;
 
         AppStorage.SaveSettings(_settings);
         SettingsChanged?.Invoke(_settings);

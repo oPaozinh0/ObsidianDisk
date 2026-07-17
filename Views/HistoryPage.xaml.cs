@@ -165,16 +165,8 @@ public partial class HistoryPage : UserControl
             ? new SolidColorBrush(Color.FromRgb(0xE0, 0x8C, 0x5A))
             : new SolidColorBrush(Color.FromRgb(0x5F, 0xD3, 0x8A));
 
-        // Regressão linear simples (bytes por dia) sobre todos os registros
-        double x0 = _filtered[0].Timestamp.Ticks;
-        var points = _filtered.Select(r => (
-            X: (r.Timestamp.Ticks - x0) / (double)TimeSpan.TicksPerDay,
-            Y: (double)r.TotalBytes)).ToList();
-
-        double meanX = points.Average(p => p.X), meanY = points.Average(p => p.Y);
-        double denom = points.Sum(p => (p.X - meanX) * (p.X - meanX));
-        double slopePerDay = denom > 0.0001 ? points.Sum(p => (p.X - meanX) * (p.Y - meanY)) / denom : 0;
-
+        // Ritmo de crescimento (bytes/dia) e projeção de 90 dias — fonte única em DiskForecaster
+        double slopePerDay = DiskForecaster.SlopeBytesPerDay(_filtered);
         long projected = latest.TotalBytes + (long)(slopePerDay * 90);
         ProjectionText.Text = FileSystemNode.FormatSize(Math.Max(0, projected));
 
@@ -187,16 +179,12 @@ public partial class HistoryPage : UserControl
             FreeNowText.Text = FileSystemNode.FormatSize(drive.TotalFreeSpace) +
                                $" ({drive.TotalFreeSpace * 100.0 / drive.TotalSize:0.#}%)";
 
-            if (slopePerDay > 1024 * 1024) // só alerta com crescimento relevante (>1 MB/dia)
+            var forecast = DiskForecaster.Project(_filtered, drive.TotalFreeSpace, DateTime.Now);
+            if (forecast is not null)
             {
-                double daysLeft = drive.TotalFreeSpace / slopePerDay;
-                if (daysLeft < 365 * 2)
-                {
-                    var fullDate = DateTime.Now.AddDays(daysLeft);
-                    CapacityWarningText.Text = L.F("Hi.CapacityWarning",
-                        FileSystemNode.FormatSize((long)slopePerDay), fullDate.ToString("Y"));
-                    CapacityWarning.Visibility = Visibility.Visible;
-                }
+                CapacityWarningText.Text = L.F("Hi.CapacityWarning",
+                    FileSystemNode.FormatSize((long)forecast.SlopeBytesPerDay), forecast.FullDate.ToString("Y"));
+                CapacityWarning.Visibility = Visibility.Visible;
             }
         }
         else

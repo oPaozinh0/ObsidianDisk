@@ -323,5 +323,14 @@
     <sys:String x:Key="St.SoftwareRenderNote">Corrige les artefacts de texte (cadres autour des lettres) sur certaines cartes graphiques. Coûte un peu de performance.</sys:String>
     <sys:String x:Key="St.MinimizeToTray">Réduire dans la zone de notification</sys:String>
     <sys:String x:Key="St.MinimizeToTrayNote">Lors de la réduction, garde ObsidianDisk dans la zone de notification plutôt que dans la barre des tâches.</sys:String>
+    <sys:String x:Key="St.DiskAlert">Alerter quand le disque est plein</sys:String>
+    <sys:String x:Key="St.DiskAlertNote">Affiche une notification quand l'utilisation dépasse le seuil ou que la projection indique un remplissage proche.</sys:String>
+    <sys:String x:Key="St.DiskAlertThreshold">Seuil d'alerte</sys:String>
+
+    <!-- Alerte disque plein -->
+    <sys:String x:Key="Alert.FullTitle">Disque presque plein</sys:String>
+    <sys:String x:Key="Alert.FullMsg">{0} est plein à {1}% — {2} libres.</sys:String>
+    <sys:String x:Key="Alert.ForecastTitle">Disque bientôt plein</sys:String>
+    <sys:String x:Key="Alert.ForecastMsg">Au rythme actuel, {0} sera plein vers {1}.</sys:String>
 
 </ResourceDictionary>

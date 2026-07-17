@@ -24,6 +24,9 @@ public partial class MainWindow : Window
     private string? _lastScanPath;
     private long _scanTargetBytes;
 
+    /// <summary>Unidades já alertadas nesta sessão (rearma quando voltam ao normal).</summary>
+    private readonly HashSet<string> _diskAlerted = new(StringComparer.OrdinalIgnoreCase);
+
     public MainWindow()
     {
         InitializeComponent();
@@ -342,6 +345,7 @@ public partial class MainWindow : Window
             {
                 var usedPct = (int)((drive.TotalSize - drive.TotalFreeSpace) * 100 / drive.TotalSize);
                 _tray?.SetTooltip(L.F("Tray.Tooltip", drive.Name, usedPct));
+                MaybeAlertDiskFull(drive, path, usedPct);
             }
 
             RefreshAllPages();
@@ -409,6 +413,46 @@ public partial class MainWindow : Window
         DiscoveriesPage.UpdateFromScan(_scanRoot);
         MapPage.Refresh();
         HistoryPage.Reload();
+    }
+
+    // ---------------- Alerta de disco cheio ----------------
+
+    private const int DiskForecastHorizonDays = 60;
+
+    /// <summary>
+    /// Notifica quando a unidade cruza o limite de uso ou quando a projeção do histórico
+    /// indica que vai encher em breve. Alerta uma vez por sessão e rearma ao normalizar.
+    /// </summary>
+    private void MaybeAlertDiskFull(DriveInfo drive, string path, int usedPct)
+    {
+        if (!_settings.DiskFullAlert) return;
+
+        bool overThreshold = usedPct >= _settings.DiskFullThresholdPercent;
+
+        DiskForecast? forecast = null;
+        if (!overThreshold)
+        {
+            var history = AppStorage.LoadHistory()
+                .Where(r => string.Equals(r.Path, path, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            forecast = DiskForecaster.Project(history, drive.TotalFreeSpace, DateTime.Now);
+        }
+        bool fillingSoon = forecast is not null && forecast.DaysUntilFull < DiskForecastHorizonDays;
+
+        if (!overThreshold && !fillingSoon)
+        {
+            _diskAlerted.Remove(drive.Name); // voltou ao normal: pode alertar de novo depois
+            return;
+        }
+
+        if (!_diskAlerted.Add(drive.Name)) return; // já avisado nesta sessão
+
+        if (overThreshold)
+            Notifier.Show(L.T("Alert.FullTitle"),
+                L.F("Alert.FullMsg", drive.Name, usedPct, FileSystemNode.FormatSize(drive.TotalFreeSpace)));
+        else
+            Notifier.Show(L.T("Alert.ForecastTitle"),
+                L.F("Alert.ForecastMsg", drive.Name, forecast!.FullDate.ToString("Y")));
     }
 
     // ---------------- Hover / status ----------------
