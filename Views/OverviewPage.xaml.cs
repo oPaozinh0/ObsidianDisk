@@ -18,6 +18,7 @@ public partial class OverviewPage : UserControl
     public event Action? OpenCleanupRequested;
     public event Action? OpenLargeFilesRequested;
     public event Action? OpenDuplicatesRequested;
+    public event Action? OpenDiscoveriesRequested;
 
     public OverviewPage()
     {
@@ -72,6 +73,77 @@ public partial class OverviewPage : UserControl
                 .Where(t => t.Key is "user-temp" or "win-temp" || t.IsRecycleBin)
                 .Sum(TempCleaner.Measure));
         RecTempText.Text = L.F("Ov.RecTempValue", FileSystemNode.FormatSize(tempTotal));
+    }
+
+    // ---------------- Sugestões personalizadas ----------------
+
+    private async void BuildSuggestions(FileSystemNode root)
+    {
+        SuggestionsPanel.Children.Clear();
+        SuggestionsCard.Visibility = Visibility.Collapsed;
+
+        string? path = SelectedPath;
+        if (path is null) return;
+
+        var suggestions = await Task.Run(() => SuggestionEngine.Build(root, path));
+        if (suggestions.Count == 0) return;
+
+        foreach (var s in suggestions)
+            SuggestionsPanel.Children.Add(BuildSuggestionRow(s));
+
+        Controls.Animate.FadeIn(SuggestionsCard, 260);
+    }
+
+    private UIElement BuildSuggestionRow(Suggestion s)
+    {
+        var button = new Controls.ObsidianButton
+        {
+            Variant = Controls.ObsidianButtonVariant.Ghost,
+            Height = 30,
+            Content = L.T("Sg.Review"),
+            VerticalAlignment = VerticalAlignment.Center,
+        };
+        button.Click += (_, _) => InvokeSuggestion(s);
+        DockPanel.SetDock(button, Dock.Right);
+
+        var text = new TextBlock
+        {
+            Text = s.Text,
+            Foreground = (Brush)FindResource("Text"),
+            FontSize = 13,
+            TextWrapping = TextWrapping.Wrap,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(0, 0, 12, 0),
+        };
+
+        var dock = new DockPanel { LastChildFill = true };
+        dock.Children.Add(button);
+        dock.Children.Add(text);
+
+        return new Border
+        {
+            Background = (Brush)FindResource("Panel2"),
+            CornerRadius = new CornerRadius(10),
+            Padding = new Thickness(14, 10, 14, 10),
+            Margin = new Thickness(0, 0, 0, 8),
+            Child = dock,
+        };
+    }
+
+    private void InvokeSuggestion(Suggestion s)
+    {
+        switch (s.Action)
+        {
+            case SuggestionAction.OpenMap when s.Node is not null:
+                OpenInMapRequested?.Invoke(s.Node);
+                break;
+            case SuggestionAction.OpenDiscoveries:
+                OpenDiscoveriesRequested?.Invoke();
+                break;
+            default: // OpenLargeFiles ou OpenMap sem nó localizado
+                OpenLargeFilesRequested?.Invoke();
+                break;
+        }
     }
 
     public string? SelectedPath =>
@@ -253,6 +325,7 @@ public partial class OverviewPage : UserControl
         UpdateDiskCard();
         BuildBuckets(root);
         UpdateRecommendations(root);
+        BuildSuggestions(root);
 
         // ---- Categorias ----
         var totals = FileCategories.Aggregate(root);
