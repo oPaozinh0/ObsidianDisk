@@ -1,0 +1,32 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Tema escuro "Obsidiana" -->
+    <Color x:Key="BgColor">#0E1117</Color>
+    <Color x:Key="PanelColor">#151A23</Color>
+    <Color x:Key="Panel2Color">#1C2230</Color>
+    <Color x:Key="StrokeColor">#2A3245</Color>
+    <Color x:Key="AccentColor">#7C5CFF</Color>
+    <Color x:Key="AccentHoverColor">#9678FF</Color>
+    <Color x:Key="TextColor">#E6EAF2</Color>
+    <Color x:Key="MutedColor">#8A93A8</Color>
+
+    <SolidColorBrush x:Key="Bg" Color="{StaticResource BgColor}"/>
+    <SolidColorBrush x:Key="Panel" Color="{StaticResource PanelColor}"/>
+    <SolidColorBrush x:Key="Panel2" Color="{StaticResource Panel2Color}"/>
+    <SolidColorBrush x:Key="Stroke" Color="{StaticResource StrokeColor}"/>
+    <SolidColorBrush x:Key="Accent" Color="{StaticResource AccentColor}"/>
+    <SolidColorBrush x:Key="AccentHover" Color="{StaticResource AccentHoverColor}"/>
+    <SolidColorBrush x:Key="Text" Color="{StaticResource TextColor}"/>
+    <SolidColorBrush x:Key="Muted" Color="{StaticResource MutedColor}"/>
+
+    <!-- Estados de interação -->
+    <SolidColorBrush x:Key="HoverBg" Color="#242C3E"/>
+    <SolidColorBrush x:Key="RowHover" Color="#1F2634"/>
+    <SolidColorBrush x:Key="SelectedBg" Color="#2A2440"/>
+    <SolidColorBrush x:Key="MenuHover" Color="#2A3348"/>
+    <SolidColorBrush x:Key="ScrollThumb" Color="#3A445C"/>
+    <SolidColorBrush x:Key="ScrollThumbHover" Color="#55618A"/>
+    <SolidColorBrush x:Key="TipBg" Color="#F01C2230"/>
+
+</ResourceDictionary>

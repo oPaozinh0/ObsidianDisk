@@ -8,6 +8,8 @@ public sealed class AppSettings
     public bool ConfirmDelete { get; set; } = true;
     public long LargeFileMinBytes { get; set; } = 100L * 1024 * 1024; // 100 MB
     public bool LiveMonitoring { get; set; } = true;
+    public string Language { get; set; } = "auto"; // auto | pt | en | es | fr | de
+    public string Theme { get; set; } = "dark";    // dark | light
 }
 
 public sealed record ScanRecord(DateTime Timestamp, string Path, long TotalBytes, long FileCount);

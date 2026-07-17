@@ -12,8 +12,8 @@
     <ApplicationIcon>Assets\app.ico</ApplicationIcon>
 
     <!-- Identidade -->
-    <Version>1.2.0</Version>
-    <FileVersion>1.2.0.0</FileVersion>
+    <Version>1.3.0</Version>
+    <FileVersion>1.3.0.0</FileVersion>
     <AssemblyTitle>ObsidianDisk</AssemblyTitle>
     <Product>ObsidianDisk — Gerenciador de Disco</Product>
     <Authors>Davi Oliveira</Authors>
@@ -31,6 +31,7 @@
   <ItemGroup>
     <!-- Ícone da janela (barra de tarefas / alt-tab) -->
     <Resource Include="Assets\app.ico"/>
+    <Resource Include="Assets\Fonts\*.ttf"/>
   </ItemGroup>
 
 </Project>

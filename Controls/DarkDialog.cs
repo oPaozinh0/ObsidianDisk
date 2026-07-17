@@ -31,6 +31,7 @@ public static class DarkDialog
         // Evita artefatos de ClearType no pipeline de GPU (mesma correção da MainWindow)
         System.Windows.Media.TextOptions.SetTextRenderingMode(window, System.Windows.Media.TextRenderingMode.Grayscale);
         System.Windows.Media.TextOptions.SetTextFormattingMode(window, System.Windows.Media.TextFormattingMode.Display);
+        window.FontFamily = (FontFamily)app.FindResource("AppFont");
 
         var accent = (Brush)app.FindResource("Accent");
         var dangerBrush = new SolidColorBrush(Color.FromRgb(0xD6, 0x45, 0x50));

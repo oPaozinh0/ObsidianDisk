@@ -221,4 +221,28 @@
     <sys:String x:Key="Ov.RecSeeFiles">View files</sys:String>
     <sys:String x:Key="Ov.RecFindDup">Find</sys:String>
 
+    <!-- Interface / support / tips -->
+    <sys:String x:Key="St.Interface">Interface</sys:String>
+    <sys:String x:Key="St.Language">Language</sys:String>
+    <sys:String x:Key="St.LanguageAuto">Automatic (Windows language)</sys:String>
+    <sys:String x:Key="St.Theme">Theme</sys:String>
+    <sys:String x:Key="St.ThemeDark">Dark (Obsidian)</sys:String>
+    <sys:String x:Key="St.ThemeLight">Light (Quartz)</sys:String>
+    <sys:String x:Key="St.RestartTitle">Restart the app</sys:String>
+    <sys:String x:Key="St.RestartMsg">The change will apply on the next launch. Restart now?</sys:String>
+    <sys:String x:Key="St.RestartNow">Restart now</sys:String>
+    <sys:String x:Key="St.RestartLater">Later</sys:String>
+    <sys:String x:Key="St.Support">Support the project</sys:String>
+    <sys:String x:Key="St.SupportText">If ObsidianDisk helped you reclaim a few gigabytes, consider supporting its development.</sys:String>
+    <sys:String x:Key="St.BuyCoffee">☕ Buy Me a Coffee</sys:String>
+    <sys:String x:Key="St.GitHub">View on GitHub</sys:String>
+    <sys:String x:Key="Tip.1">Tip: don't delete System32. Seriously.</sys:String>
+    <sys:String x:Key="Tip.2">"New folder (7)" also counts as clutter.</sys:String>
+    <sys:String x:Key="Tip.3">Downloads: where files live forever, unnoticed.</sys:String>
+    <sys:String x:Key="Tip.4">Emptying the Recycle Bin is cardio for your disk.</sys:String>
+    <sys:String x:Key="Tip.5">If everything is in "Other"… good luck.</sys:String>
+    <sys:String x:Key="Tip.6">That node_modules weighs more than your conscience.</sys:String>
+    <sys:String x:Key="Tip.7">Backup first, courage later.</sys:String>
+    <sys:String x:Key="Tip.8">87% of duplicates are named "final_v2_FOR_REAL".</sys:String>
+
 </ResourceDictionary>

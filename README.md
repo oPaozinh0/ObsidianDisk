@@ -30,8 +30,9 @@ hunt down huge files and duplicates, and free up space — all in a single app.
 - **📈 History** — every scan becomes a persistent record: evolution chart, statistics, growth trend, disk-full projection and CSV export
 - **🗑️ Safe deletion** — to the Recycle Bin (undoable) or permanent, always with a clear confirmation
 - **📡 Live monitoring** — after a scan, the map tracks file creations, deletions and size changes in real time
-- **🌍 English & Portuguese** — follows your Windows language automatically (`--lang en|pt` to force)
-- **🌙 Modern UI** — full dark theme, borderless window with custom title bar, update notifications, shipped as a single dependency-free `.exe`
+- **🌍 5 languages** — English, Português, Español, Français, Deutsch; follows your Windows language or pick one in Settings
+- **🌙 Dark & Light themes** — Obsidian (dark) and Quartz (light), selectable in Settings
+- **⌨️ Modern UI** — JetBrains Mono typography, borderless window with custom title bar, update notifications, shipped as a single dependency-free `.exe`
 
 ## 📥 Download
 

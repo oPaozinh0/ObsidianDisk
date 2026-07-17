@@ -7,6 +7,7 @@
         Icon="Assets/app.ico"
         Height="820" Width="1320" MinHeight="560" MinWidth="900"
         Background="{StaticResource Bg}"
+        FontFamily="{StaticResource AppFont}"
         TextOptions.TextRenderingMode="Grayscale"
         UseLayoutRounding="True"
         WindowStartupLocation="CenterScreen">
@@ -122,8 +123,12 @@
             <!-- ===== Barra de status ===== -->
             <Border Grid.Row="3" Background="{StaticResource Panel}" Padding="16,7"
                     BorderBrush="{StaticResource Stroke}" BorderThickness="0,1,0,0">
-                <TextBlock x:Name="StatusText" Foreground="{StaticResource Muted}" FontSize="12"
-                           TextTrimming="CharacterEllipsis" Text="{StaticResource Shell.Ready}"/>
+                <DockPanel LastChildFill="True">
+                    <TextBlock x:Name="VersionText" DockPanel.Dock="Right" Foreground="{StaticResource Muted}"
+                               FontSize="11" Opacity="0.7" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                    <TextBlock x:Name="StatusText" Foreground="{StaticResource Muted}" FontSize="12"
+                               TextTrimming="CharacterEllipsis" Text="{StaticResource Shell.Ready}"/>
+                </DockPanel>
             </Border>
         </Grid>
     </Border>

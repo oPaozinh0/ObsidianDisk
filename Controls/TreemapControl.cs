@@ -26,10 +26,13 @@ public sealed class TreemapControl : FrameworkElement
     private sealed record DisplayRect(FileSystemNode Node, Rect Bounds, int Depth);
 
     // ---- Tipografia e pincéis (cacheados) ----
-    private static readonly Typeface LabelFace = new(new FontFamily("Segoe UI"), FontStyles.Normal, FontWeights.SemiBold, FontStretches.Normal);
-    private static readonly Typeface SmallFace = new(new FontFamily("Segoe UI"), FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
+    private static readonly FontFamily AppFontFamily =
+        (FontFamily)System.Windows.Application.Current.FindResource("AppFont");
+    private static readonly Typeface LabelFace = new(AppFontFamily, FontStyles.Normal, FontWeights.SemiBold, FontStretches.Normal);
+    private static readonly Typeface SmallFace = new(AppFontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
 
-    private static readonly Brush DirHeaderText = Frozen(new SolidColorBrush(Color.FromRgb(0xC9, 0xD1, 0xE0)));
+    private static readonly Brush DirHeaderText = Frozen(new SolidColorBrush(
+        App.IsLightTheme ? Color.FromRgb(0x3A, 0x43, 0x58) : Color.FromRgb(0xC9, 0xD1, 0xE0)));
     private static readonly Brush FileText = Frozen(new SolidColorBrush(Color.FromArgb(0xE0, 0xFF, 0xFF, 0xFF)));
     private static readonly Pen HoverPen = FrozenPen(Color.FromRgb(0xA8, 0x8B, 0xFF), 2);
     private static readonly Pen SelectedPen = FrozenPen(Color.FromRgb(0xE5, 0xC0, 0x7B), 2);
@@ -91,7 +94,8 @@ public sealed class TreemapControl : FrameworkElement
         base.OnRenderSizeChanged(sizeInfo);
     }
 
-    private static readonly Brush DimOverlay = Frozen(new SolidColorBrush(Color.FromArgb(0xB8, 0x0E, 0x11, 0x17)));
+    private static readonly Brush DimOverlay = Frozen(new SolidColorBrush(
+        App.IsLightTheme ? Color.FromArgb(0xB8, 0xF2, 0xF3, 0xF7) : Color.FromArgb(0xB8, 0x0E, 0x11, 0x17)));
 
     private bool IsDimmed(FileSystemNode node)
     {
@@ -114,30 +118,50 @@ public sealed class TreemapControl : FrameworkElement
 
     private static Brush[] CreateDepthFills()
     {
-        // Tons de "obsidiana": azul-arroxeados escuros que clareiam com a profundidade
-        var colors = new[]
-        {
-            Color.FromRgb(0x1B, 0x1F, 0x2B),
-            Color.FromRgb(0x22, 0x27, 0x37),
-            Color.FromRgb(0x2A, 0x30, 0x44),
-            Color.FromRgb(0x32, 0x39, 0x51),
-            Color.FromRgb(0x3A, 0x42, 0x5E),
-            Color.FromRgb(0x42, 0x4B, 0x6B),
-        };
+        // Tons que se acentuam com a profundidade — variante por tema
+        var colors = App.IsLightTheme
+            ? new[]
+            {
+                Color.FromRgb(0xEC, 0xEE, 0xF5),
+                Color.FromRgb(0xE2, 0xE5, 0xF0),
+                Color.FromRgb(0xD8, 0xDC, 0xEB),
+                Color.FromRgb(0xCE, 0xD3, 0xE6),
+                Color.FromRgb(0xC4, 0xCA, 0xE1),
+                Color.FromRgb(0xBA, 0xC1, 0xDC),
+            }
+            : new[]
+            {
+                Color.FromRgb(0x1B, 0x1F, 0x2B),
+                Color.FromRgb(0x22, 0x27, 0x37),
+                Color.FromRgb(0x2A, 0x30, 0x44),
+                Color.FromRgb(0x32, 0x39, 0x51),
+                Color.FromRgb(0x3A, 0x42, 0x5E),
+                Color.FromRgb(0x42, 0x4B, 0x6B),
+            };
         return colors.Select(c => Frozen(new SolidColorBrush(c))).ToArray();
     }
 
     private static Pen[] CreateDepthBorders()
     {
-        var colors = new[]
-        {
-            Color.FromRgb(0x30, 0x37, 0x4A),
-            Color.FromRgb(0x39, 0x41, 0x58),
-            Color.FromRgb(0x43, 0x4C, 0x66),
-            Color.FromRgb(0x4D, 0x57, 0x74),
-            Color.FromRgb(0x57, 0x62, 0x82),
-            Color.FromRgb(0x61, 0x6D, 0x90),
-        };
+        var colors = App.IsLightTheme
+            ? new[]
+            {
+                Color.FromRgb(0xD5, 0xD9, 0xE4),
+                Color.FromRgb(0xCB, 0xD0, 0xDE),
+                Color.FromRgb(0xC1, 0xC7, 0xD8),
+                Color.FromRgb(0xB7, 0xBE, 0xD2),
+                Color.FromRgb(0xAD, 0xB5, 0xCC),
+                Color.FromRgb(0xA3, 0xAC, 0xC6),
+            }
+            : new[]
+            {
+                Color.FromRgb(0x30, 0x37, 0x4A),
+                Color.FromRgb(0x39, 0x41, 0x58),
+                Color.FromRgb(0x43, 0x4C, 0x66),
+                Color.FromRgb(0x4D, 0x57, 0x74),
+                Color.FromRgb(0x57, 0x62, 0x82),
+                Color.FromRgb(0x61, 0x6D, 0x90),
+            };
         return colors.Select(c => FrozenPen(c, 1)).ToArray();
     }
 

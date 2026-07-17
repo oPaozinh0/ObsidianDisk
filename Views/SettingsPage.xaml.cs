@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using ObsidianDisk.Services;
@@ -6,6 +7,9 @@ namespace ObsidianDisk.Views;
 
 public partial class SettingsPage : UserControl
 {
+    private const string CoffeeUrl = "https://buymeacoffee.com/obsidiandisk";
+    private const string GitHubUrl = "https://github.com/oPaozinh0/ObsidianDisk";
+
     private static readonly (string Label, long Bytes)[] MinSizes =
     {
         ("10 MB", 10L << 20),
@@ -13,6 +17,16 @@ public partial class SettingsPage : UserControl
         ("100 MB", 100L << 20),
         ("500 MB", 500L << 20),
         ("1 GB", 1L << 30),
+    };
+
+    private static readonly (string Code, string Name)[] Languages =
+    {
+        ("auto", ""), // rótulo vem do recurso St.LanguageAuto
+        ("pt", "Português (Brasil)"),
+        ("en", "English"),
+        ("es", "Español"),
+        ("fr", "Français"),
+        ("de", "Deutsch"),
     };
 
     private AppSettings _settings = new();
@@ -25,6 +39,16 @@ public partial class SettingsPage : UserControl
         InitializeComponent();
         foreach (var (label, bytes) in MinSizes)
             MinSizeCombo.Items.Add(new ComboBoxItem { Content = label, Tag = bytes });
+
+        foreach (var (code, name) in Languages)
+            LanguageCombo.Items.Add(new ComboBoxItem
+            {
+                Content = code == "auto" ? L.T("St.LanguageAuto") : name,
+                Tag = code,
+            });
+
+        ThemeCombo.Items.Add(new ComboBoxItem { Content = L.T("St.ThemeDark"), Tag = "dark" });
+        ThemeCombo.Items.Add(new ComboBoxItem { Content = L.T("St.ThemeLight"), Tag = "light" });
 
         var v = typeof(SettingsPage).Assembly.GetName().Version;
         VersionText.Text = $"ObsidianDisk {v?.ToString(3) ?? ""}";
@@ -39,6 +63,12 @@ public partial class SettingsPage : UserControl
 
         int index = Array.FindIndex(MinSizes, m => m.Bytes == settings.LargeFileMinBytes);
         MinSizeCombo.SelectedIndex = index >= 0 ? index : 2;
+
+        int langIndex = Array.FindIndex(Languages, l =>
+            l.Code.Equals(settings.Language, StringComparison.OrdinalIgnoreCase));
+        LanguageCombo.SelectedIndex = langIndex >= 0 ? langIndex : 0;
+
+        ThemeCombo.SelectedIndex = settings.Theme.Equals("light", StringComparison.OrdinalIgnoreCase) ? 1 : 0;
         _loading = false;
     }
 
@@ -54,4 +84,30 @@ public partial class SettingsPage : UserControl
         AppStorage.SaveSettings(_settings);
         SettingsChanged?.Invoke(_settings);
     }
+
+    private void Interface_Changed(object sender, SelectionChangedEventArgs e)
+    {
+        if (_loading) return;
+
+        string lang = (string)(((ComboBoxItem)LanguageCombo.SelectedItem).Tag ?? "auto");
+        string theme = (string)(((ComboBoxItem)ThemeCombo.SelectedItem).Tag ?? "dark");
+        bool changed = lang != _settings.Language || theme != _settings.Theme;
+
+        _settings.Language = lang;
+        _settings.Theme = theme;
+        AppStorage.SaveSettings(_settings);
+        SettingsChanged?.Invoke(_settings);
+
+        // Idioma/tema aplicam na inicialização — oferece reiniciar já
+        if (changed && Controls.DarkDialog.Confirm(Window.GetWindow(this)!,
+                L.T("St.RestartTitle"), L.T("St.RestartMsg"),
+                confirmLabel: L.T("St.RestartNow"), cancelLabel: L.T("St.RestartLater")))
+            App.Restart();
+    }
+
+    private void BuyCoffee_Click(object sender, RoutedEventArgs e) =>
+        Process.Start(new ProcessStartInfo(CoffeeUrl) { UseShellExecute = true });
+
+    private void GitHub_Click(object sender, RoutedEventArgs e) =>
+        Process.Start(new ProcessStartInfo(GitHubUrl) { UseShellExecute = true });
 }

@@ -77,6 +77,23 @@ public partial class MainWindow : Window
 
         Loaded += async (_, _) => await CheckForUpdatesAsync();
 
+        // Versão na barra inferior + dicas rotativas quando a barra está ociosa
+        var version = typeof(MainWindow).Assembly.GetName().Version;
+        VersionText.Text = $"v{version?.ToString(3) ?? ""}";
+
+        _tipIndex = Random.Shared.Next(TipCount);
+        _tipTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(20) };
+        _tipTimer.Tick += (_, _) =>
+        {
+            // só mostra piada se nenhum status "de verdade" apareceu nos últimos 20s
+            if ((DateTime.Now - _lastRealStatus).TotalSeconds >= 20)
+            {
+                _tipIndex = (_tipIndex + 1) % TipCount;
+                StatusText.Text = L.T($"Tip.{_tipIndex + 1}");
+            }
+        };
+        _tipTimer.Start();
+
         // Diagnóstico: OBS_SOFT=1 força renderização por software (para isolar artefatos de GPU)
         if (Environment.GetEnvironmentVariable("OBS_SOFT") == "1")
             System.Windows.Media.RenderOptions.ProcessRenderMode =
@@ -119,6 +136,20 @@ public partial class MainWindow : Window
                 enc.Save(fs);
             };
         }
+    }
+
+    // ---------------- Barra de status ----------------
+
+    private const int TipCount = 8;
+    private DispatcherTimer? _tipTimer;
+    private DateTime _lastRealStatus = DateTime.MinValue;
+    private int _tipIndex;
+
+    /// <summary>Status "de verdade" — pausa as dicas rotativas por um tempo.</summary>
+    private void SetStatus(string text)
+    {
+        StatusText.Text = text;
+        _lastRealStatus = DateTime.Now;
     }
 
     // ---------------- Atualizações ----------------
@@ -239,7 +270,7 @@ public partial class MainWindow : Window
 
         if (!Directory.Exists(path))
         {
-            StatusText.Text = L.T("Scan.InvalidPath");
+            SetStatus(L.T("Scan.InvalidPath"));
             return;
         }
 
@@ -279,18 +310,18 @@ public partial class MainWindow : Window
 
             RefreshAllPages();
             LastScanText.Text = L.F("Shell.LastScan", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
-            StatusText.Text = L.F("Scan.Done", stopwatch.Elapsed.TotalSeconds.ToString("0.#"),
-                progress.FilesScanned.ToString("N0"), FileSystemNode.FormatSize(root.Size));
+            SetStatus(L.F("Scan.Done", stopwatch.Elapsed.TotalSeconds.ToString("0.#"),
+                progress.FilesScanned.ToString("N0"), FileSystemNode.FormatSize(root.Size)));
         }
         catch (OperationCanceledException)
         {
-            StatusText.Text = L.T("Scan.Cancelled");
+            SetStatus(L.T("Scan.Cancelled"));
             if (_scanRoot is not null && _scanRoot.Size > 0)
                 RefreshAllPages();
         }
         catch (Exception ex)
         {
-            StatusText.Text = L.F("Scan.Error", ex.Message);
+            SetStatus(L.F("Scan.Error", ex.Message));
         }
         finally
         {
@@ -343,13 +374,13 @@ public partial class MainWindow : Window
         if (node is null)
         {
             if (viewRoot is not null)
-                StatusText.Text = $"{viewRoot.FullPath} — {FileSystemNode.FormatSize(viewRoot.Size)}";
+                SetStatus($"{viewRoot.FullPath} — {FileSystemNode.FormatSize(viewRoot.Size)}");
             return;
         }
 
         double percent = viewRoot is { Size: > 0 } ? node.Size * 100.0 / viewRoot.Size : 0;
         string kind = node.IsDirectory ? L.F("Hover.Items", node.Children.Count) : L.T("Hover.File");
-        StatusText.Text = L.F("Hover.Info", node.FullPath, FileSystemNode.FormatSize(node.Size), percent.ToString("0.#"), kind);
+        SetStatus(L.F("Hover.Info", node.FullPath, FileSystemNode.FormatSize(node.Size), percent.ToString("0.#"), kind));
     }
 
     // ---------------- Exclusão ----------------
@@ -504,10 +535,10 @@ public partial class MainWindow : Window
         }
 
         if (okCount == nodes.Count)
-            StatusText.Text = L.F("Del.DoneOk", okCount, FileSystemNode.FormatSize(freedBytes),
-                permanent ? L.T("Del.SuffixPermanent") : L.T("Del.SuffixRecycle"));
+            SetStatus(L.F("Del.DoneOk", okCount, FileSystemNode.FormatSize(freedBytes),
+                permanent ? L.T("Del.SuffixPermanent") : L.T("Del.SuffixRecycle")));
         else
-            StatusText.Text = L.F("Del.DonePartial", okCount, nodes.Count, FileSystemNode.FormatSize(freedBytes));
+            SetStatus(L.F("Del.DonePartial", okCount, nodes.Count, FileSystemNode.FormatSize(freedBytes)));
 
         RefreshAllPages();
     }

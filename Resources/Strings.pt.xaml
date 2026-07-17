@@ -221,4 +221,28 @@
     <sys:String x:Key="Ov.RecSeeFiles">Ver arquivos</sys:String>
     <sys:String x:Key="Ov.RecFindDup">Procurar</sys:String>
 
+    <!-- Interface / apoio / dicas -->
+    <sys:String x:Key="St.Interface">Interface</sys:String>
+    <sys:String x:Key="St.Language">Idioma</sys:String>
+    <sys:String x:Key="St.LanguageAuto">Automático (idioma do Windows)</sys:String>
+    <sys:String x:Key="St.Theme">Tema</sys:String>
+    <sys:String x:Key="St.ThemeDark">Escuro (Obsidiana)</sys:String>
+    <sys:String x:Key="St.ThemeLight">Claro (Quartzo)</sys:String>
+    <sys:String x:Key="St.RestartTitle">Reiniciar o aplicativo</sys:String>
+    <sys:String x:Key="St.RestartMsg">A mudança será aplicada na próxima inicialização. Reiniciar agora?</sys:String>
+    <sys:String x:Key="St.RestartNow">Reiniciar agora</sys:String>
+    <sys:String x:Key="St.RestartLater">Depois</sys:String>
+    <sys:String x:Key="St.Support">Apoie o projeto</sys:String>
+    <sys:String x:Key="St.SupportText">Se o ObsidianDisk te ajudou a recuperar uns gigas, considere apoiar o desenvolvimento.</sys:String>
+    <sys:String x:Key="St.BuyCoffee">☕ Buy Me a Coffee</sys:String>
+    <sys:String x:Key="St.GitHub">Ver no GitHub</sys:String>
+    <sys:String x:Key="Tip.1">Dica: não apague a System32. Sério.</sys:String>
+    <sys:String x:Key="Tip.2">A pasta "Nova pasta (7)" também conta como bagunça.</sys:String>
+    <sys:String x:Key="Tip.3">Downloads: onde arquivos vivem para sempre sem ninguém perceber.</sys:String>
+    <sys:String x:Key="Tip.4">Esvaziar a Lixeira é o cardio do seu disco.</sys:String>
+    <sys:String x:Key="Tip.5">Se está tudo em "Outros"… boa sorte.</sys:String>
+    <sys:String x:Key="Tip.6">Aquele node_modules pesa mais que a sua consciência.</sys:String>
+    <sys:String x:Key="Tip.7">Backup primeiro, coragem depois.</sys:String>
+    <sys:String x:Key="Tip.8">87% dos duplicados se chamam "final_v2_AGORA_VAI".</sys:String>
+
 </ResourceDictionary>

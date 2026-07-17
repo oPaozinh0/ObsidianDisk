@@ -46,7 +46,7 @@
                 </StackPanel>
 
                 <!-- Tooltip flutuante -->
-                <Border x:Name="HoverTip" Background="#F01C2230" BorderBrush="{StaticResource Stroke}"
+                <Border x:Name="HoverTip" Background="{StaticResource TipBg}" BorderBrush="{StaticResource Stroke}"
                         BorderThickness="1" CornerRadius="8" Padding="10,7"
                         HorizontalAlignment="Left" VerticalAlignment="Top"
                         IsHitTestVisible="False" Visibility="Collapsed" MaxWidth="380">
