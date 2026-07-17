@@ -102,6 +102,8 @@
 
     <!-- Carte -->
     <sys:String x:Key="Map.Up">↑ Remonter</sys:String>
+    <sys:String x:Key="Map.Guide">⌖ Où est-il passé ?</sys:String>
+    <sys:String x:Key="Map.GuideTip">Descend automatiquement jusqu'au dossier qui consomme le plus d'espace.</sys:String>
     <sys:String x:Key="Map.OldFiles">Anciens (1 an+)</sys:String>
     <sys:String x:Key="Map.AllCategories">Toutes les catégories</sys:String>
     <sys:String x:Key="Map.EmptyTitle">Analysez un disque dans Vue d'ensemble pour voir la carte</sys:String>
@@ -162,6 +164,12 @@
     <!-- Nettoyage -->
     <sys:String x:Key="Cl.Title">Nettoyage du Système</sys:String>
     <sys:String x:Key="Cl.Desc">Emplacements des fichiers temporaires de Windows. Cochez ce que vous voulez nettoyer — les éléments en cours d'utilisation sont ignorés automatiquement.</sys:String>
+    <sys:String x:Key="Cl.Profile">Profil :</sys:String>
+    <sys:String x:Key="Cl.ProfileConservative">Conservateur</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressive">Agressif</sys:String>
+    <sys:String x:Key="Cl.ProfileCustom">Personnalisé</sys:String>
+    <sys:String x:Key="Cl.ProfileConservativeHint">Fichiers temporaires et caches qui se régénèrent — sans re-téléchargement ni vidage de la Corbeille.</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressiveHint">Tout, y compris le cache de Windows Update et la Corbeille.</sys:String>
     <sys:String x:Key="Cl.Refresh">⟳  Actualiser les tailles</sys:String>
     <sys:String x:Key="Cl.Clean">Nettoyer la sélection</sys:String>
     <sys:String x:Key="Cl.CleanAmount">Nettoyer {0}</sys:String>
@@ -195,6 +203,16 @@
     <sys:String x:Key="Hi.Export">Exporter CSV</sys:String>
     <sys:String x:Key="Hi.ChartHint">Chaque analyse terminée enregistre un point ici — analysez le même disque au fil du temps pour suivre son évolution.</sys:String>
     <sys:String x:Key="Hi.Records">Enregistrements</sys:String>
+    <sys:String x:Key="Hi.DiffTitle">Ce qui a changé</sys:String>
+    <sys:String x:Key="Hi.DiffBetween">Entre {0} et {1}</sys:String>
+
+    <!-- Explication « pourquoi c'est plein ? » -->
+    <sys:String x:Key="Ex.Grew">Depuis le {0}, ce disque a grandi de {1}.</sys:String>
+    <sys:String x:Key="Ex.Freed">Depuis le {0}, vous avez libéré {1}.</sys:String>
+    <sys:String x:Key="Ex.Stable">Depuis le {0}, l'utilisation est restée quasi identique.</sys:String>
+    <sys:String x:Key="Ex.MainFrom">L'essentiel vient de {0}.</sys:String>
+    <sys:String x:Key="Ex.SafeHint">Une bonne partie (dans {0}) peut être nettoyée sans risque.</sys:String>
+    <sys:String x:Key="Ex.MostlyIn">Surtout dans {0}.</sys:String>
     <sys:String x:Key="Hi.ColDate">Date</sys:String>
     <sys:String x:Key="Hi.ColPath">Chemin</sys:String>
     <sys:String x:Key="Hi.ColFiles">Fichiers</sys:String>

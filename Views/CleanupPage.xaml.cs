@@ -16,6 +16,13 @@ public partial class CleanupPage : UserControl
     private readonly List<TargetRow> _rows = new();
     private bool _busy;
     private bool _measured;
+    private bool _initializing = true;
+    private bool _applyingProfile;
+
+    // Perfil conservador: só o que regenera sozinho, sem re-download nem esvaziar a Lixeira.
+    // Agressivo = todos os alvos (inclui cache do Windows Update e Lixeira).
+    private static readonly HashSet<string> ConservativeKeys =
+        new(StringComparer.OrdinalIgnoreCase) { "user-temp", "win-temp", "thumbs", "wer" };
 
     public static bool IsAdmin
     {
@@ -32,6 +39,44 @@ public partial class CleanupPage : UserControl
         InitializeComponent();
         BuildRows();
         ElevateButton.Visibility = IsAdmin ? Visibility.Collapsed : Visibility.Visible;
+
+        ProfileCombo.Items.Add(new ComboBoxItem { Content = L.T("Cl.ProfileConservative"), Tag = "conservative" });
+        ProfileCombo.Items.Add(new ComboBoxItem { Content = L.T("Cl.ProfileAggressive"), Tag = "aggressive" });
+        ProfileCombo.Items.Add(new ComboBoxItem { Content = L.T("Cl.ProfileCustom"), Tag = "custom" });
+        _initializing = false;
+        ProfileCombo.SelectedIndex = 0; // começa no conservador (seguro)
+    }
+
+    private void Profile_Changed(object sender, SelectionChangedEventArgs e)
+    {
+        if (_initializing) return;
+        var tag = (string)(((ComboBoxItem)ProfileCombo.SelectedItem).Tag ?? "custom");
+        UpdateProfileHint(tag);
+        if (tag == "custom") return; // "Personalizado" reflete edição manual, não altera a seleção
+        ApplyProfile(tag);
+    }
+
+    private void ApplyProfile(string tag)
+    {
+        _applyingProfile = true;
+        foreach (var row in _rows)
+            row.Check.IsChecked = tag == "aggressive" || ConservativeKeys.Contains(row.Target.Key);
+        _applyingProfile = false;
+        UpdateCleanButton();
+    }
+
+    private void UpdateProfileHint(string tag) => ProfileHint.Text = tag switch
+    {
+        "conservative" => L.T("Cl.ProfileConservativeHint"),
+        "aggressive" => L.T("Cl.ProfileAggressiveHint"),
+        _ => "",
+    };
+
+    /// <summary>Seleciona um perfil sem disparar a aplicação (usado ao detectar edição manual).</summary>
+    private void SelectProfile(string tag)
+    {
+        foreach (ComboBoxItem item in ProfileCombo.Items)
+            if ((string?)item.Tag == tag) { ProfileCombo.SelectedItem = item; return; }
     }
 
     private void Elevate_Click(object sender, RoutedEventArgs e)
@@ -84,8 +129,8 @@ public partial class CleanupPage : UserControl
                 IsChecked = target.DefaultChecked,
                 VerticalAlignment = VerticalAlignment.Center,
             };
-            check.Checked += (_, _) => UpdateCleanButton();
-            check.Unchecked += (_, _) => UpdateCleanButton();
+            check.Checked += Row_CheckChanged;
+            check.Unchecked += Row_CheckChanged;
             Grid.SetColumn(check, 0);
 
             var textStack = new StackPanel { Margin = new Thickness(10, 0, 10, 0) };
@@ -125,6 +170,13 @@ public partial class CleanupPage : UserControl
 
             _rows.Add(new TargetRow(target, check, sizeText));
         }
+    }
+
+    /// <summary>Uma marcação manual muda o perfil para "Personalizado".</summary>
+    private void Row_CheckChanged(object sender, RoutedEventArgs e)
+    {
+        if (!_applyingProfile) SelectProfile("custom");
+        UpdateCleanButton();
     }
 
     private async void Refresh_Click(object sender, RoutedEventArgs e) => await MeasureAllAsync();

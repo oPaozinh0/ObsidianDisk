@@ -102,6 +102,8 @@
 
     <!-- Map -->
     <sys:String x:Key="Map.Up">↑ Up</sys:String>
+    <sys:String x:Key="Map.Guide">⌖ Where did it go?</sys:String>
+    <sys:String x:Key="Map.GuideTip">Automatically drills down to the folder eating the most space.</sys:String>
     <sys:String x:Key="Map.OldFiles">Old (1 year+)</sys:String>
     <sys:String x:Key="Map.AllCategories">All categories</sys:String>
     <sys:String x:Key="Map.EmptyTitle">Scan a disk in Overview to see the map</sys:String>
@@ -161,6 +163,12 @@
     <!-- Cleanup -->
     <sys:String x:Key="Cl.Title">System Cleanup</sys:String>
     <sys:String x:Key="Cl.Desc">Known Windows temp-file locations. Check what you want to clean — items in use are skipped automatically.</sys:String>
+    <sys:String x:Key="Cl.Profile">Profile:</sys:String>
+    <sys:String x:Key="Cl.ProfileConservative">Conservative</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressive">Aggressive</sys:String>
+    <sys:String x:Key="Cl.ProfileCustom">Custom</sys:String>
+    <sys:String x:Key="Cl.ProfileConservativeHint">Temp files and caches that regenerate — no re-downloads, doesn't empty the Recycle Bin.</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressiveHint">Everything, including the Windows Update cache and the Recycle Bin.</sys:String>
     <sys:String x:Key="Cl.Refresh">⟳  Refresh sizes</sys:String>
     <sys:String x:Key="Cl.Clean">Clean selected</sys:String>
     <sys:String x:Key="Cl.CleanAmount">Clean {0}</sys:String>
@@ -194,6 +202,16 @@
     <sys:String x:Key="Hi.Export">Export CSV</sys:String>
     <sys:String x:Key="Hi.ChartHint">Each completed scan records a point here — scan the same disk over time to track its evolution.</sys:String>
     <sys:String x:Key="Hi.Records">Records</sys:String>
+    <sys:String x:Key="Hi.DiffTitle">What changed</sys:String>
+    <sys:String x:Key="Hi.DiffBetween">Between {0} and {1}</sys:String>
+
+    <!-- "Why did it grow?" explainer -->
+    <sys:String x:Key="Ex.Grew">Since {0}, this disk grew by {1}.</sys:String>
+    <sys:String x:Key="Ex.Freed">Since {0}, you freed {1}.</sys:String>
+    <sys:String x:Key="Ex.Stable">Since {0}, usage stayed about the same.</sys:String>
+    <sys:String x:Key="Ex.MainFrom">Most of it came from {0}.</sys:String>
+    <sys:String x:Key="Ex.SafeHint">A good part of that (in {0}) is safe to clean.</sys:String>
+    <sys:String x:Key="Ex.MostlyIn">Mostly in {0}.</sys:String>
     <sys:String x:Key="Hi.ColDate">Date</sys:String>
     <sys:String x:Key="Hi.ColPath">Path</sys:String>
     <sys:String x:Key="Hi.ColFiles">Files</sys:String>

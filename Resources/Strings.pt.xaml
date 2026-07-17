@@ -102,6 +102,8 @@
 
     <!-- Mapa -->
     <sys:String x:Key="Map.Up">↑ Acima</sys:String>
+    <sys:String x:Key="Map.Guide">⌖ Onde foi parar?</sys:String>
+    <sys:String x:Key="Map.GuideTip">Desce automaticamente até a pasta que mais consome espaço.</sys:String>
     <sys:String x:Key="Map.OldFiles">Antigos (1 ano+)</sys:String>
     <sys:String x:Key="Map.AllCategories">Todas as categorias</sys:String>
     <sys:String x:Key="Map.EmptyTitle">Escaneie um disco na Visão Geral para ver o mapa</sys:String>
@@ -161,6 +163,12 @@
     <!-- Limpeza -->
     <sys:String x:Key="Cl.Title">Limpeza do Sistema</sys:String>
     <sys:String x:Key="Cl.Desc">Locais de arquivos temporários do Windows. Marque o que deseja limpar — itens em uso são pulados automaticamente.</sys:String>
+    <sys:String x:Key="Cl.Profile">Perfil:</sys:String>
+    <sys:String x:Key="Cl.ProfileConservative">Conservador</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressive">Agressivo</sys:String>
+    <sys:String x:Key="Cl.ProfileCustom">Personalizado</sys:String>
+    <sys:String x:Key="Cl.ProfileConservativeHint">Temporários e caches que se regeneram — sem re-baixar nada nem esvaziar a Lixeira.</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressiveHint">Tudo, incluindo o cache do Windows Update e a Lixeira.</sys:String>
     <sys:String x:Key="Cl.Refresh">⟳  Atualizar tamanhos</sys:String>
     <sys:String x:Key="Cl.Clean">Limpar selecionados</sys:String>
     <sys:String x:Key="Cl.CleanAmount">Limpar {0}</sys:String>
@@ -194,6 +202,16 @@
     <sys:String x:Key="Hi.Export">Exportar CSV</sys:String>
     <sys:String x:Key="Hi.ChartHint">Cada scan concluído registra um ponto aqui — escaneie o mesmo disco ao longo do tempo para acompanhar a evolução.</sys:String>
     <sys:String x:Key="Hi.Records">Registros</sys:String>
+    <sys:String x:Key="Hi.DiffTitle">O que mudou</sys:String>
+    <sys:String x:Key="Hi.DiffBetween">Entre {0} e {1}</sys:String>
+
+    <!-- Explicador "por que encheu?" -->
+    <sys:String x:Key="Ex.Grew">Desde {0}, este disco cresceu {1}.</sys:String>
+    <sys:String x:Key="Ex.Freed">Desde {0}, você liberou {1}.</sys:String>
+    <sys:String x:Key="Ex.Stable">Desde {0}, o uso ficou praticamente igual.</sys:String>
+    <sys:String x:Key="Ex.MainFrom">A maior parte veio de {0}.</sys:String>
+    <sys:String x:Key="Ex.SafeHint">Boa parte disso (em {0}) é seguro limpar.</sys:String>
+    <sys:String x:Key="Ex.MostlyIn">Principalmente em {0}.</sys:String>
     <sys:String x:Key="Hi.ColDate">Data</sys:String>
     <sys:String x:Key="Hi.ColPath">Caminho</sys:String>
     <sys:String x:Key="Hi.ColFiles">Arquivos</sys:String>

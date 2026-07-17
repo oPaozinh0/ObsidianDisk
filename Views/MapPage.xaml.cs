@@ -19,6 +19,12 @@ public partial class MapPage : UserControl
     private FileSystemNode? _tipNode;
     private bool _listMode;
 
+    // Drill-down guiado ("onde foi parar meu espaço?")
+    private System.Windows.Threading.DispatcherTimer? _guideTimer;
+    private List<FileSystemNode> _guidePath = new();
+    private int _guideStep;
+    private bool _guiding;
+
     public event Action<FileSystemNode?>? HoverChanged;
 
     public Controls.TreemapControl TreemapControl => Treemap;
@@ -41,12 +47,79 @@ public partial class MapPage : UserControl
 
     public void SetViewRoot(FileSystemNode node)
     {
+        if (!_guiding) _guideTimer?.Stop(); // navegação manual cancela o drill guiado
+
         _viewRoot = node;
         Treemap.Root = node;
         UpButton.IsEnabled = node.Parent is not null;
+        GuideButton.IsEnabled = BuildDominantPath(node).Count > 0;
         EmptyState.Visibility = Visibility.Collapsed;
         BuildBreadcrumb(node);
         if (_listMode) BuildList();
+    }
+
+    // ---------------- Drill-down guiado ----------------
+
+    /// <summary>
+    /// Do nó atual, desce sempre pela maior subpasta enquanto ela dominar o espaço,
+    /// parando onde o espaço se divide entre irmãs ou onde um arquivo é o maior item —
+    /// o "culpado" pelo consumo. Anima passo a passo para o usuário ver o caminho.
+    /// </summary>
+    private void Guide_Click(object sender, RoutedEventArgs e)
+    {
+        if (_viewRoot is null) return;
+        var path = BuildDominantPath(_viewRoot);
+        if (path.Count == 0) return;
+
+        if (_listMode) SetListMode(false); // o "zoom" é visível no mosaico
+
+        _guidePath = path;
+        _guideStep = 0;
+        _guideTimer?.Stop();
+        _guideTimer = new System.Windows.Threading.DispatcherTimer
+            { Interval = TimeSpan.FromMilliseconds(420) };
+        _guideTimer.Tick += GuideStep;
+        _guideTimer.Start();
+        GuideStep(this, EventArgs.Empty); // primeiro passo imediato
+    }
+
+    private void GuideStep(object? sender, EventArgs e)
+    {
+        if (_guideStep >= _guidePath.Count)
+        {
+            _guideTimer?.Stop();
+            return;
+        }
+        _guiding = true;
+        SetViewRoot(_guidePath[_guideStep++]);
+        _guiding = false;
+    }
+
+    /// <summary>Cadeia de subpastas dominantes a partir de <paramref name="start"/> (vazia se já é o culpado).</summary>
+    private static List<FileSystemNode> BuildDominantPath(FileSystemNode start)
+    {
+        var path = new List<FileSystemNode>();
+        var node = start;
+
+        for (int guard = 0; guard < 24; guard++)
+        {
+            FileSystemNode? biggest = null, biggestDir = null;
+            foreach (var c in node.Children)
+            {
+                if (c.Size <= 0) continue;
+                if (biggest is null || c.Size > biggest.Size) biggest = c;
+                if (c.IsDirectory && (biggestDir is null || c.Size > biggestDir.Size)) biggestDir = c;
+            }
+
+            if (biggestDir is null) break;                       // sem subpasta pra descer
+            if (biggest is { IsDirectory: false }) break;        // um arquivo é o maior item: culpado é a pasta atual
+            if (biggestDir.Size < node.Size * 0.5) break;        // espaço se divide entre irmãs: ponto de ramificação
+
+            path.Add(biggestDir);
+            node = biggestDir;
+        }
+
+        return path;
     }
 
     /// <summary>Redesenha a visão atual (mosaico ou lista) após mudanças na árvore.</summary>

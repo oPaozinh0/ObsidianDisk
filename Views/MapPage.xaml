@@ -13,6 +13,10 @@
         <DockPanel Grid.Row="0" LastChildFill="True" Margin="0,0,0,8">
             <controls:ObsidianButton x:Name="UpButton" Variant="Ghost" DockPanel.Dock="Left"
                     Padding="10,4" Click="Up_Click" Content="{StaticResource Map.Up}" IsEnabled="False"/>
+            <controls:ObsidianButton x:Name="GuideButton" Variant="Ghost" DockPanel.Dock="Left"
+                    Margin="6,0,0,0" Padding="10,4" Click="Guide_Click"
+                    Content="{StaticResource Map.Guide}" IsEnabled="False"
+                    ToolTip="{StaticResource Map.GuideTip}"/>
 
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
                 <controls:ObsidianButton x:Name="TreemapViewButton" Variant="Primary" Height="32"

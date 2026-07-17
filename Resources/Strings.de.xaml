@@ -102,6 +102,8 @@
 
     <!-- Karte -->
     <sys:String x:Key="Map.Up">↑ Nach oben</sys:String>
+    <sys:String x:Key="Map.Guide">⌖ Wohin ging es?</sys:String>
+    <sys:String x:Key="Map.GuideTip">Springt automatisch zum Ordner, der den meisten Platz verbraucht.</sys:String>
     <sys:String x:Key="Map.OldFiles">Alt (1 Jahr+)</sys:String>
     <sys:String x:Key="Map.AllCategories">Alle Kategorien</sys:String>
     <sys:String x:Key="Map.EmptyTitle">Analysieren Sie eine Festplatte in der Übersicht, um die Karte zu sehen</sys:String>
@@ -162,6 +164,12 @@
     <!-- Bereinigung -->
     <sys:String x:Key="Cl.Title">Systembereinigung</sys:String>
     <sys:String x:Key="Cl.Desc">Bekannte Windows-Speicherorte für temporäre Dateien. Markieren Sie, was bereinigt werden soll — Elemente in Benutzung werden automatisch übersprungen.</sys:String>
+    <sys:String x:Key="Cl.Profile">Profil:</sys:String>
+    <sys:String x:Key="Cl.ProfileConservative">Konservativ</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressive">Aggressiv</sys:String>
+    <sys:String x:Key="Cl.ProfileCustom">Benutzerdefiniert</sys:String>
+    <sys:String x:Key="Cl.ProfileConservativeHint">Temporäre Dateien und Caches, die sich neu erzeugen — keine erneuten Downloads, leert nicht den Papierkorb.</sys:String>
+    <sys:String x:Key="Cl.ProfileAggressiveHint">Alles, einschließlich Windows-Update-Cache und Papierkorb.</sys:String>
     <sys:String x:Key="Cl.Refresh">⟳  Größen aktualisieren</sys:String>
     <sys:String x:Key="Cl.Clean">Auswahl bereinigen</sys:String>
     <sys:String x:Key="Cl.CleanAmount">{0} bereinigen</sys:String>
@@ -195,6 +203,16 @@
     <sys:String x:Key="Hi.Export">CSV exportieren</sys:String>
     <sys:String x:Key="Hi.ChartHint">Jede abgeschlossene Analyse setzt hier einen Punkt — analysieren Sie dieselbe Festplatte über die Zeit, um die Entwicklung zu verfolgen.</sys:String>
     <sys:String x:Key="Hi.Records">Einträge</sys:String>
+    <sys:String x:Key="Hi.DiffTitle">Was sich geändert hat</sys:String>
+    <sys:String x:Key="Hi.DiffBetween">Zwischen {0} und {1}</sys:String>
+
+    <!-- Erklärung „Warum ist sie voll?" -->
+    <sys:String x:Key="Ex.Grew">Seit {0} ist diese Festplatte um {1} gewachsen.</sys:String>
+    <sys:String x:Key="Ex.Freed">Seit {0} haben Sie {1} freigegeben.</sys:String>
+    <sys:String x:Key="Ex.Stable">Seit {0} ist die Nutzung nahezu gleich geblieben.</sys:String>
+    <sys:String x:Key="Ex.MainFrom">Das meiste kam von {0}.</sys:String>
+    <sys:String x:Key="Ex.SafeHint">Ein großer Teil davon (in {0}) kann gefahrlos bereinigt werden.</sys:String>
+    <sys:String x:Key="Ex.MostlyIn">Vor allem in {0}.</sys:String>
     <sys:String x:Key="Hi.ColDate">Datum</sys:String>
     <sys:String x:Key="Hi.ColPath">Pfad</sys:String>
     <sys:String x:Key="Hi.ColFiles">Dateien</sys:String>
