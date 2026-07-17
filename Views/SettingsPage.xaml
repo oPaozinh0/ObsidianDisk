@@ -2,28 +2,34 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:ObsidianDisk.Controls">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel MaxWidth="640" HorizontalAlignment="Left">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,0,4,0">
+        <!-- Bento grid: mosaico de cards preenchendo a largura -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-            <Border Style="{StaticResource Card}">
+            <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource Card}" Margin="0,0,12,12">
                 <StackPanel>
                     <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource St.Interface}"/>
-                    <DockPanel Margin="0,14,0,0" LastChildFill="False">
-                        <TextBlock DockPanel.Dock="Left" Foreground="{DynamicResource Text}" FontSize="13"
-                                   Text="{StaticResource St.Language}" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="LanguageCombo" DockPanel.Dock="Right" Style="{StaticResource DarkCombo}"
-                                  Width="240" Height="32" SelectionChanged="Interface_Changed"/>
-                    </DockPanel>
-                    <DockPanel Margin="0,10,0,0" LastChildFill="False">
-                        <TextBlock DockPanel.Dock="Left" Foreground="{DynamicResource Text}" FontSize="13"
-                                   Text="{StaticResource St.Theme}" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="ThemeCombo" DockPanel.Dock="Right" Style="{StaticResource DarkCombo}"
-                                  Width="240" Height="32" SelectionChanged="Interface_Changed"/>
-                    </DockPanel>
+                    <TextBlock Foreground="{DynamicResource Text}" FontSize="13" Margin="0,14,0,6"
+                               Text="{StaticResource St.Language}"/>
+                    <ComboBox x:Name="LanguageCombo" Style="{StaticResource DarkCombo}" Height="32"
+                              SelectionChanged="Interface_Changed"/>
+                    <TextBlock Foreground="{DynamicResource Text}" FontSize="13" Margin="0,12,0,6"
+                               Text="{StaticResource St.Theme}"/>
+                    <ComboBox x:Name="ThemeCombo" Style="{StaticResource DarkCombo}" Height="32"
+                              SelectionChanged="Interface_Changed"/>
                 </StackPanel>
             </Border>
 
-            <Border Style="{StaticResource Card}" Margin="0,12,0,0">
+            <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource Card}" Margin="0,0,12,12">
                 <StackPanel>
                     <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource St.Deletion}"/>
                     <CheckBox x:Name="ConfirmDeleteSwitch" Style="{StaticResource Switch}" Margin="0,14,0,0"
@@ -34,15 +40,13 @@
                 </StackPanel>
             </Border>
 
-            <Border Style="{StaticResource Card}" Margin="0,12,0,0">
+            <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource Card}" Margin="0,0,0,12">
                 <StackPanel>
                     <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource St.Analysis}"/>
-                    <DockPanel Margin="0,14,0,0" LastChildFill="False">
-                        <TextBlock DockPanel.Dock="Left" Foreground="{DynamicResource Text}" FontSize="13"
-                                   Text="{StaticResource St.MinSize}" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="MinSizeCombo" DockPanel.Dock="Right" Style="{StaticResource DarkCombo}"
-                                  Width="140" Height="32" SelectionChanged="Setting_Changed"/>
-                    </DockPanel>
+                    <TextBlock Foreground="{DynamicResource Text}" FontSize="13" Margin="0,14,0,6"
+                               Text="{StaticResource St.MinSize}"/>
+                    <ComboBox x:Name="MinSizeCombo" Style="{StaticResource DarkCombo}" Height="32"
+                              SelectionChanged="Setting_Changed"/>
                     <CheckBox x:Name="LiveMonitoringSwitch" Style="{StaticResource Switch}" Margin="0,14,0,0"
                               Content="{StaticResource St.LiveMonitor}" Checked="Setting_Changed"
                               Unchecked="Setting_Changed"/>
@@ -51,7 +55,7 @@
                 </StackPanel>
             </Border>
 
-            <Border Style="{StaticResource Card}" Margin="0,12,0,0">
+            <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource Card}" Margin="0,0,12,0">
                 <StackPanel>
                     <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource St.Support}"/>
                     <TextBlock Style="{StaticResource MutedText}" Margin="0,8,0,0" TextWrapping="Wrap"
@@ -65,7 +69,7 @@
                 </StackPanel>
             </Border>
 
-            <Border Style="{StaticResource Card}" Margin="0,12,0,0">
+            <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource Card}" Margin="0,0,0,0">
                 <StackPanel>
                     <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource St.About}"/>
                     <TextBlock x:Name="VersionText" Foreground="{DynamicResource Text}" FontSize="13" Margin="0,10,0,0"
@@ -77,6 +81,6 @@
                 </StackPanel>
             </Border>
 
-        </StackPanel>
+        </Grid>
     </ScrollViewer>
 </UserControl>

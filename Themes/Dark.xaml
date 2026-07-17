@@ -25,8 +25,8 @@
     <SolidColorBrush x:Key="RowHover" Color="#1F2634"/>
     <SolidColorBrush x:Key="SelectedBg" Color="#2A2440"/>
     <SolidColorBrush x:Key="MenuHover" Color="#2A3348"/>
-    <SolidColorBrush x:Key="ScrollThumb" Color="#3A445C"/>
-    <SolidColorBrush x:Key="ScrollThumbHover" Color="#55618A"/>
+    <SolidColorBrush x:Key="ScrollThumbBrush" Color="#3A445C"/>
+    <SolidColorBrush x:Key="ScrollThumbHoverBrush" Color="#55618A"/>
     <SolidColorBrush x:Key="TipBg" Color="#F01C2230"/>
 
 </ResourceDictionary>
