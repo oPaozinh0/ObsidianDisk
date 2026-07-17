@@ -13,6 +13,38 @@
     <sys:String x:Key="Nav.History">Verlauf</sys:String>
     <sys:String x:Key="Nav.Settings">Einstellungen</sys:String>
 
+    <!-- Automatische Regeln -->
+    <sys:String x:Key="Nav.Rules">Regeln</sys:String>
+    <sys:String x:Key="Ru.NewRule">Neue Regel</sys:String>
+    <sys:String x:Key="Ru.Desc">Dateien, die den Bedingungen entsprechen, werden bei jedem Scan gefunden. Die Aktion (benachrichtigen oder in den Papierkorb) wird immer von Ihnen bestätigt.</sys:String>
+    <sys:String x:Key="Ru.Name">Name</sys:String>
+    <sys:String x:Key="Ru.Folder">Ordner</sys:String>
+    <sys:String x:Key="Ru.AnyFolder">Überall</sys:String>
+    <sys:String x:Key="Ru.MinSize">Min. Größe</sys:String>
+    <sys:String x:Key="Ru.MinAge">Kein Zugriff seit</sys:String>
+    <sys:String x:Key="Ru.Action">Aktion</sys:String>
+    <sys:String x:Key="Ru.Add">Hinzufügen</sys:String>
+    <sys:String x:Key="Ru.Any">Beliebig</sys:String>
+    <sys:String x:Key="Ru.Days30">30 Tage</sys:String>
+    <sys:String x:Key="Ru.Days90">90 Tage</sys:String>
+    <sys:String x:Key="Ru.Days180">180 Tage</sys:String>
+    <sys:String x:Key="Ru.Year1">1 Jahr</sys:String>
+    <sys:String x:Key="Ru.Year2">2 Jahre</sys:String>
+    <sys:String x:Key="Ru.ActNotify">Benachrichtigen</sys:String>
+    <sys:String x:Key="Ru.ActRecycle">In den Papierkorb</sys:String>
+    <sys:String x:Key="Ru.Apply">Anwenden</sys:String>
+    <sys:String x:Key="Ru.Delete">Löschen</sys:String>
+    <sys:String x:Key="Ru.Empty">Noch keine Regeln. Erstellen Sie oben eine.</sys:String>
+    <sys:String x:Key="Ru.Tip">Regeln löschen nie endgültig oder im Stillen — sie benachrichtigen nur oder bereiten das Verschieben in den Papierkorb vor (rückgängig machbar).</sys:String>
+    <sys:String x:Key="Ru.AgePart">kein Zugriff seit {0} Tagen</sys:String>
+    <sys:String x:Key="Ru.Matches">{0} Dateien · {1}</sys:String>
+    <sys:String x:Key="Ru.NameBoth">≥ {0} · {1} Tage</sys:String>
+    <sys:String x:Key="Ru.NameSize">≥ {0}</sys:String>
+    <sys:String x:Key="Ru.NameAge">{0} Tage ungenutzt</sys:String>
+    <sys:String x:Key="Ru.NameGeneric">Neue Regel</sys:String>
+    <sys:String x:Key="Rule.NotifyTitle">Regeln haben Elemente gefunden</sys:String>
+    <sys:String x:Key="Rule.NotifyMsg">{0} Regel(n) mit Elementen zum Prüfen — {1}.</sys:String>
+
     <!-- Entdeckungen -->
     <sys:String x:Key="Nav.Discoveries">Entdeckungen</sys:String>
     <sys:String x:Key="Dc.Title">Entdeckungen</sys:String>
