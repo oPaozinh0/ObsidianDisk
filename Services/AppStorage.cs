@@ -13,6 +13,8 @@ public sealed class AppSettings
     public bool ColorBlindSafe { get; set; }
     public bool SoftwareRendering { get; set; }
     public bool MinimizeToTray { get; set; } // minimizar esconde na bandeja em vez da barra de tarefas
+    public bool DiskFullAlert { get; set; } = true;   // notificar quando o disco cruza o limite / projeção
+    public int DiskFullThresholdPercent { get; set; } = 90;
 }
 
 public sealed record ScanRecord(DateTime Timestamp, string Path, long TotalBytes, long FileCount);
