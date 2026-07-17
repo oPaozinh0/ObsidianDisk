@@ -1,0 +1,68 @@
+<UserControl x:Class="ObsidianDisk.Views.MapPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:ObsidianDisk.Controls">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Breadcrumb + filtros -->
+        <DockPanel Grid.Row="0" LastChildFill="True" Margin="0,0,0,8">
+            <Button x:Name="UpButton" Style="{StaticResource GhostButton}" DockPanel.Dock="Left"
+                    Padding="10,4" Click="Up_Click" Content="↑ Acima" IsEnabled="False"/>
+
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                <CheckBox x:Name="OldFilesSwitch" Style="{StaticResource Switch}" Content="Antigos (1 ano+)"
+                          Foreground="{StaticResource Muted}" FontSize="12"
+                          Checked="Filter_Changed" Unchecked="Filter_Changed"/>
+                <ComboBox x:Name="CategoryCombo" Style="{StaticResource DarkCombo}" Width="170" Height="32"
+                          Margin="14,0,0,0" SelectionChanged="Filter_Changed"/>
+            </StackPanel>
+
+            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled"
+                          Margin="10,0,10,0" VerticalAlignment="Center">
+                <StackPanel x:Name="BreadcrumbPanel" Orientation="Horizontal"/>
+            </ScrollViewer>
+        </DockPanel>
+
+        <!-- Treemap -->
+        <Border Grid.Row="1" Background="{StaticResource Panel}" CornerRadius="12"
+                BorderBrush="{StaticResource Stroke}" BorderThickness="1">
+            <Grid ClipToBounds="True">
+                <controls:TreemapControl x:Name="Treemap" Margin="6"/>
+
+                <StackPanel x:Name="EmptyState" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Path Data="M 12 0 L 24 9 L 19 24 L 5 24 L 0 9 Z" Fill="{StaticResource Panel2}"
+                          Width="72" Height="72" Stretch="Uniform" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Escaneie um disco na Visão Geral para ver o mapa"
+                               Foreground="{StaticResource Muted}" FontSize="15" Margin="0,16,0,4"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Duplo clique aprofunda · Backspace volta · clique direito para ações"
+                               Foreground="{StaticResource Muted}" FontSize="12" Opacity="0.7"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Tooltip flutuante -->
+                <Border x:Name="HoverTip" Background="#F01C2230" BorderBrush="{StaticResource Stroke}"
+                        BorderThickness="1" CornerRadius="8" Padding="10,7"
+                        HorizontalAlignment="Left" VerticalAlignment="Top"
+                        IsHitTestVisible="False" Visibility="Collapsed" MaxWidth="380">
+                    <StackPanel>
+                        <TextBlock x:Name="TipName" Foreground="{StaticResource Text}" FontSize="12.5"
+                                   FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock x:Name="TipDetails" Foreground="{StaticResource Muted}" FontSize="11.5"
+                                   Margin="0,3,0,0"/>
+                        <TextBlock x:Name="TipDate" Foreground="{StaticResource Muted}" FontSize="11.5"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Legenda -->
+        <StackPanel x:Name="LegendPanel" Grid.Row="2" Orientation="Horizontal"
+                    HorizontalAlignment="Right" Margin="0,8,0,0"/>
+    </Grid>
+</UserControl>

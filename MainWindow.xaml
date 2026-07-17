@@ -1,0 +1,124 @@
+<Window x:Class="ObsidianDisk.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:ObsidianDisk.Views"
+        Title="ObsidianDisk — Gerenciador de Disco"
+        Icon="Assets/app.ico"
+        Height="820" Width="1320" MinHeight="560" MinWidth="900"
+        Background="{StaticResource Bg}"
+        WindowStartupLocation="CenterScreen">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="44" ResizeBorderThickness="6"
+                      GlassFrameThickness="0" UseAeroCaptionButtons="False"/>
+    </WindowChrome.WindowChrome>
+
+    <Border x:Name="RootBorder" Background="{StaticResource Bg}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="44"/>   <!-- barra de título -->
+                <RowDefinition Height="Auto"/> <!-- progresso -->
+                <RowDefinition Height="*"/>    <!-- conteúdo -->
+                <RowDefinition Height="Auto"/> <!-- status -->
+            </Grid.RowDefinitions>
+
+            <!-- ===== Barra de título personalizada ===== -->
+            <Border Grid.Row="0" Background="{StaticResource Panel}"
+                    BorderBrush="{StaticResource Stroke}" BorderThickness="0,0,0,1">
+                <DockPanel LastChildFill="False">
+                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Margin="14,0,0,0"
+                                VerticalAlignment="Center">
+                        <Path Data="M 12 0 L 24 9 L 19 24 L 5 24 L 0 9 Z" Fill="{StaticResource Accent}"
+                              Width="18" Height="18" Stretch="Uniform" VerticalAlignment="Center"/>
+                        <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="ObsidianDisk" Foreground="{StaticResource Text}" FontSize="13.5"
+                                       FontWeight="Bold"/>
+                            <TextBlock Text="Gerenciador de Disco" Foreground="{StaticResource Muted}"
+                                       FontSize="10"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal"
+                                WindowChrome.IsHitTestVisibleInChrome="True">
+                        <Button Style="{StaticResource TitleBarButton}" Content="&#xE921;" Click="Minimize_Click"/>
+                        <Button x:Name="MaximizeButton" Style="{StaticResource TitleBarButton}" Content="&#xE922;"
+                                Click="Maximize_Click"/>
+                        <Button Style="{StaticResource TitleBarCloseButton}" Content="&#xE8BB;" Click="Close_Click"/>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+
+            <!-- ===== Progresso global ===== -->
+            <Border x:Name="ProgressPanel" Grid.Row="1" Background="{StaticResource Panel}"
+                    Padding="16,8" Visibility="Collapsed"
+                    BorderBrush="{StaticResource Stroke}" BorderThickness="0,0,0,1">
+                <StackPanel>
+                    <ProgressBar x:Name="ScanProgressBar" Style="{StaticResource SlimProgress}"
+                                 IsIndeterminate="True" Maximum="100"/>
+                    <DockPanel Margin="0,6,0,0" LastChildFill="False">
+                        <TextBlock x:Name="ProgressText" DockPanel.Dock="Left" Foreground="{StaticResource Muted}"
+                                   FontSize="12" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock x:Name="ProgressStats" DockPanel.Dock="Right" Foreground="{StaticResource Text}"
+                                   FontSize="12" FontWeight="SemiBold"/>
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== Conteúdo: sidebar + páginas ===== -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="208"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Sidebar -->
+                <Border Grid.Column="0" Background="{StaticResource Panel}"
+                        BorderBrush="{StaticResource Stroke}" BorderThickness="0,0,1,0">
+                    <DockPanel LastChildFill="False">
+                        <StackPanel DockPanel.Dock="Top" Margin="0,10,0,0">
+                            <RadioButton x:Name="NavOverview" Style="{StaticResource NavButton}" Tag="&#xE80F;"
+                                         Content="Visão Geral" IsChecked="True" Checked="Nav_Checked"/>
+                            <RadioButton x:Name="NavMap" Style="{StaticResource NavButton}" Tag="&#xE8A9;"
+                                         Content="Mapa de Espaço" Checked="Nav_Checked"/>
+                            <RadioButton x:Name="NavLargeFiles" Style="{StaticResource NavButton}" Tag="&#xE8A5;"
+                                         Content="Arquivos Grandes" Checked="Nav_Checked"/>
+                            <RadioButton x:Name="NavDuplicates" Style="{StaticResource NavButton}" Tag="&#xE8C8;"
+                                         Content="Duplicados" Checked="Nav_Checked"/>
+                            <RadioButton x:Name="NavCleanup" Style="{StaticResource NavButton}" Tag="&#xEA99;"
+                                         Content="Limpeza" Checked="Nav_Checked"/>
+                            <RadioButton x:Name="NavHistory" Style="{StaticResource NavButton}" Tag="&#xE81C;"
+                                         Content="Histórico" Checked="Nav_Checked"/>
+                            <RadioButton x:Name="NavSettings" Style="{StaticResource NavButton}" Tag="&#xE713;"
+                                         Content="Configurações" Checked="Nav_Checked"/>
+                        </StackPanel>
+
+                        <StackPanel DockPanel.Dock="Bottom" Margin="16,0,16,14">
+                            <Button x:Name="RescanButton" Style="{StaticResource GhostButton}" Height="34"
+                                    Click="Rescan_Click" Content="⟳  Reanalisar" IsEnabled="False"/>
+                            <TextBlock x:Name="LastScanText" Style="{StaticResource MutedText}" FontSize="11"
+                                       Margin="2,8,0,0" Text="Nenhuma análise ainda" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+
+                <!-- Páginas -->
+                <Grid Grid.Column="1" Margin="14">
+                    <views:OverviewPage x:Name="OverviewPage"/>
+                    <views:MapPage x:Name="MapPage" Visibility="Collapsed"/>
+                    <views:LargeFilesPage x:Name="LargeFilesPage" Visibility="Collapsed"/>
+                    <views:DuplicatesPage x:Name="DuplicatesPage" Visibility="Collapsed"/>
+                    <views:CleanupPage x:Name="CleanupPage" Visibility="Collapsed"/>
+                    <views:HistoryPage x:Name="HistoryPage" Visibility="Collapsed"/>
+                    <views:SettingsPage x:Name="SettingsPage" Visibility="Collapsed"/>
+                </Grid>
+            </Grid>
+
+            <!-- ===== Barra de status ===== -->
+            <Border Grid.Row="3" Background="{StaticResource Panel}" Padding="16,7"
+                    BorderBrush="{StaticResource Stroke}" BorderThickness="0,1,0,0">
+                <TextBlock x:Name="StatusText" Foreground="{StaticResource Muted}" FontSize="12"
+                           TextTrimming="CharacterEllipsis" Text="Pronto."/>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

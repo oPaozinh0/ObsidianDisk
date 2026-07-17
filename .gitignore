@@ -1,0 +1,15 @@
+# Build
+bin/
+obj/
+publish/
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+*.user
+*.suo
+
+# Diversos
+*.log
+Thumbs.db
+Desktop.ini

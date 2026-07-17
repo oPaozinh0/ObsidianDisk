@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>ObsidianDisk</AssemblyName>
+    <RootNamespace>ObsidianDisk</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+
+    <!-- Identidade -->
+    <Version>1.1.0</Version>
+    <FileVersion>1.1.0.0</FileVersion>
+    <AssemblyTitle>ObsidianDisk</AssemblyTitle>
+    <Product>ObsidianDisk — Gerenciador de Disco</Product>
+    <Authors>Davi Oliveira</Authors>
+    <Copyright>© 2026 ObsidianDisk</Copyright>
+
+    <!-- Publicação como exe único e autossuficiente -->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Ícone da janela (barra de tarefas / alt-tab) -->
+    <Resource Include="Assets\app.ico"/>
+  </ItemGroup>
+
+</Project>
