@@ -102,6 +102,8 @@
 
     <!-- Carte -->
     <sys:String x:Key="Map.Up">↑ Remonter</sys:String>
+    <sys:String x:Key="Map.Guide">⌖ Où est-il passé ?</sys:String>
+    <sys:String x:Key="Map.GuideTip">Descend automatiquement jusqu'au dossier qui consomme le plus d'espace.</sys:String>
     <sys:String x:Key="Map.OldFiles">Anciens (1 an+)</sys:String>
     <sys:String x:Key="Map.AllCategories">Toutes les catégories</sys:String>
     <sys:String x:Key="Map.EmptyTitle">Analysez un disque dans Vue d'ensemble pour voir la carte</sys:String>
