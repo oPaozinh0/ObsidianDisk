@@ -77,28 +77,47 @@ public partial class MapPage : UserControl
             chain.Add(n);
         chain.Reverse();
 
+        var crumbStyle = (Style)FindResource("CrumbButton");
+
         for (int i = 0; i < chain.Count; i++)
         {
             var target = chain[i];
-            var button = new Button
-            {
-                Style = (Style)FindResource("CrumbButton"),
-                Content = target.Name.TrimEnd('\\'),
-            };
-            if (i == chain.Count - 1)
-                button.Foreground = (Brush)FindResource("Text");
-            button.Click += (_, _) => SetViewRoot(target);
-            BreadcrumbPanel.Children.Add(button);
+            bool isLast = i == chain.Count - 1;
+            string label = target.Name.TrimEnd('\\');
 
-            if (i < chain.Count - 1)
+            if (isLast)
             {
-                BreadcrumbPanel.Children.Add(new TextBlock
+                // Segmento atual: pílula destacada em accent, sem clique
+                var pill = new Border
                 {
-                    Text = "›",
-                    Foreground = (Brush)FindResource("Muted"),
+                    CornerRadius = new CornerRadius(7),
+                    Padding = new Thickness(10, 4, 10, 4),
                     VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Thickness(2, 0, 2, 0),
-                });
+                };
+                pill.SetResourceReference(Border.BackgroundProperty, "SelectedBg");
+                var text = new TextBlock { Text = label, FontSize = 12.5, FontWeight = FontWeights.SemiBold };
+                text.SetResourceReference(TextBlock.ForegroundProperty, "Accent");
+                pill.Child = text;
+                BreadcrumbPanel.Children.Add(pill);
+            }
+            else
+            {
+                var button = new Button { Style = crumbStyle, Content = label };
+                button.Click += (_, _) => SetViewRoot(target);
+                BreadcrumbPanel.Children.Add(button);
+
+                // Chevron separador
+                var sep = new TextBlock
+                {
+                    Text = ((char)0xE76C).ToString(), // Segoe MDL2 ChevronRight
+                    FontFamily = new FontFamily("Segoe MDL2 Assets"),
+                    FontSize = 9,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(3, 0, 3, 0),
+                    Opacity = 0.6,
+                };
+                sep.SetResourceReference(TextBlock.ForegroundProperty, "Muted");
+                BreadcrumbPanel.Children.Add(sep);
             }
         }
     }

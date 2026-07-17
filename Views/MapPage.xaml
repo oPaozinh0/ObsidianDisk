@@ -26,10 +26,13 @@
                           Margin="14,0,0,0" SelectionChanged="Filter_Changed"/>
             </StackPanel>
 
-            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled"
-                          Margin="10,0,10,0" VerticalAlignment="Center">
-                <StackPanel x:Name="BreadcrumbPanel" Orientation="Horizontal"/>
-            </ScrollViewer>
+            <Border Margin="10,0,10,0" VerticalAlignment="Center" CornerRadius="9"
+                    Background="{DynamicResource Panel}" BorderBrush="{DynamicResource Stroke}"
+                    BorderThickness="1" Padding="4,2">
+                <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+                    <StackPanel x:Name="BreadcrumbPanel" Orientation="Horizontal"/>
+                </ScrollViewer>
+            </Border>
         </DockPanel>
 
         <!-- Mosaico / Lista -->

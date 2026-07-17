@@ -6,19 +6,19 @@
 
         <FontFamily x:Key="AppFont">pack://application:,,,/Assets/Fonts/#JetBrains Mono</FontFamily>
 
-        <!-- ===== Botão de breadcrumb ===== -->
+        <!-- ===== Segmento de breadcrumb (pílula) ===== -->
         <Style x:Key="CrumbButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="{DynamicResource Muted}"/>
             <Setter Property="FontSize" Value="12.5"/>
-            <Setter Property="Padding" Value="6,3"/>
+            <Setter Property="Padding" Value="9,4"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="6"
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="7"
                                 Padding="{TemplateBinding Padding}">
-                            <ContentPresenter/>
+                            <ContentPresenter VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
