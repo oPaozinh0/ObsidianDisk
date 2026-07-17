@@ -56,6 +56,8 @@
     <sys:String x:Key="Dc.DescExtensions">Espacio agrupado por tipos de archivo normalmente recuperables (registros, temporales, cachés, comprimidos).</sys:String>
     <sys:String x:Key="Dc.DescDevJunk">Carpetas de compilación y dependencias que las herramientas de desarrollo regeneran (node_modules, bin, obj…).</sys:String>
     <sys:String x:Key="Dc.DescOldFiles">Archivos grandes que no abres hace más de un año.</sys:String>
+    <sys:String x:Key="Dc.ModeEmpty">Carpetas vacías</sys:String>
+    <sys:String x:Key="Dc.DescEmpty">Carpetas sin ningún archivo dentro — restos de programas desinstalados y organización antigua.</sys:String>
     <sys:String x:Key="Dc.ColName">Nombre</sys:String>
     <sys:String x:Key="Dc.ColDetail">Ubicación</sys:String>
     <sys:String x:Key="Dc.ColWhen">Fecha</sys:String>

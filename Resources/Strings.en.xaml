@@ -56,6 +56,8 @@
     <sys:String x:Key="Dc.DescExtensions">Space grouped by file types that are usually reclaimable (logs, temp, caches, archives).</sys:String>
     <sys:String x:Key="Dc.DescDevJunk">Build and dependency folders that dev tools regenerate (node_modules, bin, obj…).</sys:String>
     <sys:String x:Key="Dc.DescOldFiles">Large files you haven't opened in over a year.</sys:String>
+    <sys:String x:Key="Dc.ModeEmpty">Empty folders</sys:String>
+    <sys:String x:Key="Dc.DescEmpty">Folders with no files inside — leftovers from uninstalled programs and old organization.</sys:String>
     <sys:String x:Key="Dc.ColName">Name</sys:String>
     <sys:String x:Key="Dc.ColDetail">Location</sys:String>
     <sys:String x:Key="Dc.ColWhen">Date</sys:String>

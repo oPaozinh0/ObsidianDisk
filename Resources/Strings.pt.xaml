@@ -56,6 +56,8 @@
     <sys:String x:Key="Dc.DescExtensions">Espaço somado por tipos de arquivo geralmente recuperáveis (logs, temporários, caches, arquivões).</sys:String>
     <sys:String x:Key="Dc.DescDevJunk">Pastas de build e dependências que as ferramentas de desenvolvimento recriam (node_modules, bin, obj…).</sys:String>
     <sys:String x:Key="Dc.DescOldFiles">Arquivos grandes que você não abre há mais de um ano.</sys:String>
+    <sys:String x:Key="Dc.ModeEmpty">Pastas vazias</sys:String>
+    <sys:String x:Key="Dc.DescEmpty">Pastas sem nenhum arquivo dentro — sobras de programas desinstalados e organização antiga.</sys:String>
     <sys:String x:Key="Dc.ColName">Nome</sys:String>
     <sys:String x:Key="Dc.ColDetail">Local</sys:String>
     <sys:String x:Key="Dc.ColWhen">Data</sys:String>
