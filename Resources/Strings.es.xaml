@@ -252,6 +252,11 @@
     <sys:String x:Key="Ov.WelcomeText">Vea qué está ocupando su disco — el mapa muestra cada carpeta y archivo por tamaño.</sys:String>
     <sys:String x:Key="Ov.WelcomeButton">Analizar mi disco ({0})</sys:String>
     <sys:String x:Key="Ov.Recommendations">Recomendaciones para Liberar Espacio</sys:String>
+    <sys:String x:Key="Ov.Suggestions">Sugerencias para ti</sys:String>
+    <sys:String x:Key="Sg.Review">Revisar</sys:String>
+    <sys:String x:Key="Sg.Grower">{0} crece en cada análisis — +{1} en los últimos {2} análisis.</sys:String>
+    <sys:String x:Key="Sg.DevJunk">Tienes {0} en artefactos de desarrollo (node_modules, bin, obj…).</sys:String>
+    <sys:String x:Key="Sg.OldFiles">{0} en archivos grandes que no abres hace más de un año.</sys:String>
     <sys:String x:Key="Ov.RecTempTitle">Temporales y Papelera</sys:String>
     <sys:String x:Key="Ov.RecTempMeasuring">calculando…</sys:String>
     <sys:String x:Key="Ov.RecTempValue">cerca de {0} recuperables con un clic</sys:String>

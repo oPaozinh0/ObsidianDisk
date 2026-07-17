@@ -68,6 +68,7 @@ public partial class MainWindow : Window
         OverviewPage.OpenCleanupRequested += () => NavCleanup.IsChecked = true;
         OverviewPage.OpenLargeFilesRequested += () => NavLargeFiles.IsChecked = true;
         OverviewPage.OpenDuplicatesRequested += () => NavDuplicates.IsChecked = true;
+        OverviewPage.OpenDiscoveriesRequested += () => NavDiscoveries.IsChecked = true;
 
         MapPage.HoverChanged += OnTreemapHover;
         BuildTreemapContextMenu();

@@ -252,6 +252,11 @@
     <sys:String x:Key="Ov.WelcomeText">See what's taking up your disk — the map shows every folder and file by size.</sys:String>
     <sys:String x:Key="Ov.WelcomeButton">Analyze my disk ({0})</sys:String>
     <sys:String x:Key="Ov.Recommendations">Recommendations to Free Space</sys:String>
+    <sys:String x:Key="Ov.Suggestions">Suggestions for you</sys:String>
+    <sys:String x:Key="Sg.Review">Review</sys:String>
+    <sys:String x:Key="Sg.Grower">{0} keeps growing — +{1} across your last {2} scans.</sys:String>
+    <sys:String x:Key="Sg.DevJunk">You have {0} in dev artifacts (node_modules, bin, obj…).</sys:String>
+    <sys:String x:Key="Sg.OldFiles">{0} in large files you haven't opened in over a year.</sys:String>
     <sys:String x:Key="Ov.RecTempTitle">Temp files &amp; Recycle Bin</sys:String>
     <sys:String x:Key="Ov.RecTempMeasuring">measuring…</sys:String>
     <sys:String x:Key="Ov.RecTempValue">about {0} recoverable in one click</sys:String>

@@ -252,6 +252,11 @@
     <sys:String x:Key="Ov.WelcomeText">Sehen Sie, was Ihre Festplatte belegt — die Karte zeigt jeden Ordner und jede Datei nach Größe.</sys:String>
     <sys:String x:Key="Ov.WelcomeButton">Meine Festplatte analysieren ({0})</sys:String>
     <sys:String x:Key="Ov.Recommendations">Empfehlungen zum Freigeben von Speicher</sys:String>
+    <sys:String x:Key="Ov.Suggestions">Vorschläge für Sie</sys:String>
+    <sys:String x:Key="Sg.Review">Ansehen</sys:String>
+    <sys:String x:Key="Sg.Grower">{0} wächst bei jedem Scan — +{1} über die letzten {2} Scans.</sys:String>
+    <sys:String x:Key="Sg.DevJunk">Sie haben {0} in Entwicklungs-Artefakten (node_modules, bin, obj…).</sys:String>
+    <sys:String x:Key="Sg.OldFiles">{0} in großen Dateien, die Sie seit über einem Jahr nicht geöffnet haben.</sys:String>
     <sys:String x:Key="Ov.RecTempTitle">Temp-Dateien und Papierkorb</sys:String>
     <sys:String x:Key="Ov.RecTempMeasuring">berechne…</sys:String>
     <sys:String x:Key="Ov.RecTempValue">etwa {0} mit einem Klick rückgewinnbar</sys:String>

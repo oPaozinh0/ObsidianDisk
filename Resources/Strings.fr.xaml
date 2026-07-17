@@ -252,6 +252,11 @@
     <sys:String x:Key="Ov.WelcomeText">Découvrez ce qui occupe votre disque — la carte montre chaque dossier et fichier selon sa taille.</sys:String>
     <sys:String x:Key="Ov.WelcomeButton">Analyser mon disque ({0})</sys:String>
     <sys:String x:Key="Ov.Recommendations">Recommandations pour Libérer de l'Espace</sys:String>
+    <sys:String x:Key="Ov.Suggestions">Suggestions pour vous</sys:String>
+    <sys:String x:Key="Sg.Review">Examiner</sys:String>
+    <sys:String x:Key="Sg.Grower">{0} grandit à chaque analyse — +{1} sur vos {2} derniers scans.</sys:String>
+    <sys:String x:Key="Sg.DevJunk">Vous avez {0} dans des artefacts de développement (node_modules, bin, obj…).</sys:String>
+    <sys:String x:Key="Sg.OldFiles">{0} dans de gros fichiers non ouverts depuis plus d'un an.</sys:String>
     <sys:String x:Key="Ov.RecTempTitle">Temporaires et Corbeille</sys:String>
     <sys:String x:Key="Ov.RecTempMeasuring">calcul…</sys:String>
     <sys:String x:Key="Ov.RecTempValue">environ {0} récupérables en un clic</sys:String>

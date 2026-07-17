@@ -125,6 +125,15 @@
                 </StackPanel>
             </Border>
 
+            <!-- Sugestões personalizadas -->
+            <Border x:Name="SuggestionsCard" Style="{StaticResource Card}" Margin="0,12,0,0"
+                    Visibility="Collapsed">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource CardTitle}" Text="{StaticResource Ov.Suggestions}"/>
+                    <StackPanel x:Name="SuggestionsPanel" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
             <!-- Mapa de Espaço (blocos semânticos) -->
             <Border Style="{StaticResource Card}" Margin="0,12,0,0">
                 <StackPanel>
