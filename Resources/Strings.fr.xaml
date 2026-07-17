@@ -294,4 +294,7 @@
     <sys:String x:Key="Undo.Failed">Restauration impossible. L'élément a peut-être quitté la Corbeille.</sys:String>
     <sys:String x:Key="Del.SafetyWarning">&#10;&#10;⚠ {0} : {1}</sys:String>
 
+    <sys:String x:Key="St.SoftwareRender">Rendu logiciel</sys:String>
+    <sys:String x:Key="St.SoftwareRenderNote">Corrige les artefacts de texte (cadres autour des lettres) sur certaines cartes graphiques. Coûte un peu de performance.</sys:String>
+
 </ResourceDictionary>

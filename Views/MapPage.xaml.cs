@@ -237,14 +237,16 @@ public partial class MapPage : UserControl
         var host = (Grid)HoverTip.Parent;
         var p = e.GetPosition(host);
 
-        HoverTip.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-        double tipW = HoverTip.DesiredSize.Width, tipH = HoverTip.DesiredSize.Height;
+        // Posiciona por RenderTransform (não por Margin): mexer na Margin dispara
+        // um passe de layout a cada movimento do mouse — era a causa do piscar.
+        double tipW = HoverTip.ActualWidth, tipH = HoverTip.ActualHeight;
 
         double x = p.X + 16, y = p.Y + 18;
         if (x + tipW > host.ActualWidth - 4) x = p.X - tipW - 10;
         if (y + tipH > host.ActualHeight - 4) y = p.Y - tipH - 10;
 
-        HoverTip.Margin = new Thickness(Math.Max(0, x), Math.Max(0, y), 0, 0);
+        TipOffset.X = Math.Max(0, x);
+        TipOffset.Y = Math.Max(0, y);
     }
 
     private void HideTip()

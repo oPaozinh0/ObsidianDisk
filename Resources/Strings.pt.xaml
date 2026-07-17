@@ -294,4 +294,7 @@
     <sys:String x:Key="Undo.Failed">Não foi possível restaurar. O item pode ter saído da Lixeira.</sys:String>
     <sys:String x:Key="Del.SafetyWarning">&#10;&#10;⚠ {0}: {1}</sys:String>
 
+    <sys:String x:Key="St.SoftwareRender">Renderização por software</sys:String>
+    <sys:String x:Key="St.SoftwareRenderNote">Corrige artefatos de texto (linhas ao redor das letras) em algumas placas de vídeo. Custa um pouco de desempenho.</sys:String>
+
 </ResourceDictionary>

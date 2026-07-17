@@ -17,6 +17,12 @@ public partial class App : Application
 
         FileCategories.ColorBlindSafe = settings.ColorBlindSafe;
 
+        // Alguns drivers (AMD/adaptadores virtuais) deixam artefatos ao redor dos glifos
+        // no pipeline de GPU. Render por software é o único caminho 100% limpo.
+        if (settings.SoftwareRendering || Environment.GetEnvironmentVariable("OBS_SOFT") == "1")
+            System.Windows.Media.RenderOptions.ProcessRenderMode =
+                System.Windows.Interop.RenderMode.SoftwareOnly;
+
         // ---- Tema (o dicionário precisa entrar ANTES de qualquer estilo ser usado) ----
         IsLightTheme = settings.Theme.Equals("light", StringComparison.OrdinalIgnoreCase);
         Resources.MergedDictionaries.Add(new ResourceDictionary

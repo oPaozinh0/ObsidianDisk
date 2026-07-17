@@ -294,4 +294,7 @@
     <sys:String x:Key="Undo.Failed">Wiederherstellung nicht möglich. Das Element hat den Papierkorb möglicherweise verlassen.</sys:String>
     <sys:String x:Key="Del.SafetyWarning">&#10;&#10;⚠ {0}: {1}</sys:String>
 
+    <sys:String x:Key="St.SoftwareRender">Software-Rendering</sys:String>
+    <sys:String x:Key="St.SoftwareRenderNote">Behebt Textartefakte (Kästchen um Buchstaben) bei manchen Grafikkarten. Kostet etwas Leistung.</sys:String>
+
 </ResourceDictionary>

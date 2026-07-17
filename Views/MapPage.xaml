@@ -46,12 +46,12 @@
                             <GridViewColumn Header="{StaticResource Lf.ColName}" Width="330">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Border Width="9" Height="9" CornerRadius="4.5"
+                                        <DockPanel Width="310">
+                                            <Border DockPanel.Dock="Left" Width="9" Height="9" CornerRadius="4.5"
                                                     Background="{Binding CategoryBrush}" VerticalAlignment="Center"/>
                                             <TextBlock Text="{Binding Name}" Margin="8,0,0,0" FontSize="13"
-                                                       TextTrimming="CharacterEllipsis"/>
-                                        </StackPanel>
+                                                       TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                        </DockPanel>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -79,17 +79,19 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="{StaticResource Map.ColSafety}" Width="260">
+                            <GridViewColumn Header="{StaticResource Map.ColSafety}" Width="300">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" ToolTip="{Binding SafetyTooltip}">
-                                            <Border Width="8" Height="8" CornerRadius="4" VerticalAlignment="Center"
-                                                    Background="{Binding SafetyBrush}"
+                                        <!-- DockPanel dá largura finita ao texto: ele corta com
+                                             reticências em vez de ser clipado pela coluna -->
+                                        <DockPanel Width="280" ToolTip="{Binding SafetyTooltip}">
+                                            <Border DockPanel.Dock="Left" Width="8" Height="8" CornerRadius="4"
+                                                    VerticalAlignment="Center" Background="{Binding SafetyBrush}"
                                                     Visibility="{Binding SafetyVisibility}"/>
                                             <TextBlock Text="{Binding SafetyText}" Margin="7,0,0,0" FontSize="12"
                                                        Foreground="{DynamicResource Muted}"
                                                        TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                                        </StackPanel>
+                                        </DockPanel>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -113,6 +115,9 @@
                         BorderThickness="1" CornerRadius="8" Padding="10,7"
                         HorizontalAlignment="Left" VerticalAlignment="Top"
                         IsHitTestVisible="False" Visibility="Collapsed" MaxWidth="380">
+                    <Border.RenderTransform>
+                        <TranslateTransform x:Name="TipOffset"/>
+                    </Border.RenderTransform>
                     <StackPanel>
                         <TextBlock x:Name="TipName" Foreground="{DynamicResource Text}" FontSize="12.5"
                                    FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>

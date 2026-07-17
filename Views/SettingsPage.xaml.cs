@@ -71,6 +71,7 @@ public partial class SettingsPage : UserControl
 
         ThemeCombo.SelectedIndex = settings.Theme.Equals("light", StringComparison.OrdinalIgnoreCase) ? 1 : 0;
         ColorBlindSwitch.IsChecked = settings.ColorBlindSafe;
+        SoftwareRenderSwitch.IsChecked = settings.SoftwareRendering;
         _loading = false;
     }
 
@@ -94,12 +95,15 @@ public partial class SettingsPage : UserControl
         string lang = (string)(((ComboBoxItem)LanguageCombo.SelectedItem).Tag ?? "auto");
         string theme = (string)(((ComboBoxItem)ThemeCombo.SelectedItem).Tag ?? "dark");
         bool colorBlind = ColorBlindSwitch.IsChecked == true;
+        bool software = SoftwareRenderSwitch.IsChecked == true;
         bool changed = lang != _settings.Language || theme != _settings.Theme
-                       || colorBlind != _settings.ColorBlindSafe;
+                       || colorBlind != _settings.ColorBlindSafe
+                       || software != _settings.SoftwareRendering;
 
         _settings.Language = lang;
         _settings.Theme = theme;
         _settings.ColorBlindSafe = colorBlind;
+        _settings.SoftwareRendering = software;
         AppStorage.SaveSettings(_settings);
         SettingsChanged?.Invoke(_settings);
 

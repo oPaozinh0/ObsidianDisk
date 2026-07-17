@@ -93,11 +93,6 @@ public partial class MainWindow : Window
             }
         };
         _tipTimer.Start();
-
-        // Escape hatch: OBS_SOFT=1 força renderização por software (drivers problemáticos)
-        if (Environment.GetEnvironmentVariable("OBS_SOFT") == "1")
-            System.Windows.Media.RenderOptions.ProcessRenderMode =
-                System.Windows.Interop.RenderMode.SoftwareOnly;
     }
 
     // ---------------- Desfazer exclusão ----------------

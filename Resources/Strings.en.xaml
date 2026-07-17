@@ -294,4 +294,7 @@
     <sys:String x:Key="Undo.Failed">Couldn't restore. The item may have left the Recycle Bin.</sys:String>
     <sys:String x:Key="Del.SafetyWarning">&#10;&#10;⚠ {0}: {1}</sys:String>
 
+    <sys:String x:Key="St.SoftwareRender">Software rendering</sys:String>
+    <sys:String x:Key="St.SoftwareRenderNote">Fixes text artifacts (boxes around letters) on some graphics cards. Costs a little performance.</sys:String>
+
 </ResourceDictionary>

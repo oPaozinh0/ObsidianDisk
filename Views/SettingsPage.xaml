@@ -31,6 +31,11 @@
                               Unchecked="Interface_Changed"/>
                     <TextBlock Style="{StaticResource MutedText}" Margin="0,6,0,0" TextWrapping="Wrap"
                                Text="{StaticResource St.ColorBlindNote}"/>
+                    <CheckBox x:Name="SoftwareRenderSwitch" Style="{StaticResource Switch}" Margin="0,14,0,0"
+                              Content="{StaticResource St.SoftwareRender}" Checked="Interface_Changed"
+                              Unchecked="Interface_Changed"/>
+                    <TextBlock Style="{StaticResource MutedText}" Margin="0,6,0,0" TextWrapping="Wrap"
+                               Text="{StaticResource St.SoftwareRenderNote}"/>
                 </StackPanel>
             </Border>
 
