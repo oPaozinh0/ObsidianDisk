@@ -35,7 +35,7 @@ Grab the latest `ObsidianDisk.exe` from the [**Releases**](../../releases/latest
 ## ✨ What it does
 
 ### 🏠 Overview
-The landing dashboard. Shows a disk-usage bar with the used/free split and a big percentage, **semantic space blocks** that group your drive into human categories (Programs, Games, Windows, Users, Temp Files, Other), and a **per-file-type breakdown** (Apps, Videos, Images, Music, Documents, Archives, Code, Other). After a scan it also surfaces a **"Recommendations to free space"** card — how much you can reclaim from temp files and the Recycle Bin, how many huge (500 MB+) files exist, and a shortcut to the duplicate finder. First run greets you with a one-click **"Analyze my disk"** button.
+The landing dashboard. Shows a disk-usage bar with the used/free split and a big percentage, **semantic space blocks** that group your drive into human categories (Programs, Games, Windows, Users, Temp Files, Other), and a **per-file-type breakdown** (Apps, Videos, Images, Music, Documents, Archives, Code, Other). After a scan it also surfaces a **"Recommendations to free space"** card — how much you can reclaim from temp files and the Recycle Bin, how many huge (500 MB+) files exist, and a shortcut to the duplicate finder. First run greets you with a one-click **"Analyze my disk"** button. It also shows **personalized suggestions** — folders that keep growing scan after scan, piled-up dev artifacts, or big files you never open.
 
 ### 🗺️ Space Map
 A SpaceSniffer-style **squarified treemap** that builds **live while scanning** — the map fills in and refines itself as the disk is read, instead of making you wait. Folders are nested boxes, files are colored blocks sized by how much space they take.
@@ -67,11 +67,15 @@ Four focused analyses over your last scan, all in one page:
 - **Wasted extensions** — space grouped by usually-reclaimable file types (`.log`, `.tmp`, `.cache`, `.iso`, `.zip`…).
 - **Dev artifacts** — build and dependency folders that tools regenerate: `node_modules`, `bin`, `obj`, `.venv`, `target`, `dist`, `__pycache__`…
 - **Forgotten large files** — big files you haven't *opened* in over a year (uses last-access time).
+- **Empty folders** — directories with no files inside, left over from uninstalled programs.
 
 Every result is actionable — open in Explorer, send to the Recycle Bin, or delete permanently, all with Undo.
 
 ### 🧹 Cleanup
-One click to reclaim space from known junk locations — user Temp, Windows Temp, Windows Update cache, thumbnail cache, Windows error reports, and the Recycle Bin. Pick a **Conservative** or **Aggressive** profile to choose what gets cleaned in one move, or fine-tune the selection yourself. Sizes are measured up front, the button shows how much you'll free, and items in use are skipped safely. Includes a **"Restart as administrator"** button to reach protected system files.
+One click to reclaim space from known junk locations — user Temp, Windows Temp, Windows Update cache, thumbnail cache, Windows error reports, and the Recycle Bin. Pick a **Conservative** or **Aggressive** profile to choose what gets cleaned in one move, or fine-tune the selection yourself. Sizes are measured up front, the button shows how much you'll free, and items in use are skipped safely. Includes a **"Restart as administrator"** button to reach protected system files, and a **Dry run** toggle to preview how much you'd free without deleting anything.
+
+### 🤖 Automatic rules
+Create **"if-this-then-that"** rules — *files in a folder, over a size, not accessed for N days → notify or move to the Recycle Bin*. Rules are evaluated on every scan and show how many items they matched. For safety, rules **never delete permanently or silently**: actions are only reversible (notify, or Recycle Bin with Undo) and always confirmed by you.
 
 ### 📈 History
 Every completed scan is saved. The History page draws an **evolution chart**, min/avg/max statistics, a growth trend, a **disk-full projection** ("at this rate the disk fills up around …"), and exports the whole history to CSV. A **"What changed"** card compares your two latest scans and highlights the folders that grew or shrank the most — topped by a plain-language **explanation of where your space went** (*"Since Jul 10, this disk grew 12 GB — most of it from Downloads"*).
