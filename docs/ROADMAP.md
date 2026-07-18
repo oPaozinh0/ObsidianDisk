@@ -23,6 +23,8 @@ Esforço: **P** pequeno · **M** médio · **G** grande.
 - `Services/GrowthExplainer`, `Services/SuggestionEngine`, `Services/RuleEngine` — Fase 6 (inteligência).
 - `Models/FileSystemNode` — captura `LastWriteUtc`/`LastAccessUtc`/`CreationUtc`; helper `FindByPath`.
 - `Services/AppStorage` — settings, history, `rules.json`. `App.xaml` tem `DarkTextBox`/`DarkCombo`/`DarkCheck`.
+- `Services/FileDeletion` (em `RecycleBin.cs`) — `ToRecycleBin`, `Permanently`, `RestoreFromRecycleBin` e agora `Move` (realoca entre volumes, copia+apaga, nunca sobrescreve).
+- `Tests/` — projeto xUnit **isolado** (source-linking da lógica pura, sem WPF; NuGet só aqui, não no exe). Rode com `dotnet test Tests/ObsidianDisk.Tests.csproj`. O csproj principal exclui `Tests\**` do glob.
 
 ---
 
@@ -44,7 +46,7 @@ Pastas fantasma ✅ · Top extensões ✅ · Dev junk ✅ · Arquivos grandes po
 | Recurso | Status | Esforço |
 |---|---|---|
 | Drill-down guiado ("onde foi parar?") | ✅ | — |
-| **Busca instantânea no mapa** (nome/tipo, estilo Everything no scan) | ⬜ | M |
+| **Busca instantânea no mapa** (nome/tipo, estilo Everything no scan) | ✅ | — |
 | Comparar duas pastas (lado a lado) | ⬜ | M |
 
 ## 📊 Fase 3 — Insights e histórico · 🔶
@@ -58,7 +60,7 @@ Pastas fantasma ✅ · Top extensões ✅ · Dev junk ✅ · Arquivos grandes po
 | Recurso | Status | Esforço |
 |---|---|---|
 | Perfis de limpeza (conservador/agressivo) | ✅ | — |
-| **Mover em vez de deletar** (realocar p/ outro drive) | ⬜ | M |
+| **Mover em vez de deletar** (realocar p/ outro drive) | ✅ | — |
 | Agendador de limpeza (Task Scheduler + CLI headless) | ⬜ | M (depende do CLI, 7.4) |
 
 ## 🗂️ Fase 5 — Gestão de arquivos · 🔶
@@ -66,7 +68,7 @@ Pastas fantasma ✅ · Top extensões ✅ · Dev junk ✅ · Arquivos grandes po
 |---|---|---|
 | Detector de pastas vazias | ✅ | — |
 | Arquivos órfãos / atalhos `.lnk` quebrados | ⬜ | M |
-| **Analisador de instaladores** em Downloads (novo modo em Descobertas) | ⬜ | P |
+| **Analisador de instaladores** em Downloads (novo modo em Descobertas) | ✅ | — |
 | Compactar em vez de deletar (zip de pastas raras) | ⬜ | M |
 
 ## 🧠 Fase 6 — Inteligência · ✅ COMPLETA
@@ -99,11 +101,18 @@ Regras automáticas ✅ · Explicador "por que encheu?" ✅ · Sugestões person
 
 ---
 
+## 🔜 Acumulado na `debug` (rumo à v1.8.0, ainda não publicado)
+
+- **Busca instantânea no mapa** (Fase 2) — filtra a árvore escaneada por nome; atenua ramos sem acerto e contorna os acertos em âmbar (mosaico + lista, segue o drill-down).
+- **Analisador de instaladores esquecidos** (Fase 5) — novo modo em Descobertas (.exe/.msi/.msix… em Downloads e afins).
+- **Mover em vez de deletar** (Fase 4) — "Mover para outro drive" no menu de contexto; realoca entre volumes e libera espaço na origem.
+- **Suíte de testes unitários** (Fase 9 / qualidade) — `Tests/` xUnit, 20 testes sobre a lógica pura.
+
+Cortar a **v1.8.0** (build local + `gh release create`) quando quiser fechar o lote.
+
 ## 🗺️ Próximos passos sugeridos (para o próximo chat)
 
-1. **Busca instantânea no mapa** (Fase 2) — recomendada; alto valor, contida. Campo que filtra a árvore já escaneada por nome/tipo.
-2. **Analisador de instaladores** (Fase 5) — ganho rápido: mais um modo em `DiscoveryAnalyzer`/`DiscoveriesPage` (padrão já pronto).
-3. **Mover em vez de deletar** (Fase 4) — realocar grandes p/ outro drive; novo método em `FileDeletion` + fluxo de confirmação.
-4. **Modo meta de limpeza** (Fase 8) ou **exportar relatório HTML** (Fase 3) — quando quiser variar.
-
-Acumular algumas features na `debug` e cortar a **v1.8.0** quando houver massa crítica.
+1. **Comparar duas pastas lado a lado** (Fase 2) — completa o par com a busca recém-entregue.
+2. **Exportar relatório HTML** (Fase 3) — padrão de export já existe (CSV); acrescentar um template.
+3. **Modo meta de limpeza** ("quero liberar 20 GB", Fase 8) — orquestra sugestões até a meta.
+4. **Lixeira interna com retenção** (Fase 9) — quarentena N dias, fecha o ciclo de confiança com o dry-run e o mover.
