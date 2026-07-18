@@ -1,3 +1,4 @@
+using ObsidianDisk.Models;
 using ObsidianDisk.Services;
 using Xunit;
 using static ObsidianDisk.Tests.NodeBuilder;
@@ -6,6 +7,7 @@ namespace ObsidianDisk.Tests;
 
 public class DiscoveryAnalyzerTests
 {
+    private const long MB = 1L << 20;
     [Fact]
     public void Installers_InDownloads_AnyExeCounts_ElsewhereOnlyUnambiguous()
     {
@@ -68,5 +70,61 @@ public class DiscoveryAnalyzerTests
 
         Assert.Single(items);
         Assert.Equal("node_modules", items[0].Name);
+    }
+
+    [Fact]
+    public void GhostFolders_FindsOldLargeDirs_NotRecentOnes()
+    {
+        var oldDir = new FileSystemNode
+        {
+            Name = "old", FullPath = @"C:\old", IsDirectory = true,
+            LastWriteUtc = new DateTime(2020, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+        };
+        oldDir.Size = 100 * MB;
+
+        var recentDir = new FileSystemNode
+        {
+            Name = "recent", FullPath = @"C:\recent", IsDirectory = true,
+            LastWriteUtc = DateTime.UtcNow,
+        };
+        recentDir.Size = 100 * MB;
+
+        var root = Dir(@"C:\", oldDir, recentDir);
+        var cutoff = DateTime.UtcNow.AddYears(-1);
+
+        var items = DiscoveryAnalyzer.GhostFolders(root, cutoff, 50 * MB);
+
+        Assert.Single(items);
+        Assert.Equal("old", items[0].Name);
+    }
+
+    [Fact]
+    public void LargeFilesByAge_FindsOldBigFiles_NotRecentlyAccessed()
+    {
+        var root = Dir(@"C:\",
+            File("old.iso", 200 * MB, access: new DateTime(2020, 1, 1, 0, 0, 0, DateTimeKind.Utc)),
+            File("recent.iso", 200 * MB, access: DateTime.UtcNow),
+            File("small.iso", 10 * MB, access: new DateTime(2020, 1, 1, 0, 0, 0, DateTimeKind.Utc)));
+
+        var cutoff = DateTime.UtcNow.AddYears(-1);
+        var items = DiscoveryAnalyzer.LargeFilesByAge(root, cutoff, 100 * MB);
+
+        Assert.Single(items);
+        Assert.Equal("old.iso", items[0].Name);
+    }
+
+    [Fact]
+    public void WastedExtensions_AggregatesBySizePerExtension()
+    {
+        var root = Dir(@"C:\",
+            File("a.log", 10),
+            File("b.log", 20),
+            File("keep.txt", 5));   // .txt não é desperdiçável
+
+        var items = DiscoveryAnalyzer.WastedExtensions(root);
+
+        Assert.Single(items);
+        Assert.Equal(".log", items[0].Name);
+        Assert.Equal(30, items[0].Size);
     }
 }

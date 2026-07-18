@@ -308,15 +308,37 @@ public partial class MapPage : UserControl
 
     // ---------------- Busca ----------------
 
+    // A busca recalcula o conjunto de acertos varrendo a árvore inteira; num C: grande
+    // fazer isso a cada tecla engasga. Um debounce curto agrupa a digitação num único passe.
+    private System.Windows.Threading.DispatcherTimer? _searchTimer;
+
     private void Search_Changed(object sender, TextChangedEventArgs e)
     {
         if (Treemap is null) return; // inicialização
 
-        string query = SearchBox.Text;
-        SearchPlaceholder.Visibility = query.Length == 0 ? Visibility.Visible : Visibility.Collapsed;
-        SearchClear.Visibility = query.Length == 0 ? Visibility.Collapsed : Visibility.Visible;
+        // Feedback visual imediato (barato); o filtro pesado é adiado
+        bool empty = SearchBox.Text.Length == 0;
+        SearchPlaceholder.Visibility = empty ? Visibility.Visible : Visibility.Collapsed;
+        SearchClear.Visibility = empty ? Visibility.Collapsed : Visibility.Visible;
 
-        Treemap.SearchQuery = query;
+        _searchTimer ??= CreateSearchTimer();
+        _searchTimer.Stop();
+        if (empty) ApplySearch(); // limpar deve ser instantâneo
+        else _searchTimer.Start();
+    }
+
+    private System.Windows.Threading.DispatcherTimer CreateSearchTimer()
+    {
+        var timer = new System.Windows.Threading.DispatcherTimer
+            { Interval = TimeSpan.FromMilliseconds(180) };
+        timer.Tick += (_, _) => ApplySearch();
+        return timer;
+    }
+
+    private void ApplySearch()
+    {
+        _searchTimer?.Stop();
+        Treemap.SearchQuery = SearchBox.Text;
         if (_listMode) BuildList();
     }
 
