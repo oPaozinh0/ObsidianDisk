@@ -546,6 +546,9 @@ public partial class MainWindow : Window
         var copyItem = new MenuItem { Header = L.T("Ctx.CopyPath") };
         copyItem.Click += (_, _) => Clipboard.SetText(node.FullPath);
 
+        var moveItem = new MenuItem { Header = L.T("Ctx.MoveTo") };
+        moveItem.Click += (_, _) => MoveNode(node);
+
         var recycleItem = new MenuItem { Header = L.T("Ctx.DeleteRecycle") };
         recycleItem.Click += (_, _) => DeleteNodes(new[] { node }, permanent: false);
 
@@ -554,8 +557,67 @@ public partial class MainWindow : Window
 
         menu.Items.Add(openItem);
         menu.Items.Add(copyItem);
+        menu.Items.Add(moveItem);
         menu.Items.Add(recycleItem);
         menu.Items.Add(permanentItem);
+    }
+
+    /// <summary>
+    /// Realoca um arquivo/pasta para outro drive (ou pasta), liberando espaço no drive de origem.
+    /// A cópia entre volumes roda em segundo plano; ao terminar, o nó sai da árvore em memória.
+    /// </summary>
+    private async void MoveNode(FileSystemNode node)
+    {
+        using var dlg = new System.Windows.Forms.FolderBrowserDialog
+        {
+            Description = L.T("Move.PickDest"),
+            UseDescriptionForTitle = true,
+            ShowNewFolderButton = true,
+        };
+        if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+
+        string dest = dlg.SelectedPath;
+        string sourceRoot = Path.GetPathRoot(node.FullPath) ?? "";
+        string destRoot = Path.GetPathRoot(dest) ?? "";
+        bool sameDrive = string.Equals(sourceRoot, destRoot, StringComparison.OrdinalIgnoreCase);
+
+        string what = node.IsDirectory
+            ? L.F("Del.FolderWhat", node.Name, FileSystemNode.FormatSize(node.Size), CountFiles(node))
+            : L.F("Del.FileWhat", node.Name, FileSystemNode.FormatSize(node.Size));
+        string note = sameDrive
+            ? L.T("Move.SameDriveNote")
+            : L.F("Move.FreeNote", sourceRoot, FileSystemNode.FormatSize(node.Size));
+
+        if (!Controls.DarkDialog.Confirm(this, L.T("Move.Title"), L.F("Move.ConfirmMsg", what, dest) + note,
+                confirmLabel: L.T("Move.Confirm"), cancelLabel: L.T("Del.Cancel")))
+            return;
+
+        SetStatus(L.F("Move.Working", node.Name));
+        string sourcePath = node.FullPath;
+        long movedSize = node.Size;
+        bool ok = await Task.Run(() => FileDeletion.Move(sourcePath, dest));
+
+        if (!ok)
+        {
+            SetStatus(L.T("Move.Failed"));
+            return;
+        }
+
+        // O item deixou o local escaneado: reflete na árvore como numa exclusão
+        for (var v = MapPage.ViewRoot; v is not null; v = v.Parent)
+            if (ReferenceEquals(v, node) && node.Parent is not null)
+            {
+                MapPage.SetViewRoot(node.Parent);
+                break;
+            }
+        node.Parent?.Children.Remove(node);
+        node.Parent?.AddSizeUpwards(-node.Size);
+        node.Parent = null;
+        if (_hoveredNode is not null && ReferenceEquals(_hoveredNode, node))
+            _hoveredNode = null;
+
+        SetStatus(L.F("Move.Done", node.Name, FileSystemNode.FormatSize(movedSize), dest));
+        RefreshAllPages();
     }
 
     /// <summary>Conta arquivos recursivamente, com teto para não travar em pastas gigantes.</summary>

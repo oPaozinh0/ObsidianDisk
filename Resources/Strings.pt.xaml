@@ -95,6 +95,16 @@
     <!-- Menu de contexto -->
     <sys:String x:Key="Ctx.OpenExplorer">      Abrir no Explorer</sys:String>
     <sys:String x:Key="Ctx.CopyPath">      Copiar caminho</sys:String>
+    <sys:String x:Key="Ctx.MoveTo">      Mover para outro drive…</sys:String>
+    <sys:String x:Key="Move.Title">Mover</sys:String>
+    <sys:String x:Key="Move.PickDest">Escolha a pasta de destino</sys:String>
+    <sys:String x:Key="Move.ConfirmMsg">Mover {0} para:&#10;{1}</sys:String>
+    <sys:String x:Key="Move.SameDriveNote">&#10;&#10;O destino fica no mesmo drive: reorganiza, mas não libera espaço.</sys:String>
+    <sys:String x:Key="Move.FreeNote">&#10;&#10;Libera {1} no drive {0}.</sys:String>
+    <sys:String x:Key="Move.Confirm">Mover</sys:String>
+    <sys:String x:Key="Move.Working">Movendo {0}…</sys:String>
+    <sys:String x:Key="Move.Failed">Não foi possível mover — o destino já existe ou faltou permissão.</sys:String>
+    <sys:String x:Key="Move.Done">{0} movido ({1}) → {2}</sys:String>
     <sys:String x:Key="Ctx.DeleteRecycle">      Excluir (Lixeira)</sys:String>
     <sys:String x:Key="Ctx.DeletePermanent">      Excluir permanentemente…</sys:String>
     <sys:String x:Key="Ctx.DirDetails">{0} · {1} itens</sys:String>

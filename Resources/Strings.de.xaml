@@ -95,6 +95,16 @@
     <!-- Kontextmenü -->
     <sys:String x:Key="Ctx.OpenExplorer">      Im Explorer öffnen</sys:String>
     <sys:String x:Key="Ctx.CopyPath">      Pfad kopieren</sys:String>
+    <sys:String x:Key="Ctx.MoveTo">      Auf anderes Laufwerk verschieben…</sys:String>
+    <sys:String x:Key="Move.Title">Verschieben</sys:String>
+    <sys:String x:Key="Move.PickDest">Zielordner auswählen</sys:String>
+    <sys:String x:Key="Move.ConfirmMsg">{0} verschieben nach:&#10;{1}</sys:String>
+    <sys:String x:Key="Move.SameDriveNote">&#10;&#10;Das Ziel liegt auf demselben Laufwerk: Es wird umsortiert, aber kein Platz frei.</sys:String>
+    <sys:String x:Key="Move.FreeNote">&#10;&#10;Gibt {1} auf Laufwerk {0} frei.</sys:String>
+    <sys:String x:Key="Move.Confirm">Verschieben</sys:String>
+    <sys:String x:Key="Move.Working">Verschiebe {0}…</sys:String>
+    <sys:String x:Key="Move.Failed">Verschieben nicht möglich — Ziel existiert bereits oder keine Berechtigung.</sys:String>
+    <sys:String x:Key="Move.Done">{0} verschoben ({1}) → {2}</sys:String>
     <sys:String x:Key="Ctx.DeleteRecycle">      Löschen (Papierkorb)</sys:String>
     <sys:String x:Key="Ctx.DeletePermanent">      Endgültig löschen…</sys:String>
     <sys:String x:Key="Ctx.DirDetails">{0} · {1} Elemente</sys:String>

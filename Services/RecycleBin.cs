@@ -105,6 +105,70 @@ public static class FileDeletion
         return false;
     }
 
+    /// <summary>
+    /// Move um arquivo ou pasta para dentro de <paramref name="destDir"/>, preservando o nome.
+    /// Funciona entre volumes (copia + apaga quando não é o mesmo drive). Nunca sobrescreve um
+    /// item já existente no destino. Retorna true em caso de sucesso.
+    /// </summary>
+    public static bool Move(string sourcePath, string destDir)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(destDir)) return false;
+            Directory.CreateDirectory(destDir);
+
+            string name = Path.GetFileName(sourcePath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+            string target = Path.Combine(destDir, name);
+
+            // Destino não pode ser o próprio item nem estar dentro dele (moveria a si mesmo)
+            string fullSource = Path.GetFullPath(sourcePath);
+            string fullTarget = Path.GetFullPath(target);
+            if (string.Equals(fullSource, fullTarget, StringComparison.OrdinalIgnoreCase)) return false;
+            if (fullTarget.StartsWith(fullSource + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
+                return false;
+            if (File.Exists(target) || Directory.Exists(target)) return false; // não sobrescreve
+
+            if (File.Exists(sourcePath))
+            {
+                File.Move(sourcePath, target); // File.Move já cruza volumes (copia + apaga)
+                return true;
+            }
+            if (Directory.Exists(sourcePath))
+            {
+                MoveDirectory(sourcePath, target);
+                return true;
+            }
+            return false;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private static void MoveDirectory(string source, string target)
+    {
+        // Mesmo volume: renomear é instantâneo. Volumes diferentes: Directory.Move lança IOException.
+        try
+        {
+            Directory.Move(source, target);
+            return;
+        }
+        catch (IOException) { }
+
+        CopyDirectory(source, target);
+        Directory.Delete(source, recursive: true);
+    }
+
+    private static void CopyDirectory(string source, string target)
+    {
+        Directory.CreateDirectory(target);
+        foreach (var file in Directory.EnumerateFiles(source))
+            File.Copy(file, Path.Combine(target, Path.GetFileName(file)), overwrite: false);
+        foreach (var dir in Directory.EnumerateDirectories(source))
+            CopyDirectory(dir, Path.Combine(target, Path.GetFileName(dir)));
+    }
+
     /// <summary>Exclui permanentemente (NÃO passa pela Lixeira). Retorna true em caso de sucesso.</summary>
     public static bool Permanently(string path)
     {

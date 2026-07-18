@@ -95,6 +95,16 @@
     <!-- Menu contextuel -->
     <sys:String x:Key="Ctx.OpenExplorer">      Ouvrir dans l'Explorateur</sys:String>
     <sys:String x:Key="Ctx.CopyPath">      Copier le chemin</sys:String>
+    <sys:String x:Key="Ctx.MoveTo">      Déplacer vers un autre lecteur…</sys:String>
+    <sys:String x:Key="Move.Title">Déplacer</sys:String>
+    <sys:String x:Key="Move.PickDest">Choisissez le dossier de destination</sys:String>
+    <sys:String x:Key="Move.ConfirmMsg">Déplacer {0} vers :&#10;{1}</sys:String>
+    <sys:String x:Key="Move.SameDriveNote">&#10;&#10;La destination est sur le même lecteur : cela réorganise mais ne libère pas d'espace.</sys:String>
+    <sys:String x:Key="Move.FreeNote">&#10;&#10;Libère {1} sur le lecteur {0}.</sys:String>
+    <sys:String x:Key="Move.Confirm">Déplacer</sys:String>
+    <sys:String x:Key="Move.Working">Déplacement de {0}…</sys:String>
+    <sys:String x:Key="Move.Failed">Déplacement impossible — la destination existe déjà ou permission refusée.</sys:String>
+    <sys:String x:Key="Move.Done">{0} déplacé ({1}) → {2}</sys:String>
     <sys:String x:Key="Ctx.DeleteRecycle">      Supprimer (Corbeille)</sys:String>
     <sys:String x:Key="Ctx.DeletePermanent">      Supprimer définitivement…</sys:String>
     <sys:String x:Key="Ctx.DirDetails">{0} · {1} éléments</sys:String>

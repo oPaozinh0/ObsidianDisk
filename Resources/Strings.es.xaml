@@ -95,6 +95,16 @@
     <!-- Menú contextual -->
     <sys:String x:Key="Ctx.OpenExplorer">      Abrir en el Explorador</sys:String>
     <sys:String x:Key="Ctx.CopyPath">      Copiar ruta</sys:String>
+    <sys:String x:Key="Ctx.MoveTo">      Mover a otra unidad…</sys:String>
+    <sys:String x:Key="Move.Title">Mover</sys:String>
+    <sys:String x:Key="Move.PickDest">Elige la carpeta de destino</sys:String>
+    <sys:String x:Key="Move.ConfirmMsg">Mover {0} a:&#10;{1}</sys:String>
+    <sys:String x:Key="Move.SameDriveNote">&#10;&#10;El destino está en la misma unidad: reorganiza pero no libera espacio.</sys:String>
+    <sys:String x:Key="Move.FreeNote">&#10;&#10;Libera {1} en la unidad {0}.</sys:String>
+    <sys:String x:Key="Move.Confirm">Mover</sys:String>
+    <sys:String x:Key="Move.Working">Moviendo {0}…</sys:String>
+    <sys:String x:Key="Move.Failed">No se pudo mover — el destino ya existe o faltan permisos.</sys:String>
+    <sys:String x:Key="Move.Done">{0} movido ({1}) → {2}</sys:String>
     <sys:String x:Key="Ctx.DeleteRecycle">      Eliminar (Papelera)</sys:String>
     <sys:String x:Key="Ctx.DeletePermanent">      Eliminar permanentemente…</sys:String>
     <sys:String x:Key="Ctx.DirDetails">{0} · {1} elementos</sys:String>

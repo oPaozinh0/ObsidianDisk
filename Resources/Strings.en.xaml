@@ -95,6 +95,16 @@
     <!-- Context menu -->
     <sys:String x:Key="Ctx.OpenExplorer">      Open in Explorer</sys:String>
     <sys:String x:Key="Ctx.CopyPath">      Copy path</sys:String>
+    <sys:String x:Key="Ctx.MoveTo">      Move to another drive…</sys:String>
+    <sys:String x:Key="Move.Title">Move</sys:String>
+    <sys:String x:Key="Move.PickDest">Choose the destination folder</sys:String>
+    <sys:String x:Key="Move.ConfirmMsg">Move {0} to:&#10;{1}</sys:String>
+    <sys:String x:Key="Move.SameDriveNote">&#10;&#10;The destination is on the same drive: it reorganizes but frees no space.</sys:String>
+    <sys:String x:Key="Move.FreeNote">&#10;&#10;Frees {1} on drive {0}.</sys:String>
+    <sys:String x:Key="Move.Confirm">Move</sys:String>
+    <sys:String x:Key="Move.Working">Moving {0}…</sys:String>
+    <sys:String x:Key="Move.Failed">Couldn't move — the destination already exists or permission was denied.</sys:String>
+    <sys:String x:Key="Move.Done">{0} moved ({1}) → {2}</sys:String>
     <sys:String x:Key="Ctx.DeleteRecycle">      Delete (Recycle Bin)</sys:String>
     <sys:String x:Key="Ctx.DeletePermanent">      Delete permanently…</sys:String>
     <sys:String x:Key="Ctx.DirDetails">{0} · {1} items</sys:String>
