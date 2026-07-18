@@ -47,7 +47,7 @@ Pastas fantasma ✅ · Top extensões ✅ · Dev junk ✅ · Arquivos grandes po
 |---|---|---|
 | Drill-down guiado ("onde foi parar?") | ✅ | — |
 | **Busca instantânea no mapa** (nome/tipo, estilo Everything no scan) | ✅ | — |
-| Comparar duas pastas (lado a lado) | ⬜ | M |
+| Comparar duas pastas (lado a lado) | ✅ | — |
 
 ## 📊 Fase 3 — Insights e histórico · 🔶
 | Recurso | Status | Esforço |
@@ -62,7 +62,7 @@ Pastas fantasma ✅ · Top extensões ✅ · Dev junk ✅ · Arquivos grandes po
 |---|---|---|
 | Perfis de limpeza (conservador/agressivo) | ✅ | — |
 | **Mover em vez de deletar** (realocar p/ outro drive) | ✅ | — |
-| Agendador de limpeza (Task Scheduler + CLI headless) | ⬜ | M (depende do CLI, 7.4) |
+| Agendador de **scan+relatório** (Task Scheduler + CLI headless) | ✅ | — |
 
 ## 🗂️ Fase 5 — Gestão de arquivos · 🔶
 | Recurso | Status | Esforço |
@@ -82,7 +82,7 @@ Regras automáticas ✅ · Explicador "por que encheu?" ✅ · Sugestões person
 | Bandeja do sistema | ✅ (tooltip + menu + minimizar) | — |
 | **Múltiplos drives** (dashboard de todos os discos) | ⬜ | G |
 | Ler pastas de rede / externos (UNC) | ⬜ | M |
-| Modo CLI / headless (`--scan C: --report out.json`) | ⬜ | M |
+| Modo CLI / headless (`--scan C: --report out.json`) | ✅ | — |
 | Menu de contexto do Explorer ("Analisar com ObsidianDisk") | ✅ | — |
 
 ## 🎯 Fase 8 — Experiência · ⬜
@@ -91,13 +91,13 @@ Regras automáticas ✅ · Explicador "por que encheu?" ✅ · Sugestões person
 | Modo "meta de limpeza" ("quero liberar 20 GB") | ✅ | — |
 | Gamificação leve (total de GB recuperados, streak) | ⬜ | P |
 | Timeline de espaço (treemap animado entre snapshots) | ⬜ | G |
-| Modo apresentação / print do treemap | ⬜ | P |
+| Modo apresentação / print do treemap (PNG) | ✅ | — |
 
 ## 🔐 Fase 9 — Confiança e segurança · 🔶
 | Recurso | Status | Esforço |
 |---|---|---|
 | Simulação (dry-run) na limpeza | ✅ | — |
-| Lixeira interna com retenção (quarentena N dias) | ⬜ | M |
+| Lixeira interna com retenção (quarentena N dias) | ✅ | — |
 | SafetyDatabase comunitário (contribuir verdicts) | ⬜ | M |
 
 ---
@@ -112,12 +112,18 @@ Regras automáticas ✅ · Explicador "por que encheu?" ✅ · Sugestões person
 - **Menu de contexto do Explorer** (Fase 7) — toggle em Configurações registra "Analisar com ObsidianDisk" em HKCU (pastas + unidades, sem admin). `Services/ExplorerIntegration`.
 - **Exportar relatório HTML** (Fase 3) — botão no Histórico; HTML autossuficiente (resumo + maiores pastas + histórico). `Services/ReportExporter`.
 - **Modo meta de limpeza** (Fase 8) — página nova; junta candidatos de várias análises, tira sobreposições e marca os maiores até a meta. `Views/GoalPage`.
+- **Debounce da busca + mais testes** (qualidade) — busca do mapa em 180ms; suíte cresce para 31 testes (Forecaster, análises, Move, quarentena).
+- **Comparar duas pastas** (Fase 2) — página lado a lado com tamanho, contagem e quebra por categoria. `Views/ComparePage`.
+- **PNG do mapa + Descobertas no HTML** (Fases 8/3) — "Salvar PNG" no mapa; seção Descobertas no relatório.
+- **CLI headless + agendador** (Fases 7/4) — `--scan --report` sem UI (html/json); tarefa diária via `schtasks`. `Services/HeadlessRunner`, `Services/ScheduledScan`.
+- **Lixeira interna com retenção** (Fase 9) — quarentena 30 dias, restaurar/purgar, purga automática. `Services/QuarantineStore`, `Views/QuarantinePage`.
 
-Cortar a **v1.8.0** (build local + `gh release create`) quando quiser fechar o lote.
+Cortar a **v1.8.0** (build local + `gh release create`) quando quiser fechar o lote. **13 features acumuladas.**
 
 ## 🗺️ Próximos passos sugeridos (para o próximo chat)
 
-1. **Comparar duas pastas lado a lado** (Fase 2) — completa o par com a busca já entregue.
-2. **Lixeira interna com retenção** (Fase 9) — quarentena N dias; fecha o ciclo de confiança com dry-run + mover.
-3. **Exportar relatório PDF** (Fase 3) — reaproveita o HTML já pronto (imprimir para PDF ou lib).
-4. **Múltiplos drives** (Fase 7, G) — dashboard de todos os discos; maior salto de valor pendente.
+1. **Múltiplos drives** (Fase 7, G) — dashboard de todos os discos; maior salto de valor pendente.
+2. **Timeline de espaço** (Fase 8, G) — treemap animado entre snapshots (dados já existem).
+3. **Exportar PDF** (Fase 3) — reaproveita o HTML pronto (imprimir para PDF ou lib).
+4. **Compactar em vez de deletar** (Fase 5) — zipar pastas raras (`System.IO.Compression`, sem NuGet).
+5. **Gamificação leve** (Fase 8, P) — GB recuperados + streak, a partir do histórico.
