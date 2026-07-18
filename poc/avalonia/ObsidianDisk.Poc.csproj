@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    PoC de migração para Avalonia (renderização via Skia). Objetivo: rodar o treemap
+    numa Radeon e verificar se o artefato de glifos do WPF some, sem travar.
+    Reaproveita os arquivos PUROS do app principal por source-linking.
+  -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <RootNamespace>ObsidianDisk.Poc</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.1" />
+  </ItemGroup>
+
+  <!-- Lógica pura reaproveitada do app principal (sem WPF) -->
+  <ItemGroup>
+    <Compile Include="..\..\Models\FileSystemNode.cs" Link="Shared\FileSystemNode.cs" />
+    <Compile Include="..\..\Services\DiskScanner.cs" Link="Shared\DiskScanner.cs" />
+  </ItemGroup>
+
+</Project>

@@ -44,6 +44,9 @@
   <ItemGroup>
     <Compile Remove="Tests\**" />
     <None Remove="Tests\**" />
+    <Compile Remove="poc\**" />
+    <None Remove="poc\**" />
+    <Page Remove="poc\**" />
   </ItemGroup>
 
   <ItemGroup>
