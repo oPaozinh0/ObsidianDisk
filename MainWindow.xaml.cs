@@ -258,6 +258,7 @@ public partial class MainWindow : Window
 
         OverviewPage.Visibility = ReferenceEquals(sender, NavOverview) ? Visibility.Visible : Visibility.Collapsed;
         MapPage.Visibility = ReferenceEquals(sender, NavMap) ? Visibility.Visible : Visibility.Collapsed;
+        ComparePage.Visibility = ReferenceEquals(sender, NavCompare) ? Visibility.Visible : Visibility.Collapsed;
         LargeFilesPage.Visibility = ReferenceEquals(sender, NavLargeFiles) ? Visibility.Visible : Visibility.Collapsed;
         DuplicatesPage.Visibility = ReferenceEquals(sender, NavDuplicates) ? Visibility.Visible : Visibility.Collapsed;
         DiscoveriesPage.Visibility = ReferenceEquals(sender, NavDiscoveries) ? Visibility.Visible : Visibility.Collapsed;
@@ -269,7 +270,7 @@ public partial class MainWindow : Window
 
         // Anima a página que acabou de aparecer
         foreach (FrameworkElement page in new FrameworkElement[]
-                 { OverviewPage, MapPage, LargeFilesPage, DuplicatesPage, DiscoveriesPage, CleanupPage, GoalPage, RulesPage, HistoryPage, SettingsPage })
+                 { OverviewPage, MapPage, ComparePage, LargeFilesPage, DuplicatesPage, DiscoveriesPage, CleanupPage, GoalPage, RulesPage, HistoryPage, SettingsPage })
             if (page.Visibility == Visibility.Visible)
                 Controls.Animate.PageIn(page);
 
@@ -416,6 +417,7 @@ public partial class MainWindow : Window
     {
         if (_scanRoot is null) return;
         OverviewPage.UpdateFromScan(_scanRoot);
+        ComparePage.UpdateFromScan(_scanRoot);
         LargeFilesPage.UpdateFromScan(_scanRoot);
         DuplicatesPage.UpdateFromScan(_scanRoot);
         DiscoveriesPage.UpdateFromScan(_scanRoot);
