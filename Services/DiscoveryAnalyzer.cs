@@ -135,6 +135,53 @@ public static class DiscoveryAnalyzer
             .ToList();
     }
 
+    /// <summary>
+    /// Instaladores esquecidos: arquivos que já cumpriram o papel de instalar algo e
+    /// só ocupam espaço. Em Downloads, qualquer .exe conta (quase sempre é instalador);
+    /// fora de lá, só os formatos que são inequivocamente instaladores (.msi e afins) ou
+    /// executáveis com "setup"/"installer" no nome.
+    /// </summary>
+    public static List<DiscoveryItem> Installers(FileSystemNode root)
+    {
+        var found = new List<FileSystemNode>();
+
+        void Walk(FileSystemNode dir)
+        {
+            bool inDownloads = dir.FullPath.Contains(@"\Downloads", StringComparison.OrdinalIgnoreCase);
+            foreach (var child in dir.Children)
+            {
+                if (child.IsDirectory) { Walk(child); continue; }
+                if (IsInstaller(child.Name, inDownloads))
+                    found.Add(child);
+            }
+        }
+
+        Walk(root);
+        return found
+            .OrderByDescending(n => n.Size)
+            .Take(MaxResults)
+            .Select(n => new DiscoveryItem(n.Name, Path.GetDirectoryName(n.FullPath) ?? "", n.LastWriteUtc, n.Size, n))
+            .ToList();
+    }
+
+    private static bool IsInstaller(string name, bool inDownloads)
+    {
+        var ext = Path.GetExtension(name);
+        if (ext.Equals(".msi", StringComparison.OrdinalIgnoreCase) ||
+            ext.Equals(".msix", StringComparison.OrdinalIgnoreCase) ||
+            ext.Equals(".appx", StringComparison.OrdinalIgnoreCase) ||
+            ext.Equals(".msu", StringComparison.OrdinalIgnoreCase) ||
+            ext.Equals(".msp", StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        if (ext.Equals(".exe", StringComparison.OrdinalIgnoreCase))
+            return inDownloads
+                || name.Contains("setup", StringComparison.OrdinalIgnoreCase)
+                || name.Contains("installer", StringComparison.OrdinalIgnoreCase);
+
+        return false;
+    }
+
     /// <summary>Arquivos grandes não acessados há muito tempo.</summary>
     public static List<DiscoveryItem> LargeFilesByAge(FileSystemNode root, DateTime accessCutoffUtc, long minBytes)
     {

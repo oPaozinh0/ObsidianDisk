@@ -32,7 +32,7 @@ public sealed class DiscoveryEntry : System.ComponentModel.INotifyPropertyChange
 
 public partial class DiscoveriesPage : UserControl
 {
-    private enum Mode { Ghost, Extensions, DevJunk, OldFiles, Empty }
+    private enum Mode { Ghost, Extensions, DevJunk, OldFiles, Empty, Installers }
 
     private const long GhostMinBytes = 50L << 20;    // 50 MB
     private const long OldFileMinBytes = 100L << 20; // 100 MB
@@ -52,6 +52,7 @@ public partial class DiscoveriesPage : UserControl
         ModeCombo.Items.Add(new ComboBoxItem { Content = L.T("Dc.ModeDevJunk"), Tag = Mode.DevJunk });
         ModeCombo.Items.Add(new ComboBoxItem { Content = L.T("Dc.ModeOldFiles"), Tag = Mode.OldFiles });
         ModeCombo.Items.Add(new ComboBoxItem { Content = L.T("Dc.ModeEmpty"), Tag = Mode.Empty });
+        ModeCombo.Items.Add(new ComboBoxItem { Content = L.T("Dc.ModeInstallers"), Tag = Mode.Installers });
         ModeCombo.SelectedIndex = 0;
         _initializing = false;
     }
@@ -87,6 +88,7 @@ public partial class DiscoveriesPage : UserControl
             Mode.Extensions => L.T("Dc.DescExtensions"),
             Mode.DevJunk => L.T("Dc.DescDevJunk"),
             Mode.OldFiles => L.T("Dc.DescOldFiles"),
+            Mode.Installers => L.T("Dc.DescInstallers"),
             _ => L.T("Dc.DescEmpty"),
         };
 
@@ -100,6 +102,7 @@ public partial class DiscoveriesPage : UserControl
             Mode.Extensions => DiscoveryAnalyzer.WastedExtensions(_root),
             Mode.DevJunk => DiscoveryAnalyzer.DevJunk(_root),
             Mode.OldFiles => DiscoveryAnalyzer.LargeFilesByAge(_root, cutoff, OldFileMinBytes),
+            Mode.Installers => DiscoveryAnalyzer.Installers(_root),
             _ => DiscoveryAnalyzer.EmptyFolders(_root),
         };
 

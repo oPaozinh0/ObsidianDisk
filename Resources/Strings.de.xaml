@@ -58,6 +58,8 @@
     <sys:String x:Key="Dc.DescOldFiles">Große Dateien, die Sie seit über einem Jahr nicht geöffnet haben.</sys:String>
     <sys:String x:Key="Dc.ModeEmpty">Leere Ordner</sys:String>
     <sys:String x:Key="Dc.DescEmpty">Ordner ohne Dateien darin — Überbleibsel deinstallierter Programme und alter Ordnung.</sys:String>
+    <sys:String x:Key="Dc.ModeInstallers">Vergessene Installer</sys:String>
+    <sys:String x:Key="Dc.DescInstallers">Installer und Pakete (.exe, .msi…), die ihren Zweck erfüllt haben und nur Platz belegen — die meisten liegen im Downloads-Ordner.</sys:String>
     <sys:String x:Key="Dc.ColName">Name</sys:String>
     <sys:String x:Key="Dc.ColDetail">Ort</sys:String>
     <sys:String x:Key="Dc.ColWhen">Datum</sys:String>

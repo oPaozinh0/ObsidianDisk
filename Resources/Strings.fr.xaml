@@ -58,6 +58,8 @@
     <sys:String x:Key="Dc.DescOldFiles">Gros fichiers que vous n'avez pas ouverts depuis plus d'un an.</sys:String>
     <sys:String x:Key="Dc.ModeEmpty">Dossiers vides</sys:String>
     <sys:String x:Key="Dc.DescEmpty">Dossiers sans aucun fichier — restes de programmes désinstallés et d'ancienne organisation.</sys:String>
+    <sys:String x:Key="Dc.ModeInstallers">Installateurs oubliés</sys:String>
+    <sys:String x:Key="Dc.DescInstallers">Installateurs et paquets (.exe, .msi…) qui ont déjà fait leur travail et n'occupent que de la place — la plupart sont dans le dossier Téléchargements.</sys:String>
     <sys:String x:Key="Dc.ColName">Nom</sys:String>
     <sys:String x:Key="Dc.ColDetail">Emplacement</sys:String>
     <sys:String x:Key="Dc.ColWhen">Date</sys:String>

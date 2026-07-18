@@ -58,6 +58,8 @@
     <sys:String x:Key="Dc.DescOldFiles">Arquivos grandes que você não abre há mais de um ano.</sys:String>
     <sys:String x:Key="Dc.ModeEmpty">Pastas vazias</sys:String>
     <sys:String x:Key="Dc.DescEmpty">Pastas sem nenhum arquivo dentro — sobras de programas desinstalados e organização antiga.</sys:String>
+    <sys:String x:Key="Dc.ModeInstallers">Instaladores esquecidos</sys:String>
+    <sys:String x:Key="Dc.DescInstallers">Instaladores e pacotes (.exe, .msi…) que já cumpriram o papel e só ocupam espaço — a maioria fica na pasta Downloads.</sys:String>
     <sys:String x:Key="Dc.ColName">Nome</sys:String>
     <sys:String x:Key="Dc.ColDetail">Local</sys:String>
     <sys:String x:Key="Dc.ColWhen">Data</sys:String>
