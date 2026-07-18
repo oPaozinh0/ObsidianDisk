@@ -15,6 +15,9 @@ public partial class CleanupPage : UserControl
 
     private readonly List<TargetRow> _rows = new();
     private bool _busy;
+
+    /// <summary>Disparado após uma limpeza real (para atualizar a gamificação).</summary>
+    public event Action? CleanupCompleted;
     private bool _measured;
     private bool _initializing = true;
     private bool _applyingProfile;
@@ -267,6 +270,12 @@ public partial class CleanupPage : UserControl
         ResultBanner.Visibility = Visibility.Visible;
         ResultText.Text = L.F("Cl.Done", FileSystemNode.FormatSize(totalFreed)) +
                           (totalFailed > 0 ? L.F("Cl.DoneSkipped", totalFailed) : "");
+
+        if (totalFreed > 0)
+        {
+            StatsStore.Record(totalFreed); // gamificação: total recuperado + sequência
+            CleanupCompleted?.Invoke();
+        }
 
         await MeasureAllAsync();
     }

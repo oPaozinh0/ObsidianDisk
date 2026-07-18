@@ -80,6 +80,27 @@
                 </Grid>
             </Border>
 
+            <!-- Conquistas: espaço recuperado acumulado + sequência -->
+            <Border x:Name="AchievementsCard" Style="{StaticResource Card}" Margin="0,12,0,0"
+                    Padding="16,12" Visibility="Collapsed">
+                <DockPanel LastChildFill="False">
+                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="&#xE734;" FontFamily="Segoe MDL2 Assets" FontSize="20"
+                                   Foreground="{DynamicResource Accent}" VerticalAlignment="Center"/>
+                        <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                            <TextBlock x:Name="AchievementValue" Foreground="{DynamicResource Text}"
+                                       FontSize="18" FontWeight="Bold"/>
+                            <TextBlock x:Name="AchievementLabel" Style="{StaticResource MutedText}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <TextBlock x:Name="StreakValue" Foreground="{DynamicResource Text}" FontSize="18"
+                                   FontWeight="Bold" HorizontalAlignment="Right"/>
+                        <TextBlock x:Name="StreakLabel" Style="{StaticResource MutedText}" HorizontalAlignment="Right"/>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+
             <!-- Recomendações (após o scan) -->
             <Border x:Name="RecommendationsCard" Style="{StaticResource Card}" Margin="0,12,0,0"
                     Visibility="Collapsed">

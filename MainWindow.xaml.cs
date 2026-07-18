@@ -81,6 +81,7 @@ public partial class MainWindow : Window
         DiscoveriesPage.DeleteRequested += DeleteNodes;
         GoalPage.DeleteRequested += DeleteNodes;
         RulesPage.DeleteRequested += DeleteNodes;
+        CleanupPage.CleanupCompleted += () => OverviewPage.UpdateStats();
         RulesPage.MatchesFound += (count, bytes) =>
             Notifier.Show(L.T("Rule.NotifyTitle"),
                 L.F("Rule.NotifyMsg", count, FileSystemNode.FormatSize(bytes)));
@@ -757,6 +758,13 @@ public partial class MainWindow : Window
             SetStatus(L.F("Del.DonePartial", okCount, nodes.Count, FileSystemNode.FormatSize(freedBytes)));
 
         PushUndo(undoPaths, useQuarantine); // exclusão permanente não entra: não há como voltar
+
+        if (freedBytes > 0)
+        {
+            StatsStore.Record(freedBytes);   // gamificação: total recuperado + sequência
+            OverviewPage.UpdateStats();
+        }
+
         RefreshAllPages();
     }
 }

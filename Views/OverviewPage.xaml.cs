@@ -25,6 +25,24 @@ public partial class OverviewPage : UserControl
         InitializeComponent();
         LoadDrives();
         UpdateWelcomeButton();
+        UpdateStats();
+    }
+
+    /// <summary>Atualiza a faixa de conquistas (espaço recuperado + sequência de limpeza).</summary>
+    public void UpdateStats()
+    {
+        var stats = StatsStore.Load();
+        if (stats.TotalFreedBytes <= 0)
+        {
+            AchievementsCard.Visibility = Visibility.Collapsed;
+            return;
+        }
+
+        AchievementValue.Text = FileSystemNode.FormatSize(stats.TotalFreedBytes);
+        AchievementLabel.Text = L.F("Ov.RecoveredLabel", stats.Cleanups.ToString("N0"));
+        StreakValue.Text = stats.StreakDays.ToString("N0");
+        StreakLabel.Text = L.T("Ov.StreakLabel");
+        AchievementsCard.Visibility = Visibility.Visible;
     }
 
     private void UpdateWelcomeButton()

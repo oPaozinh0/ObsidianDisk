@@ -184,6 +184,8 @@
     <sys:String x:Key="Ov.Scan">▶  Scan</sys:String>
     <sys:String x:Key="Ov.CancelScan">✕  Cancel</sys:String>
     <sys:String x:Key="Ov.CurrentUse">Current use</sys:String>
+    <sys:String x:Key="Ov.RecoveredLabel">recovered · {0} cleanups</sys:String>
+    <sys:String x:Key="Ov.StreakLabel">day streak 🔥</sys:String>
     <sys:String x:Key="Ov.MapCard">Space Map (Current)</sys:String>
     <sys:String x:Key="Ov.ScanToCompute">Scan to compute</sys:String>
     <sys:String x:Key="Ov.ClickBlock">Click a block to explore it in the map.</sys:String>

@@ -184,6 +184,8 @@
     <sys:String x:Key="Ov.Scan">▶  Analysieren</sys:String>
     <sys:String x:Key="Ov.CancelScan">✕  Abbrechen</sys:String>
     <sys:String x:Key="Ov.CurrentUse">Aktuelle Nutzung</sys:String>
+    <sys:String x:Key="Ov.RecoveredLabel">freigegeben · {0} Bereinigungen</sys:String>
+    <sys:String x:Key="Ov.StreakLabel">Tage in Folge 🔥</sys:String>
     <sys:String x:Key="Ov.MapCard">Speicherkarte (Aktuell)</sys:String>
     <sys:String x:Key="Ov.ScanToCompute">Zum Berechnen analysieren</sys:String>
     <sys:String x:Key="Ov.ClickBlock">Klicken Sie auf einen Block, um ihn in der Karte zu erkunden.</sys:String>
