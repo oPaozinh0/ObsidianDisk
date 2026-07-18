@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Projeto de teste isolado. NÃO referencia o projeto WPF (que é single-file/self-contained)
+    para não esbarrar no NETSDK1150 nem arrastar dependências de UI. Em vez disso, faz
+    source-linking apenas dos arquivos de lógica PURA (sem WPF). O 'L' de localização é
+    substituído por um stub local (LStub.cs) — os Services testados não dependem da UI.
+
+    Os pacotes NuGet ficam SÓ aqui; o exe publicado continua sem dependências externas.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>ObsidianDisk.Tests</RootNamespace>
+    <NoWarn>CA1416</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+
+  <!-- Lógica pura sob teste, linkada do projeto principal -->
+  <ItemGroup>
+    <Compile Include="..\Models\FileSystemNode.cs" Link="Linked\FileSystemNode.cs" />
+    <Compile Include="..\Services\DiscoveryAnalyzer.cs" Link="Linked\DiscoveryAnalyzer.cs" />
+    <Compile Include="..\Services\RecycleBin.cs" Link="Linked\RecycleBin.cs" />
+    <Compile Include="..\Services\SnapshotStore.cs" Link="Linked\SnapshotStore.cs" />
+  </ItemGroup>
+
+</Project>

@@ -39,6 +39,13 @@
     <Using Remove="System.Windows.Forms"/>
   </ItemGroup>
 
+  <!-- O projeto de testes vive em Tests\ e é compilado à parte (dotnet test).
+       Sem isto, o glob padrão do SDK puxaria os .cs de teste para o exe. -->
+  <ItemGroup>
+    <Compile Remove="Tests\**" />
+    <None Remove="Tests\**" />
+  </ItemGroup>
+
   <ItemGroup>
     <!-- Ícone da janela (barra de tarefas / alt-tab) -->
     <Resource Include="Assets\app.ico"/>
