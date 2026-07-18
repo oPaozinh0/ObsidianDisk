@@ -42,13 +42,7 @@ public static class SnapshotStore
     {
         try
         {
-            var folders = new List<SnapshotEntry>();
-            CollectFolders(root, folders);
-            folders.Sort(static (a, b) => b.Size.CompareTo(a.Size));
-            if (folders.Count > TopFolderCount)
-                folders.RemoveRange(TopFolderCount, folders.Count - TopFolderCount);
-
-            var snapshot = new TreeSnapshot(timestamp, path, root.Size, fileCount, folders);
+            var snapshot = Build(root, path, timestamp, fileCount);
 
             Directory.CreateDirectory(Dir);
             var file = Path.Combine(Dir, $"snapshot-{timestamp:yyyyMMddHHmmss}.json");
@@ -57,6 +51,18 @@ public static class SnapshotStore
             Prune();
         }
         catch { }
+    }
+
+    /// <summary>Monta o objeto de snapshot (maiores pastas) sem gravar. Usado pelo relatório headless.</summary>
+    public static TreeSnapshot Build(FileSystemNode root, string path, DateTime timestamp, long fileCount)
+    {
+        var folders = new List<SnapshotEntry>();
+        CollectFolders(root, folders);
+        folders.Sort(static (a, b) => b.Size.CompareTo(a.Size));
+        if (folders.Count > TopFolderCount)
+            folders.RemoveRange(TopFolderCount, folders.Count - TopFolderCount);
+
+        return new TreeSnapshot(timestamp, path, root.Size, fileCount, folders);
     }
 
     /// <summary>Arquivos de snapshot existentes, do mais antigo ao mais recente.</summary>

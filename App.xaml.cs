@@ -70,7 +70,24 @@ public partial class App : Application
             Source = new Uri($"Resources/Strings.{lang}.xaml", UriKind.Relative),
         });
 
+        // Modo headless (agendador / linha de comando): escaneia e gera relatório, sem janela.
+        // Ex.: ObsidianDisk.exe --scan C:\ --report saida.html
+        string? scanPath = GetArg(args, "--scan");
+        if (scanPath is not null)
+        {
+            int code = HeadlessRunner.Run(scanPath, GetArg(args, "--report"));
+            Shutdown(code);
+            return; // não chama base.OnStartup → a StartupUri (janela) nunca é criada
+        }
+
         base.OnStartup(e);
+    }
+
+    /// <summary>Valor que segue uma flag na linha de comando (ex.: "--scan C:\"), ou null.</summary>
+    private static string? GetArg(string[] args, string name)
+    {
+        int i = Array.FindIndex(args, a => a.Equals(name, StringComparison.OrdinalIgnoreCase));
+        return i >= 0 && i + 1 < args.Length ? args[i + 1] : null;
     }
 
     /// <summary>Reinicia o aplicativo (usado ao trocar idioma/tema).</summary>

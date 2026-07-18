@@ -450,6 +450,9 @@
     <sys:String x:Key="St.ExplorerMenu">Adicionar ao menu do Explorer</sys:String>
     <sys:String x:Key="St.ExplorerMenuNote">Adiciona "Analisar com ObsidianDisk" ao clicar com o botão direito em pastas e unidades. Não exige administrador.</sys:String>
     <sys:String x:Key="St.ExplorerMenuLabel">Analisar com ObsidianDisk</sys:String>
+    <sys:String x:Key="St.ScheduledScan">Scan diário agendado</sys:String>
+    <sys:String x:Key="St.ScheduledScanNote">Cria uma tarefa diária no Windows que escaneia a última pasta e salva um relatório HTML em Documentos\ObsidianDisk. Roda sem abrir o app.</sys:String>
+    <sys:String x:Key="St.ScheduledScanActive">Agendado: {0} (relatório em Documentos\ObsidianDisk).</sys:String>
     <sys:String x:Key="St.DiskAlert">Alertar quando o disco encher</sys:String>
     <sys:String x:Key="St.DiskAlertNote">Mostra uma notificação quando o uso passa do limite ou quando a projeção indica que a unidade vai encher em breve.</sys:String>
     <sys:String x:Key="St.DiskAlertThreshold">Limite de alerta</sys:String>

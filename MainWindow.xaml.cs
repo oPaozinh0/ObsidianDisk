@@ -318,6 +318,7 @@ public partial class MainWindow : Window
 
         _cts = new CancellationTokenSource();
         _lastScanPath = path;
+        SettingsPage.SchedulableScanPath = path; // alvo do agendamento de scan
         OverviewPage.SetScanning(true);
         RescanButton.IsEnabled = false;
         Controls.Animate.FadeIn(ProgressPanel);

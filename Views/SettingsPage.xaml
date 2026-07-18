@@ -81,6 +81,13 @@
                                Text="{StaticResource St.DiskAlertThreshold}"/>
                     <ComboBox x:Name="DiskThresholdCombo" Style="{StaticResource DarkCombo}" Height="32"
                               SelectionChanged="Setting_Changed"/>
+                    <CheckBox x:Name="ScheduledScanSwitch" Style="{StaticResource Switch}" Margin="0,14,0,0"
+                              Content="{StaticResource St.ScheduledScan}" Checked="ScheduledScan_Changed"
+                              Unchecked="ScheduledScan_Changed"/>
+                    <TextBlock Style="{StaticResource MutedText}" Margin="0,6,0,0" TextWrapping="Wrap"
+                               Text="{StaticResource St.ScheduledScanNote}"/>
+                    <TextBlock x:Name="ScheduledScanHint" Style="{StaticResource MutedText}" Margin="0,4,0,0"
+                               TextWrapping="Wrap"/>
                 </StackPanel>
             </Border>
 

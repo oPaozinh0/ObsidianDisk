@@ -450,6 +450,9 @@
     <sys:String x:Key="St.ExplorerMenu">Zum Explorer-Menü hinzufügen</sys:String>
     <sys:String x:Key="St.ExplorerMenuNote">Fügt „Mit ObsidianDisk analysieren“ zum Rechtsklick auf Ordner und Laufwerke hinzu. Keine Administratorrechte nötig.</sys:String>
     <sys:String x:Key="St.ExplorerMenuLabel">Mit ObsidianDisk analysieren</sys:String>
+    <sys:String x:Key="St.ScheduledScan">Täglicher geplanter Scan</sys:String>
+    <sys:String x:Key="St.ScheduledScanNote">Erstellt eine tägliche Windows-Aufgabe, die den letzten Ordner scannt und einen HTML-Bericht in Dokumente\ObsidianDisk speichert. Läuft ohne die App zu öffnen.</sys:String>
+    <sys:String x:Key="St.ScheduledScanActive">Geplant: {0} (Bericht in Dokumente\ObsidianDisk).</sys:String>
     <sys:String x:Key="St.DiskAlert">Warnen, wenn die Festplatte voll wird</sys:String>
     <sys:String x:Key="St.DiskAlertNote">Zeigt eine Benachrichtigung, wenn die Nutzung den Schwellenwert überschreitet oder die Prognose ein baldiges Volllaufen anzeigt.</sys:String>
     <sys:String x:Key="St.DiskAlertThreshold">Warnschwelle</sys:String>

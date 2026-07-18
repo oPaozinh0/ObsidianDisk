@@ -450,6 +450,9 @@
     <sys:String x:Key="St.ExplorerMenu">Add to Explorer menu</sys:String>
     <sys:String x:Key="St.ExplorerMenuNote">Adds "Analyze with ObsidianDisk" when you right-click folders and drives. No administrator needed.</sys:String>
     <sys:String x:Key="St.ExplorerMenuLabel">Analyze with ObsidianDisk</sys:String>
+    <sys:String x:Key="St.ScheduledScan">Daily scheduled scan</sys:String>
+    <sys:String x:Key="St.ScheduledScanNote">Creates a daily Windows task that scans the last folder and saves an HTML report to Documents\ObsidianDisk. Runs without opening the app.</sys:String>
+    <sys:String x:Key="St.ScheduledScanActive">Scheduled: {0} (report in Documents\ObsidianDisk).</sys:String>
     <sys:String x:Key="St.DiskAlert">Alert when the disk fills up</sys:String>
     <sys:String x:Key="St.DiskAlertNote">Shows a notification when usage crosses the threshold or the projection says the drive will fill up soon.</sys:String>
     <sys:String x:Key="St.DiskAlertThreshold">Alert threshold</sys:String>

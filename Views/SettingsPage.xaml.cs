@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using ObsidianDisk.Services;
@@ -85,7 +86,45 @@ public partial class SettingsPage : UserControl
 
         // A integração com o Explorer vive no registro (HKCU), não em AppSettings.
         ExplorerMenuSwitch.IsChecked = ExplorerIntegration.IsRegistered();
+
+        // O scan agendado vive no Agendador do Windows, não em AppSettings.
+        ScheduledScanSwitch.IsChecked = ScheduledScan.IsRegistered();
         _loading = false;
+    }
+
+    /// <summary>Caminho do último scan — alvo do agendamento (definido pela MainWindow).</summary>
+    public string? SchedulableScanPath { get; set; }
+
+    private static string ScheduledReportPath => Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+        "ObsidianDisk", "obsidiandisk-report.html");
+
+    private void ScheduledScan_Changed(object sender, RoutedEventArgs e)
+    {
+        if (_loading) return;
+
+        bool wanted = ScheduledScanSwitch.IsChecked == true;
+        bool ok;
+        if (wanted)
+        {
+            string scanPath = !string.IsNullOrEmpty(SchedulableScanPath)
+                ? SchedulableScanPath!
+                : Path.GetPathRoot(Environment.SystemDirectory) ?? @"C:\";
+            ok = ScheduledScan.Register(scanPath, ScheduledReportPath);
+            ScheduledScanHint.Text = ok ? L.F("St.ScheduledScanActive", scanPath) : "";
+        }
+        else
+        {
+            ok = ScheduledScan.Unregister();
+            ScheduledScanHint.Text = "";
+        }
+
+        if (!ok)
+        {
+            _loading = true;
+            ScheduledScanSwitch.IsChecked = ScheduledScan.IsRegistered();
+            _loading = false;
+        }
     }
 
     private void ExplorerMenu_Changed(object sender, RoutedEventArgs e)
