@@ -292,11 +292,32 @@ public partial class MainWindow : Window
 
     private void OnKeyDown(object sender, KeyEventArgs e)
     {
+        // Backspace sobe um nível no mapa (exceto digitando num campo de texto)
         if (e.Key == Key.Back && MapPage.Visibility == Visibility.Visible &&
             Keyboard.FocusedElement is not TextBox)
         {
             if (MapPage.GoUp())
                 e.Handled = true;
+            return;
+        }
+
+        // F5: reescanear a última pasta (não cancela um scan em andamento)
+        if (e.Key == Key.F5)
+        {
+            if (_cts is null && _lastScanPath is not null)
+            {
+                StartOrCancelScan(_lastScanPath);
+                e.Handled = true;
+            }
+            return;
+        }
+
+        // Ctrl+F: ir para o mapa e focar a busca
+        if (e.Key == Key.F && Keyboard.Modifiers == ModifierKeys.Control)
+        {
+            NavMap.IsChecked = true;
+            MapPage.FocusSearch();
+            e.Handled = true;
         }
     }
 

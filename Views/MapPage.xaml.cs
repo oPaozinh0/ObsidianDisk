@@ -350,6 +350,13 @@ public partial class MapPage : UserControl
         SearchBox.Focus();
     }
 
+    /// <summary>Foca o campo de busca (usado pelo atalho Ctrl+F).</summary>
+    public void FocusSearch()
+    {
+        SearchBox.Focus();
+        SearchBox.SelectAll();
+    }
+
     // ---------------- Exportar imagem ----------------
 
     /// <summary>Salva a visão atual (mosaico ou lista) como PNG, na resolução nativa da tela.</summary>

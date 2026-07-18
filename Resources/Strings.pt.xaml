@@ -202,6 +202,7 @@
     <sys:String x:Key="Map.Guide">⌖ Onde foi parar?</sys:String>
     <sys:String x:Key="Map.GuideTip">Desce automaticamente até a pasta que mais consome espaço.</sys:String>
     <sys:String x:Key="Map.SearchHint">Buscar por nome…</sys:String>
+    <sys:String x:Key="Map.SearchClear">Limpar busca</sys:String>
     <sys:String x:Key="Map.ExportImage">Salvar PNG</sys:String>
     <sys:String x:Key="Map.ExportImageTip">Salva a visão atual do mapa como imagem PNG.</sys:String>
     <sys:String x:Key="Map.ExportImageTitle">Salvar mapa como PNG</sys:String>

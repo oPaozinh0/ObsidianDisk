@@ -202,6 +202,7 @@
     <sys:String x:Key="Map.Guide">⌖ Wohin ging es?</sys:String>
     <sys:String x:Key="Map.GuideTip">Springt automatisch zum Ordner, der den meisten Platz verbraucht.</sys:String>
     <sys:String x:Key="Map.SearchHint">Nach Namen suchen…</sys:String>
+    <sys:String x:Key="Map.SearchClear">Suche löschen</sys:String>
     <sys:String x:Key="Map.ExportImage">PNG speichern</sys:String>
     <sys:String x:Key="Map.ExportImageTip">Speichert die aktuelle Kartenansicht als PNG-Bild.</sys:String>
     <sys:String x:Key="Map.ExportImageTitle">Karte als PNG speichern</sys:String>
