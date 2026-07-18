@@ -82,7 +82,28 @@ public partial class SettingsPage : UserControl
         DiskAlertSwitch.IsChecked = settings.DiskFullAlert;
         int thIndex = Array.IndexOf(Thresholds, settings.DiskFullThresholdPercent);
         DiskThresholdCombo.SelectedIndex = thIndex >= 0 ? thIndex : Array.IndexOf(Thresholds, 90);
+
+        // A integração com o Explorer vive no registro (HKCU), não em AppSettings.
+        ExplorerMenuSwitch.IsChecked = ExplorerIntegration.IsRegistered();
         _loading = false;
+    }
+
+    private void ExplorerMenu_Changed(object sender, RoutedEventArgs e)
+    {
+        if (_loading) return;
+
+        bool wanted = ExplorerMenuSwitch.IsChecked == true;
+        bool ok = wanted
+            ? ExplorerIntegration.Register(L.T("St.ExplorerMenuLabel"))
+            : ExplorerIntegration.Unregister();
+
+        // Se o registro falhou, reflete o estado real de volta no switch
+        if (!ok)
+        {
+            _loading = true;
+            ExplorerMenuSwitch.IsChecked = ExplorerIntegration.IsRegistered();
+            _loading = false;
+        }
     }
 
     private void Setting_Changed(object sender, RoutedEventArgs e)

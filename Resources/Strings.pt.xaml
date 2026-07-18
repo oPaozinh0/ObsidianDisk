@@ -397,6 +397,9 @@
     <sys:String x:Key="St.SoftwareRenderNote">Corrige artefatos de texto (linhas ao redor das letras) em algumas placas de vídeo. Custa um pouco de desempenho.</sys:String>
     <sys:String x:Key="St.MinimizeToTray">Minimizar para a bandeja</sys:String>
     <sys:String x:Key="St.MinimizeToTrayNote">Ao minimizar, mantém o ObsidianDisk na bandeja do sistema em vez da barra de tarefas.</sys:String>
+    <sys:String x:Key="St.ExplorerMenu">Adicionar ao menu do Explorer</sys:String>
+    <sys:String x:Key="St.ExplorerMenuNote">Adiciona "Analisar com ObsidianDisk" ao clicar com o botão direito em pastas e unidades. Não exige administrador.</sys:String>
+    <sys:String x:Key="St.ExplorerMenuLabel">Analisar com ObsidianDisk</sys:String>
     <sys:String x:Key="St.DiskAlert">Alertar quando o disco encher</sys:String>
     <sys:String x:Key="St.DiskAlertNote">Mostra uma notificação quando o uso passa do limite ou quando a projeção indica que a unidade vai encher em breve.</sys:String>
     <sys:String x:Key="St.DiskAlertThreshold">Limite de alerta</sys:String>

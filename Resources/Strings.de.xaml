@@ -397,6 +397,9 @@
     <sys:String x:Key="St.SoftwareRenderNote">Behebt Textartefakte (Kästchen um Buchstaben) bei manchen Grafikkarten. Kostet etwas Leistung.</sys:String>
     <sys:String x:Key="St.MinimizeToTray">In den Infobereich minimieren</sys:String>
     <sys:String x:Key="St.MinimizeToTrayNote">Behält ObsidianDisk beim Minimieren im Infobereich statt in der Taskleiste.</sys:String>
+    <sys:String x:Key="St.ExplorerMenu">Zum Explorer-Menü hinzufügen</sys:String>
+    <sys:String x:Key="St.ExplorerMenuNote">Fügt „Mit ObsidianDisk analysieren“ zum Rechtsklick auf Ordner und Laufwerke hinzu. Keine Administratorrechte nötig.</sys:String>
+    <sys:String x:Key="St.ExplorerMenuLabel">Mit ObsidianDisk analysieren</sys:String>
     <sys:String x:Key="St.DiskAlert">Warnen, wenn die Festplatte voll wird</sys:String>
     <sys:String x:Key="St.DiskAlertNote">Zeigt eine Benachrichtigung, wenn die Nutzung den Schwellenwert überschreitet oder die Prognose ein baldiges Volllaufen anzeigt.</sys:String>
     <sys:String x:Key="St.DiskAlertThreshold">Warnschwelle</sys:String>
