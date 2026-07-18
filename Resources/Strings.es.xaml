@@ -138,6 +138,7 @@
     <sys:String x:Key="Map.Up">↑ Arriba</sys:String>
     <sys:String x:Key="Map.Guide">⌖ ¿A dónde fue?</sys:String>
     <sys:String x:Key="Map.GuideTip">Baja automáticamente hasta la carpeta que más espacio consume.</sys:String>
+    <sys:String x:Key="Map.SearchHint">Buscar por nombre…</sys:String>
     <sys:String x:Key="Map.OldFiles">Antiguos (1 año+)</sys:String>
     <sys:String x:Key="Map.AllCategories">Todas las categorías</sys:String>
     <sys:String x:Key="Map.EmptyTitle">Analice un disco en Resumen para ver el mapa</sys:String>

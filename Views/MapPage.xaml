@@ -18,6 +18,21 @@
                     Content="{StaticResource Map.Guide}" IsEnabled="False"
                     ToolTip="{StaticResource Map.GuideTip}"/>
 
+            <!-- Busca instantânea: filtra a árvore já escaneada por nome -->
+            <Grid DockPanel.Dock="Left" Width="210" Height="32" Margin="10,0,0,0" VerticalAlignment="Center">
+                <TextBox x:Name="SearchBox" Style="{StaticResource DarkTextBox}" Padding="30,0,26,0"
+                         TextChanged="Search_Changed" ToolTip="{StaticResource Map.SearchHint}"/>
+                <Path Data="M 7 7 m -5 0 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 11 11 L 15 15"
+                      Stroke="{DynamicResource Muted}" StrokeThickness="1.4" Width="15" Height="15" Stretch="Uniform"
+                      HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                <TextBlock x:Name="SearchPlaceholder" Text="{StaticResource Map.SearchHint}" IsHitTestVisible="False"
+                           Foreground="{DynamicResource Muted}" FontSize="12.5" Opacity="0.65"
+                           Margin="30,0,0,0" VerticalAlignment="Center"/>
+                <controls:ObsidianButton x:Name="SearchClear" Variant="Ghost" Content="✕" FontSize="11"
+                        Padding="0" Width="20" Height="20" HorizontalAlignment="Right" Margin="0,0,4,0"
+                        VerticalAlignment="Center" Visibility="Collapsed" Click="SearchClear_Click"/>
+            </Grid>
+
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
                 <controls:ObsidianButton x:Name="TreemapViewButton" Variant="Primary" Height="32"
                         Padding="12,4" Click="ViewTreemap_Click" Content="{StaticResource Map.ViewTreemap}"/>

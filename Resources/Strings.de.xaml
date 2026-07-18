@@ -138,6 +138,7 @@
     <sys:String x:Key="Map.Up">↑ Nach oben</sys:String>
     <sys:String x:Key="Map.Guide">⌖ Wohin ging es?</sys:String>
     <sys:String x:Key="Map.GuideTip">Springt automatisch zum Ordner, der den meisten Platz verbraucht.</sys:String>
+    <sys:String x:Key="Map.SearchHint">Nach Namen suchen…</sys:String>
     <sys:String x:Key="Map.OldFiles">Alt (1 Jahr+)</sys:String>
     <sys:String x:Key="Map.AllCategories">Alle Kategorien</sys:String>
     <sys:String x:Key="Map.EmptyTitle">Analysieren Sie eine Festplatte in der Übersicht, um die Karte zu sehen</sys:String>

@@ -54,6 +54,7 @@ public sealed class TreemapControl : FrameworkElement
     private static readonly Brush FileText = Frozen(new SolidColorBrush(Color.FromArgb(0xE0, 0xFF, 0xFF, 0xFF)));
     private static readonly Pen HoverPen = FrozenPen(Color.FromRgb(0xA8, 0x8B, 0xFF), 2);
     private static readonly Pen SelectedPen = FrozenPen(Color.FromRgb(0xE5, 0xC0, 0x7B), 2);
+    private static readonly Pen SearchPen = FrozenPen(Color.FromRgb(0xFF, 0xC1, 0x07), 2.5); // âmbar: acertos da busca
 
     private static Brush[] DirFills = null!;
     private static Pen[] DirBorders = null!;
@@ -241,6 +242,7 @@ public sealed class TreemapControl : FrameworkElement
             _root = value;
             _hovered = null;
             _selected = null;
+            RecomputeSearch(); // a busca é relativa à visão atual
             Refresh();
         }
     }
@@ -248,6 +250,53 @@ public sealed class TreemapControl : FrameworkElement
     private Services.FileCategory? _categoryFilter;
     private bool _highlightOld;
     private DateTime _oldThresholdUtc;
+
+    // ---- Busca ("onde está?") ----
+    private string _searchQuery = "";
+    private readonly HashSet<FileSystemNode> _searchMatches = new();   // nome bate diretamente
+    private readonly HashSet<FileSystemNode> _searchRelevant = new();  // bate ou é ancestral de um acerto
+
+    /// <summary>Termo de busca por nome (subcadeia, sem acento-sensível). Vazio = sem filtro.</summary>
+    public string SearchQuery
+    {
+        get => _searchQuery;
+        set
+        {
+            var q = value?.Trim() ?? "";
+            if (string.Equals(q, _searchQuery, StringComparison.Ordinal)) return;
+            _searchQuery = q;
+            RecomputeSearch();
+            Refresh();
+        }
+    }
+
+    /// <summary>True se o nó deve aparecer na busca atual (ele ou algum descendente bate).</summary>
+    public bool IsRelevantToSearch(FileSystemNode node) =>
+        _searchQuery.Length == 0 || _searchRelevant.Contains(node);
+
+    /// <summary>Recalcula os conjuntos de acertos/relevantes a partir da visão atual.</summary>
+    private void RecomputeSearch()
+    {
+        _searchMatches.Clear();
+        _searchRelevant.Clear();
+        if (_root is null || _searchQuery.Length == 0) return;
+
+        bool Walk(FileSystemNode n)
+        {
+            bool selfMatch = n.Name.Contains(_searchQuery, StringComparison.OrdinalIgnoreCase);
+            bool subtreeMatch = false;
+            // snapshot indexado: seguro mesmo se o scan ainda estiver anexando filhos
+            var children = n.Children;
+            for (int i = 0; i < children.Count; i++)
+                if (Walk(children[i])) subtreeMatch = true;
+
+            if (selfMatch) _searchMatches.Add(n);
+            if (selfMatch || subtreeMatch) { _searchRelevant.Add(n); return true; }
+            return false;
+        }
+
+        Walk(_root);
+    }
 
     /// <summary>Se definido, arquivos de outras categorias são atenuados.</summary>
     public Services.FileCategory? CategoryFilter
@@ -431,6 +480,23 @@ public sealed class TreemapControl : FrameworkElement
         dc.DrawRoundedRectangle(fill, border, Snap(rect), CornerRadius, CornerRadius);
         _displayRects.Add(new DisplayRect(node, rect, depth));
 
+        // Busca ativa: ramos sem nenhum acerto são atenuados por inteiro (não recursa neles).
+        bool searchActive = _searchQuery.Length > 0;
+        if (searchActive && !_searchRelevant.Contains(node))
+        {
+            if (node.IsDirectory)
+            {
+                if (rect.Height >= HeaderHeight + 14 && rect.Width >= 44)
+                    DrawLabel(dc, $"{node.Name}  ·  {FileSystemNode.FormatSize(node.Size)}", rect, isHeader: true);
+            }
+            else if (rect.Width >= 44 && rect.Height >= 24)
+            {
+                DrawCenteredLabel(dc, node.Name, FileSystemNode.FormatSize(node.Size), rect);
+            }
+            dc.DrawRoundedRectangle(DimOverlay, null, Snap(rect), CornerRadius, CornerRadius);
+            return;
+        }
+
         if (node.IsDirectory)
         {
             bool drawHeader = rect.Height >= HeaderHeight + 14 && rect.Width >= 44;
@@ -454,10 +520,14 @@ public sealed class TreemapControl : FrameworkElement
                 DrawCenteredLabel(dc, node.Name, FileSystemNode.FormatSize(node.Size), rect);
             }
 
-            // Filtro/realce: atenua o que não interessa
-            if (IsDimmed(node))
+            // Filtro/realce: atenua o que não interessa (categoria/idade). Ignorado durante a busca.
+            if (!searchActive && IsDimmed(node))
                 dc.DrawRoundedRectangle(DimOverlay, null, Snap(rect), CornerRadius, CornerRadius);
         }
+
+        // Acerto direto da busca: contorno âmbar por cima dos filhos já desenhados
+        if (searchActive && _searchMatches.Contains(node))
+            dc.DrawRoundedRectangle(null, SearchPen, Snap(rect), CornerRadius, CornerRadius);
     }
 
     private void DrawLabel(DrawingContext dc, string text, Rect rect, bool isHeader)

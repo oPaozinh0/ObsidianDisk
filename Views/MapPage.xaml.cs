@@ -249,7 +249,9 @@ public partial class MapPage : UserControl
         if (_viewRoot is null) return;
 
         long total = Math.Max(1, _viewRoot.Size);
-        var children = _viewRoot.Children.Where(c => c.Size > 0).OrderByDescending(c => c.Size).ToList();
+        var children = _viewRoot.Children
+            .Where(c => c.Size > 0 && Treemap.IsRelevantToSearch(c))
+            .OrderByDescending(c => c.Size).ToList();
 
         foreach (var node in children)
         {
@@ -302,6 +304,26 @@ public partial class MapPage : UserControl
 
         Treemap.CategoryFilter = (CategoryCombo.SelectedItem as ComboBoxItem)?.Tag as FileCategory?;
         Treemap.HighlightOld = OldFilesSwitch.IsChecked == true;
+    }
+
+    // ---------------- Busca ----------------
+
+    private void Search_Changed(object sender, TextChangedEventArgs e)
+    {
+        if (Treemap is null) return; // inicialização
+
+        string query = SearchBox.Text;
+        SearchPlaceholder.Visibility = query.Length == 0 ? Visibility.Visible : Visibility.Collapsed;
+        SearchClear.Visibility = query.Length == 0 ? Visibility.Collapsed : Visibility.Visible;
+
+        Treemap.SearchQuery = query;
+        if (_listMode) BuildList();
+    }
+
+    private void SearchClear_Click(object sender, RoutedEventArgs e)
+    {
+        SearchBox.Clear();
+        SearchBox.Focus();
     }
 
     // ---------------- Tooltip flutuante ----------------

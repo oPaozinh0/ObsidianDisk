@@ -138,6 +138,7 @@
     <sys:String x:Key="Map.Up">↑ Up</sys:String>
     <sys:String x:Key="Map.Guide">⌖ Where did it go?</sys:String>
     <sys:String x:Key="Map.GuideTip">Automatically drills down to the folder eating the most space.</sys:String>
+    <sys:String x:Key="Map.SearchHint">Search by name…</sys:String>
     <sys:String x:Key="Map.OldFiles">Old (1 year+)</sys:String>
     <sys:String x:Key="Map.AllCategories">All categories</sys:String>
     <sys:String x:Key="Map.EmptyTitle">Scan a disk in Overview to see the map</sys:String>
