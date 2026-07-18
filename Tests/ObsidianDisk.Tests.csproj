@@ -30,6 +30,7 @@
     <Compile Include="..\Services\RecycleBin.cs" Link="Linked\RecycleBin.cs" />
     <Compile Include="..\Services\SnapshotStore.cs" Link="Linked\SnapshotStore.cs" />
     <Compile Include="..\Services\DiskForecaster.cs" Link="Linked\DiskForecaster.cs" />
+    <Compile Include="..\Services\QuarantineStore.cs" Link="Linked\QuarantineStore.cs" />
   </ItemGroup>
 
 </Project>

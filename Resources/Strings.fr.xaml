@@ -39,6 +39,27 @@
     <sys:String x:Key="Goal.ReasonOldFolder">Ancien dossier</sys:String>
     <sys:String x:Key="Goal.ReasonOldFile">Ancien fichier</sys:String>
     <sys:String x:Key="Nav.History">Historique</sys:String>
+    <sys:String x:Key="Nav.Quarantine">Quarantaine</sys:String>
+    <sys:String x:Key="Qt.Title">Quarantaine</sys:String>
+    <sys:String x:Key="Qt.Desc">Corbeille interne d'ObsidianDisk. Les éléments supprimés y restent {0} jours avant d'être définitivement effacés — restaurez-les ou supprimez-les maintenant.</sys:String>
+    <sys:String x:Key="Qt.Empty">Vide</sys:String>
+    <sys:String x:Key="Qt.Found">{0} éléments · {1}</sys:String>
+    <sys:String x:Key="Qt.ColName">Nom</sys:String>
+    <sys:String x:Key="Qt.ColOrigin">Emplacement d'origine</sys:String>
+    <sys:String x:Key="Qt.ColDeleted">Supprimé le</sys:String>
+    <sys:String x:Key="Qt.ColRemaining">Expire dans</sys:String>
+    <sys:String x:Key="Qt.Restore">Restaurer</sys:String>
+    <sys:String x:Key="Qt.Purge">Supprimer</sys:String>
+    <sys:String x:Key="Qt.EmptyAll">Tout vider</sys:String>
+    <sys:String x:Key="Qt.RemainingDays">{0} jours</sys:String>
+    <sys:String x:Key="Qt.Expiring">Aujourd'hui</sys:String>
+    <sys:String x:Key="Qt.PurgeTitle">Supprimer de la quarantaine</sys:String>
+    <sys:String x:Key="Qt.PurgeMsg">Supprimer définitivement {0} élément(s) ? Ils ne pourront pas être restaurés.</sys:String>
+    <sys:String x:Key="Qt.EmptyAllTitle">Vider la quarantaine</sys:String>
+    <sys:String x:Key="Qt.EmptyAllMsg">Supprimer définitivement les {0} élément(s) en quarantaine ? Ils ne pourront pas être restaurés.</sys:String>
+    <sys:String x:Key="St.Quarantine">Utiliser la quarantaine interne</sys:String>
+    <sys:String x:Key="St.QuarantineNote">Lors de la suppression, déplacer vers la quarantaine d'ObsidianDisk (conservée 30 jours) plutôt que la Corbeille de Windows.</sys:String>
+    <sys:String x:Key="Del.SuffixQuarantine">en quarantaine</sys:String>
     <sys:String x:Key="Nav.Settings">Paramètres</sys:String>
 
     <!-- Règles automatiques -->

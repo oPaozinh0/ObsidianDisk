@@ -39,6 +39,27 @@
     <sys:String x:Key="Goal.ReasonOldFolder">Alter Ordner</sys:String>
     <sys:String x:Key="Goal.ReasonOldFile">Alte Datei</sys:String>
     <sys:String x:Key="Nav.History">Verlauf</sys:String>
+    <sys:String x:Key="Nav.Quarantine">Quarantäne</sys:String>
+    <sys:String x:Key="Qt.Title">Quarantäne</sys:String>
+    <sys:String x:Key="Qt.Desc">Interner Papierkorb von ObsidianDisk. Gelöschte Elemente bleiben {0} Tage hier, bevor sie endgültig entfernt werden — stelle sie wieder her oder lösche sie jetzt.</sys:String>
+    <sys:String x:Key="Qt.Empty">Leer</sys:String>
+    <sys:String x:Key="Qt.Found">{0} Elemente · {1}</sys:String>
+    <sys:String x:Key="Qt.ColName">Name</sys:String>
+    <sys:String x:Key="Qt.ColOrigin">Ursprünglicher Ort</sys:String>
+    <sys:String x:Key="Qt.ColDeleted">Gelöscht am</sys:String>
+    <sys:String x:Key="Qt.ColRemaining">Läuft ab in</sys:String>
+    <sys:String x:Key="Qt.Restore">Wiederherstellen</sys:String>
+    <sys:String x:Key="Qt.Purge">Löschen</sys:String>
+    <sys:String x:Key="Qt.EmptyAll">Alle leeren</sys:String>
+    <sys:String x:Key="Qt.RemainingDays">{0} Tage</sys:String>
+    <sys:String x:Key="Qt.Expiring">Heute</sys:String>
+    <sys:String x:Key="Qt.PurgeTitle">Aus Quarantäne löschen</sys:String>
+    <sys:String x:Key="Qt.PurgeMsg">{0} Element(e) endgültig löschen? Sie können danach nicht wiederhergestellt werden.</sys:String>
+    <sys:String x:Key="Qt.EmptyAllTitle">Quarantäne leeren</sys:String>
+    <sys:String x:Key="Qt.EmptyAllMsg">Alle {0} Element(e) in Quarantäne endgültig löschen? Sie können danach nicht wiederhergestellt werden.</sys:String>
+    <sys:String x:Key="St.Quarantine">Interne Quarantäne verwenden</sys:String>
+    <sys:String x:Key="St.QuarantineNote">Beim Löschen in die ObsidianDisk-Quarantäne verschieben (30 Tage aufbewahrt) statt in den Windows-Papierkorb.</sys:String>
+    <sys:String x:Key="Del.SuffixQuarantine">in die Quarantäne</sys:String>
     <sys:String x:Key="Nav.Settings">Einstellungen</sys:String>
 
     <!-- Automatische Regeln -->

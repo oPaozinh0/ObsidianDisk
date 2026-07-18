@@ -39,6 +39,27 @@
     <sys:String x:Key="Goal.ReasonOldFolder">Carpeta antigua</sys:String>
     <sys:String x:Key="Goal.ReasonOldFile">Archivo antiguo</sys:String>
     <sys:String x:Key="Nav.History">Historial</sys:String>
+    <sys:String x:Key="Nav.Quarantine">Cuarentena</sys:String>
+    <sys:String x:Key="Qt.Title">Cuarentena</sys:String>
+    <sys:String x:Key="Qt.Desc">Papelera interna de ObsidianDisk. Los elementos eliminados permanecen aquí {0} días antes de borrarse definitivamente — restáuralos o bórralos ahora.</sys:String>
+    <sys:String x:Key="Qt.Empty">Vacía</sys:String>
+    <sys:String x:Key="Qt.Found">{0} elementos · {1}</sys:String>
+    <sys:String x:Key="Qt.ColName">Nombre</sys:String>
+    <sys:String x:Key="Qt.ColOrigin">Ubicación original</sys:String>
+    <sys:String x:Key="Qt.ColDeleted">Eliminado el</sys:String>
+    <sys:String x:Key="Qt.ColRemaining">Expira en</sys:String>
+    <sys:String x:Key="Qt.Restore">Restaurar</sys:String>
+    <sys:String x:Key="Qt.Purge">Borrar</sys:String>
+    <sys:String x:Key="Qt.EmptyAll">Vaciar todo</sys:String>
+    <sys:String x:Key="Qt.RemainingDays">{0} días</sys:String>
+    <sys:String x:Key="Qt.Expiring">Hoy</sys:String>
+    <sys:String x:Key="Qt.PurgeTitle">Borrar de la cuarentena</sys:String>
+    <sys:String x:Key="Qt.PurgeMsg">¿Borrar {0} elemento(s) definitivamente? No se pueden restaurar después.</sys:String>
+    <sys:String x:Key="Qt.EmptyAllTitle">Vaciar la cuarentena</sys:String>
+    <sys:String x:Key="Qt.EmptyAllMsg">¿Borrar definitivamente los {0} elemento(s) en cuarentena? No se pueden restaurar después.</sys:String>
+    <sys:String x:Key="St.Quarantine">Usar cuarentena interna</sys:String>
+    <sys:String x:Key="St.QuarantineNote">Al eliminar, mover a la cuarentena de ObsidianDisk (retenida 30 días) en vez de la Papelera de Windows.</sys:String>
+    <sys:String x:Key="Del.SuffixQuarantine">a la cuarentena</sys:String>
     <sys:String x:Key="Nav.Settings">Configuración</sys:String>
 
     <!-- Reglas automáticas -->

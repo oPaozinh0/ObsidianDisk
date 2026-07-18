@@ -15,6 +15,7 @@ public sealed class AppSettings
     public bool MinimizeToTray { get; set; } // minimizar esconde na bandeja em vez da barra de tarefas
     public bool DiskFullAlert { get; set; } = true;   // notificar quando o disco cruza o limite / projeção
     public int DiskFullThresholdPercent { get; set; } = 90;
+    public bool UseQuarantine { get; set; } // "excluir" move para a quarentena interna em vez da Lixeira do Windows
 }
 
 public sealed record ScanRecord(DateTime Timestamp, string Path, long TotalBytes, long FileCount);

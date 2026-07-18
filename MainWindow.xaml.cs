@@ -33,6 +33,9 @@ public partial class MainWindow : Window
 
         _settings = AppStorage.LoadSettings();
         SettingsPage.Load(_settings);
+
+        // Limpa itens da quarentena além da retenção (em segundo plano, não trava a abertura)
+        Task.Run(() => QuarantineStore.PurgeExpired());
         SettingsPage.SettingsChanged += s =>
         {
             _settings = s;
@@ -122,13 +125,13 @@ public partial class MainWindow : Window
 
     // ---------------- Desfazer exclusão ----------------
 
-    /// <summary>Caminhos enviados à Lixeira nesta sessão (só eles podem voltar).</summary>
-    private readonly Stack<List<string>> _undoStack = new();
+    /// <summary>Lotes removidos nesta sessão que podem voltar (Lixeira do Windows ou quarentena).</summary>
+    private readonly Stack<(bool Quarantine, List<string> Paths)> _undoStack = new();
 
-    private void PushUndo(List<string> paths)
+    private void PushUndo(List<string> paths, bool quarantine)
     {
         if (paths.Count == 0) return;
-        _undoStack.Push(paths);
+        _undoStack.Push((quarantine, paths));
         if (UndoButton.Visibility != Visibility.Visible)
             Controls.Animate.FadeIn(UndoButton);
         UndoButton.ToolTip = L.F("Undo.Tooltip", paths.Count == 1
@@ -140,8 +143,10 @@ public partial class MainWindow : Window
     {
         if (_undoStack.Count == 0) return;
 
-        var paths = _undoStack.Pop();
-        int restored = paths.Count(FileDeletion.RestoreFromRecycleBin);
+        var (quarantine, paths) = _undoStack.Pop();
+        int restored = paths.Count(p => quarantine
+            ? QuarantineStore.RestoreByOriginalPath(p)
+            : FileDeletion.RestoreFromRecycleBin(p));
 
         if (_undoStack.Count == 0)
             Controls.Animate.FadeOut(UndoButton);
@@ -266,16 +271,19 @@ public partial class MainWindow : Window
         GoalPage.Visibility = ReferenceEquals(sender, NavGoal) ? Visibility.Visible : Visibility.Collapsed;
         RulesPage.Visibility = ReferenceEquals(sender, NavRules) ? Visibility.Visible : Visibility.Collapsed;
         HistoryPage.Visibility = ReferenceEquals(sender, NavHistory) ? Visibility.Visible : Visibility.Collapsed;
+        QuarantinePage.Visibility = ReferenceEquals(sender, NavQuarantine) ? Visibility.Visible : Visibility.Collapsed;
         SettingsPage.Visibility = ReferenceEquals(sender, NavSettings) ? Visibility.Visible : Visibility.Collapsed;
 
         // Anima a página que acabou de aparecer
         foreach (FrameworkElement page in new FrameworkElement[]
-                 { OverviewPage, MapPage, ComparePage, LargeFilesPage, DuplicatesPage, DiscoveriesPage, CleanupPage, GoalPage, RulesPage, HistoryPage, SettingsPage })
+                 { OverviewPage, MapPage, ComparePage, LargeFilesPage, DuplicatesPage, DiscoveriesPage, CleanupPage, GoalPage, RulesPage, HistoryPage, QuarantinePage, SettingsPage })
             if (page.Visibility == Visibility.Visible)
                 Controls.Animate.PageIn(page);
 
         if (ReferenceEquals(sender, NavHistory))
             HistoryPage.Reload();
+        if (ReferenceEquals(sender, NavQuarantine))
+            QuarantinePage.Reload();
         if (ReferenceEquals(sender, NavCleanup))
             CleanupPage.EnsureMeasured(); // mede os tamanhos na primeira visita
         if (ReferenceEquals(sender, NavOverview) && _scanRoot is not null)
@@ -688,14 +696,16 @@ public partial class MainWindow : Window
                 return;
         }
 
+        bool useQuarantine = !permanent && _settings.UseQuarantine;
+
         int okCount = 0;
         long freedBytes = 0;
         var undoPaths = new List<string>();
         foreach (var node in nodes)
         {
-            bool ok = permanent
-                ? FileDeletion.Permanently(node.FullPath)
-                : FileDeletion.ToRecycleBin(node.FullPath);
+            bool ok = permanent ? FileDeletion.Permanently(node.FullPath)
+                    : useQuarantine ? QuarantineStore.Quarantine(node.FullPath, node.Size)
+                    : FileDeletion.ToRecycleBin(node.FullPath);
             if (!ok) continue;
 
             okCount++;
@@ -717,13 +727,15 @@ public partial class MainWindow : Window
                 _hoveredNode = null;
         }
 
+        string suffix = permanent ? L.T("Del.SuffixPermanent")
+                      : useQuarantine ? L.T("Del.SuffixQuarantine")
+                      : L.T("Del.SuffixRecycle");
         if (okCount == nodes.Count)
-            SetStatus(L.F("Del.DoneOk", okCount, FileSystemNode.FormatSize(freedBytes),
-                permanent ? L.T("Del.SuffixPermanent") : L.T("Del.SuffixRecycle")));
+            SetStatus(L.F("Del.DoneOk", okCount, FileSystemNode.FormatSize(freedBytes), suffix));
         else
             SetStatus(L.F("Del.DonePartial", okCount, nodes.Count, FileSystemNode.FormatSize(freedBytes)));
 
-        PushUndo(undoPaths); // exclusão permanente não entra: não há como voltar
+        PushUndo(undoPaths, useQuarantine); // exclusão permanente não entra: não há como voltar
         RefreshAllPages();
     }
 }

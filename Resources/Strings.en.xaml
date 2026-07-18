@@ -39,6 +39,27 @@
     <sys:String x:Key="Goal.ReasonOldFolder">Old folder</sys:String>
     <sys:String x:Key="Goal.ReasonOldFile">Old file</sys:String>
     <sys:String x:Key="Nav.History">History</sys:String>
+    <sys:String x:Key="Nav.Quarantine">Quarantine</sys:String>
+    <sys:String x:Key="Qt.Title">Quarantine</sys:String>
+    <sys:String x:Key="Qt.Desc">ObsidianDisk's internal recycle bin. Deleted items stay here for {0} days before being purged for good — restore or delete them now.</sys:String>
+    <sys:String x:Key="Qt.Empty">Empty</sys:String>
+    <sys:String x:Key="Qt.Found">{0} items · {1}</sys:String>
+    <sys:String x:Key="Qt.ColName">Name</sys:String>
+    <sys:String x:Key="Qt.ColOrigin">Original location</sys:String>
+    <sys:String x:Key="Qt.ColDeleted">Deleted on</sys:String>
+    <sys:String x:Key="Qt.ColRemaining">Expires in</sys:String>
+    <sys:String x:Key="Qt.Restore">Restore</sys:String>
+    <sys:String x:Key="Qt.Purge">Delete</sys:String>
+    <sys:String x:Key="Qt.EmptyAll">Empty all</sys:String>
+    <sys:String x:Key="Qt.RemainingDays">{0} days</sys:String>
+    <sys:String x:Key="Qt.Expiring">Today</sys:String>
+    <sys:String x:Key="Qt.PurgeTitle">Delete from quarantine</sys:String>
+    <sys:String x:Key="Qt.PurgeMsg">Delete {0} item(s) for good? They can't be restored afterwards.</sys:String>
+    <sys:String x:Key="Qt.EmptyAllTitle">Empty the quarantine</sys:String>
+    <sys:String x:Key="Qt.EmptyAllMsg">Permanently delete all {0} quarantined item(s)? They can't be restored afterwards.</sys:String>
+    <sys:String x:Key="St.Quarantine">Use internal quarantine</sys:String>
+    <sys:String x:Key="St.QuarantineNote">When deleting, move to ObsidianDisk's quarantine (kept for 30 days) instead of the Windows Recycle Bin.</sys:String>
+    <sys:String x:Key="Del.SuffixQuarantine">to quarantine</sys:String>
     <sys:String x:Key="Nav.Settings">Settings</sys:String>
 
     <!-- Automatic rules -->

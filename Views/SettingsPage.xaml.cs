@@ -66,6 +66,7 @@ public partial class SettingsPage : UserControl
         _loading = true;
         _settings = settings;
         ConfirmDeleteSwitch.IsChecked = settings.ConfirmDelete;
+        QuarantineSwitch.IsChecked = settings.UseQuarantine;
         LiveMonitoringSwitch.IsChecked = settings.LiveMonitoring;
 
         int index = Array.FindIndex(MinSizes, m => m.Bytes == settings.LargeFileMinBytes);
@@ -150,6 +151,7 @@ public partial class SettingsPage : UserControl
         if (_loading) return;
 
         _settings.ConfirmDelete = ConfirmDeleteSwitch.IsChecked == true;
+        _settings.UseQuarantine = QuarantineSwitch.IsChecked == true;
         _settings.LiveMonitoring = LiveMonitoringSwitch.IsChecked == true;
         _settings.MinimizeToTray = MinimizeToTraySwitch.IsChecked == true;
         _settings.DiskFullAlert = DiskAlertSwitch.IsChecked == true;

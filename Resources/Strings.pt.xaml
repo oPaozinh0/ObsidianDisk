@@ -39,6 +39,27 @@
     <sys:String x:Key="Goal.ReasonOldFolder">Pasta antiga</sys:String>
     <sys:String x:Key="Goal.ReasonOldFile">Arquivo antigo</sys:String>
     <sys:String x:Key="Nav.History">Histórico</sys:String>
+    <sys:String x:Key="Nav.Quarantine">Quarentena</sys:String>
+    <sys:String x:Key="Qt.Title">Quarentena</sys:String>
+    <sys:String x:Key="Qt.Desc">Lixeira interna do ObsidianDisk. Itens excluídos ficam aqui por {0} dias antes de serem apagados de vez — restaure ou apague na hora.</sys:String>
+    <sys:String x:Key="Qt.Empty">Vazia</sys:String>
+    <sys:String x:Key="Qt.Found">{0} itens · {1}</sys:String>
+    <sys:String x:Key="Qt.ColName">Nome</sys:String>
+    <sys:String x:Key="Qt.ColOrigin">Local original</sys:String>
+    <sys:String x:Key="Qt.ColDeleted">Excluído em</sys:String>
+    <sys:String x:Key="Qt.ColRemaining">Expira em</sys:String>
+    <sys:String x:Key="Qt.Restore">Restaurar</sys:String>
+    <sys:String x:Key="Qt.Purge">Apagar</sys:String>
+    <sys:String x:Key="Qt.EmptyAll">Esvaziar tudo</sys:String>
+    <sys:String x:Key="Qt.RemainingDays">{0} dias</sys:String>
+    <sys:String x:Key="Qt.Expiring">Hoje</sys:String>
+    <sys:String x:Key="Qt.PurgeTitle">Apagar da quarentena</sys:String>
+    <sys:String x:Key="Qt.PurgeMsg">Apagar {0} item(ns) de vez? Não há como restaurar depois.</sys:String>
+    <sys:String x:Key="Qt.EmptyAllTitle">Esvaziar a quarentena</sys:String>
+    <sys:String x:Key="Qt.EmptyAllMsg">Apagar de vez todos os {0} item(ns) da quarentena? Não há como restaurar depois.</sys:String>
+    <sys:String x:Key="St.Quarantine">Usar quarentena interna</sys:String>
+    <sys:String x:Key="St.QuarantineNote">Ao excluir, mover para a quarentena do ObsidianDisk (retida por 30 dias) em vez da Lixeira do Windows.</sys:String>
+    <sys:String x:Key="Del.SuffixQuarantine">para a quarentena</sys:String>
     <sys:String x:Key="Nav.Settings">Configurações</sys:String>
 
     <!-- Regras automáticas -->

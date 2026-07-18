@@ -103,6 +103,8 @@
                                          Content="{StaticResource Nav.Rules}" Checked="Nav_Checked"/>
                             <RadioButton x:Name="NavHistory" Style="{StaticResource NavButton}" Tag="&#xE81C;"
                                          Content="{StaticResource Nav.History}" Checked="Nav_Checked"/>
+                            <RadioButton x:Name="NavQuarantine" Style="{StaticResource NavButton}" Tag="&#xE7B8;"
+                                         Content="{StaticResource Nav.Quarantine}" Checked="Nav_Checked"/>
                             <RadioButton x:Name="NavSettings" Style="{StaticResource NavButton}" Tag="&#xE713;"
                                          Content="{StaticResource Nav.Settings}" Checked="Nav_Checked"/>
                         </StackPanel>
@@ -128,6 +130,7 @@
                     <views:GoalPage x:Name="GoalPage" Visibility="Collapsed"/>
                     <views:RulesPage x:Name="RulesPage" Visibility="Collapsed"/>
                     <views:HistoryPage x:Name="HistoryPage" Visibility="Collapsed"/>
+                    <views:QuarantinePage x:Name="QuarantinePage" Visibility="Collapsed"/>
                     <views:SettingsPage x:Name="SettingsPage" Visibility="Collapsed"/>
                 </Grid>
             </Grid>
