@@ -1,7 +1,9 @@
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ObsidianDisk.Models;
 using ObsidianDisk.Services;
@@ -346,6 +348,53 @@ public partial class MapPage : UserControl
     {
         SearchBox.Clear();
         SearchBox.Focus();
+    }
+
+    // ---------------- Exportar imagem ----------------
+
+    /// <summary>Salva a visão atual (mosaico ou lista) como PNG, na resolução nativa da tela.</summary>
+    private void ExportImage_Click(object sender, RoutedEventArgs e)
+    {
+        FrameworkElement target = _listMode ? ItemsList : Treemap;
+        if (target.ActualWidth < 4 || target.ActualHeight < 4) return;
+
+        var dialog = new Microsoft.Win32.SaveFileDialog
+        {
+            Title = L.T("Map.ExportImageTitle"),
+            FileName = $"obsidiandisk-mapa-{DateTime.Now:yyyyMMdd}.png",
+            Filter = "PNG (*.png)|*.png",
+        };
+        if (dialog.ShowDialog(Window.GetWindow(this)) != true) return;
+
+        var dpi = VisualTreeHelper.GetDpi(target);
+        int pw = (int)Math.Ceiling(target.ActualWidth * dpi.DpiScaleX);
+        int ph = (int)Math.Ceiling(target.ActualHeight * dpi.DpiScaleY);
+
+        var rtb = new RenderTargetBitmap(pw, ph, dpi.PixelsPerInchX, dpi.PixelsPerInchY, PixelFormats.Pbgra32);
+
+        // Fundo opaco (o mosaico é transparente nas bordas): usa a cor do painel do tema
+        var background = (FindResource("Panel") as SolidColorBrush)?.Color ?? Colors.Black;
+        var visual = new DrawingVisual();
+        using (var dc = visual.RenderOpen())
+        {
+            dc.DrawRectangle(new SolidColorBrush(background), null,
+                new Rect(0, 0, target.ActualWidth, target.ActualHeight));
+            dc.DrawRectangle(new VisualBrush(target), null,
+                new Rect(0, 0, target.ActualWidth, target.ActualHeight));
+        }
+        rtb.Render(visual);
+
+        var encoder = new PngBitmapEncoder();
+        encoder.Frames.Add(BitmapFrame.Create(rtb));
+        using (var fs = File.Create(dialog.FileName))
+            encoder.Save(fs);
+
+        try
+        {
+            System.Diagnostics.Process.Start(
+                new System.Diagnostics.ProcessStartInfo(dialog.FileName) { UseShellExecute = true });
+        }
+        catch { }
     }
 
     // ---------------- Tooltip flutuante ----------------

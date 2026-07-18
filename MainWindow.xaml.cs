@@ -422,6 +422,7 @@ public partial class MainWindow : Window
         GoalPage.UpdateFromScan(_scanRoot);
         RulesPage.UpdateFromScan(_scanRoot);
         MapPage.Refresh();
+        HistoryPage.SetScanRoot(_scanRoot);
         HistoryPage.Reload();
     }
 

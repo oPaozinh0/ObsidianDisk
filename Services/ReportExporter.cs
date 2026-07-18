@@ -12,7 +12,8 @@ public static class ReportExporter
 {
     private const int TopFoldersShown = 25;
 
-    public static string BuildHtml(string path, IReadOnlyList<ScanRecord> records, TreeSnapshot? snapshot)
+    public static string BuildHtml(string path, IReadOnlyList<ScanRecord> records, TreeSnapshot? snapshot,
+        FileSystemNode? root = null)
     {
         var ordered = records.OrderBy(r => r.Timestamp).ToList();
         var latest = ordered.Count > 0 ? ordered[^1] : null;
@@ -68,6 +69,9 @@ public static class ReportExporter
             sb.Append("</tbody></table></section>");
         }
 
+        // Descobertas (só quando a árvore do scan está disponível)
+        AppendDiscoveries(sb, root);
+
         // Histórico
         if (ordered.Count > 0)
         {
@@ -98,6 +102,45 @@ public static class ReportExporter
         sb.Append("<footer>").Append(E(L.F("Rep.Footer", version))).Append("</footer>");
         sb.Append("</div></body></html>");
         return sb.ToString();
+    }
+
+    /// <summary>Resumo das análises de descobertas (categoria, quantidade, espaço recuperável).</summary>
+    private static void AppendDiscoveries(StringBuilder sb, FileSystemNode? root)
+    {
+        if (root is null) return;
+
+        var cutoff180 = DateTime.UtcNow.AddDays(-180);
+        var cutoff365 = DateTime.UtcNow.AddDays(-365);
+        var groups = new (string Label, List<DiscoveryItem> Items)[]
+        {
+            (L.T("Dc.ModeDevJunk"), DiscoveryAnalyzer.DevJunk(root)),
+            (L.T("Dc.ModeInstallers"), DiscoveryAnalyzer.Installers(root)),
+            (L.T("Dc.ModeGhost"), DiscoveryAnalyzer.GhostFolders(root, cutoff180, 50L << 20)),
+            (L.T("Dc.ModeOldFiles"), DiscoveryAnalyzer.LargeFilesByAge(root, cutoff365, 100L << 20)),
+            (L.T("Dc.ModeEmpty"), DiscoveryAnalyzer.EmptyFolders(root)),
+        };
+
+        var rows = groups
+            .Select(g => (g.Label, Count: g.Items.Count, Bytes: g.Items.Sum(i => i.Size)))
+            .Where(r => r.Count > 0)
+            .OrderByDescending(r => r.Bytes)
+            .ToList();
+        if (rows.Count == 0) return;
+
+        long max = Math.Max(1, rows[0].Bytes);
+        sb.Append("<section><h2>").Append(E(L.T("Rep.Discoveries"))).Append("</h2><table class=\"folders\">");
+        sb.Append("<thead><tr><th>").Append(E(L.T("Rep.Category"))).Append("</th><th class=\"size\">")
+          .Append(E(L.T("Rep.Count"))).Append("</th><th class=\"size\">").Append(E(L.T("Rep.Size")))
+          .Append("</th><th class=\"bar\"></th></tr></thead><tbody>");
+        foreach (var r in rows)
+        {
+            double pct = r.Bytes * 100.0 / max;
+            sb.Append("<tr><td class=\"folder\">").Append(E(r.Label)).Append("</td><td class=\"size\">")
+              .Append(r.Count.ToString("N0")).Append("</td><td class=\"size\">").Append(E(FileSystemNode.FormatSize(r.Bytes)))
+              .Append("</td><td class=\"bar\"><div class=\"track\"><div class=\"fill\" style=\"width:")
+              .Append(pct.ToString("0.#", System.Globalization.CultureInfo.InvariantCulture)).Append("%\"></div></div></td></tr>");
+        }
+        sb.Append("</tbody></table></section>");
     }
 
     private static void Card(StringBuilder sb, string label, string value, bool warm = false)

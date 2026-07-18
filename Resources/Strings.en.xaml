@@ -167,6 +167,9 @@
     <sys:String x:Key="Map.Guide">⌖ Where did it go?</sys:String>
     <sys:String x:Key="Map.GuideTip">Automatically drills down to the folder eating the most space.</sys:String>
     <sys:String x:Key="Map.SearchHint">Search by name…</sys:String>
+    <sys:String x:Key="Map.ExportImage">Save PNG</sys:String>
+    <sys:String x:Key="Map.ExportImageTip">Saves the current map view as a PNG image.</sys:String>
+    <sys:String x:Key="Map.ExportImageTitle">Save map as PNG</sys:String>
     <sys:String x:Key="Map.OldFiles">Old (1 year+)</sys:String>
     <sys:String x:Key="Map.AllCategories">All categories</sys:String>
     <sys:String x:Key="Map.EmptyTitle">Scan a disk in Overview to see the map</sys:String>
@@ -310,6 +313,9 @@
     <sys:String x:Key="Rep.TopFolders">Largest folders</sys:String>
     <sys:String x:Key="Rep.Folder">Folder</sys:String>
     <sys:String x:Key="Rep.Size">Size</sys:String>
+    <sys:String x:Key="Rep.Discoveries">Discoveries</sys:String>
+    <sys:String x:Key="Rep.Category">Category</sys:String>
+    <sys:String x:Key="Rep.Count">Items</sys:String>
     <sys:String x:Key="Rep.History">History</sys:String>
     <sys:String x:Key="Rep.Date">Date</sys:String>
     <sys:String x:Key="Rep.Delta">Change</sys:String>

@@ -19,6 +19,11 @@ public partial class HistoryPage : UserControl
     private List<ScanRecord> _filtered = new();
     private bool _updatingCombo;
 
+    /// <summary>Árvore do último scan — usada só para enriquecer o relatório HTML com Descobertas.</summary>
+    private FileSystemNode? _scanRoot;
+
+    public void SetScanRoot(FileSystemNode? root) => _scanRoot = root;
+
     public HistoryPage()
     {
         InitializeComponent();
@@ -272,7 +277,12 @@ public partial class HistoryPage : UserControl
         if (dialog.ShowDialog(Window.GetWindow(this)) != true) return;
 
         var snapshot = SnapshotStore.RecentForPath(path, 1).LastOrDefault(); // mais recente do caminho
-        string html = ReportExporter.BuildHtml(path, _filtered, snapshot);
+
+        // Descobertas só entram se a árvore em memória for justamente deste caminho
+        var root = _scanRoot is not null &&
+                   string.Equals(_scanRoot.FullPath, path, StringComparison.OrdinalIgnoreCase)
+            ? _scanRoot : null;
+        string html = ReportExporter.BuildHtml(path, _filtered, snapshot, root);
         System.IO.File.WriteAllText(dialog.FileName, html, System.Text.Encoding.UTF8);
 
         // Abre no navegador padrão para o usuário ver o resultado

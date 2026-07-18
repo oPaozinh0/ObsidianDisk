@@ -167,6 +167,9 @@
     <sys:String x:Key="Map.Guide">⌖ Wohin ging es?</sys:String>
     <sys:String x:Key="Map.GuideTip">Springt automatisch zum Ordner, der den meisten Platz verbraucht.</sys:String>
     <sys:String x:Key="Map.SearchHint">Nach Namen suchen…</sys:String>
+    <sys:String x:Key="Map.ExportImage">PNG speichern</sys:String>
+    <sys:String x:Key="Map.ExportImageTip">Speichert die aktuelle Kartenansicht als PNG-Bild.</sys:String>
+    <sys:String x:Key="Map.ExportImageTitle">Karte als PNG speichern</sys:String>
     <sys:String x:Key="Map.OldFiles">Alt (1 Jahr+)</sys:String>
     <sys:String x:Key="Map.AllCategories">Alle Kategorien</sys:String>
     <sys:String x:Key="Map.EmptyTitle">Analysieren Sie eine Festplatte in der Übersicht, um die Karte zu sehen</sys:String>
@@ -311,6 +314,9 @@
     <sys:String x:Key="Rep.TopFolders">Größte Ordner</sys:String>
     <sys:String x:Key="Rep.Folder">Ordner</sys:String>
     <sys:String x:Key="Rep.Size">Größe</sys:String>
+    <sys:String x:Key="Rep.Discoveries">Funde</sys:String>
+    <sys:String x:Key="Rep.Category">Kategorie</sys:String>
+    <sys:String x:Key="Rep.Count">Elemente</sys:String>
     <sys:String x:Key="Rep.History">Verlauf</sys:String>
     <sys:String x:Key="Rep.Date">Datum</sys:String>
     <sys:String x:Key="Rep.Delta">Änderung</sys:String>

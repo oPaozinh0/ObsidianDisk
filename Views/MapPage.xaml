@@ -43,6 +43,9 @@
                           Checked="Filter_Changed" Unchecked="Filter_Changed"/>
                 <ComboBox x:Name="CategoryCombo" Style="{StaticResource DarkCombo}" Width="170" Height="32"
                           Margin="14,0,0,0" SelectionChanged="Filter_Changed"/>
+                <controls:ObsidianButton x:Name="ExportImageButton" Variant="Ghost" Height="32" Margin="14,0,0,0"
+                        Padding="10,4" Click="ExportImage_Click" Content="{StaticResource Map.ExportImage}"
+                        ToolTip="{StaticResource Map.ExportImageTip}"/>
             </StackPanel>
 
             <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled"

@@ -167,6 +167,9 @@
     <sys:String x:Key="Map.Guide">⌖ ¿A dónde fue?</sys:String>
     <sys:String x:Key="Map.GuideTip">Baja automáticamente hasta la carpeta que más espacio consume.</sys:String>
     <sys:String x:Key="Map.SearchHint">Buscar por nombre…</sys:String>
+    <sys:String x:Key="Map.ExportImage">Guardar PNG</sys:String>
+    <sys:String x:Key="Map.ExportImageTip">Guarda la vista actual del mapa como imagen PNG.</sys:String>
+    <sys:String x:Key="Map.ExportImageTitle">Guardar mapa como PNG</sys:String>
     <sys:String x:Key="Map.OldFiles">Antiguos (1 año+)</sys:String>
     <sys:String x:Key="Map.AllCategories">Todas las categorías</sys:String>
     <sys:String x:Key="Map.EmptyTitle">Analice un disco en Resumen para ver el mapa</sys:String>
@@ -311,6 +314,9 @@
     <sys:String x:Key="Rep.TopFolders">Carpetas más grandes</sys:String>
     <sys:String x:Key="Rep.Folder">Carpeta</sys:String>
     <sys:String x:Key="Rep.Size">Tamaño</sys:String>
+    <sys:String x:Key="Rep.Discoveries">Hallazgos</sys:String>
+    <sys:String x:Key="Rep.Category">Categoría</sys:String>
+    <sys:String x:Key="Rep.Count">Elementos</sys:String>
     <sys:String x:Key="Rep.History">Historial</sys:String>
     <sys:String x:Key="Rep.Date">Fecha</sys:String>
     <sys:String x:Key="Rep.Delta">Variación</sys:String>
