@@ -10,6 +10,20 @@
     <sys:String x:Key="Nav.LargeFiles">Large Files</sys:String>
     <sys:String x:Key="Nav.Duplicates">Duplicates</sys:String>
     <sys:String x:Key="Nav.Cleanup">Cleanup</sys:String>
+    <sys:String x:Key="Nav.Goal">Cleanup goal</sys:String>
+    <sys:String x:Key="Goal.Title">I want to free</sys:String>
+    <sys:String x:Key="Goal.Desc">Pick a target and ObsidianDisk checks the largest candidates (dev junk, installers, old folders and files) until it's met. Nothing is deleted without your confirmation.</sys:String>
+    <sys:String x:Key="Goal.Compute">Build plan</sys:String>
+    <sys:String x:Key="Goal.ColReason">Reason</sys:String>
+    <sys:String x:Key="Goal.Found">{0} candidates · {1} total</sys:String>
+    <sys:String x:Key="Goal.Nothing">No safe candidates found for this goal.</sys:String>
+    <sys:String x:Key="Goal.Progress">{0} of {1}</sys:String>
+    <sys:String x:Key="Goal.Reached">Goal reached ✓</sys:String>
+    <sys:String x:Key="Goal.Remaining">{0} to go</sys:String>
+    <sys:String x:Key="Goal.ReasonDevJunk">Dev artifact</sys:String>
+    <sys:String x:Key="Goal.ReasonInstaller">Installer</sys:String>
+    <sys:String x:Key="Goal.ReasonOldFolder">Old folder</sys:String>
+    <sys:String x:Key="Goal.ReasonOldFile">Old file</sys:String>
     <sys:String x:Key="Nav.History">History</sys:String>
     <sys:String x:Key="Nav.Settings">Settings</sys:String>
 

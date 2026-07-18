@@ -10,6 +10,20 @@
     <sys:String x:Key="Nav.LargeFiles">Gros Fichiers</sys:String>
     <sys:String x:Key="Nav.Duplicates">Doublons</sys:String>
     <sys:String x:Key="Nav.Cleanup">Nettoyage</sys:String>
+    <sys:String x:Key="Nav.Goal">Objectif de nettoyage</sys:String>
+    <sys:String x:Key="Goal.Title">Je veux libérer</sys:String>
+    <sys:String x:Key="Goal.Desc">Choisissez un objectif et ObsidianDisk coche les plus gros candidats (artefacts de dev, installateurs, dossiers et fichiers anciens) jusqu'à l'atteindre. Rien n'est supprimé sans votre confirmation.</sys:String>
+    <sys:String x:Key="Goal.Compute">Créer le plan</sys:String>
+    <sys:String x:Key="Goal.ColReason">Motif</sys:String>
+    <sys:String x:Key="Goal.Found">{0} candidats · {1} au total</sys:String>
+    <sys:String x:Key="Goal.Nothing">Aucun candidat sûr trouvé pour cet objectif.</sys:String>
+    <sys:String x:Key="Goal.Progress">{0} sur {1}</sys:String>
+    <sys:String x:Key="Goal.Reached">Objectif atteint ✓</sys:String>
+    <sys:String x:Key="Goal.Remaining">Encore {0}</sys:String>
+    <sys:String x:Key="Goal.ReasonDevJunk">Artefact de dev</sys:String>
+    <sys:String x:Key="Goal.ReasonInstaller">Installateur</sys:String>
+    <sys:String x:Key="Goal.ReasonOldFolder">Ancien dossier</sys:String>
+    <sys:String x:Key="Goal.ReasonOldFile">Ancien fichier</sys:String>
     <sys:String x:Key="Nav.History">Historique</sys:String>
     <sys:String x:Key="Nav.Settings">Paramètres</sys:String>
 

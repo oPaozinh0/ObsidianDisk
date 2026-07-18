@@ -10,6 +10,20 @@
     <sys:String x:Key="Nav.LargeFiles">Arquivos Grandes</sys:String>
     <sys:String x:Key="Nav.Duplicates">Duplicados</sys:String>
     <sys:String x:Key="Nav.Cleanup">Limpeza</sys:String>
+    <sys:String x:Key="Nav.Goal">Meta de limpeza</sys:String>
+    <sys:String x:Key="Goal.Title">Quero liberar</sys:String>
+    <sys:String x:Key="Goal.Desc">Escolha uma meta e o ObsidianDisk marca os maiores candidatos (dev junk, instaladores, pastas e arquivos antigos) até alcançá-la. Nada é apagado sem sua confirmação.</sys:String>
+    <sys:String x:Key="Goal.Compute">Montar plano</sys:String>
+    <sys:String x:Key="Goal.ColReason">Motivo</sys:String>
+    <sys:String x:Key="Goal.Found">{0} candidatos · {1} no total</sys:String>
+    <sys:String x:Key="Goal.Nothing">Nenhum candidato seguro encontrado para esta meta.</sys:String>
+    <sys:String x:Key="Goal.Progress">{0} de {1}</sys:String>
+    <sys:String x:Key="Goal.Reached">Meta alcançada ✓</sys:String>
+    <sys:String x:Key="Goal.Remaining">Faltam {0}</sys:String>
+    <sys:String x:Key="Goal.ReasonDevJunk">Artefato de dev</sys:String>
+    <sys:String x:Key="Goal.ReasonInstaller">Instalador</sys:String>
+    <sys:String x:Key="Goal.ReasonOldFolder">Pasta antiga</sys:String>
+    <sys:String x:Key="Goal.ReasonOldFile">Arquivo antigo</sys:String>
     <sys:String x:Key="Nav.History">Histórico</sys:String>
     <sys:String x:Key="Nav.Settings">Configurações</sys:String>
 

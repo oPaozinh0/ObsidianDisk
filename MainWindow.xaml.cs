@@ -76,6 +76,7 @@ public partial class MainWindow : Window
         LargeFilesPage.DeleteRequested += DeleteNodes;
         DuplicatesPage.DeleteRequested += DeleteNodes;
         DiscoveriesPage.DeleteRequested += DeleteNodes;
+        GoalPage.DeleteRequested += DeleteNodes;
         RulesPage.DeleteRequested += DeleteNodes;
         RulesPage.MatchesFound += (count, bytes) =>
             Notifier.Show(L.T("Rule.NotifyTitle"),
@@ -261,13 +262,14 @@ public partial class MainWindow : Window
         DuplicatesPage.Visibility = ReferenceEquals(sender, NavDuplicates) ? Visibility.Visible : Visibility.Collapsed;
         DiscoveriesPage.Visibility = ReferenceEquals(sender, NavDiscoveries) ? Visibility.Visible : Visibility.Collapsed;
         CleanupPage.Visibility = ReferenceEquals(sender, NavCleanup) ? Visibility.Visible : Visibility.Collapsed;
+        GoalPage.Visibility = ReferenceEquals(sender, NavGoal) ? Visibility.Visible : Visibility.Collapsed;
         RulesPage.Visibility = ReferenceEquals(sender, NavRules) ? Visibility.Visible : Visibility.Collapsed;
         HistoryPage.Visibility = ReferenceEquals(sender, NavHistory) ? Visibility.Visible : Visibility.Collapsed;
         SettingsPage.Visibility = ReferenceEquals(sender, NavSettings) ? Visibility.Visible : Visibility.Collapsed;
 
         // Anima a página que acabou de aparecer
         foreach (FrameworkElement page in new FrameworkElement[]
-                 { OverviewPage, MapPage, LargeFilesPage, DuplicatesPage, DiscoveriesPage, CleanupPage, RulesPage, HistoryPage, SettingsPage })
+                 { OverviewPage, MapPage, LargeFilesPage, DuplicatesPage, DiscoveriesPage, CleanupPage, GoalPage, RulesPage, HistoryPage, SettingsPage })
             if (page.Visibility == Visibility.Visible)
                 Controls.Animate.PageIn(page);
 
@@ -417,6 +419,7 @@ public partial class MainWindow : Window
         LargeFilesPage.UpdateFromScan(_scanRoot);
         DuplicatesPage.UpdateFromScan(_scanRoot);
         DiscoveriesPage.UpdateFromScan(_scanRoot);
+        GoalPage.UpdateFromScan(_scanRoot);
         RulesPage.UpdateFromScan(_scanRoot);
         MapPage.Refresh();
         HistoryPage.Reload();
