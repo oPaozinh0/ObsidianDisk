@@ -60,6 +60,8 @@
     <sys:String x:Key="Dc.DescEmpty">Pastas sem nenhum arquivo dentro — sobras de programas desinstalados e organização antiga.</sys:String>
     <sys:String x:Key="Dc.ModeInstallers">Instaladores esquecidos</sys:String>
     <sys:String x:Key="Dc.DescInstallers">Instaladores e pacotes (.exe, .msi…) que já cumpriram o papel e só ocupam espaço — a maioria fica na pasta Downloads.</sys:String>
+    <sys:String x:Key="Dc.ModeBrokenLinks">Atalhos quebrados</sys:String>
+    <sys:String x:Key="Dc.DescBrokenLinks">Atalhos (.lnk) que apontam para arquivos ou pastas que não existem mais — sobras de programas desinstalados ou itens movidos. (Alvos em drives desconectados também aparecem.)</sys:String>
     <sys:String x:Key="Dc.ColName">Nome</sys:String>
     <sys:String x:Key="Dc.ColDetail">Local</sys:String>
     <sys:String x:Key="Dc.ColWhen">Data</sys:String>

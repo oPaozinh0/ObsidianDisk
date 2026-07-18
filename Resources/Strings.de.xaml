@@ -60,6 +60,8 @@
     <sys:String x:Key="Dc.DescEmpty">Ordner ohne Dateien darin — Überbleibsel deinstallierter Programme und alter Ordnung.</sys:String>
     <sys:String x:Key="Dc.ModeInstallers">Vergessene Installer</sys:String>
     <sys:String x:Key="Dc.DescInstallers">Installer und Pakete (.exe, .msi…), die ihren Zweck erfüllt haben und nur Platz belegen — die meisten liegen im Downloads-Ordner.</sys:String>
+    <sys:String x:Key="Dc.ModeBrokenLinks">Defekte Verknüpfungen</sys:String>
+    <sys:String x:Key="Dc.DescBrokenLinks">Verknüpfungen (.lnk), die auf nicht mehr vorhandene Dateien oder Ordner zeigen — Überbleibsel deinstallierter Programme oder verschobener Elemente. (Ziele auf getrennten Laufwerken erscheinen ebenfalls.)</sys:String>
     <sys:String x:Key="Dc.ColName">Name</sys:String>
     <sys:String x:Key="Dc.ColDetail">Ort</sys:String>
     <sys:String x:Key="Dc.ColWhen">Datum</sys:String>

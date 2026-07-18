@@ -60,6 +60,8 @@
     <sys:String x:Key="Dc.DescEmpty">Carpetas sin ningún archivo dentro — restos de programas desinstalados y organización antigua.</sys:String>
     <sys:String x:Key="Dc.ModeInstallers">Instaladores olvidados</sys:String>
     <sys:String x:Key="Dc.DescInstallers">Instaladores y paquetes (.exe, .msi…) que ya cumplieron su función y solo ocupan espacio — la mayoría está en la carpeta Descargas.</sys:String>
+    <sys:String x:Key="Dc.ModeBrokenLinks">Accesos directos rotos</sys:String>
+    <sys:String x:Key="Dc.DescBrokenLinks">Accesos directos (.lnk) que apuntan a archivos o carpetas que ya no existen — restos de programas desinstalados o elementos movidos. (También aparecen los destinos en unidades desconectadas.)</sys:String>
     <sys:String x:Key="Dc.ColName">Nombre</sys:String>
     <sys:String x:Key="Dc.ColDetail">Ubicación</sys:String>
     <sys:String x:Key="Dc.ColWhen">Fecha</sys:String>

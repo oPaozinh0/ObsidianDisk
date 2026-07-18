@@ -164,6 +164,63 @@ public static class DiscoveryAnalyzer
             .ToList();
     }
 
+    /// <summary>
+    /// Atalhos (.lnk) cujo alvo não existe mais — sobras de programas desinstalados ou de
+    /// arquivos movidos/apagados. Resolve o alvo via WScript.Shell (COM). Faz I/O + COM:
+    /// chame na thread de UI (STA) ou de um Task com STA; o percurso é limitado por um teto
+    /// para não travar ao escanear um drive inteiro cheio de menus Iniciar.
+    /// </summary>
+    public static List<DiscoveryItem> BrokenShortcuts(FileSystemNode root)
+    {
+        dynamic? shell = null;
+        try
+        {
+            var progId = Type.GetTypeFromProgID("WScript.Shell");
+            if (progId is not null) shell = Activator.CreateInstance(progId);
+        }
+        catch { }
+        if (shell is null) return new(); // COM indisponível: nada a fazer
+
+        var found = new List<FileSystemNode>();
+        int budget = 5000; // teto de resoluções (.lnk custam uma chamada COM cada)
+
+        void Walk(FileSystemNode dir)
+        {
+            foreach (var child in dir.Children)
+            {
+                if (budget <= 0) return;
+                if (child.IsDirectory) { Walk(child); continue; }
+                if (!child.Name.EndsWith(".lnk", StringComparison.OrdinalIgnoreCase)) continue;
+
+                budget--;
+                var target = ResolveShortcutTarget(shell, child.FullPath);
+                if (string.IsNullOrEmpty(target)) continue; // sem alvo de arquivo (ex.: atalho de URL)
+                if (!File.Exists(target) && !Directory.Exists(target))
+                    found.Add(child);
+            }
+        }
+
+        Walk(root);
+        return found
+            .OrderByDescending(n => n.LastWriteUtc)
+            .Take(MaxResults)
+            .Select(n => new DiscoveryItem(n.Name, Path.GetDirectoryName(n.FullPath) ?? "", n.LastWriteUtc, n.Size, n))
+            .ToList();
+    }
+
+    private static string? ResolveShortcutTarget(dynamic shell, string lnkPath)
+    {
+        try
+        {
+            dynamic link = shell.CreateShortcut(lnkPath);
+            return link.TargetPath as string;
+        }
+        catch
+        {
+            return null; // atalho corrompido ou sem permissão: não conta como quebrado
+        }
+    }
+
     private static bool IsInstaller(string name, bool inDownloads)
     {
         var ext = Path.GetExtension(name);
