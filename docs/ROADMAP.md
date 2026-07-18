@@ -54,7 +54,8 @@ Pastas fantasma ✅ · Top extensões ✅ · Dev junk ✅ · Arquivos grandes po
 |---|---|---|
 | Comparar dois scans ("O que mudou") | ✅ | — |
 | Alerta de disco cheio | ✅ | — |
-| Exportar relatório (PDF/HTML, além do CSV) | ⬜ | M |
+| Exportar relatório **HTML** (além do CSV) | ✅ | — |
+| Exportar relatório PDF | ⬜ | M |
 
 ## 🧹 Fase 4 — Limpeza · 🔶
 | Recurso | Status | Esforço |
@@ -67,7 +68,7 @@ Pastas fantasma ✅ · Top extensões ✅ · Dev junk ✅ · Arquivos grandes po
 | Recurso | Status | Esforço |
 |---|---|---|
 | Detector de pastas vazias | ✅ | — |
-| Arquivos órfãos / atalhos `.lnk` quebrados | ⬜ | M |
+| Arquivos órfãos / atalhos `.lnk` quebrados | ✅ | — |
 | **Analisador de instaladores** em Downloads (novo modo em Descobertas) | ✅ | — |
 | Compactar em vez de deletar (zip de pastas raras) | ⬜ | M |
 
@@ -82,12 +83,12 @@ Regras automáticas ✅ · Explicador "por que encheu?" ✅ · Sugestões person
 | **Múltiplos drives** (dashboard de todos os discos) | ⬜ | G |
 | Ler pastas de rede / externos (UNC) | ⬜ | M |
 | Modo CLI / headless (`--scan C: --report out.json`) | ⬜ | M |
-| Menu de contexto do Explorer ("Analisar com ObsidianDisk") | ⬜ | P |
+| Menu de contexto do Explorer ("Analisar com ObsidianDisk") | ✅ | — |
 
 ## 🎯 Fase 8 — Experiência · ⬜
 | Recurso | Status | Esforço |
 |---|---|---|
-| Modo "meta de limpeza" ("quero liberar 20 GB") | ⬜ | M |
+| Modo "meta de limpeza" ("quero liberar 20 GB") | ✅ | — |
 | Gamificação leve (total de GB recuperados, streak) | ⬜ | P |
 | Timeline de espaço (treemap animado entre snapshots) | ⬜ | G |
 | Modo apresentação / print do treemap | ⬜ | P |
@@ -107,12 +108,16 @@ Regras automáticas ✅ · Explicador "por que encheu?" ✅ · Sugestões person
 - **Analisador de instaladores esquecidos** (Fase 5) — novo modo em Descobertas (.exe/.msi/.msix… em Downloads e afins).
 - **Mover em vez de deletar** (Fase 4) — "Mover para outro drive" no menu de contexto; realoca entre volumes e libera espaço na origem.
 - **Suíte de testes unitários** (Fase 9 / qualidade) — `Tests/` xUnit, 20 testes sobre a lógica pura.
+- **Atalhos (.lnk) quebrados** (Fase 5) — modo em Descobertas; resolve o alvo via `WScript.Shell` e lista os que apontam para nada.
+- **Menu de contexto do Explorer** (Fase 7) — toggle em Configurações registra "Analisar com ObsidianDisk" em HKCU (pastas + unidades, sem admin). `Services/ExplorerIntegration`.
+- **Exportar relatório HTML** (Fase 3) — botão no Histórico; HTML autossuficiente (resumo + maiores pastas + histórico). `Services/ReportExporter`.
+- **Modo meta de limpeza** (Fase 8) — página nova; junta candidatos de várias análises, tira sobreposições e marca os maiores até a meta. `Views/GoalPage`.
 
 Cortar a **v1.8.0** (build local + `gh release create`) quando quiser fechar o lote.
 
 ## 🗺️ Próximos passos sugeridos (para o próximo chat)
 
-1. **Comparar duas pastas lado a lado** (Fase 2) — completa o par com a busca recém-entregue.
-2. **Exportar relatório HTML** (Fase 3) — padrão de export já existe (CSV); acrescentar um template.
-3. **Modo meta de limpeza** ("quero liberar 20 GB", Fase 8) — orquestra sugestões até a meta.
-4. **Lixeira interna com retenção** (Fase 9) — quarentena N dias, fecha o ciclo de confiança com o dry-run e o mover.
+1. **Comparar duas pastas lado a lado** (Fase 2) — completa o par com a busca já entregue.
+2. **Lixeira interna com retenção** (Fase 9) — quarentena N dias; fecha o ciclo de confiança com dry-run + mover.
+3. **Exportar relatório PDF** (Fase 3) — reaproveita o HTML já pronto (imprimir para PDF ou lib).
+4. **Múltiplos drives** (Fase 7, G) — dashboard de todos os discos; maior salto de valor pendente.
