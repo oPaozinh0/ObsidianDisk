@@ -89,7 +89,7 @@ Regras automáticas ✅ · Explicador "por que encheu?" ✅ · Sugestões person
 | Recurso | Status | Esforço |
 |---|---|---|
 | Modo "meta de limpeza" ("quero liberar 20 GB") | ✅ | — |
-| Gamificação leve (total de GB recuperados, streak) | ⬜ | P |
+| Gamificação leve (total de GB recuperados, streak) | ✅ | — |
 | Timeline de espaço (treemap animado entre snapshots) | ⬜ | G |
 | Modo apresentação / print do treemap (PNG) | ✅ | — |
 
@@ -117,8 +117,10 @@ Regras automáticas ✅ · Explicador "por que encheu?" ✅ · Sugestões person
 - **PNG do mapa + Descobertas no HTML** (Fases 8/3) — "Salvar PNG" no mapa; seção Descobertas no relatório.
 - **CLI headless + agendador** (Fases 7/4) — `--scan --report` sem UI (html/json); tarefa diária via `schtasks`. `Services/HeadlessRunner`, `Services/ScheduledScan`.
 - **Lixeira interna com retenção** (Fase 9) — quarentena 30 dias, restaurar/purgar, purga automática. `Services/QuarantineStore`, `Views/QuarantinePage`.
+- **Polimento** (a11y/UX) — atalhos F5 (reescanear) e Ctrl+F (focar busca); nomes de acessibilidade nos controles-ícone do mapa.
+- **Gamificação leve** (Fase 8) — total recuperado + sequência de dias na Visão Geral. `Services/StatsStore`.
 
-Cortar a **v1.8.0** (build local + `gh release create`) quando quiser fechar o lote. **13 features acumuladas.**
+Cortar a **v1.8.0** (build local + `gh release create`) quando quiser fechar o lote. **15 features acumuladas.**
 
 ## 🗺️ Próximos passos sugeridos (para o próximo chat)
 
