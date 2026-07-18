@@ -258,6 +258,32 @@ public partial class HistoryPage : UserControl
         System.IO.File.WriteAllText(dialog.FileName, sb.ToString(), System.Text.Encoding.UTF8);
     }
 
+    private void ExportHtml_Click(object sender, RoutedEventArgs e)
+    {
+        string? path = (PathCombo.SelectedItem as ComboBoxItem)?.Tag as string;
+        if (path is null || _filtered.Count == 0) return;
+
+        var dialog = new Microsoft.Win32.SaveFileDialog
+        {
+            Title = L.T("Hi.ExportHtmlTitle"),
+            FileName = $"obsidiandisk-relatorio-{DateTime.Now:yyyyMMdd}.html",
+            Filter = "HTML (*.html)|*.html",
+        };
+        if (dialog.ShowDialog(Window.GetWindow(this)) != true) return;
+
+        var snapshot = SnapshotStore.RecentForPath(path, 1).LastOrDefault(); // mais recente do caminho
+        string html = ReportExporter.BuildHtml(path, _filtered, snapshot);
+        System.IO.File.WriteAllText(dialog.FileName, html, System.Text.Encoding.UTF8);
+
+        // Abre no navegador padrão para o usuário ver o resultado
+        try
+        {
+            System.Diagnostics.Process.Start(
+                new System.Diagnostics.ProcessStartInfo(dialog.FileName) { UseShellExecute = true });
+        }
+        catch { }
+    }
+
     private void Chart_SizeChanged(object sender, SizeChangedEventArgs e) => DrawChart();
 
     private void DrawChart()

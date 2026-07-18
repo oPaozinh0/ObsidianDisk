@@ -11,6 +11,8 @@
                     <!-- Controles à direita declarados primeiro: reservam a largura antes do título -->
                     <DockPanel LastChildFill="False">
                         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                            <controls:ObsidianButton Variant="Ghost" Height="32" Click="ExportHtml_Click"
+                                    Margin="0,0,8,0" Content="{StaticResource Hi.ExportHtml}"/>
                             <controls:ObsidianButton Variant="Ghost" Height="32" Click="Export_Click"
                                     Content="{StaticResource Hi.Export}"/>
                             <ComboBox x:Name="PathCombo" Style="{StaticResource DarkCombo}"

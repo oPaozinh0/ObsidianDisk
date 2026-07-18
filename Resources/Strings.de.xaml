@@ -285,6 +285,22 @@
     <sys:String x:Key="Hi.FreeNow">Aktuell freier Speicher</sys:String>
     <sys:String x:Key="Hi.CapacityWarning">⚠  Wenn das Wachstum in diesem Tempo anhält (+{0}/Tag), könnte die Festplatte um {1} voll sein. Geben Sie Speicher in den Tabs Große Dateien und Duplikate frei.</sys:String>
     <sys:String x:Key="Hi.ExportTitle">Verlauf exportieren</sys:String>
+    <sys:String x:Key="Hi.ExportHtml">HTML exportieren</sys:String>
+    <sys:String x:Key="Hi.ExportHtmlTitle">HTML-Bericht exportieren</sys:String>
+    <sys:String x:Key="Rep.Lang">de</sys:String>
+    <sys:String x:Key="Rep.Title">Datenträgerbericht</sys:String>
+    <sys:String x:Key="Rep.ScannedAt">Gescannt am {0}</sys:String>
+    <sys:String x:Key="Rep.TotalSize">Gesamtgröße</sys:String>
+    <sys:String x:Key="Rep.FileCount">Dateien</sys:String>
+    <sys:String x:Key="Rep.ScanCount">Scans</sys:String>
+    <sys:String x:Key="Rep.Change">Gesamtänderung</sys:String>
+    <sys:String x:Key="Rep.TopFolders">Größte Ordner</sys:String>
+    <sys:String x:Key="Rep.Folder">Ordner</sys:String>
+    <sys:String x:Key="Rep.Size">Größe</sys:String>
+    <sys:String x:Key="Rep.History">Verlauf</sys:String>
+    <sys:String x:Key="Rep.Date">Datum</sys:String>
+    <sys:String x:Key="Rep.Delta">Änderung</sys:String>
+    <sys:String x:Key="Rep.Footer">Erstellt von ObsidianDisk {0}</sys:String>
 
     <!-- Einstellungen -->
     <sys:String x:Key="St.Deletion">Löschen</sys:String>
